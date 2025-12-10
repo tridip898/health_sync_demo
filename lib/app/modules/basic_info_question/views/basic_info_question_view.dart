@@ -19,9 +19,8 @@ class BasicInfoQuestionView extends GetView<BasicInfoQuestionController> {
       ),
       body: SafeArea(
         child: Obx(() {
-          return controller.appController.complaintAnswers.isNotEmpty ||
-                  (controller.appController.patientInfo.value.name ?? "")
-                      .isNotEmpty
+          return controller.complaintAnswers.isNotEmpty ||
+                  (controller.patientInfo.value.name ?? "").isNotEmpty
               ? BasicInfoComplaintResponseView()
               : BasicInfoSubmitView();
         }),

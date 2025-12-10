@@ -15,7 +15,7 @@ class BasicInfoComplaintResponseView
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: controller.appController.complaintAnswers.isNotEmpty
+      bottomNavigationBar: controller.complaintAnswers.isNotEmpty
           ? SizedBox(
               width: double.infinity,
               child: Padding(
@@ -49,37 +49,36 @@ class BasicInfoComplaintResponseView
                     Text("Name", style: textStyle.mediumFontStyle.md),
                     gapH4,
                     Text(
-                      controller.appController.patientInfo.value.name ?? "",
+                      controller.patientInfo.value.name ?? "",
                       style: textStyle.boldFontStyle.lg,
                     ),
                     gapH8,
                     Text("Age", style: textStyle.mediumFontStyle.md),
                     gapH4,
                     Text(
-                      controller.appController.patientInfo.value.age ?? "",
+                      controller.patientInfo.value.age ?? "",
                       style: textStyle.boldFontStyle.lg,
                     ),
                     gapH8,
                     Text("Gender", style: textStyle.mediumFontStyle.md),
                     gapH4,
                     Text(
-                      controller.appController.patientInfo.value.gender ?? "",
+                      controller.patientInfo.value.gender ?? "",
                       style: textStyle.boldFontStyle.lg,
                     ),
                   ],
                 ),
               ),
-              if (controller.appController.complaintAnswers.isNotEmpty) ...[
+              if (controller.complaintAnswers.isNotEmpty) ...[
                 gapH24,
                 Text("Patient Complaints", style: textStyle.boldFontStyle.xl),
                 gapH12,
                 ListView.separated(
-                  itemCount: controller.appController.complaintAnswers.length,
+                  itemCount: controller.complaintAnswers.length,
                   controller: controller.scrollController,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    final complaint =
-                        controller.appController.complaintAnswers[index];
+                    final complaint = controller.complaintAnswers[index];
                     return Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -147,7 +146,7 @@ class BasicInfoComplaintResponseView
                   child: Padding(
                     padding: padSym(horizontal: 12, vertical: 12),
                     child: Text(
-                      controller.appController.complaintAnswers.isEmpty
+                      controller.complaintAnswers.isEmpty
                           ? "Add Your Complaint"
                           : "Add New",
                       textAlign: TextAlign.center,

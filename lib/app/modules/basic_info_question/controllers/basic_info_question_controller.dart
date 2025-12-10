@@ -6,6 +6,7 @@ import 'package:health_sync_question/app/core/constants/enums.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
+import 'package:health_sync_question/app/data/model/complaint_answer_model.dart';
 import 'package:health_sync_question/app/data/model/patient_info_model.dart';
 import 'package:health_sync_question/app/data/repository/patient_health_queries.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
@@ -15,14 +16,17 @@ import 'package:health_sync_question/app/core/controller/app_controller.dart';
 class BasicInfoQuestionController extends GetxController {
   final PatientHealthQueriesRepository _patientHealthQueriesRepository =
       PatientHealthQueriesRepository();
-  final int max=0;
+  final int max = 0;
+
   final basicInfoFormKey = GlobalKey<FormState>();
-  final appController = Get.find<AppController>();
+  final RxBool isAutoValidateEnabled = false.obs;
+
   final ScrollController scrollController = ScrollController();
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
+
   final Rx<Gender> selectedGender = Gender.male.obs;
-  final RxBool isAutoValidateEnabled = false.obs;
   final List<String> specialityDoctor = [
     "Neurologist",
     "Psychiatrist",
@@ -41,9 +45,14 @@ class BasicInfoQuestionController extends GetxController {
     "General Physician",
   ];
 
+  final RxList<ComplaintAnswerModel> complaintAnswers =
+      <ComplaintAnswerModel>[].obs;
+
+  final patientInfo = PatientBasicInfo().obs;
+
   @override
   void onInit() {
-    log("Data ${appController.complaintAnswers}");
+    log("Data $complaintAnswers");
     super.onInit();
     for (var data in specialityDoctor) {
       log("Data $data");
@@ -62,7 +71,7 @@ class BasicInfoQuestionController extends GetxController {
     isAutoValidateEnabled.value = true;
     if (basicInfoFormKey.currentState?.validate() ?? false) {
       Get.toNamed(Routes.CHIELF_COMPLAINT);
-      appController.patientInfo.value = PatientBasicInfo(
+      patientInfo.value = PatientBasicInfo(
         name: nameController.text,
         age: ageController.text,
         gender: selectedGender.value.name.capitalizeFirst,
@@ -77,7 +86,7 @@ class BasicInfoQuestionController extends GetxController {
   void searchClick() async {
     Loading.show();
     var response = await _patientHealthQueriesRepository.sendComplaintAnswers(
-      appController.complaintAnswers,
+      complaintAnswers,
     );
     Loading.hide();
     if (response != null) {
@@ -95,9 +104,9 @@ class BasicInfoQuestionController extends GetxController {
   }
 
   refreshButtonClick() {
-    appController.complaintAnswers.value = [];
-    appController.patientInfo.value = PatientBasicInfo();
-    appController.complaintAnswers.refresh();
+    complaintAnswers.value = [];
+    patientInfo.value = PatientBasicInfo();
+    complaintAnswers.refresh();
     nameController.text = "";
     ageController.text = "";
     selectedGender.value = Gender.male;

@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-
 import 'base_color.dart';
 
 class Yellow extends BaseColor {
@@ -42,4 +41,6 @@ class Yellow extends BaseColor {
 
   @override
   Color get base10 => throw UnimplementedError();
+
+  Color get backgroundColor => Color(0xfff5f1e5);
 }

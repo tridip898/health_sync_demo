@@ -26,10 +26,6 @@ class AppController extends GetxController {
   RxString language = "EN".obs;
   late Rx<TranslationBase> tr;
 
-  final Duration defaultAnimationDuration = const Duration(milliseconds: 300);
-
-  Color white = Colors.white;
-  Color black = Colors.black;
   BaseColor primary = Cyan();
   BaseColor secondary = Blue();
   BaseColor gray = Gray();
@@ -38,14 +34,8 @@ class AppController extends GetxController {
   BaseColor warning = Yellow();
   BaseColor success = Green();
 
-  //text styles for using
   BengaliTextStyles bnStyle = BengaliTextStyles();
   EnglishTextStyles enStyle = EnglishTextStyles();
-
-  final patientInfo = PatientBasicInfo().obs;
-  final RxList<ComplaintAnswerModel> complaintAnswers =
-      <ComplaintAnswerModel>[].obs;
-  Color backgroundColor = Color(0xfff5f1e5);
 
   AppController() {
     language.value = "EN";

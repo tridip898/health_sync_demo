@@ -23,6 +23,8 @@ class ChiefComplaintController extends GetxController {
   final RxInt answeredQuestions = 0.obs;
   final RxDouble progress = 0.0.obs;
   bool firstSelectionDone = false;
+  final RxList<ComplaintAnswerModel> complaintAnswers =
+      <ComplaintAnswerModel>[].obs;
 
   @override
   void onInit() {
@@ -116,7 +118,7 @@ class ChiefComplaintController extends GetxController {
       final branches = chiefComplaintOption['branches'] as Map;
       final selected = selectedOptions[currentQuestion.question];
       final matchedKey = branches.keys.firstWhere(
-        (key) => key.toLowerCase().contains(selected?.toLowerCase()??""),
+        (key) => key.toLowerCase().contains(selected?.toLowerCase() ?? ""),
         orElse: () => '',
       );
       if (matchedKey.isNotEmpty) return false;
@@ -125,7 +127,7 @@ class ChiefComplaintController extends GetxController {
   }
 
   void completeClick() {
-    Get.find<AppController>().complaintAnswers.addAll(allComplaintAnswers);
+    complaintAnswers.addAll(allComplaintAnswers);
     Get.back();
   }
 

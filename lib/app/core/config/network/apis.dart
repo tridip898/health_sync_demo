@@ -1,5 +1,7 @@
-class Apis {
-  static const String baseUrl = 'http://10.70.16.131:4000';
+import 'package:health_sync_question/environment_config.dart';
 
-  static const String login = '$baseUrl/auth/login';
+class Apis {
+  static String get baseUrl => EnvironmentConfig.currentEnvironmentData.apiBase;
+
+  static String get login => '$baseUrl/auth/login';
 }
