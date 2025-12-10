@@ -29,7 +29,7 @@ class CustomButton extends StatelessWidget {
       height: height,
       child: FilledButton(
         style: FilledButton.styleFrom(
-          backgroundColor: backgroundColor ?? success.base500,
+          backgroundColor: backgroundColor ?? green.base500,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
           ),

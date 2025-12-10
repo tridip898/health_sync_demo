@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/config/storage/app_storage_service.dart';
+import 'package:health_sync_question/app/modules/login/controllers/login_controller.dart';
+import 'package:health_sync_question/app/routes/app_pages.dart';
 
 import '../config/color/base_color.dart';
 import '../config/color/blue.dart';
@@ -34,15 +36,22 @@ class AppController extends GetxController {
   BengaliTextStyles bnStyle = BengaliTextStyles();
   EnglishTextStyles enStyle = EnglishTextStyles();
 
+  BaseTextStyles get textStyle {
+    if (tr.value is EN) return enStyle;
+    return bnStyle;
+  }
+
   String? _accessToken;
 
   String? get token => _accessToken;
+
   AppStorageService appStorageService = AppStorageService();
 
   AppController() {
     language.value = "EN";
     tr = Rx(en);
     _setTranslator();
+    getToken();
   }
 
   void _setTranslator() {
@@ -61,11 +70,6 @@ class AppController extends GetxController {
     _setTranslator();
   }
 
-  BaseTextStyles get textStyle {
-    if (tr.value is EN) return enStyle;
-    return bnStyle;
-  }
-
   closeKeyboard() {
     FocusManager.instance.primaryFocus?.unfocus();
   }
@@ -73,5 +77,24 @@ class AppController extends GetxController {
   Future<bool> setToken(String token) {
     _accessToken = token;
     return appStorageService.setToken(token);
+  }
+
+  String? getToken() {
+    _accessToken = appStorageService.getToken();
+    return _accessToken;
+  }
+
+  Future<void> signOut() async {
+    await appStorageService.removeUserData();
+
+    _toLogInScreen();
+  }
+
+  _toLogInScreen() {
+    if (Get.isRegistered<LoginController>()) {
+      Get.until((r) => r.settings.name == Routes.LOGIN);
+    } else {
+      Get.offAllNamed(Routes.LOGIN);
+    }
   }
 }

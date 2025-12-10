@@ -4,4 +4,6 @@ class Apis {
   static String get baseUrl => EnvironmentConfig.currentEnvironmentData.apiBase;
 
   static String get login => '$baseUrl/auth/login';
+
+  static String get loadMe => '$baseUrl/user';
 }

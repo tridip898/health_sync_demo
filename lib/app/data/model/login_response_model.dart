@@ -1,6 +1,6 @@
 import 'package:network/network.dart';
 
-class LoginResponseModel extends BaseResponseModel {
+class LoginResponseModel extends BaseResponseModel<LoginData> {
   bool? status;
   int? statusCode;
 
@@ -160,7 +160,7 @@ class Role {
   bool? isDeleted;
   String? createdAt;
   String? updatedAt;
-  RolePermissions? rolePermissions;
+  Map<String, dynamic>? rolePermissions;
 
   Role({
     this.roleId,
@@ -183,9 +183,7 @@ class Role {
     isDeleted = json['isDeleted'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    rolePermissions = json['rolePermissions'] != null
-        ? RolePermissions.fromJson(json['rolePermissions'])
-        : null;
+    rolePermissions = json['rolePermissions'];
   }
 
   Map<String, dynamic> toJson() {
@@ -198,67 +196,7 @@ class Role {
     data['isDeleted'] = isDeleted;
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
-    if (rolePermissions != null) {
-      data['rolePermissions'] = rolePermissions!.toJson();
-    }
-    return data;
-  }
-}
-
-class RolePermissions {
-  List<String>? aLL;
-  List<String>? dOCTOR;
-  List<String>? cABINET;
-  List<String>? pATIENT;
-  List<String>? mEDICINE;
-  List<String>? eXPERIENCE;
-  List<String>? aPPOINTMENT;
-  List<String>? aCHIEVEMENTS;
-  List<String>? pRESCRIPTION;
-  List<String>? dOCTORAVAILABILITY;
-  List<String>? aCADEMICQUALIFICATION;
-
-  RolePermissions({
-    this.aLL,
-    this.dOCTOR,
-    this.cABINET,
-    this.pATIENT,
-    this.mEDICINE,
-    this.eXPERIENCE,
-    this.aPPOINTMENT,
-    this.aCHIEVEMENTS,
-    this.pRESCRIPTION,
-    this.dOCTORAVAILABILITY,
-    this.aCADEMICQUALIFICATION,
-  });
-
-  RolePermissions.fromJson(Map<String, dynamic> json) {
-    aLL = json['ALL'].cast<String>();
-    dOCTOR = json['DOCTOR'].cast<String>();
-    cABINET = json['CABINET'].cast<String>();
-    pATIENT = json['PATIENT'].cast<String>();
-    mEDICINE = json['MEDICINE'].cast<String>();
-    eXPERIENCE = json['EXPERIENCE'].cast<String>();
-    aPPOINTMENT = json['APPOINTMENT'].cast<String>();
-    aCHIEVEMENTS = json['ACHIEVEMENTS'].cast<String>();
-    pRESCRIPTION = json['PRESCRIPTION'].cast<String>();
-    dOCTORAVAILABILITY = json['DOCTOR_AVAILABILITY'].cast<String>();
-    aCADEMICQUALIFICATION = json['ACADEMIC_QUALIFICATION'].cast<String>();
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['ALL'] = aLL;
-    data['DOCTOR'] = dOCTOR;
-    data['CABINET'] = cABINET;
-    data['PATIENT'] = pATIENT;
-    data['MEDICINE'] = mEDICINE;
-    data['EXPERIENCE'] = eXPERIENCE;
-    data['APPOINTMENT'] = aPPOINTMENT;
-    data['ACHIEVEMENTS'] = aCHIEVEMENTS;
-    data['PRESCRIPTION'] = pRESCRIPTION;
-    data['DOCTOR_AVAILABILITY'] = dOCTORAVAILABILITY;
-    data['ACADEMIC_QUALIFICATION'] = aCADEMICQUALIFICATION;
+    data['rolePermissions'] = rolePermissions;
     return data;
   }
 }

@@ -11,26 +11,19 @@ extension GetViewExtension on GetView {
 
   TranslationBase get tr => appController.tr.value;
 
-  Duration get defaultAnimationDuration =>
-      appController.defaultAnimationDuration;
+  BaseColor get cyan => appController.cyan;
 
-  Color get white => appController.white;
-
-  Color get black => appController.black;
-
-  BaseColor get primary => appController.primary;
-
-  BaseColor get secondary => appController.secondary;
+  BaseColor get blue => appController.blue;
 
   BaseColor get gray => appController.gray;
 
-  BaseColor get magendaClient => appController.magendaClient;
+  BaseColor get magenda => appController.magenda;
 
-  BaseColor get error => appController.error;
+  BaseColor get red => appController.red;
 
-  BaseColor get warning => appController.warning;
+  BaseColor get yellow => appController.yellow;
 
-  BaseColor get success => appController.success;
+  BaseColor get green => appController.green;
 
   BaseTextStyles get textStyle => appController.textStyle;
 }
@@ -40,26 +33,19 @@ extension GetViewControllerExtension on GetxController {
 
   TranslationBase get tr => appController.tr.value;
 
-  Duration get defaultAnimationDuration =>
-      appController.defaultAnimationDuration;
+  BaseColor get cyan => appController.cyan;
 
-  Color get white => appController.white;
-
-  Color get black => appController.black;
-
-  BaseColor get primary => appController.primary;
-
-  BaseColor get secondary => appController.secondary;
+  BaseColor get blue => appController.blue;
 
   BaseColor get gray => appController.gray;
 
-  BaseColor get magendaClient => appController.magendaClient;
+  BaseColor get magenda => appController.magenda;
 
-  BaseColor get error => appController.error;
+  BaseColor get red => appController.red;
 
-  BaseColor get warning => appController.warning;
+  BaseColor get yellow => appController.yellow;
 
-  BaseColor get success => appController.success;
+  BaseColor get green => appController.green;
 
   BaseTextStyles get textStyle => appController.textStyle;
 }
@@ -69,26 +55,19 @@ extension StatelessExtension on StatelessWidget {
 
   TranslationBase get tr => appController.tr.value;
 
-  Duration get defaultAnimationDuration =>
-      appController.defaultAnimationDuration;
+  BaseColor get cyan => appController.cyan;
 
-  Color get white => appController.white;
-
-  Color get black => appController.black;
-
-  BaseColor get primary => appController.primary;
-
-  BaseColor get secondary => appController.secondary;
+  BaseColor get blue => appController.blue;
 
   BaseColor get gray => appController.gray;
 
-  BaseColor get magendaClient => appController.magendaClient;
+  BaseColor get magenda => appController.magenda;
 
-  BaseColor get error => appController.error;
+  BaseColor get red => appController.red;
 
-  BaseColor get warning => appController.warning;
+  BaseColor get yellow => appController.yellow;
 
-  BaseColor get success => appController.success;
+  BaseColor get green => appController.green;
 
   BaseTextStyles get textStyle => appController.textStyle;
 }
@@ -98,26 +77,19 @@ extension StatefulExtension on State {
 
   TranslationBase get tr => appController.tr.value;
 
-  Duration get defaultAnimationDuration =>
-      appController.defaultAnimationDuration;
+  BaseColor get cyan => appController.cyan;
 
-  Color get white => appController.white;
-
-  Color get black => appController.black;
-
-  BaseColor get primary => appController.primary;
-
-  BaseColor get secondary => appController.secondary;
+  BaseColor get blue => appController.blue;
 
   BaseColor get gray => appController.gray;
 
-  BaseColor get magendaClient => appController.magendaClient;
+  BaseColor get magenda => appController.magenda;
 
-  BaseColor get error => appController.error;
+  BaseColor get red => appController.red;
 
-  BaseColor get warning => appController.warning;
+  BaseColor get yellow => appController.yellow;
 
-  BaseColor get success => appController.success;
+  BaseColor get green => appController.green;
 
   BaseTextStyles get textStyle => appController.textStyle;
 }

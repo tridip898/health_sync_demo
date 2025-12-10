@@ -7,6 +7,7 @@ abstract class Routes {
   static const BASIC_INFO_QUESTION = _Paths.BASIC_INFO_QUESTION;
   static const CHIELF_COMPLAINT = _Paths.CHIELF_COMPLAINT;
   static const LOGIN = _Paths.LOGIN;
+  static const SPLASH = _Paths.SPLASH;
 }
 
 abstract class _Paths {
@@ -15,4 +16,5 @@ abstract class _Paths {
   static const BASIC_INFO_QUESTION = '/basic-info-question';
   static const CHIELF_COMPLAINT = '/chielf-complaint';
   static const LOGIN = '/login';
+  static const SPLASH = '/splash';
 }

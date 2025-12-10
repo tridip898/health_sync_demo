@@ -123,7 +123,7 @@ class BasicInfoSubmitView extends GetView<BasicInfoQuestionController> {
                           shape: BoxShape.circle,
                           border: Border.all(
                             color: (isSelected)
-                                ? primary.base500
+                                ? cyan.base500
                                 : gray.base400,
                             width: 1.5,
                           ),
@@ -132,7 +132,7 @@ class BasicInfoSubmitView extends GetView<BasicInfoQuestionController> {
                         child: (isSelected)
                             ? Container(
                                 decoration: BoxDecoration(
-                                  color: primary.base500,
+                                  color: cyan.base500,
                                   shape: BoxShape.circle,
                                 ),
                               )

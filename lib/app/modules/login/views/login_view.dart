@@ -15,7 +15,7 @@ class LoginView extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
-    final primary = success.base500;
+    final primary = green.base500;
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: appController.closeKeyboard,

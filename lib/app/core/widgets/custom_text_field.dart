@@ -78,9 +78,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           RichText(
             text: TextSpan(
               text: widget.labelText,
-              style: textStyle.bold.s16.copyWith(
-                color: Color(0xff0E121B),
-              ),
+              style: textStyle.bold.s16.copyWith(color: Color(0xff0E121B)),
               children: [
                 if (widget.isRequired)
                   TextSpan(
@@ -109,7 +107,6 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                       (value) {
                         return null;
                       },
-                  // onChanged: widget.onChanged,
                   onChanged: (value) {
                     if (widget.maxLength != null &&
                         value.length > widget.maxLength!) {
@@ -191,7 +188,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                               )
                             : null),
                     errorStyle: textStyle.medium.s12.copyWith(
-                      color: const Color(0xffF04438),
+                      color: red.base500,
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(widget.borderRadius),
@@ -208,6 +205,10 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                       ),
                     ),
                     errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(widget.borderRadius),
+                      borderSide: BorderSide(color: const Color(0xffF04438)),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(widget.borderRadius),
                       borderSide: BorderSide(color: const Color(0xffF04438)),
                     ),
