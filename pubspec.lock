@@ -66,11 +66,11 @@ packages:
     source: hosted
     version: "1.19.1"
   common:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: "."
-      ref: "v0.0.5"
-      resolved-ref: "4616f5da38e8e75d383bdd84bc161a37c3c8e2f4"
+      ref: "v0.0.6"
+      resolved-ref: b2b14fdbcbb0bde83eda001ae1f110d1f477fe0d
       url: "git@vcs.technonext.com:TechnoNext/mobile-apps/airapps-commons/common.git"
     source: git
     version: "0.0.5"
@@ -342,7 +342,7 @@ packages:
     description:
       path: "."
       ref: "v0.0.13"
-      resolved-ref: "98903160056da34ec3856e09ee615aef294bb364"
+      resolved-ref: "4cefd5341cdfbd7896663133c5307fde467ea684"
       url: "git@vcs.technonext.com:TechnoNext/mobile-apps/airapps-commons/netword.git"
     source: git
     version: "0.0.11"

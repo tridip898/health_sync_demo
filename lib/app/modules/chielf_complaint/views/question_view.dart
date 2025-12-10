@@ -21,7 +21,7 @@ class QuestionView extends GetView<ChiefComplaintController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(question.question, style: textStyle.boldFontStyle.xl),
+              Text(question.question, style: textStyle.bold.s20),
               gapH16,
               if (question.options != null)
                 ListView.separated(

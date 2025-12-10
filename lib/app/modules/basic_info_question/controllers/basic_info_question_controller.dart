@@ -11,8 +11,6 @@ import 'package:health_sync_question/app/data/model/patient_info_model.dart';
 import 'package:health_sync_question/app/data/repository/patient_health_queries.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
 
-import 'package:health_sync_question/app/core/controller/app_controller.dart';
-
 class BasicInfoQuestionController extends GetxController {
   final PatientHealthQueriesRepository _patientHealthQueriesRepository =
       PatientHealthQueriesRepository();
@@ -94,8 +92,8 @@ class BasicInfoQuestionController extends GetxController {
 
       Get.defaultDialog(
         title: "Doctor Suggestion",
-        titleStyle: textStyle.boldFontStyle.xxl,
-        content: Text(response, style: textStyle.mediumFontStyle.md),
+        titleStyle: textStyle.bold.s24,
+        content: Text(response, style: textStyle.medium.s14),
         backgroundColor: Colors.white,
         titlePadding: padSym(vertical: 12),
         contentPadding: padSym(horizontal: 16, vertical: 12),

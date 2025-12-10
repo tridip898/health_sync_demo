@@ -1,10 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:health_sync_question/app/core/config/storage/app_storage_service.dart';
 
-import 'package:health_sync_question/app/data/model/complaint_answer_model.dart';
-import 'package:health_sync_question/app/data/model/patient_info_model.dart';
 import '../config/color/base_color.dart';
 import '../config/color/blue.dart';
 import '../config/color/cyan.dart';
@@ -26,16 +23,21 @@ class AppController extends GetxController {
   RxString language = "EN".obs;
   late Rx<TranslationBase> tr;
 
-  BaseColor primary = Cyan();
-  BaseColor secondary = Blue();
+  BaseColor cyan = Cyan();
+  BaseColor blue = Blue();
   BaseColor gray = Gray();
-  BaseColor magendaClient = Magenda();
-  BaseColor error = Red();
-  BaseColor warning = Yellow();
-  BaseColor success = Green();
+  BaseColor magenda = Magenda();
+  BaseColor red = Red();
+  BaseColor yellow = Yellow();
+  BaseColor green = Green();
 
   BengaliTextStyles bnStyle = BengaliTextStyles();
   EnglishTextStyles enStyle = EnglishTextStyles();
+
+  String? _accessToken;
+
+  String? get token => _accessToken;
+  AppStorageService appStorageService = AppStorageService();
 
   AppController() {
     language.value = "EN";
@@ -66,5 +68,10 @@ class AppController extends GetxController {
 
   closeKeyboard() {
     FocusManager.instance.primaryFocus?.unfocus();
+  }
+
+  Future<bool> setToken(String token) {
+    _accessToken = token;
+    return appStorageService.setToken(token);
   }
 }

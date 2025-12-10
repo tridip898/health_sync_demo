@@ -63,7 +63,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             )
           : null,
-      title: Text(title, style: textStyle.boldFontStyle.xl),
+      title: Text(title, style: textStyle.bold.s18),
       actions: [
         if (needRefreshBtn)
           Padding(

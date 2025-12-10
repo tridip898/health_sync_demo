@@ -62,20 +62,51 @@ EdgeInsets padOnly({
   double bottom = 0,
   double left = 0,
   double right = 0,
-}) =>
-    EdgeInsets.only(
-      left: left,
-      right: right,
-      bottom: bottom,
-      top: top,
-    );
+}) => EdgeInsets.only(left: left, right: right, bottom: bottom, top: top);
 
 // Symmetric
-EdgeInsets padSym({
-  double horizontal = 0,
-  double vertical = 0,
-}) =>
-    EdgeInsets.symmetric(
-      horizontal: horizontal,
-      vertical: vertical,
-    );
+EdgeInsets padSym({double horizontal = 0, double vertical = 0}) =>
+    EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical);
+
+BorderRadius radius4 = BorderRadius.circular(4);
+BorderRadius radius8 = BorderRadius.circular(8);
+BorderRadius radius10 = BorderRadius.circular(10);
+BorderRadius radius12 = BorderRadius.circular(12);
+BorderRadius radius16 = BorderRadius.circular(16);
+BorderRadius radius20 = BorderRadius.circular(20);
+BorderRadius radius24 = BorderRadius.circular(24);
+
+BorderRadius radius(double value) => BorderRadius.circular(value);
+
+// Only specific corners
+BorderRadius radiusOnly({
+  double? topLeft,
+  double? topRight,
+  double? bottomLeft,
+  double? bottomRight,
+}) {
+  return BorderRadius.only(
+    topLeft: topLeft != null ? Radius.circular(topLeft) : Radius.zero,
+    topRight: topRight != null ? Radius.circular(topRight) : Radius.zero,
+    bottomLeft: bottomLeft != null ? Radius.circular(bottomLeft) : Radius.zero,
+    bottomRight: bottomRight != null
+        ? Radius.circular(bottomRight)
+        : Radius.zero,
+  );
+}
+
+// Vertical corners (top-left & top-right / bottom-left & bottom-right)
+BorderRadius radiusVertical({double? top, double? bottom}) {
+  return BorderRadius.vertical(
+    top: top != null ? Radius.circular(top) : Radius.zero,
+    bottom: bottom != null ? Radius.circular(bottom) : Radius.zero,
+  );
+}
+
+// Horizontal corners (top-left & bottom-left / top-right & bottom-right)
+BorderRadius radiusHorizontal({double? left, double? right}) {
+  return BorderRadius.horizontal(
+    left: left != null ? Radius.circular(left) : Radius.zero,
+    right: right != null ? Radius.circular(right) : Radius.zero,
+  );
+}

@@ -16,6 +16,11 @@ dependencies:
       url: git@vcs.technonext.com:TechnoNext/mobile-apps/airapps-commons/netword.git
       ref: v0.0.13
 
+  common:
+    git:
+      url: git@vcs.technonext.com:TechnoNext/mobile-apps/airapps-commons/common.git
+      ref: v0.0.6
+
   cupertino_icons: ^1.0.8
   get: ^4.7.2
   google_fonts: ^6.3.2

@@ -33,7 +33,7 @@ class BasicInfoSubmitView extends GetView<BasicInfoQuestionController> {
                         gapH24,
                         Text(
                           "Patient Information",
-                          style: textStyle.displayFontStyle.md,
+                          style: textStyle.bold.s30,
                         ),
                         gapH20,
                         CustomTextFormField(
@@ -90,13 +90,13 @@ class BasicInfoSubmitView extends GetView<BasicInfoQuestionController> {
         RichText(
           text: TextSpan(
             text: "Gender",
-            style: textStyle.boldFontStyle.md.copyWith(
+            style: textStyle.bold.s16.copyWith(
               color: Color(0xff0E121B),
             ),
             children: [
               TextSpan(
                 text: " *",
-                style: textStyle.boldFontStyle.md.copyWith(
+                style: textStyle.bold.s16.copyWith(
                   color: Color(0xffF04438),
                 ),
               ),
@@ -142,7 +142,7 @@ class BasicInfoSubmitView extends GetView<BasicInfoQuestionController> {
                       Expanded(
                         child: Text(
                           Gender.values[index].name.capitalizeFirst??"",
-                          style: textStyle.mediumFontStyle.md,
+                          style: textStyle.medium.s14,
                         ),
                       ),
                     ],

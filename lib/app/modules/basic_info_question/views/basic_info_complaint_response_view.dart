@@ -34,7 +34,7 @@ class BasicInfoComplaintResponseView
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Patient Info", style: textStyle.boldFontStyle.xl),
+              Text("Patient Info", style: textStyle.bold.s18),
               gapH12,
               Container(
                 width: double.infinity,
@@ -46,32 +46,32 @@ class BasicInfoComplaintResponseView
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Name", style: textStyle.mediumFontStyle.md),
+                    Text("Name", style: textStyle.medium.s14),
                     gapH4,
                     Text(
                       controller.patientInfo.value.name ?? "",
-                      style: textStyle.boldFontStyle.lg,
+                      style: textStyle.bold.s18,
                     ),
                     gapH8,
-                    Text("Age", style: textStyle.mediumFontStyle.md),
+                    Text("Age", style: textStyle.medium.s14),
                     gapH4,
                     Text(
                       controller.patientInfo.value.age ?? "",
-                      style: textStyle.boldFontStyle.lg,
+                      style: textStyle.bold.s18,
                     ),
                     gapH8,
-                    Text("Gender", style: textStyle.mediumFontStyle.md),
+                    Text("Gender", style: textStyle.medium.s14),
                     gapH4,
                     Text(
                       controller.patientInfo.value.gender ?? "",
-                      style: textStyle.boldFontStyle.lg,
+                      style: textStyle.bold.s18,
                     ),
                   ],
                 ),
               ),
               if (controller.complaintAnswers.isNotEmpty) ...[
                 gapH24,
-                Text("Patient Complaints", style: textStyle.boldFontStyle.xl),
+                Text("Patient Complaints", style: textStyle.bold.s20),
                 gapH12,
                 ListView.separated(
                   itemCount: controller.complaintAnswers.length,
@@ -91,7 +91,7 @@ class BasicInfoComplaintResponseView
                         child: ExpansionTile(
                           title: Text(
                             complaint.complaint,
-                            style: textStyle.boldFontStyle.lg.copyWith(
+                            style: textStyle.bold.s20.copyWith(
                               color: Color(0xFFE64636),
                             ),
                           ),
@@ -107,12 +107,13 @@ class BasicInfoComplaintResponseView
                                 (complaint) => ListTile(
                                   title: Text(
                                     complaint.question,
-                                    style: textStyle.boldFontStyle.md,
+                                    style: textStyle.bold.s16,
                                   ),
                                   subtitle: Text(
                                     "Answer: ${complaint.answer}",
-                                    style: textStyle.semiBoldFontStyle.md
-                                        .copyWith(color: gray.base500),
+                                    style: textStyle.semiBold.s16.copyWith(
+                                      color: gray.base500,
+                                    ),
                                   ),
                                   minVerticalPadding: 6,
                                   visualDensity: VisualDensity.compact,
@@ -152,7 +153,7 @@ class BasicInfoComplaintResponseView
                       textAlign: TextAlign.center,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: textStyle.boldFontStyle.lg.copyWith(
+                      style: textStyle.bold.s18.copyWith(
                         color: Color(0xFFE64636),
                       ),
                     ),

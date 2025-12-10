@@ -11,7 +11,7 @@ class AuthInterceptor extends Interceptor {
     )) {
       final appController = Get.find<AppController>();
 
-      String? token = 'appController.token';
+      String? token = appController.token;
 
       if (token != null) {
         options.headers = {

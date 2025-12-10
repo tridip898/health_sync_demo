@@ -78,14 +78,14 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           RichText(
             text: TextSpan(
               text: widget.labelText,
-              style: textStyle.boldFontStyle.md.copyWith(
+              style: textStyle.bold.s16.copyWith(
                 color: Color(0xff0E121B),
               ),
               children: [
                 if (widget.isRequired)
                   TextSpan(
                     text: " *",
-                    style: textStyle.boldFontStyle.md.copyWith(
+                    style: textStyle.bold.s16.copyWith(
                       color: Color(0xffF04438),
                     ),
                   ),
@@ -131,7 +131,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                                   : true
                             : widget.isPassword
                       : widget.isPassword,
-                  style: textStyle.semiBoldFontStyle.md.copyWith(
+                  style: textStyle.semiBold.s16.copyWith(
                     color: widget.isViewOnly ? gray.base400 : Color(0xff0E121B),
                   ),
                   minLines: widget.minLines,
@@ -168,10 +168,10 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                       maxHeight: widget.prefixIconMaxHeight ?? 16,
                     ),
                     hintText: widget.hintText,
-                    labelStyle: textStyle.mediumFontStyle.md.copyWith(
+                    labelStyle: textStyle.medium.s14.copyWith(
                       color: gray.base400,
                     ),
-                    hintStyle: textStyle.mediumFontStyle.md.copyWith(
+                    hintStyle: textStyle.medium.s14.copyWith(
                       color: gray.base400,
                     ),
                     suffixIcon:
@@ -190,7 +190,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                                 ),
                               )
                             : null),
-                    errorStyle: textStyle.mediumFontStyle.sm.copyWith(
+                    errorStyle: textStyle.medium.s12.copyWith(
                       color: const Color(0xffF04438),
                     ),
                     border: OutlineInputBorder(
@@ -219,7 +219,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                     alignment: Alignment.centerRight,
                     child: Text(
                       '$currentLength / ${widget.maxLength}',
-                      style: textStyle.regularFontStyle.sm.copyWith(
+                      style: textStyle.regular.s12.copyWith(
                         color: Color(0xff99A0AE),
                       ),
                     ),

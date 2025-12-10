@@ -30,22 +30,20 @@ class HomeView extends GetView<HomeController> {
                 child: Image.asset(questionnaireIcon, height: 30),
               ),
               gapH12,
-              Text(
-                "Start your questionnaire",
-                style: textStyle.displayFontStyle.md,
-              ),
+              Text("Start your questionnaire", style: textStyle.bold.s30),
               gapH8,
               Text(
                 "Please answer some questions about your health issues. That will help us to suggest you a specialist doctor based on your answers.",
-                style: textStyle.mediumFontStyle.sm.copyWith(
-                  color: gray.base500,
-                ),
+                style: textStyle.medium.s12.copyWith(color: gray.base500),
                 textAlign: TextAlign.start,
               ),
               Spacer(),
               SizedBox(
                 width: double.maxFinite,
-                child: CustomButton(text: "Continue", onPressed: controller.nextClick),
+                child: CustomButton(
+                  text: "Continue",
+                  onPressed: controller.nextClick,
+                ),
               ),
               gapH20,
             ],

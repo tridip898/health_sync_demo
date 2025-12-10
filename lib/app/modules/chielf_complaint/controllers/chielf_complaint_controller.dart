@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:health_sync_question/app/core/controller/app_controller.dart';
 import 'package:health_sync_question/app/data/app_data/basic_question_data.dart';
 import 'package:health_sync_question/app/data/model/question_model.dart';
 

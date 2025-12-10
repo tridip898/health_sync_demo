@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:health_sync_question/app/core/constants/border_constents.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
@@ -40,7 +39,7 @@ class ChielfComplaintView extends GetView<ChiefComplaintController> {
                       children: [
                         Text(
                           "Which area are you having health issues with?",
-                          style: textStyle.boldFontStyle.xl,
+                          style: textStyle.bold.s20,
                         ),
                         gapH16,
                         ListView.separated(
