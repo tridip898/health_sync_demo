@@ -73,4 +73,8 @@ class AppController extends GetxController {
     if (tr.value is EN) return enStyle;
     return bnStyle;
   }
+
+  closeKeyboard() {
+    FocusManager.instance.primaryFocus?.unfocus();
+  }
 }

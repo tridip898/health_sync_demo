@@ -36,14 +36,14 @@ class CustomTextFormField extends StatefulWidget {
     this.iconImage,
     this.controller,
     this.validator,
-    this.borderRadius = 8,
+    this.borderRadius = 16,
     this.isPassword = false,
     this.suffixIcon,
     this.onChanged,
     this.autoValidateMode,
     this.maxLines = 1,
     this.minLines = 1,
-    this.verticalPadding = 0,
+    this.verticalPadding = 16,
     this.onTap,
     this.isViewOnly = false,
     this.isRequired = false,
@@ -78,153 +78,157 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           RichText(
             text: TextSpan(
               text: widget.labelText,
-              style:
-                  textStyle.boldFontStyle.md.copyWith(color: Color(0xff0E121B)),
+              style: textStyle.boldFontStyle.md.copyWith(
+                color: Color(0xff0E121B),
+              ),
               children: [
                 if (widget.isRequired)
                   TextSpan(
                     text: " *",
-                    style: textStyle.boldFontStyle.md
-                        .copyWith(color: Color(0xffF04438)),
+                    style: textStyle.boldFontStyle.md.copyWith(
+                      color: Color(0xffF04438),
+                    ),
                   ),
               ],
             ),
           ),
         if (widget.labelText.isNotEmpty) gapH8,
         ValueListenableBuilder<TextEditingValue>(
-            valueListenable: widget.controller ?? TextEditingController(),
-            builder: (context, value, _) {
-              final currentLength = value.text.length;
-              return Column(
-                children: [
-                  TextFormField(
-                    keyboardType: widget.keyboardType,
-                    inputFormatters: widget.inputFormatters,
-                    maxLines: widget.maxLines,
-                    controller: widget.controller,
-                    validator: widget.validator ??
-                        (value) {
-                          return null;
-                        },
-                    // onChanged: widget.onChanged,
-                    onChanged: (value) {
-                      if (widget.maxLength != null &&
-                          value.length > widget.maxLength!) {
-                        final limited = value.substring(0, widget.maxLength);
-                        widget.controller?.text = limited;
-                        widget.controller?.selection =
-                            TextSelection.fromPosition(
-                          TextPosition(offset: limited.length),
-                        );
-                      } else {
-                        widget.onChanged?.call(value);
-                      }
-                      setState(() {}); // Update counter text
-                    },
-                    onFieldSubmitted: widget.onFieldSubmitted,
-                    obscureText: widget.suffixIcon == null
-                        ? widget.isPassword
+          valueListenable: widget.controller ?? TextEditingController(),
+          builder: (context, value, _) {
+            final currentLength = value.text.length;
+            return Column(
+              children: [
+                TextFormField(
+                  keyboardType: widget.keyboardType,
+                  inputFormatters: widget.inputFormatters,
+                  maxLines: widget.maxLines,
+                  controller: widget.controller,
+                  validator:
+                      widget.validator ??
+                      (value) {
+                        return null;
+                      },
+                  // onChanged: widget.onChanged,
+                  onChanged: (value) {
+                    if (widget.maxLength != null &&
+                        value.length > widget.maxLength!) {
+                      final limited = value.substring(0, widget.maxLength);
+                      widget.controller?.text = limited;
+                      widget.controller?.selection = TextSelection.fromPosition(
+                        TextPosition(offset: limited.length),
+                      );
+                    } else {
+                      widget.onChanged?.call(value);
+                    }
+                    setState(() {}); // Update counter text
+                  },
+                  onFieldSubmitted: widget.onFieldSubmitted,
+                  obscureText: widget.suffixIcon == null
+                      ? widget.isPassword
                             ? showPassword
-                                ? false
-                                : true
+                                  ? false
+                                  : true
                             : widget.isPassword
-                        : widget.isPassword,
-                    style: textStyle.semiBoldFontStyle.md.copyWith(
-                      color:
-                          widget.isViewOnly ? gray.base400 : Color(0xff0E121B),
+                      : widget.isPassword,
+                  style: textStyle.semiBoldFontStyle.md.copyWith(
+                    color: widget.isViewOnly ? gray.base400 : Color(0xff0E121B),
+                  ),
+                  minLines: widget.minLines,
+                  autovalidateMode: widget.autoValidateMode,
+                  readOnly: widget.onTap != null || widget.isViewOnly,
+                  showCursor: !widget.isViewOnly,
+                  onTap: widget.onTap,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: gray.base100,
+                    contentPadding: EdgeInsets.symmetric(
+                      vertical: widget.verticalPadding,
+                      horizontal: 16,
                     ),
-                    minLines: widget.minLines,
-                    autovalidateMode: widget.autoValidateMode,
-                    readOnly: widget.onTap != null || widget.isViewOnly,
-                    showCursor: !widget.isViewOnly,
-                    onTap: widget.onTap,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(
-                        vertical: widget.verticalPadding,
-                        horizontal: 10,
+                    prefixIcon:
+                        widget.prefixIcon ??
+                        (widget.iconImage != null
+                            ? Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 12.0,
+                                  right: 8,
+                                ),
+                                child: Image.asset(
+                                  widget.iconImage ?? '',
+                                  color: widget.isViewOnly
+                                      ? gray.base400
+                                      : gray.base500,
+                                  height: widget.prefixIconMaxHeight ?? 16,
+                                  width: widget.prefixIconMaxHeight ?? 16,
+                                ),
+                              )
+                            : null),
+                    prefixIconConstraints: BoxConstraints(
+                      maxHeight: widget.prefixIconMaxHeight ?? 16,
+                    ),
+                    hintText: widget.hintText,
+                    labelStyle: textStyle.mediumFontStyle.md.copyWith(
+                      color: gray.base400,
+                    ),
+                    hintStyle: textStyle.mediumFontStyle.md.copyWith(
+                      color: gray.base400,
+                    ),
+                    suffixIcon:
+                        widget.suffixIcon ??
+                        (widget.isPassword
+                            ? GestureDetector(
+                                onTap: () {
+                                  handleVisibilityClick();
+                                },
+                                child: Icon(
+                                  showPassword
+                                      ? Icons.visibility_rounded
+                                      : Icons.visibility_off,
+                                  size: 18,
+                                  color: gray.base300,
+                                ),
+                              )
+                            : null),
+                    errorStyle: textStyle.mediumFontStyle.sm.copyWith(
+                      color: const Color(0xffF04438),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(widget.borderRadius),
+                      borderSide: BorderSide(color: gray.base300),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(widget.borderRadius),
+                      borderSide: BorderSide(color: gray.base300),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(widget.borderRadius),
+                      borderSide: BorderSide(
+                        color: widget.isViewOnly ? gray.base200 : gray.base400,
                       ),
-                      prefixIcon: widget.prefixIcon ??
-                          (widget.iconImage != null
-                              ? Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 12.0,
-                                    right: 8,
-                                  ),
-                                  child: Image.asset(
-                                    widget.iconImage ?? '',
-                                    color: widget.isViewOnly
-                                        ? gray.base400
-                                        : gray.base500,
-                                    height: widget.prefixIconMaxHeight ?? 16,
-                                    width: widget.prefixIconMaxHeight ?? 16,
-                                  ),
-                                )
-                              : null),
-                      prefixIconConstraints: BoxConstraints(
-                        maxHeight: widget.prefixIconMaxHeight ?? 16,
-                      ),
-                      hintText: widget.hintText,
-                      labelStyle: textStyle.mediumFontStyle.md
-                          .copyWith(color: gray.base400),
-                      hintStyle: textStyle.mediumFontStyle.md
-                          .copyWith(color: gray.base400),
-                      suffixIcon: widget.suffixIcon ??
-                          (widget.isPassword
-                              ? GestureDetector(
-                                  onTap: () {
-                                    handleVisibilityClick();
-                                  },
-                                  child: Icon(
-                                    showPassword
-                                        ? Icons.visibility_rounded
-                                        : Icons.visibility_off,
-                                    size: 18,
-                                    color: gray.base300,
-                                  ),
-                                )
-                              : null),
-                      errorStyle: textStyle.mediumFontStyle.sm
-                          .copyWith(color: const Color(0xffF04438)),
-                      border: OutlineInputBorder(
-                        borderRadius:
-                            BorderRadius.circular(widget.borderRadius),
-                        borderSide: BorderSide(color: gray.base300),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius:
-                            BorderRadius.circular(widget.borderRadius),
-                        borderSide: BorderSide(color: gray.base300),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius:
-                            BorderRadius.circular(widget.borderRadius),
-                        borderSide: BorderSide(
-                            color: widget.isViewOnly
-                                ? gray.base200
-                                : gray.base400),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius:
-                            BorderRadius.circular(widget.borderRadius),
-                        borderSide: BorderSide(color: const Color(0xffF04438)),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(widget.borderRadius),
+                      borderSide: BorderSide(color: const Color(0xffF04438)),
+                    ),
+                  ),
+                ),
+                if (widget.showCharCount && widget.maxLength != null) ...[
+                  gapH8,
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      '$currentLength / ${widget.maxLength}',
+                      style: textStyle.regularFontStyle.sm.copyWith(
+                        color: Color(0xff99A0AE),
                       ),
                     ),
                   ),
-                  if (widget.showCharCount && widget.maxLength != null) ...[
-                    gapH8,
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        '$currentLength / ${widget.maxLength}',
-                        style: textStyle.regularFontStyle.sm.copyWith(
-                          color: Color(0xff99A0AE),
-                        ),
-                      ),
-                    ),
-                  ]
                 ],
-              );
-            }),
+              ],
+            );
+          },
+        ),
       ],
     );
   }

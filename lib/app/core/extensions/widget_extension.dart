@@ -7,117 +7,117 @@ import '../controller/app_controller.dart';
 import '../translations/translation_base.dart';
 
 extension GetViewExtension on GetView {
-  AppController get _appController => Get.find<AppController>();
+  AppController get appController => Get.find<AppController>();
 
-  TranslationBase get tr => _appController.tr.value;
+  TranslationBase get tr => appController.tr.value;
 
   Duration get defaultAnimationDuration =>
-      _appController.defaultAnimationDuration;
+      appController.defaultAnimationDuration;
 
-  Color get white => _appController.white;
+  Color get white => appController.white;
 
-  Color get black => _appController.black;
+  Color get black => appController.black;
 
-  BaseColor get primary => _appController.primary;
+  BaseColor get primary => appController.primary;
 
-  BaseColor get secondary => _appController.secondary;
+  BaseColor get secondary => appController.secondary;
 
-  BaseColor get gray => _appController.gray;
+  BaseColor get gray => appController.gray;
 
-  BaseColor get magendaClient => _appController.magendaClient;
+  BaseColor get magendaClient => appController.magendaClient;
 
-  BaseColor get error => _appController.error;
+  BaseColor get error => appController.error;
 
-  BaseColor get warning => _appController.warning;
+  BaseColor get warning => appController.warning;
 
-  BaseColor get success => _appController.success;
+  BaseColor get success => appController.success;
 
-  BaseTextStyles get textStyle => _appController.textStyle;
+  BaseTextStyles get textStyle => appController.textStyle;
 }
 
 extension GetViewControllerExtension on GetxController {
-  AppController get _appController => Get.find<AppController>();
+  AppController get appController => Get.find<AppController>();
 
-  TranslationBase get tr => _appController.tr.value;
+  TranslationBase get tr => appController.tr.value;
 
   Duration get defaultAnimationDuration =>
-      _appController.defaultAnimationDuration;
+      appController.defaultAnimationDuration;
 
-  Color get white => _appController.white;
+  Color get white => appController.white;
 
-  Color get black => _appController.black;
+  Color get black => appController.black;
 
-  BaseColor get primary => _appController.primary;
+  BaseColor get primary => appController.primary;
 
-  BaseColor get secondary => _appController.secondary;
+  BaseColor get secondary => appController.secondary;
 
-  BaseColor get gray => _appController.gray;
+  BaseColor get gray => appController.gray;
 
-  BaseColor get magendaClient => _appController.magendaClient;
+  BaseColor get magendaClient => appController.magendaClient;
 
-  BaseColor get error => _appController.error;
+  BaseColor get error => appController.error;
 
-  BaseColor get warning => _appController.warning;
+  BaseColor get warning => appController.warning;
 
-  BaseColor get success => _appController.success;
+  BaseColor get success => appController.success;
 
-  BaseTextStyles get textStyle => _appController.textStyle;
+  BaseTextStyles get textStyle => appController.textStyle;
 }
 
 extension StatelessExtension on StatelessWidget {
-  AppController get _appController => Get.find<AppController>();
+  AppController get appController => Get.find<AppController>();
 
-  TranslationBase get tr => _appController.tr.value;
+  TranslationBase get tr => appController.tr.value;
 
   Duration get defaultAnimationDuration =>
-      _appController.defaultAnimationDuration;
+      appController.defaultAnimationDuration;
 
-  Color get white => _appController.white;
+  Color get white => appController.white;
 
-  Color get black => _appController.black;
+  Color get black => appController.black;
 
-  BaseColor get primary => _appController.primary;
+  BaseColor get primary => appController.primary;
 
-  BaseColor get secondary => _appController.secondary;
+  BaseColor get secondary => appController.secondary;
 
-  BaseColor get gray => _appController.gray;
+  BaseColor get gray => appController.gray;
 
-  BaseColor get magendaClient => _appController.magendaClient;
+  BaseColor get magendaClient => appController.magendaClient;
 
-  BaseColor get error => _appController.error;
+  BaseColor get error => appController.error;
 
-  BaseColor get warning => _appController.warning;
+  BaseColor get warning => appController.warning;
 
-  BaseColor get success => _appController.success;
+  BaseColor get success => appController.success;
 
-  BaseTextStyles get textStyle => _appController.textStyle;
+  BaseTextStyles get textStyle => appController.textStyle;
 }
 
 extension StatefulExtension on State {
-  AppController get _appController => Get.find<AppController>();
+  AppController get appController => Get.find<AppController>();
 
-  TranslationBase get tr => _appController.tr.value;
+  TranslationBase get tr => appController.tr.value;
 
   Duration get defaultAnimationDuration =>
-      _appController.defaultAnimationDuration;
+      appController.defaultAnimationDuration;
 
-  Color get white => _appController.white;
+  Color get white => appController.white;
 
-  Color get black => _appController.black;
+  Color get black => appController.black;
 
-  BaseColor get primary => _appController.primary;
+  BaseColor get primary => appController.primary;
 
-  BaseColor get secondary => _appController.secondary;
+  BaseColor get secondary => appController.secondary;
 
-  BaseColor get gray => _appController.gray;
+  BaseColor get gray => appController.gray;
 
-  BaseColor get magendaClient => _appController.magendaClient;
+  BaseColor get magendaClient => appController.magendaClient;
 
-  BaseColor get error => _appController.error;
+  BaseColor get error => appController.error;
 
-  BaseColor get warning => _appController.warning;
+  BaseColor get warning => appController.warning;
 
-  BaseColor get success => _appController.success;
+  BaseColor get success => appController.success;
 
-  BaseTextStyles get textStyle => _appController.textStyle;
+  BaseTextStyles get textStyle => appController.textStyle;
 }

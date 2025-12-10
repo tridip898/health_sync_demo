@@ -1,23 +1,22 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
-  //TODO: Implement LoginController
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   void onClose() {
+    phoneController.dispose();
+    passwordController.dispose();
     super.onClose();
   }
 
-  void increment() => count.value++;
+  void onLogin() {
+    if (formKey.currentState?.validate() == true) {
+      
+    }
+  }
 }
