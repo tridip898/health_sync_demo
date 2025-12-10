@@ -1,0 +1,50 @@
+ide: "idea"
+
+flavors:
+  prod:
+    app:
+      name: "Health Sync"
+
+    android:
+      applicationId: "com.healthsync.app"
+      generateDummyAssets: false
+
+    ios:
+      bundleId: "com.healthsync.app"
+      generateDummyAssets: false
+
+  preprod:
+    app:
+      name: "Health Sync Preprod"
+
+    android:
+      applicationId: "com.healthsync.app.preprod"
+      generateDummyAssets: false
+
+    ios:
+      bundleId: "com.healthsync.app.preprod"
+      generateDummyAssets: false
+
+  stage:
+    app:
+      name: "Health Sync Stage"
+
+    android:
+      applicationId: "com.healthsync.app.stage"
+      generateDummyAssets: false
+
+    ios:
+      bundleId: "com.healthsync.app.stage"
+      generateDummyAssets: false
+
+  dev:
+    app:
+      name: "Health Sync Dev"
+
+    android:
+      applicationId: "com.healthsync.app.dev"
+      generateDummyAssets: false
+
+    ios:
+      bundleId: "com.healthsync.app.dev"
+      generateDummyAssets: false

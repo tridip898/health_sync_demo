@@ -1,0 +1,6 @@
+#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"
+#include "Generated.xcconfig"
+
+ASSET_PREFIX=preprod
+BUNDLE_NAME=Health Sync Preprod
+BUNDLE_DISPLAY_NAME=Health Sync Preprod
