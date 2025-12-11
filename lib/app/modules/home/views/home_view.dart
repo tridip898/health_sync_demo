@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/constants/assets_contants.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
+import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
 import 'package:health_sync_question/app/core/widgets/custom_button.dart';
 
 import '../controllers/home_controller.dart';
@@ -14,13 +15,19 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(
+        title: 'Questionnaire',
+        needLeadingIcon: false,
+        actions: [
+          IconButton(onPressed: controller.onLogout, icon: Icon(Icons.logout)),
+        ],
+      ),
       body: SafeArea(
         child: Padding(
           padding: padAll20,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              gapH(36),
               Container(
                 decoration: BoxDecoration(
                   color: Color(0xFFFCE2CA),

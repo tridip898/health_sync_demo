@@ -40,7 +40,7 @@ class CustomButton extends StatelessWidget {
           style:
               textStyle ??
               GoogleFonts.manrope(
-                color: textColor ?? Colors.black,
+                color: textColor ?? Colors.white,
                 fontWeight: FontWeight.w700,
                 fontSize: 16,
               ),

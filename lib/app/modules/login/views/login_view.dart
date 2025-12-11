@@ -107,12 +107,15 @@ class LoginView extends GetView<LoginController> {
                       color: Colors.grey[600],
                     ),
                   ),
-                  Text(
-                    "Register",
-                    style: GoogleFonts.manrope(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: primary,
+                  GestureDetector(
+                    onTap: controller.onRegisterTap,
+                    child: Text(
+                      "Register",
+                      style: GoogleFonts.manrope(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: primary,
+                      ),
                     ),
                   ),
                 ],

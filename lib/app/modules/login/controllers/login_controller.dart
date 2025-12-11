@@ -41,4 +41,8 @@ class LoginController extends GetxController {
       );
     }
   }
+
+  onRegisterTap() {
+    Get.toNamed(Routes.REGISTRATION);
+  }
 }
