@@ -84,7 +84,7 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
       if (appController.token == null) {
         Get.offAllNamed(Routes.LOGIN);
       } else {
-        Get.offAllNamed(Routes.HOME);
+        Get.offAllNamed(Routes.DASHBOARD);
       }
     });
     super.onReady();

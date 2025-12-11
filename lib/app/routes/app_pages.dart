@@ -4,6 +4,8 @@ import '../modules/basic_info_question/bindings/basic_info_question_binding.dart
 import '../modules/basic_info_question/views/basic_info_question_view.dart';
 import '../modules/chielf_complaint/bindings/chielf_complaint_binding.dart';
 import '../modules/chielf_complaint/views/chielf_complaint_view.dart';
+import '../modules/dashboard/bindings/dashboard_binding.dart';
+import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -50,6 +52,11 @@ class AppPages {
       name: _Paths.REGISTRATION,
       page: () => const RegistrationView(),
       binding: RegistrationBinding(),
+    ),
+    GetPage(
+      name: _Paths.DASHBOARD,
+      page: () => const DashboardView(),
+      binding: DashboardBinding(),
     ),
   ];
 }

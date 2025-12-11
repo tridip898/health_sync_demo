@@ -9,6 +9,8 @@ environment:
 
 dependencies:
   shimmer:
+  url_launcher:
+  android_intent_plus:
   flutter:
     sdk: flutter
 
