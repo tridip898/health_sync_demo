@@ -12,6 +12,8 @@ import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
 import '../modules/registration/bindings/registration_binding.dart';
 import '../modules/registration/views/registration_view.dart';
+import '../modules/set_new_password/bindings/set_new_password_binding.dart';
+import '../modules/set_new_password/views/set_new_password_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 
@@ -57,6 +59,11 @@ class AppPages {
       name: _Paths.OTP,
       page: () => const OtpView(),
       binding: OtpBinding(),
+    ),
+    GetPage(
+      name: _Paths.SET_NEW_PASSWORD,
+      page: () => const SetNewPasswordView(),
+      binding: SetNewPasswordBinding(),
     ),
   ];
 }
