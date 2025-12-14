@@ -16,6 +16,7 @@ class RegistrationView extends GetView<RegistrationController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor:Colors.white,
       appBar: CustomAppBar(title: 'Create your account'),
       body: Center(
         child: Column(

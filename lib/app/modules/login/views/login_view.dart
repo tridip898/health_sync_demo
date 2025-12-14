@@ -20,6 +20,7 @@ class LoginView extends GetView<LoginController> {
       behavior: HitTestBehavior.opaque,
       onTap: appController.closeKeyboard,
       child: Scaffold(
+        backgroundColor:Colors.white,
         body: Center(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(24),
