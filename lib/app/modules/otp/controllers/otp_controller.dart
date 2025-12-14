@@ -16,7 +16,8 @@ class OtpController extends GetxController {
     super.onClose();
   }
 
-  void onSendOtp() {
+  void onSetNewOtp() {
+    Get.toNamed(Routes.SET_NEW_PASSWORD);
   }
 }
 

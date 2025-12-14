@@ -102,7 +102,7 @@ class OtpView extends GetView<OtpController> {
                   padding: const EdgeInsets.all(12.0),
                   child: CustomButton(
                     text: 'Send Otp',
-                    onPressed: controller.onSendOtp,
+                    onPressed: controller.onSetNewOtp,
                   ),
                 ),
                 SizedBox(height: 15),

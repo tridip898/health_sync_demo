@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class SetNewPasswordController extends GetxController {
-  //TODO: Implement SetNewPasswordController
+
 
   final count = 0.obs;
+
   @override
   void onInit() {
     super.onInit();
