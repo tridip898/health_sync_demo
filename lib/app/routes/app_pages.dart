@@ -8,6 +8,8 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/otp/bindings/otp_binding.dart';
+import '../modules/otp/views/otp_view.dart';
 import '../modules/registration/bindings/registration_binding.dart';
 import '../modules/registration/views/registration_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
@@ -50,6 +52,11 @@ class AppPages {
       name: _Paths.REGISTRATION,
       page: () => const RegistrationView(),
       binding: RegistrationBinding(),
+    ),
+    GetPage(
+      name: _Paths.OTP,
+      page: () => const OtpView(),
+      binding: OtpBinding(),
     ),
   ];
 }
