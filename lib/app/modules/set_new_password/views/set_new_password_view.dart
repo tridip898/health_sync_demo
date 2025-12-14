@@ -14,69 +14,99 @@ class SetNewPasswordView extends GetView<SetNewPasswordController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Set New Password'), centerTitle: true),
-      body: Center(
-        child: Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(14.0),
-                child: Text(
-                  'Create a  Strong password to protect your medical \n history. your new password must be be different \n from previously used passwords.',
-                  style: textStyle.bold.s14.copyWith(color: Colors.grey),
+      resizeToAvoidBottomInset: true,
+      appBar: AppBar(
+        title: const Text('Set New Password'),
+        centerTitle: true,
+      ),
+      body: SafeArea(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: constraints.maxHeight,
                 ),
-              ),
+                child: IntrinsicHeight(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(14.0),
+                        child: Text(
+                          'Create a strong password to protect your medical \n'
+                              'history. Your new password must be different \n'
+                              'from previously used passwords.',
+                          style:
+                          textStyle.bold.s14.copyWith(color: Colors.grey),
+                        ),
+                      ),
 
-              SizedBox(height: 10),
+                      const SizedBox(height: 10),
 
-              Padding(
-                padding: const EdgeInsets.all(14),
-                child: CustomTextFormField(
-                  labelText: 'New Password',
-                  hintText: '.............',
-                  autoValidateMode: AutovalidateMode.onUserInteraction,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 14),
-                child: Text(
-                  textAlign: TextAlign.start,
-                  "REQUIREMENTS",
-                  style: textStyle.bold.s8.copyWith(color: Colors.grey),
-                ),
-              ),
+                      Padding(
+                        padding: const EdgeInsets.all(14),
+                        child: CustomTextFormField(
+                          labelText: 'New Password',
+                          hintText: '.............',
+                          autoValidateMode:
+                          AutovalidateMode.onUserInteraction,
+                        ),
+                      ),
 
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Row(
-                  children: [
-                    Checkbox(
-                      value: true,
-                      onChanged: (value) {},
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      visualDensity: VisualDensity.compact,
-                    ),
-                    Text("At least 10 characters"),
-                  ],
-                ),
-              ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 14),
+                        child: Text(
+                          "REQUIREMENTS",
+                          style:
+                          textStyle.bold.s8.copyWith(color: Colors.grey),
+                        ),
+                      ),
 
-              Padding(
-                padding: const EdgeInsets.only(left: 14,top: 8),
-                child: CustomTextFormField(
-                  labelText: 'Confirmed Password',
-                  hintText: '.............',
-                  autoValidateMode: AutovalidateMode.onUserInteraction,
+                      Padding(
+                        padding:
+                        const EdgeInsets.symmetric(horizontal: 8),
+                        child: Row(
+                          children: [
+                            Checkbox(
+                              value: true,
+                              onChanged: (value) {},
+                              materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                              visualDensity: VisualDensity.compact,
+                            ),
+                            const Text("At least 10 characters"),
+                          ],
+                        ),
+                      ),
+
+                      Padding(
+                        padding:
+                        const EdgeInsets.only(left: 14, top: 8),
+                        child: CustomTextFormField(
+                          labelText: 'Confirmed Password',
+                          hintText: '.............',
+                          autoValidateMode:
+                          AutovalidateMode.onUserInteraction,
+                        ),
+                      ),
+
+                      const Spacer(), // pushes button down
+
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: CustomButton(
+                          text: 'Reset Password',
+                          onPressed: () {},
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              Spacer(),
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: CustomButton(text: 'Reset Password', onPressed: () {}),
-              ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
