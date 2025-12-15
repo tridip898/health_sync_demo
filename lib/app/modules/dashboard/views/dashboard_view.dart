@@ -3,34 +3,10 @@ import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
 import 'package:health_sync_question/app/modules/dashboard/controllers/dashboard_controller.dart';
+import 'package:health_sync_question/app/routes/app_pages.dart';
 
 class DashboardView extends GetView<DashboardController> {
   const DashboardView({super.key});
-
-  Widget _tile(
-    BuildContext c, {
-    required Color bg,
-    required IconData icon,
-    required String title,
-  }) {
-    return GestureDetector(
-      onTap: () => controller.openCallChooser(c),
-      child: Container(
-        decoration: BoxDecoration(
-          color: bg,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 40, color: Colors.black.withOpacity(.7)),
-            const SizedBox(height: 8),
-            Text(title, style: textStyle.semiBold.s20),
-          ],
-        ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,35 +37,62 @@ class DashboardView extends GetView<DashboardController> {
           childAspectRatio: 0.88,
           children: [
             _tile(
-              context,
               bg: cyan.base100,
               icon: Icons.medical_services,
               title: 'Doctors',
+              onTap: () {
+                Get.toNamed(Routes.DOCTOR_LIST);
+              },
             ),
             _tile(
-              context,
               bg: magenda.base100,
               icon: Icons.calendar_month,
               title: 'Appointments',
+              onTap: () {},
             ),
             _tile(
-              context,
               bg: yellow.base100,
               icon: Icons.medical_information,
               title: 'My History',
+              onTap: () {},
             ),
             _tile(
-              context,
               bg: red.base100,
               icon: Icons.receipt_long,
               title: 'Prescriptions',
+              onTap: () {},
             ),
             _tile(
-              context,
               bg: blue.base100,
               icon: Icons.card_membership,
               title: 'Reports',
+              onTap: () {},
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _tile({
+    required Color bg,
+    required IconData icon,
+    required String title,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: bg,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 40, color: Colors.black.withOpacity(.7)),
+            const SizedBox(height: 8),
+            Text(title, style: textStyle.semiBold.s20),
           ],
         ),
       ),

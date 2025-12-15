@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
-import 'package:shimmer/shimmer.dart';
 
 class Loading extends StatelessWidget {
   final bool canPop;
@@ -17,7 +16,7 @@ class Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(canPop: canPop, child: LoadingBeeWidget(beeHeight: 80));
+    return PopScope(canPop: canPop, child: LoadingWidget(size: 64));
   }
 
   static void hide() {
@@ -25,37 +24,56 @@ class Loading extends StatelessWidget {
   }
 }
 
-class LoadingBeeWidget extends StatelessWidget {
-  final double beeHeight;
+class LoadingWidget extends StatefulWidget {
+  final double size;
 
-  const LoadingBeeWidget({super.key, this.beeHeight = 40});
+  const LoadingWidget({super.key, this.size = 64});
+
+  @override
+  State<LoadingWidget> createState() => _LoadingWidgetState();
+}
+
+class _LoadingWidgetState extends State<LoadingWidget>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _scale;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1200),
+    )..repeat(reverse: true);
+
+    _scale = Tween<double>(
+      begin: 0.5,
+      end: 1.5,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Shimmer(
-        gradient: LinearGradient(
-          colors: [
-            green.base400.withAlpha(30),
-            green.base400.withAlpha(50),
-            green.base400.withAlpha(70),
-            green.base400,
-            green.base400.withAlpha(70),
-            green.base400.withAlpha(50),
-            green.base400.withAlpha(30),
-          ],
-        ),
+      child: ScaleTransition(
+        scale: _scale,
         child: Container(
-          height: 96,
-          width: 96,
+          height: widget.size,
+          width: widget.size,
           decoration: BoxDecoration(
-            color: green.base400.withOpacity(.2),
             shape: BoxShape.circle,
+            color: green.base500,
           ),
           child: Icon(
-            Icons.health_and_safety,
-            size: 48,
-            color: green.base400,
+            Icons.health_and_safety_rounded,
+            size: widget.size * 0.5,
+            color: Colors.white,
           ),
         ),
       ),

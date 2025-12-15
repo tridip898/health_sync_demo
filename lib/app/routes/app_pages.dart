@@ -6,6 +6,8 @@ import '../modules/chielf_complaint/bindings/chielf_complaint_binding.dart';
 import '../modules/chielf_complaint/views/chielf_complaint_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
+import '../modules/doctor_list/bindings/doctor_list_binding.dart';
+import '../modules/doctor_list/views/doctor_list_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -57,6 +59,11 @@ class AppPages {
       name: _Paths.DASHBOARD,
       page: () => const DashboardView(),
       binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: _Paths.DOCTOR_LIST,
+      page: () => const DoctorListView(),
+      binding: DoctorListBinding(),
     ),
   ];
 }

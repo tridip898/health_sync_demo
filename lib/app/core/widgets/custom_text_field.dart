@@ -36,7 +36,7 @@ class CustomTextFormField extends StatefulWidget {
     this.iconImage,
     this.controller,
     this.validator,
-    this.borderRadius = 16,
+    this.borderRadius = 12,
     this.isPassword = false,
     this.suffixIcon,
     this.onChanged,
@@ -138,7 +138,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   onTap: widget.onTap,
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: gray.base100,
+                    fillColor: gray.base10,
                     contentPadding: EdgeInsets.symmetric(
                       vertical: widget.verticalPadding,
                       horizontal: 16,

@@ -1,0 +1,23 @@
+import 'package:health_sync_question/app/core/config/network/apis.dart';
+import 'package:health_sync_question/app/data/model/doctor_list_response_model.dart';
+import 'package:network/network.dart';
+
+class DoctorRepository extends BaseRepository {
+  Future<Either<ErrorResponse, DoctorListResponseModel>> getDoctorList({
+    required int page,
+    int limit = 15,
+    required String search,
+    required bool activeFilter,
+  }) {
+    return get(
+      path: Apis.doctorList,
+      queryParameters: {
+        'page': page.toString(),
+        'limit': limit.toString(),
+        'search': search,
+        'active': activeFilter.toString(),
+      },
+      responseCompiler: DoctorListResponseModel.fromJson,
+    );
+  }
+}
