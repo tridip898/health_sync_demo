@@ -2,6 +2,7 @@ import 'package:health_sync_question/app/core/config/network/apis.dart';
 import 'package:health_sync_question/app/data/model/login_response_model.dart';
 import 'package:network/network.dart';
 
+import '../model/otp_verify_response_model.dart';
 import '../model/registration_otp_response_model.dart';
 
 class AuthRepository extends BaseRepository {
@@ -26,6 +27,20 @@ class AuthRepository extends BaseRepository {
         "phoneNumber": phoneNumber,
       },
       responseCompiler: RegistrationOtpResponseModel.fromJson,
+    );
+  }
+
+  Future<Either<ErrorResponse, OtpVerifyResponseModel>> verifyOtp({
+    required String phoneNumber,
+    required String otp,
+  }) {
+    return post(
+      path: Apis.verifyOtp,
+      data: {
+        "phoneNumber": phoneNumber,
+        "otp": otp,
+      },
+      responseCompiler: OtpVerifyResponseModel.fromJson,
     );
   }
 }

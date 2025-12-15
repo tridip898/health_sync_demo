@@ -19,36 +19,30 @@ class RegistrationController extends GetxController {
   }
 
   void onSendOtp() async {
-    if (formKey.currentState?.validate() == true) {
-      Loading.show();
+    if (formKey.currentState?.validate() != true) return;
 
-      final response = await authRepository.sendRegistrationOtp(
-        phoneNumber: phoneController.text.trim(),
-      );
+    Loading.show();
 
-      Loading.hide();
+    final response = await authRepository.sendRegistrationOtp(
+      phoneNumber: phoneController.text.trim(),
+    );
 
-      response.fold(
-            (errorRes) {
-          Toaster.error(
-            errorRes.message ?? "Failed to send OTP",
-          );
-        },
-            (successRes) {
-          Toaster.success(successRes.message ?? "OTP sent");
-
-          Get.toNamed(
-            Routes.OTP,
-            arguments: {
-              "phoneNumber": phoneController.text.trim(),
-              "otpPrefix": successRes.data?.otpPrefix,
-            },
-          );
-        },
-      );
-    }
+    response.fold(
+          (errorRes) {
+        Loading.hide();
+        Toaster.error(errorRes.message ?? "Failed to send OTP");
+      },
+          (successRes) {
+        Loading.hide();
+        Get.toNamed(
+          Routes.OTP,
+          arguments: {
+            "phoneNumber": phoneController.text.trim(),
+            "otpPrefix": successRes.data?.otpPrefix,
+          },
+        );
+      },
+    );
   }
+
 }
-
-
-

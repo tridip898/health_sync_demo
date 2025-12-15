@@ -66,7 +66,9 @@ class OtpView extends GetView<OtpController> {
                     width: 240,
                     child: OtpTextField(
                       isIncorrect: false,
-                      onSubmit: (value) {},
+                      onSubmit: (value) {
+                        controller.onOtpChanged(value);
+                      },
                     ),
                   ),
                 ),
@@ -101,9 +103,10 @@ class OtpView extends GetView<OtpController> {
                 Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: CustomButton(
-                    text: 'Send Otp',
-                    onPressed: controller.onSetNewOtp,
+                    text: 'Verify OTP',
+                    onPressed: controller.onVerifyOtp,
                   ),
+
                 ),
                 SizedBox(height: 15),
                 Row(
