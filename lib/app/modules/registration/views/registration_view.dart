@@ -16,13 +16,14 @@ class RegistrationView extends GetView<RegistrationController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:Colors.white,
+      backgroundColor: Colors.white,
       appBar: CustomAppBar(title: 'Create your account'),
-      body: Center(
+      body: Form(
+        key: controller.formKey,
         child: Column(
           children: [
             const SizedBox(height: 40),
-            // Body Text
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
@@ -34,7 +35,7 @@ class RegistrationView extends GetView<RegistrationController> {
             const SizedBox(height: 20),
 
             Padding(
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.all(12),
               child: CustomTextFormField(
                 labelText: 'Phone Number',
                 hintText: '01*********',
@@ -46,27 +47,30 @@ class RegistrationView extends GetView<RegistrationController> {
             ),
 
             const Spacer(),
-            // Terms
+
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 "By continuing, you agree to our Terms of Service and Privacy Policy.",
-                style: textStyle.regular.s14.copyWith(color:const Color(0xFF4C9A80)),
+                style: textStyle.regular.s14
+                    .copyWith(color: const Color(0xFF4C9A80)),
               ),
             ),
 
             const SizedBox(height: 20),
 
-            // Continue Button
             Padding(
               padding: const EdgeInsets.all(12.0),
-              child: CustomButton(text: 'Send Otp', onPressed: controller.onSendOtp),
+              child: CustomButton(
+                text: 'Send Otp',
+                onPressed: controller.onSendOtp,
+              ),
             ),
 
-            const SizedBox(height: 30),
           ],
         ),
       ),
     );
   }
 }
+
