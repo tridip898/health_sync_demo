@@ -13,7 +13,7 @@ class DoctorListController extends GetxController {
 
   int _page = 1;
   bool _hasMore = true;
-  Rx<bool> activeFilter = Rx(false);
+  Rx<bool?> activeFilter = Rx(null);
   Rx<bool> isLoading = false.obs;
 
   RxList<DoctorModel> doctorList = <DoctorModel>[].obs;
@@ -74,6 +74,5 @@ class DoctorListController extends GetxController {
     doctorList.clear();
     _page = 1;
     _hasMore = true;
-    activeFilter.value = false;
   }
 }

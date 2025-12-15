@@ -7,7 +7,7 @@ class DoctorRepository extends BaseRepository {
     required int page,
     int limit = 15,
     required String search,
-    required bool activeFilter,
+    required bool? activeFilter,
   }) {
     return get(
       path: Apis.doctorList,
@@ -15,7 +15,7 @@ class DoctorRepository extends BaseRepository {
         'page': page.toString(),
         'limit': limit.toString(),
         'search': search,
-        'active': activeFilter.toString(),
+        if (activeFilter != null) 'active': activeFilter.toString(),
       },
       responseCompiler: DoctorListResponseModel.fromJson,
     );

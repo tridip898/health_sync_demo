@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/constants/string_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
+import 'package:health_sync_question/app/core/utils/doctor_utils.dart';
 import 'package:health_sync_question/app/core/widgets/custom_cache_network_image.dart';
 import 'package:health_sync_question/app/data/model/doctor_list_response_model.dart';
 
@@ -58,14 +59,16 @@ class DoctorTile extends StatelessWidget {
                   ),
                   gapH4,
                   Text(
-                    'academicQualification',
+                    DoctorUtils.getAcademicQualification(
+                      doctorModel.doctorAcademicQualification,
+                    ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: textStyle.regular.s12,
                   ),
                   gapH4,
                   Text(
-                    'specialty',
+                    DoctorUtils.getSpecialty(doctorModel.doctorSpecialties),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: textStyle.regular.s12.copyWith(color: blue.base600),
