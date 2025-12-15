@@ -35,14 +35,17 @@ class DoctorListView extends GetView<DoctorListController> {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 8),
                     child: Obx(() {
-                      return ListView.builder(
-                        controller: controller.scrollController,
-                        padding: EdgeInsets.only(bottom: 16),
-                        itemCount: controller.doctorList.length,
-                        itemBuilder: (context, index) {
-                          final doctorModel = controller.doctorList[index];
-                          return DoctorTile(doctorModel: doctorModel);
-                        },
+                      return RefreshIndicator(
+                        onRefresh: () => controller.getDoctorList(initialLoad: true),
+                        child: ListView.builder(
+                          controller: controller.scrollController,
+                          padding: EdgeInsets.only(bottom: 16),
+                          itemCount: controller.doctorList.length,
+                          itemBuilder: (context, index) {
+                            final doctorModel = controller.doctorList[index];
+                            return DoctorTile(doctorModel: doctorModel);
+                          },
+                        ),
                       );
                     }),
                   ),
