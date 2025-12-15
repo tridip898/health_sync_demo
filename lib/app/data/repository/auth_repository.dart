@@ -4,6 +4,7 @@ import 'package:network/network.dart';
 
 import '../model/otp_verify_response_model.dart';
 import '../model/registration_otp_response_model.dart';
+import '../model/set_password.dart';
 
 class AuthRepository extends BaseRepository {
   Future<Either<ErrorResponse, LoginResponseModel>> login({
@@ -43,4 +44,22 @@ class AuthRepository extends BaseRepository {
       responseCompiler: OtpVerifyResponseModel.fromJson,
     );
   }
+
+
+  Future<Either<ErrorResponse, SetNewPasswordResponseModel>>
+  setNewPassword({
+    required String tempToken,
+    required String password,
+  }) async {
+    return post(
+      path: Apis.set_password,
+      data: {
+        "tempToken": tempToken,
+        "password": password,
+      },
+      responseCompiler: SetNewPasswordResponseModel.fromJson,
+    );
+  }
+
+
 }

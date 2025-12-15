@@ -87,10 +87,10 @@ class AppController extends GetxController {
   Future<void> signOut() async {
     await appStorageService.removeUserData();
 
-    _toLogInScreen();
+    toLogInScreen();
   }
 
-  _toLogInScreen() {
+  toLogInScreen() {
     if (Get.isRegistered<LoginController>()) {
       Get.until((r) => r.settings.name == Routes.LOGIN);
     } else {

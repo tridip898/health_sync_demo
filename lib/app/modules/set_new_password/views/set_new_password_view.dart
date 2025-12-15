@@ -14,101 +14,61 @@ class SetNewPasswordView extends GetView<SetNewPasswordController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: const Text('Set New Password'),
         centerTitle: true,
       ),
       body: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            return SingleChildScrollView(
-              padding: const EdgeInsets.only(bottom: 12),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: constraints.maxHeight,
+        child: Form(
+          key: controller.formKey,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(14),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Create a strong password to protect your medical history.',
+                  style: textStyle.bold.s14.copyWith(color: Colors.grey),
                 ),
-                child: IntrinsicHeight(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(14.0),
-                        child: Text(
-                          'Create a strong password to protect your medical \n'
-                              'history. Your new password must be different \n'
-                              'from previously used passwords.',
-                          style:
-                          textStyle.bold.s14.copyWith(color: Colors.grey),
-                        ),
-                      ),
+                const SizedBox(height: 20),
 
-                      const SizedBox(height: 10),
-
-                      Padding(
-                        padding: const EdgeInsets.all(14),
-                        child: CustomTextFormField(
-                          labelText: 'New Password',
-                          hintText: '.............',
-                          autoValidateMode:
-                          AutovalidateMode.onUserInteraction,
-                        ),
-                      ),
-
-                      Padding(
-                        padding: const EdgeInsets.only(left: 14),
-                        child: Text(
-                          "REQUIREMENTS",
-                          style:
-                          textStyle.bold.s8.copyWith(color: Colors.grey),
-                        ),
-                      ),
-
-                      Padding(
-                        padding:
-                        const EdgeInsets.symmetric(horizontal: 8),
-                        child: Row(
-                          children: [
-                            Checkbox(
-                              value: true,
-                              onChanged: (value) {},
-                              materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                              visualDensity: VisualDensity.compact,
-                            ),
-                            const Text("At least 10 characters"),
-                          ],
-                        ),
-                      ),
-
-                      Padding(
-                        padding:
-                        const EdgeInsets.only(left: 14, top: 8),
-                        child: CustomTextFormField(
-                          labelText: 'Confirmed Password',
-                          hintText: '.............',
-                          autoValidateMode:
-                          AutovalidateMode.onUserInteraction,
-                        ),
-                      ),
-
-                      const Spacer(), // pushes button down
-
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: CustomButton(
-                          text: 'Reset Password',
-                          onPressed: () {},
-                        ),
-                      ),
-                    ],
-                  ),
+                CustomTextFormField(
+                  controller: controller.passwordController,
+                  labelText: 'New Password',
+                  validator: (value) {
+                    if (value == null || value.length < 8) {
+                      return "Password must be at least 8 characters";
+                    }
+                    return null;
+                  }, hintText: '...',
                 ),
-              ),
-            );
-          },
+
+                const SizedBox(height: 12),
+
+                CustomTextFormField(
+                  controller: controller.confirmPasswordController,
+                  labelText: 'Confirm Password',
+
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Confirm password required";
+                    }
+                    return null;
+                  }, hintText: '',
+                ),
+
+                const SizedBox(height: 30),
+
+                CustomButton(
+                  text: 'Reset Password',
+                  onPressed: controller.onResetPassword,
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 }
+
