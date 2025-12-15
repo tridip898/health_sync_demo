@@ -5,5 +5,7 @@ class Apis {
 
   static String get login => '$baseUrl/auth/login';
 
+  static String  get registrationSendOtp => '$baseUrl/auth/request-otp';
+
   static String get loadMe => '$baseUrl/user';
 }
