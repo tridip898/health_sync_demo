@@ -14,6 +14,7 @@ class DoctorListController extends GetxController {
   int _page = 1;
   bool _hasMore = true;
   Rx<bool> activeFilter = Rx(false);
+  Rx<bool> isLoading = false.obs;
 
   RxList<DoctorModel> doctorList = <DoctorModel>[].obs;
 
@@ -25,7 +26,8 @@ class DoctorListController extends GetxController {
     scrollController.addListener(() {
       final position = scrollController.position;
 
-      if (position.pixels >= position.maxScrollExtent - 100) {
+      if (position.pixels >= position.maxScrollExtent - 100 &&
+          isLoading.value == false) {
         getDoctorList();
       }
     });
@@ -39,11 +41,12 @@ class DoctorListController extends GetxController {
   }
 
   getDoctorList({bool initialLoad = false}) async {
-    if (_hasMore == false) return;
     if (initialLoad) {
       _resetPagination();
       Loading.show();
     }
+    if (_hasMore == false) return;
+    isLoading.value = true;
     final response = await doctorRepository.getDoctorList(
       page: _page,
       search: searchDoctorTextController.text.trim(),
@@ -57,16 +60,18 @@ class DoctorListController extends GetxController {
         Toaster.error(errorRes.message ?? 'Failed to load doctor list');
       },
       (successRes) {
-        if (_page == 1) doctorList.clear();
         doctorList.addAll(successRes.data ?? []);
 
         final meta = successRes.meta;
         _hasMore = (meta?.page ?? 1) < (meta?.totalPages ?? 1);
+        _page++;
       },
     );
+    isLoading.value = false;
   }
 
   _resetPagination() {
+    doctorList.clear();
     _page = 1;
     _hasMore = true;
     activeFilter.value = false;
