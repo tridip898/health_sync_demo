@@ -45,4 +45,7 @@ class LoginController extends GetxController {
   onRegisterTap() {
     Get.toNamed(Routes.REGISTRATION);
   }
+  onForgotPasswordTap() {
+    Get.toNamed(Routes.FORGOT_PASSWORD);
+  }
 }
