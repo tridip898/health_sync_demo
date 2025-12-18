@@ -8,6 +8,7 @@ class CustomSearchField extends StatelessWidget {
   final TextEditingController searchTextController;
   final Function(String)? onChanged;
   final Function(String)? onSubmitted;
+  final Function()? onClear;
 
   const CustomSearchField({
     super.key,
@@ -16,6 +17,7 @@ class CustomSearchField extends StatelessWidget {
     required this.searchTextController,
     this.onChanged,
     this.onSubmitted,
+    this.onClear,
   });
 
   @override
@@ -35,10 +37,12 @@ class CustomSearchField extends StatelessWidget {
           suffixIcon: hasText
               ? IconButton(
                   icon: const Icon(Icons.close, size: 20),
-                  onPressed: () {
-                    searchTextController.clear();
-                    onSubmitted?.call('');
-                  },
+                  onPressed:
+                      onClear ??
+                      () {
+                        searchTextController.clear();
+                        onSubmitted?.call('');
+                      },
                 )
               : Container(
                   alignment: Alignment.center,

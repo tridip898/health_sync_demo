@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/constants/asset_path.dart';
-import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CacheNetworkImage extends StatefulWidget {

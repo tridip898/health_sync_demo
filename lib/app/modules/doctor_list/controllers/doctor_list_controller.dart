@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/utils/toaster.dart';
+import 'package:health_sync_question/app/core/widgets/custom_dropdown_bottom_sheet.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
 import 'package:health_sync_question/app/data/model/doctor_list_response_model.dart';
 import 'package:health_sync_question/app/data/repository/doctor_repository.dart';
@@ -9,6 +10,9 @@ import 'package:health_sync_question/app/modules/doctor_list/views/widgets/docto
 class DoctorListController extends GetxController {
   final TextEditingController searchDoctorTextController =
       TextEditingController();
+  final TextEditingController organizationNameController =
+      TextEditingController();
+  final TextEditingController specialtyNameController = TextEditingController();
 
   final DoctorRepository doctorRepository = DoctorRepository();
 
@@ -78,6 +82,26 @@ class DoctorListController extends GetxController {
   }
 
   void onDoctorFilterTap() {
-    Get.bottomSheet(DoctorFilterDialog(), isScrollControlled: true);
+    Get.bottomSheet(
+      DoctorFilterBottomSheet(
+        onOrganizationSelect: onOrganizationSelect,
+        onSpecialtySelect: () {},
+        organizationNameController: organizationNameController,
+        specialtyNameController: specialtyNameController,
+      ),
+      isScrollControlled: true,
+    );
+  }
+
+  onOrganizationSelect() async {
+    final pickedOrganization = await AppDropdownBottomSheet.show<String>(
+      items: [
+        'hello',
+        'now',
+        'give',
+      ],
+      title: 'Organization',
+      getTitle: (item) => item,
+    );
   }
 }

@@ -3,10 +3,23 @@ import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/custom_button.dart';
+import 'package:health_sync_question/app/core/widgets/custom_dropdown_widget.dart';
 import 'package:health_sync_question/app/core/widgets/custom_text_field.dart';
 
-class DoctorFilterDialog extends StatelessWidget {
-  const DoctorFilterDialog({super.key});
+class DoctorFilterBottomSheet extends StatelessWidget {
+  final Function() onOrganizationSelect;
+  final Function() onSpecialtySelect;
+
+  final TextEditingController organizationNameController;
+  final TextEditingController specialtyNameController;
+
+  const DoctorFilterBottomSheet({
+    super.key,
+    required this.onOrganizationSelect,
+    required this.onSpecialtySelect,
+    required this.organizationNameController,
+    required this.specialtyNameController,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,16 +61,18 @@ class DoctorFilterDialog extends StatelessWidget {
               child: Column(
                 children: [
                   gapH16,
-                  CustomTextFormField(
+                  CustomDropDownWidget(
                     labelText: 'Organization',
                     hintText: 'Select Organization',
-                    isViewOnly: true,
+                    controller: organizationNameController,
+                    onTap: onOrganizationSelect,
                   ),
                   gapH8,
-                  CustomTextFormField(
+                  CustomDropDownWidget(
                     labelText: 'Specialty',
                     hintText: 'Select Specialty',
-                    isViewOnly: true,
+                    controller: specialtyNameController,
+                    onTap: onSpecialtySelect,
                   ),
                   gapH24,
                   Row(

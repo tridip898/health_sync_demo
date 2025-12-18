@@ -5,7 +5,7 @@ import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 class Loading extends StatelessWidget {
   final bool canPop;
 
-  const Loading._({super.key, this.canPop = true});
+  const Loading._({this.canPop = true});
 
   static show({bool isBarrierDismissible = false, bool canPop = false}) {
     Get.dialog(
