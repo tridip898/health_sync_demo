@@ -30,6 +30,18 @@ class AuthRepository extends BaseRepository {
       responseCompiler: RegistrationOtpResponseModel.fromJson,
     );
   }
+  Future<Either<ErrorResponse, RegistrationOtpResponseModel>>
+  sendForgotPasswordOtp({
+    required String phoneNumber,
+  }) {
+    return post(
+      path: Apis.forgotPasswordSendOtp,
+      data: {
+        "phoneNumber": phoneNumber,
+      },
+      responseCompiler: RegistrationOtpResponseModel.fromJson,
+    );
+  }
 
   Future<Either<ErrorResponse, OtpVerifyResponseModel>> verifyOtp({
     required String phoneNumber,
@@ -53,6 +65,21 @@ class AuthRepository extends BaseRepository {
   }) async {
     return post(
       path: Apis.set_password,
+      data: {
+        "tempToken": tempToken,
+        "password": password,
+      },
+      responseCompiler: SetNewPasswordResponseModel.fromJson,
+    );
+  }
+
+  Future<Either<ErrorResponse, SetNewPasswordResponseModel>>
+  resetNewPassword({
+    required String tempToken,
+    required String password,
+  }) async {
+    return post(
+      path: Apis.reset_password,
       data: {
         "tempToken": tempToken,
         "password": password,
