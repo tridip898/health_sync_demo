@@ -41,13 +41,15 @@ class OtpView extends GetView<OtpController> {
                 ),
 
                 const SizedBox(height: 40),
-
-                Obx(
-                  () => OtpTextField(
-                    isIncorrect: false,
-                    prefixValue: controller.otpPrefix.value,
-                    shouldShowPrefix: true,
-                    onSubmit: controller.onOtpChanged,
+                Container(
+                  padding: EdgeInsetsGeometry.all(14),
+                  child: Obx(
+                    () => OtpTextField(
+                      isIncorrect: false,
+                      prefixValue: controller.otpPrefix.value,
+                      shouldShowPrefix: true,
+                      onSubmit: controller.onOtpChanged,
+                    ),
                   ),
                 ),
 
@@ -80,10 +82,12 @@ class OtpView extends GetView<OtpController> {
                 }),
 
                 const SizedBox(height: 60),
-
-                CustomButton(
-                  text: 'Verify OTP',
-                  onPressed: controller.onVerifyOtp,
+                Container(
+                  padding: EdgeInsetsGeometry.all(18),
+                  child: CustomButton(
+                    text: 'Verify OTP',
+                    onPressed: controller.onVerifyOtp,
+                  ),
                 ),
 
                 const SizedBox(height: 20),
