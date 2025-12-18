@@ -86,12 +86,15 @@ class LoginView extends GetView<LoginController> {
                   gapH8,
                   Align(
                     alignment: Alignment.centerRight,
-                    child: Text(
-                      "Forgot Password?",
-                      style: GoogleFonts.manrope(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: primary,
+                    child: GestureDetector(
+                      onTap: controller.onForgotPasswordTap,
+                      child: Text(
+                        "Forgot Password?",
+                        style: GoogleFonts.manrope(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: primary,
+                        ),
                       ),
                     ),
                   ),
