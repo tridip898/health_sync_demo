@@ -20,7 +20,43 @@ class DoctorListView extends GetView<DoctorListController> {
       behavior: HitTestBehavior.opaque,
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: CustomAppBar(title: 'Doctor List'),
+        appBar: CustomAppBar(
+          title: 'Doctor List',
+          actions: [
+            Container(
+              margin: EdgeInsets.only(right: 16),
+              width: 40,
+              height: 40,
+              alignment: Alignment.center,
+              child: GestureDetector(
+                onTap: controller.onDoctorFilterTap,
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Icon(Icons.filter_list),
+                    Positioned(
+                      right: -5,
+                      top: -5,
+                      child: Container(
+                        padding: EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          color: cyan.base300,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Text(
+                          '1',
+                          style: textStyle.regular.s10.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.only(left: 16, right: 16),

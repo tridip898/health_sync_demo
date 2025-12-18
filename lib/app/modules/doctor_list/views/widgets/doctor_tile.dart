@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/constants/string_constants.dart';
@@ -6,6 +8,7 @@ import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/utils/doctor_utils.dart';
 import 'package:health_sync_question/app/core/widgets/custom_cache_network_image.dart';
 import 'package:health_sync_question/app/data/model/doctor_list_response_model.dart';
+import 'package:health_sync_question/app/routes/app_pages.dart';
 
 class DoctorTile extends StatelessWidget {
   final DoctorModel doctorModel;
@@ -15,87 +18,94 @@ class DoctorTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final profile = doctorModel.profile;
-    return Container(
-      margin: EdgeInsets.only(bottom: 12),
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: radius12,
-        border: Border.all(color: gray.base100),
-      ),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: radius8,
-            child: CacheNetworkImage(
-              imageUrl: profile?.image ?? '',
-              width: 110,
-              height: 110,
-            ),
-          ),
-          gapW12,
-          Expanded(
-            child: SizedBox(
-              height: 110,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          profile?.fullName ?? '',
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: textStyle.semiBold.s14,
-                        ),
-                      ),
-                      gapW4,
-                      Text(
-                        '${doctorModel.yearExperience ?? 0}+ yr',
-                        style: textStyle.regular.s12,
-                      ),
-                    ],
-                  ),
-                  gapH4,
-                  Text(
-                    DoctorUtils.getAcademicQualification(
-                      doctorModel.doctorAcademicQualification,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: textStyle.regular.s12,
-                  ),
-                  gapH4,
-                  Text(
-                    DoctorUtils.getSpecialty(doctorModel.doctorSpecialties),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: textStyle.regular.s12.copyWith(color: blue.base600),
-                  ),
-                  Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        '$takaIcon${doctorModel.consultationFee ?? 0}',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: textStyle.bold.s12,
-                      ),
-                      Row(
-                        children: [
-                          Text('4.5', style: textStyle.regular.s12),
-                          Icon(Icons.star, size: 12, color: yellow.base500),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed(Routes.DOCTOR_DETAILS, arguments: {'doctor': doctorModel});
+      },
+      child: Container(
+        margin: EdgeInsets.only(bottom: 12),
+        padding: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: radius12,
+          border: Border.all(color: gray.base100),
+        ),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: radius8,
+              child: CacheNetworkImage(
+                imageUrl: profile?.image ?? '',
+                width: 110,
+                height: 110,
               ),
             ),
-          ),
-        ],
+            gapW12,
+            Expanded(
+              child: SizedBox(
+                height: 110,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            profile?.fullName ?? '',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: textStyle.semiBold.s14,
+                          ),
+                        ),
+                        gapW4,
+                        Text(
+                          '${doctorModel.yearExperience ?? 0}+ yr',
+                          style: textStyle.regular.s12,
+                        ),
+                      ],
+                    ),
+                    gapH4,
+                    Text(
+                      DoctorUtils.getAcademicQualification(
+                        doctorModel.doctorAcademicQualification,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: textStyle.regular.s12,
+                    ),
+                    gapH4,
+                    Text(
+                      DoctorUtils.getSpecialty(doctorModel.doctorSpecialties),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: textStyle.regular.s12.copyWith(
+                        color: blue.base600,
+                      ),
+                    ),
+                    Spacer(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '$takaIcon${doctorModel.consultationFee ?? 0}',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: textStyle.bold.s12,
+                        ),
+                        Row(
+                          children: [
+                            Text('4.5', style: textStyle.regular.s12),
+                            Icon(Icons.star, size: 12, color: yellow.base500),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

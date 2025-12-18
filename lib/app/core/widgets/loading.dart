@@ -48,7 +48,7 @@ class _LoadingWidgetState extends State<LoadingWidget>
 
     _scale = Tween<double>(
       begin: 0.5,
-      end: 1.5,
+      end: 1,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
   }
 

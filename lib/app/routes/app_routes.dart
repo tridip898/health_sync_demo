@@ -11,6 +11,7 @@ abstract class Routes {
   static const REGISTRATION = _Paths.REGISTRATION;
   static const DASHBOARD = _Paths.DASHBOARD;
   static const DOCTOR_LIST = _Paths.DOCTOR_LIST;
+  static const DOCTOR_DETAILS = _Paths.DOCTOR_DETAILS;
 }
 
 abstract class _Paths {
@@ -23,4 +24,5 @@ abstract class _Paths {
   static const REGISTRATION = '/registration';
   static const DASHBOARD = '/dashboard';
   static const DOCTOR_LIST = '/doctor-list';
+  static const DOCTOR_DETAILS = '/doctor-details';
 }

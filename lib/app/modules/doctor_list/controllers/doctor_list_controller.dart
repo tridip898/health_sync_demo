@@ -4,6 +4,7 @@ import 'package:health_sync_question/app/core/utils/toaster.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
 import 'package:health_sync_question/app/data/model/doctor_list_response_model.dart';
 import 'package:health_sync_question/app/data/repository/doctor_repository.dart';
+import 'package:health_sync_question/app/modules/doctor_list/views/widgets/doctor_filter_bottom_sheet.dart';
 
 class DoctorListController extends GetxController {
   final TextEditingController searchDoctorTextController =
@@ -74,5 +75,9 @@ class DoctorListController extends GetxController {
     doctorList.clear();
     _page = 1;
     _hasMore = true;
+  }
+
+  void onDoctorFilterTap() {
+    Get.bottomSheet(DoctorFilterDialog(), isScrollControlled: true);
   }
 }
