@@ -7,7 +7,7 @@ import '../../../core/widgets/loading.dart';
 import '../../../data/repository/auth_repository.dart';
 import '../../../routes/app_pages.dart';
 
-class ChangePasswordController extends GetxController {
+class ResetPasswordController extends GetxController {
   final AuthRepository authRepository = AuthRepository();
 
   final formKey = GlobalKey<FormState>();

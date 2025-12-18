@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../modules/basic_info_question/bindings/basic_info_question_binding.dart';
 import '../modules/basic_info_question/views/basic_info_question_view.dart';
 import '../modules/change_password/bindings/change_password_binding.dart';
-import '../modules/change_password/views/change_password_view.dart';
+import '../modules/change_password/views/reset_password_view.dart';
 import '../modules/chielf_complaint/bindings/chielf_complaint_binding.dart';
 import '../modules/chielf_complaint/views/chielf_complaint_view.dart';
 import '../modules/forgot_pass_verify_otp/bindings/forgot_pass_verify_otp_binding.dart';
@@ -78,8 +78,8 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.CHANGE_PASSWORD,
-      page: () => const ChangePasswordView(),
-      binding: ChangePasswordBinding(),
+      page: () => const ResetPasswordView(),
+      binding: ResetPasswordBinding(),
     ),
     GetPage(
       name: _Paths.FORGOT_PASS_VERIFY_OTP,

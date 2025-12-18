@@ -5,10 +5,10 @@ import 'package:get/get.dart';
 import '../../../core/extensions/widget_extension.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/custom_text_field.dart';
-import '../controllers/change_password_controller.dart';
+import '../controllers/reset_password_controller.dart';
 
-class ChangePasswordView extends GetView<ChangePasswordController> {
-  const ChangePasswordView({super.key});
+class ResetPasswordView extends GetView<ResetPasswordController> {
+  const ResetPasswordView({super.key});
 
   @override
   Widget build(BuildContext context) {
