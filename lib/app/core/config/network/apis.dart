@@ -8,4 +8,6 @@ class Apis {
   static String get loadMe => '$baseUrl/user';
 
   static String get doctorList => '$baseUrl/doctor';
+
+  static String get organizationList => '$baseUrl/organization';
 }

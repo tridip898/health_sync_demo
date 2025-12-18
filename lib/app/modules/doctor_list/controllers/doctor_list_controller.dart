@@ -4,24 +4,36 @@ import 'package:health_sync_question/app/core/utils/toaster.dart';
 import 'package:health_sync_question/app/core/widgets/custom_dropdown_bottom_sheet.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
 import 'package:health_sync_question/app/data/model/doctor_list_response_model.dart';
+import 'package:health_sync_question/app/data/model/organization_response_model.dart';
+import 'package:health_sync_question/app/data/model/organization_response_model.dart';
 import 'package:health_sync_question/app/data/repository/doctor_repository.dart';
+import 'package:health_sync_question/app/data/repository/organization_repository.dart';
 import 'package:health_sync_question/app/modules/doctor_list/views/widgets/doctor_filter_bottom_sheet.dart';
 
 class DoctorListController extends GetxController {
   final TextEditingController searchDoctorTextController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController organizationNameController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController specialtyNameController = TextEditingController();
 
   final DoctorRepository doctorRepository = DoctorRepository();
+  final OrganizationRepository organizationRepository =
+  OrganizationRepository();
 
   int _page = 1;
   bool _hasMore = true;
   Rx<bool?> activeFilter = Rx(null);
   Rx<bool> isLoading = false.obs;
 
+  int _pageOrganization = 1;
+  bool _hasMoreOrganization = true;
+  Rx<bool> isLoadingOrganization = false.obs;
+
   RxList<DoctorModel> doctorList = <DoctorModel>[].obs;
+
+  RxList<OrganizationModel> organizationList = <OrganizationModel>[].obs;
+  Rx<OrganizationModel?> selectedOrganization = Rx(null);
 
   final ScrollController scrollController = ScrollController();
 
@@ -61,10 +73,10 @@ class DoctorListController extends GetxController {
       Loading.hide();
     }
     response.fold(
-      (errorRes) {
+          (errorRes) {
         Toaster.error(errorRes.message ?? 'Failed to load doctor list');
       },
-      (successRes) {
+          (successRes) {
         doctorList.addAll(successRes.data ?? []);
 
         final meta = successRes.meta;
@@ -94,14 +106,66 @@ class DoctorListController extends GetxController {
   }
 
   onOrganizationSelect() async {
-    final pickedOrganization = await AppDropdownBottomSheet.show<String>(
-      items: [
-        'hello',
-        'now',
-        'give',
-      ],
-      title: 'Organization',
-      getTitle: (item) => item,
+    await getOrganizationList(initialLoad: true);
+    if (organizationList.isEmpty) return;
+    final pickedOrganization = await Get.bottomSheet(
+      Obx(() {
+        return AppDropdownBottomSheet<OrganizationModel>(
+          items: organizationList,
+          currentItem: selectedOrganization.value,
+          title: 'Organization',
+          getTitle: (item) => item.name ?? 'N/A',
+          isNetworkSearch: true,
+          onReachBottom: (value) {
+            getOrganizationList(search: value);
+          },
+          onSearchSubmit: (value) {
+            getOrganizationList(initialLoad: true, search: value);
+          },
+          moreLoading: isLoadingOrganization.value,
+        );
+      }),
+      isScrollControlled: true,
     );
+
+    if (pickedOrganization != null) {
+      selectedOrganization.value = pickedOrganization;
+      organizationNameController.text = selectedOrganization.value?.name ?? '';
+    }
+  }
+
+  getOrganizationList({bool initialLoad = false, String search = ''}) async {
+    if (initialLoad) {
+      _resetOrganizationPagination();
+      Loading.show();
+    }
+    if (_hasMore == false) return;
+    isLoadingOrganization.value = true;
+    final response = await organizationRepository.getOrganizationList(
+      page: _pageOrganization,
+      search: search.trim(),
+    );
+    if (initialLoad) {
+      Loading.hide();
+    }
+    response.fold(
+          (errorRes) {
+        Toaster.error(errorRes.message ?? 'Failed to load organization list');
+      },
+          (successRes) {
+        organizationList.addAll(successRes.data ?? []);
+
+        final meta = successRes.meta;
+        _hasMoreOrganization = (meta?.page ?? 1) < (meta?.totalPages ?? 1);
+        _pageOrganization++;
+      },
+    );
+    isLoadingOrganization.value = false;
+  }
+
+  _resetOrganizationPagination() {
+    organizationList.clear();
+    _pageOrganization = 1;
+    _hasMoreOrganization = true;
   }
 }

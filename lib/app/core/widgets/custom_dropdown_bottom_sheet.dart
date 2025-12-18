@@ -19,7 +19,7 @@ class AppDropdownBottomSheet<T> extends StatefulWidget {
   final bool isNetworkSearch;
   final bool moreLoading;
 
-  const AppDropdownBottomSheet._({
+  const AppDropdownBottomSheet({
     super.key,
     required this.items,
     this.currentItem,
@@ -37,34 +37,34 @@ class AppDropdownBottomSheet<T> extends StatefulWidget {
   State<AppDropdownBottomSheet<T>> createState() =>
       _AppDropdownBottomSheetState<T>();
 
-  static Future<T?> show<T>({
-    required List<T> items,
-    T? currentItem,
-    required String title,
-    required String Function(T) getTitle,
-    bool Function(T)? viewOnly,
-    Function(String)? onSearchSubmit,
-    Function(String)? onReachBottom,
-    bool isLocalSearch = false,
-    bool isNetworkSearch = false,
-    bool moreLoading = false,
-  }) {
-    return Get.bottomSheet<T>(
-      AppDropdownBottomSheet<T>._(
-        items: items,
-        currentItem: currentItem,
-        title: title,
-        getTitle: getTitle,
-        viewOnly: viewOnly,
-        onSearchSubmit: onSearchSubmit,
-        onReachBottom: onReachBottom,
-        isLocalSearch: isLocalSearch,
-        isNetworkSearch: isNetworkSearch,
-        moreLoading: moreLoading,
-      ),
-      isScrollControlled: true,
-    );
-  }
+  // static Future<T?> show<T>({
+  //   required List<T> items,
+  //   T? currentItem,
+  //   required String title,
+  //   required String Function(T) getTitle,
+  //   bool Function(T)? viewOnly,
+  //   Function(String)? onSearchSubmit,
+  //   Function(String)? onReachBottom,
+  //   bool isLocalSearch = false,
+  //   bool isNetworkSearch = false,
+  //   bool moreLoading = false,
+  // }) {
+  //   return Get.bottomSheet<T>(
+  //     AppDropdownBottomSheet<T>._(
+  //       items: items,
+  //       currentItem: currentItem,
+  //       title: title,
+  //       getTitle: getTitle,
+  //       viewOnly: viewOnly,
+  //       onSearchSubmit: onSearchSubmit,
+  //       onReachBottom: onReachBottom,
+  //       isLocalSearch: isLocalSearch,
+  //       isNetworkSearch: isNetworkSearch,
+  //       moreLoading: moreLoading,
+  //     ),
+  //     isScrollControlled: true,
+  //   );
+  // }
 }
 
 class _AppDropdownBottomSheetState<T> extends State<AppDropdownBottomSheet<T>> {
