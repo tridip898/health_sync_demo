@@ -105,10 +105,10 @@ class OtpController extends GetxController {
         Toaster.error(error.message ?? "Failed to resend OTP");
       },
           (success) {
-        /// ✅ Replace prefix with latest API value
+
         otpPrefix.value = success.data?.otpPrefix ?? otpPrefix.value;
 
-        /// ✅ Restart timer
+
         _startTimer();
 
         Toaster.success("OTP resent successfully");
