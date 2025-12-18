@@ -2,8 +2,14 @@ import 'package:get/get.dart';
 
 import '../modules/basic_info_question/bindings/basic_info_question_binding.dart';
 import '../modules/basic_info_question/views/basic_info_question_view.dart';
+import '../modules/change_password/bindings/change_password_binding.dart';
+import '../modules/change_password/views/change_password_view.dart';
 import '../modules/chielf_complaint/bindings/chielf_complaint_binding.dart';
 import '../modules/chielf_complaint/views/chielf_complaint_view.dart';
+import '../modules/forgot_pass_verify_otp/bindings/forgot_pass_verify_otp_binding.dart';
+import '../modules/forgot_pass_verify_otp/views/forgot_pass_verify_otp_view.dart';
+import '../modules/forgot_password/bindings/forgot_password_binding.dart';
+import '../modules/forgot_password/views/forgot_password_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -64,6 +70,21 @@ class AppPages {
       name: _Paths.SET_NEW_PASSWORD,
       page: () => const SetNewPasswordView(),
       binding: SetNewPasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.FORGOT_PASSWORD,
+      page: () => const ForgotPasswordView(),
+      binding: ForgotPasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHANGE_PASSWORD,
+      page: () => const ChangePasswordView(),
+      binding: ChangePasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.FORGOT_PASS_VERIFY_OTP,
+      page: () => const ForgotPassVerifyOtpView(),
+      binding: ForgotPassVerifyOtpBinding(),
     ),
   ];
 }
