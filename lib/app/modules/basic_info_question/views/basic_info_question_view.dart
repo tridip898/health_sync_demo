@@ -11,6 +11,7 @@ class BasicInfoQuestionView extends GetView<BasicInfoQuestionController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: CustomAppBar(
         title: "Basic Information",
         needRefreshBtn: true,

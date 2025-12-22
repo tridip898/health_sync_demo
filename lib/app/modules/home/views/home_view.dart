@@ -14,12 +14,9 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: CustomAppBar(
         title: 'Questionnaire',
-        needLeadingIcon: false,
-        actions: [
-          IconButton(onPressed: controller.onLogout, icon: Icon(Icons.logout)),
-        ],
       ),
       body: SafeArea(
         child: Padding(

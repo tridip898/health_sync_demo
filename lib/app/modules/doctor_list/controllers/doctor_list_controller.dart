@@ -252,6 +252,7 @@ class DoctorListController extends GetxController {
     shouldApplyFilter.value = false;
     _onOrganizationRemove();
     _onSpecialtyRemove();
+    includeNonVerified.value = false;
     Get.back();
     getDoctorList(initialLoad: true);
     _getFilterCount();

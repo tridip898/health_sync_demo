@@ -18,6 +18,8 @@ abstract class Routes {
   static const FORGOT_PASSWORD = _Paths.FORGOT_PASSWORD;
   static const CHANGE_PASSWORD = _Paths.CHANGE_PASSWORD;
   static const FORGOT_PASS_VERIFY_OTP = _Paths.FORGOT_PASS_VERIFY_OTP;
+  static const CREATE_PROFILE = _Paths.CREATE_PROFILE;
+  static const PROFILE_DETAILS = _Paths.PROFILE_DETAILS;
 }
 
 abstract class _Paths {
@@ -37,4 +39,6 @@ abstract class _Paths {
   static const FORGOT_PASSWORD = '/forgot-password';
   static const CHANGE_PASSWORD = '/change-password';
   static const FORGOT_PASS_VERIFY_OTP = '/forgot-pass-verify-otp';
+  static const CREATE_PROFILE = '/create-profile';
+  static const PROFILE_DETAILS = '/profile-details';
 }

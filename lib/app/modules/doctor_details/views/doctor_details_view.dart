@@ -9,7 +9,6 @@ import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
 import 'package:health_sync_question/app/core/widgets/custom_button.dart';
 import 'package:health_sync_question/app/core/widgets/custom_cache_network_image.dart';
 import 'package:health_sync_question/app/data/model/doctor_list_response_model.dart';
-import 'package:health_sync_question/app/modules/doctor_list/views/widgets/doctor_tile.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
 
 import '../controllers/doctor_details_controller.dart';
@@ -72,7 +71,6 @@ class DoctorDetailsView extends GetView<DoctorDetailsController> {
 }
 
 /* ---------------- Header ---------------- */
-
 class _HeaderSection extends StatelessWidget {
   final DoctorModel doctorModel;
 
@@ -203,12 +201,11 @@ class _Divider extends StatelessWidget {
 }
 
 /* ---------------- About ---------------- */
-
 class _AboutSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
+      padding: const EdgeInsets.only(top: 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -236,12 +233,11 @@ class _AboutSection extends StatelessWidget {
 }
 
 /* ---------------- Working Hours ---------------- */
-
 class _WorkingHours extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 24, 0, 0),
+      padding: const EdgeInsets.only(top: 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -321,12 +317,11 @@ class _DayItem extends StatelessWidget {
 }
 
 /* ---------------- Location ---------------- */
-
 class _LocationSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
+      padding: const EdgeInsets.only(top: 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
