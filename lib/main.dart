@@ -24,13 +24,17 @@ void main() async {
     ],
   );
 
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
   await Common.init(
     enableLogger: showWrapper,
     storageBucket: "healthsync-${EnvironmentConfig.currentEnvironment.name}",
+    navigatorKey: navigatorKey,
   );
 
   runApp(
     GetMaterialApp(
+      navigatorKey: navigatorKey,
       title: "Health Sync Question",
       initialRoute: AppPages.INITIAL,
       debugShowCheckedModeBanner: false,
