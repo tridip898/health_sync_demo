@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
 import 'package:health_sync_question/app/modules/dashboard/controllers/dashboard_controller.dart';
@@ -12,87 +14,249 @@ class DashboardView extends GetView<DashboardController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CustomAppBar(
-        title: 'Health Sync',
-        leading: Container(
-          alignment: Alignment.center,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(999),
-            child: Image.network(
-              controller.profileImage,
-              width: 40,
-              height: 40,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.settings))],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: GridView.count(
-          crossAxisCount: 2,
-          crossAxisSpacing: 12,
-          mainAxisSpacing: 12,
-          childAspectRatio: 0.88,
+      body: SafeArea(
+        child: Column(
           children: [
-            _tile(
-              bg: cyan.base100,
-              icon: Icons.medical_services,
-              title: 'Doctors',
-              onTap: () {
-                Get.toNamed(Routes.DOCTOR_LIST);
-              },
-            ),
-            _tile(
-              bg: magenda.base100,
-              icon: Icons.calendar_month,
-              title: 'Appointments',
-              onTap: () {},
-            ),
-            _tile(
-              bg: yellow.base100,
-              icon: Icons.medical_information,
-              title: 'My History',
-              onTap: () {},
-            ),
-            _tile(
-              bg: red.base100,
-              icon: Icons.receipt_long,
-              title: 'Prescriptions',
-              onTap: () {},
-            ),
-            _tile(
-              bg: blue.base100,
-              icon: Icons.card_membership,
-              title: 'Reports',
-              onTap: () {},
+            _Header(),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _OverviewHeader(),
+                      gapH12,
+                      _OverviewCard(
+                        icon: Icons.medical_information_outlined,
+                        iconBg: green.base100,
+                        iconColor: green.base500,
+                        title: 'Doctors',
+                        subtitle: 'General & Specialists',
+                        onTap: () {
+                          Get.toNamed(Routes.DOCTOR_LIST);
+                        },
+                      ),
+                      gapH12,
+                      _OverviewCard(
+                        icon: Icons.calendar_month,
+                        iconBg: blue.base100,
+                        iconColor: blue.base500,
+                        title: 'Appointments',
+                        subtitle: 'Your upcoming appointments',
+                        onTap: () {},
+                      ),
+                      gapH12,
+                      _OverviewCard(
+                        icon: Icons.history_edu,
+                        iconBg: yellow.base100,
+                        iconColor: yellow.base500,
+                        title: 'Medical History',
+                        subtitle: 'Full records & reports',
+                        onTap: () {},
+                      ),
+                      gapH12,
+                      _OverviewCard(
+                        icon: Icons.medication,
+                        iconBg: red.base100,
+                        iconColor: red.base500,
+                        title: 'Prescriptions',
+                        subtitle: '4 Active meds',
+                        onTap: () {},
+                      ),
+                      gapH12,
+                      _OverviewCard(
+                        icon: Icons.card_membership,
+                        iconBg: cyan.base100,
+                        iconColor: cyan.base500,
+                        title: 'Reports',
+                        subtitle: 'Your medical reports',
+                        onTap: () {},
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ],
         ),
       ),
     );
   }
+}
 
-  Widget _tile({
-    required Color bg,
-    required IconData icon,
-    required String title,
-    required VoidCallback onTap,
-  }) {
+class _Header extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, right: 8, top: 16, bottom: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Stack(
+                children: [
+                  CircleAvatar(
+                    radius: 24,
+                    backgroundImage: NetworkImage(
+                      'https://lh3.googleusercontent.com/aida-public/AB6AXuDIl-bskxXIrt4RZgLmVcEIit2POBFObH0x5FOXNNv7xSZ0bF9zjyxY2z_yfeDIoWgBm9mQcudFPU2deDM81zth5wmjCJb7pg6ZlxFakCR34lW8zw6HOAFXrfu35ZAYP947qbDBlmjGffxrdY4ZDDD_bMm232wll3c-2CzYc5awvFzqXKMcldJytL03ZyLPvDynEjb2cpCfYDaUZ1mltxbhjq2iRbggjZH2sP960nGjAgRA0cZeEzlkQnEV2ulJSAmyyl3RJrnLH8c',
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: Container(
+                      width: 10,
+                      height: 10,
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.white, width: 2),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(width: 12),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Welcome back', style: textStyle.medium.s12),
+                  Text('Alex', style: textStyle.bold.s14),
+                ],
+              ),
+            ],
+          ),
+          IconButton(icon: const Icon(Icons.settings), onPressed: () {}),
+        ],
+      ),
+    );
+  }
+}
+
+class _OverviewHeader extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text('Overview', style: textStyle.bold.s18),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          decoration: BoxDecoration(
+            color: green.base100,
+            borderRadius: BorderRadius.circular(999),
+          ),
+          child: Text('Oct 24, 2025', style: textStyle.regular.s12),
+        ),
+      ],
+    );
+  }
+}
+
+class _OverviewCard extends StatelessWidget {
+  final IconData icon;
+  final Color iconBg;
+  final Color iconColor;
+  final String title;
+  final String subtitle;
+  final String? trailingText;
+  final String? badge;
+  final VoidCallback onTap;
+
+  const _OverviewCard({
+    required this.icon,
+    required this.iconBg,
+    required this.iconColor,
+    required this.title,
+    required this.subtitle,
+    this.trailingText,
+    this.badge,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: bg,
-          borderRadius: BorderRadius.circular(12),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: const Color(0xFFF1F5F9)),
+          boxShadow: const [
+            BoxShadow(
+              color: Color(0x14000000),
+              blurRadius: 12,
+              offset: Offset(0, 4),
+            ),
+          ],
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Row(
           children: [
-            Icon(icon, size: 40, color: Colors.black.withOpacity(.7)),
-            const SizedBox(height: 8),
-            Text(title, style: textStyle.semiBold.s20),
+            Container(
+              height: 48,
+              width: 48,
+              decoration: BoxDecoration(
+                color: iconBg,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(icon, color: iconColor),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        title,
+                        style: GoogleFonts.manrope(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                      if (badge != null) ...[
+                        const SizedBox(width: 8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 2,
+                          ),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFE0E7FF),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Text(
+                            badge!,
+                            style: GoogleFonts.manrope(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              color: const Color(0xFF4F46E5),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  Text(subtitle, style: textStyle.regular.s12),
+                ],
+              ),
+            ),
+            if (trailingText != null)
+              Text(
+                trailingText!,
+                style: GoogleFonts.manrope(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+            const SizedBox(width: 8),
+            const Icon(Icons.chevron_right, color: Colors.grey),
           ],
         ),
       ),
