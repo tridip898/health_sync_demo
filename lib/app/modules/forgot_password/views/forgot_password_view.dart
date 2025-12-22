@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
 
@@ -11,6 +10,7 @@ import '../controllers/forgot_password_controller.dart';
 
 class ForgotPasswordView extends GetView<ForgotPasswordController> {
   const ForgotPasswordView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,8 +49,9 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 "By continuing, you agree to our Terms of Service and Privacy Policy.",
-                style: textStyle.regular.s14
-                    .copyWith(color: const Color(0xFF4C9A80)),
+                style: textStyle.regular.s14.copyWith(
+                  color: const Color(0xFF4C9A80),
+                ),
               ),
             ),
 
@@ -63,7 +64,6 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                 onPressed: controller.onSendOtp,
               ),
             ),
-
           ],
         ),
       ),

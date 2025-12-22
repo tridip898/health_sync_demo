@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
 import '../../../core/extensions/widget_extension.dart';
@@ -13,10 +12,7 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Reset Password'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Reset Password'), centerTitle: true),
       body: SafeArea(
         child: Form(
           key: controller.formKey,
@@ -39,7 +35,8 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
                       return "Password must be at least 8 characters";
                     }
                     return null;
-                  }, hintText: '...',
+                  },
+                  hintText: '...',
                 ),
 
                 const SizedBox(height: 12),
@@ -53,7 +50,8 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
                       return "Confirm password required";
                     }
                     return null;
-                  }, hintText: '',
+                  },
+                  hintText: '',
                 ),
 
                 const SizedBox(height: 30),

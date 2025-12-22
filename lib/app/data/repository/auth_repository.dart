@@ -19,26 +19,19 @@ class AuthRepository extends BaseRepository {
   }
 
   Future<Either<ErrorResponse, RegistrationOtpResponseModel>>
-  sendRegistrationOtp({
-    required String phoneNumber,
-  }) {
+  sendRegistrationOtp({required String phoneNumber}) {
     return post(
       path: Apis.registrationSendOtp,
-      data: {
-        "phoneNumber": phoneNumber,
-      },
+      data: {"phoneNumber": phoneNumber},
       responseCompiler: RegistrationOtpResponseModel.fromJson,
     );
   }
+
   Future<Either<ErrorResponse, RegistrationOtpResponseModel>>
-  sendForgotPasswordOtp({
-    required String phoneNumber,
-  }) {
+  sendForgotPasswordOtp({required String phoneNumber}) {
     return post(
       path: Apis.forgotPasswordSendOtp,
-      data: {
-        "phoneNumber": phoneNumber,
-      },
+      data: {"phoneNumber": phoneNumber},
       responseCompiler: RegistrationOtpResponseModel.fromJson,
     );
   }
@@ -49,44 +42,30 @@ class AuthRepository extends BaseRepository {
   }) {
     return post(
       path: Apis.verifyOtp,
-      data: {
-        "phoneNumber": phoneNumber,
-        "otp": otp,
-      },
+      data: {"phoneNumber": phoneNumber, "otp": otp},
       responseCompiler: OtpVerifyResponseModel.fromJson,
     );
   }
 
-
-  Future<Either<ErrorResponse, SetNewPasswordResponseModel>>
-  setNewPassword({
+  Future<Either<ErrorResponse, SetNewPasswordResponseModel>> setNewPassword({
     required String tempToken,
     required String password,
   }) async {
     return post(
       path: Apis.set_password,
-      data: {
-        "tempToken": tempToken,
-        "password": password,
-      },
+      data: {"tempToken": tempToken, "password": password},
       responseCompiler: SetNewPasswordResponseModel.fromJson,
     );
   }
 
-  Future<Either<ErrorResponse, SetNewPasswordResponseModel>>
-  resetNewPassword({
+  Future<Either<ErrorResponse, SetNewPasswordResponseModel>> resetNewPassword({
     required String tempToken,
     required String password,
   }) async {
     return post(
       path: Apis.reset_password,
-      data: {
-        "tempToken": tempToken,
-        "password": password,
-      },
+      data: {"tempToken": tempToken, "password": password},
       responseCompiler: SetNewPasswordResponseModel.fromJson,
     );
   }
-
-
 }

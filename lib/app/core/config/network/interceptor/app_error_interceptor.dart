@@ -1,7 +1,7 @@
-import 'package:health_sync_question/app/core/controller/app_controller.dart';
 import 'package:common/common.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as getx;
+import 'package:health_sync_question/app/core/controller/app_controller.dart';
 import 'package:network/network.dart';
 
 class AppErrorInterceptor extends Interceptor {
@@ -87,7 +87,8 @@ class AppErrorInterceptor extends Interceptor {
                   statusCode: 200,
                   requestOptions: err.requestOptions,
                   data: ErrorResponse(
-                    message: err.response?.data['message'] ?? 'Validation error',
+                    message:
+                        err.response?.data['message'] ?? 'Validation error',
                     data: ApiResponseErrorType.response,
                   ),
                 ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/constants/assets_contants.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';

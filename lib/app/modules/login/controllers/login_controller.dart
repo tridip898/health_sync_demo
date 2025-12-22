@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/utils/toaster.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
 import 'package:health_sync_question/app/data/repository/auth_repository.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
-import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 
 class LoginController extends GetxController {
   final TextEditingController phoneController = TextEditingController();
@@ -45,6 +45,7 @@ class LoginController extends GetxController {
   onRegisterTap() {
     Get.toNamed(Routes.REGISTRATION);
   }
+
   onForgotPasswordTap() {
     Get.toNamed(Routes.FORGOT_PASSWORD);
   }

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
 import '../../../core/extensions/widget_extension.dart';
-import '../../../core/utils/app_input_validator.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/custom_text_field.dart';
 import '../controllers/set_new_password_controller.dart';
@@ -14,10 +12,7 @@ class SetNewPasswordView extends GetView<SetNewPasswordController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Set New Password'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Set New Password'), centerTitle: true),
       body: SafeArea(
         child: Form(
           key: controller.formKey,
@@ -40,7 +35,8 @@ class SetNewPasswordView extends GetView<SetNewPasswordController> {
                       return "Password must be at least 8 characters";
                     }
                     return null;
-                  }, hintText: 'password',
+                  },
+                  hintText: 'password',
                 ),
 
                 const SizedBox(height: 12),
@@ -54,7 +50,8 @@ class SetNewPasswordView extends GetView<SetNewPasswordController> {
                       return "Confirm password required";
                     }
                     return null;
-                  }, hintText: 'password',
+                  },
+                  hintText: 'password',
                 ),
 
                 const SizedBox(height: 30),
@@ -71,4 +68,3 @@ class SetNewPasswordView extends GetView<SetNewPasswordController> {
     );
   }
 }
-

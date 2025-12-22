@@ -1,7 +1,6 @@
 import 'package:network/network.dart';
 
-class OtpVerifyResponseModel
-    extends BaseResponseModel<OtpVerifyData> {
+class OtpVerifyResponseModel extends BaseResponseModel<OtpVerifyData> {
   bool? status;
   int? statusCode;
 
@@ -16,9 +15,7 @@ class OtpVerifyResponseModel
     status = json['status'];
     message = json['message'];
     statusCode = json['status_code'];
-    data = json['data'] != null
-        ? OtpVerifyData.fromJson(json['data'])
-        : null;
+    data = json['data'] != null ? OtpVerifyData.fromJson(json['data']) : null;
   }
 
   @override
@@ -44,8 +41,6 @@ class OtpVerifyData {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      "otpToken": otpToken,
-    };
+    return {"otpToken": otpToken};
   }
 }

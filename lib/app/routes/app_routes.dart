@@ -3,6 +3,7 @@ part of 'app_pages.dart';
 
 abstract class Routes {
   Routes._();
+
   static const HOME = _Paths.HOME;
   static const BASIC_INFO_QUESTION = _Paths.BASIC_INFO_QUESTION;
   static const CHIELF_COMPLAINT = _Paths.CHIELF_COMPLAINT;
@@ -18,6 +19,7 @@ abstract class Routes {
 
 abstract class _Paths {
   _Paths._();
+
   static const HOME = '/home';
   static const BASIC_INFO_QUESTION = '/basic-info-question';
   static const CHIELF_COMPLAINT = '/chielf-complaint';

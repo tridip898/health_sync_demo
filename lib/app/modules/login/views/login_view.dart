@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
@@ -20,7 +19,7 @@ class LoginView extends GetView<LoginController> {
       behavior: HitTestBehavior.opaque,
       onTap: appController.closeKeyboard,
       child: Scaffold(
-        backgroundColor:Colors.white,
+        backgroundColor: Colors.white,
         body: Center(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(24),

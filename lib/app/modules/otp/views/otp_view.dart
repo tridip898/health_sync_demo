@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-
 import 'package:get/get.dart';
-import 'package:health_sync_question/app/core/constants/assets_contants.dart';
 
 import '../../../core/extensions/widget_extension.dart';
 import '../../../core/widgets/custom_app_bar.dart';

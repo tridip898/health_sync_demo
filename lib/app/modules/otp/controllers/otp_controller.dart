@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 
-import '../../../core/extensions/widget_extension.dart';
 import '../../../core/utils/toaster.dart';
 import '../../../core/widgets/loading.dart';
 import '../../../data/repository/auth_repository.dart';

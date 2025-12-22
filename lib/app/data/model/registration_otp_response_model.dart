@@ -46,9 +46,6 @@ class RegistrationOtpData {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      "otp": otp,
-      "otpPrefix": otpPrefix,
-    };
+    return {"otp": otp, "otpPrefix": otpPrefix};
   }
 }

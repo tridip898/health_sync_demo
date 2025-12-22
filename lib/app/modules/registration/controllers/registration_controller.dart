@@ -28,11 +28,11 @@ class RegistrationController extends GetxController {
     );
 
     response.fold(
-          (errorRes) {
+      (errorRes) {
         Loading.hide();
         Toaster.error(errorRes.message ?? "Failed to send OTP");
       },
-          (successRes) {
+      (successRes) {
         Loading.hide();
         Get.toNamed(
           Routes.OTP,
@@ -44,5 +44,4 @@ class RegistrationController extends GetxController {
       },
     );
   }
-
 }

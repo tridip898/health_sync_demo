@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/constants/border_constents.dart';
+import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/custom_button.dart';
 import 'package:health_sync_question/app/modules/basic_info_question/controllers/basic_info_question_controller.dart';
-
-import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 
 class BasicInfoComplaintResponseView
     extends GetView<BasicInfoQuestionController> {

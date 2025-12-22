@@ -1,6 +1,7 @@
 import 'package:network/network.dart';
 
-class SetNewPasswordResponseModel extends BaseResponseModel<SetNewPasswordData> {
+class SetNewPasswordResponseModel
+    extends BaseResponseModel<SetNewPasswordData> {
   bool? status;
   int? statusCode;
 

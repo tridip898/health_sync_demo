@@ -118,10 +118,10 @@ class ForgotPassVerifyOtpController extends GetxController {
     Loading.hide();
 
     response.fold(
-          (error) {
+      (error) {
         Toaster.error(error.message ?? "Failed to resend OTP");
       },
-          (success) {
+      (success) {
         final prefix = success.data?.otpPrefix;
         if (prefix != null && prefix.isNotEmpty) {
           otpPrefix.value = prefix;
@@ -132,7 +132,6 @@ class ForgotPassVerifyOtpController extends GetxController {
       },
     );
   }
-
 
   @override
   void onClose() {

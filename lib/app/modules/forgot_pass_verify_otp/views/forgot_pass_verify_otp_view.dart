@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
 import '../../../core/extensions/widget_extension.dart';
@@ -10,6 +9,7 @@ import '../controllers/forgot_pass_verify_otp_controller.dart';
 
 class ForgotPassVerifyOtpView extends GetView<ForgotPassVerifyOtpController> {
   const ForgotPassVerifyOtpView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,14 +34,14 @@ class ForgotPassVerifyOtpView extends GetView<ForgotPassVerifyOtpController> {
                 const SizedBox(height: 6),
 
                 Obx(
-                      () => Text(controller.maskedPhone, style: textStyle.bold.s14),
+                  () => Text(controller.maskedPhone, style: textStyle.bold.s14),
                 ),
 
                 const SizedBox(height: 40),
                 Container(
                   padding: EdgeInsetsGeometry.all(14),
                   child: Obx(
-                        () => OtpTextField(
+                    () => OtpTextField(
                       isIncorrect: false,
                       prefixValue: controller.otpPrefix.value,
                       shouldShowPrefix: true,

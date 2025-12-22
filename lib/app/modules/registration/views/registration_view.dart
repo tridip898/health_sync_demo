@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/utils/app_input_validator.dart';
 import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
@@ -76,16 +74,11 @@ class RegistrationView extends GetView<RegistrationController> {
                 ),
               ),
               const SizedBox(height: 12),
-              CustomButton(
-                text: 'Send Otp',
-                onPressed: controller.onSendOtp,
-              ),
+              CustomButton(text: 'Send Otp', onPressed: controller.onSendOtp),
             ],
           ),
         ),
       ),
-
     );
   }
-
 }

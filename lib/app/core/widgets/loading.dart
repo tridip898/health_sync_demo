@@ -52,11 +52,7 @@ class LoadingBeeWidget extends StatelessWidget {
             color: green.base400.withOpacity(.2),
             shape: BoxShape.circle,
           ),
-          child: Icon(
-            Icons.health_and_safety,
-            size: 48,
-            color: green.base400,
-          ),
+          child: Icon(Icons.health_and_safety, size: 48, color: green.base400),
         ),
       ),
     );

@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -56,10 +54,7 @@ class OtpTextField extends StatelessWidget {
                       border: Border.all(color: blue.base500, width: 2),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Text(
-                      prefixValue,
-                      style: textStyle.bold.s14
-                    ),
+                    child: Text(prefixValue, style: textStyle.bold.s14),
                   ),
                   gapW(middleGap),
                 ],
@@ -86,7 +81,7 @@ class OtpTextField extends StatelessWidget {
                       inactiveColor: gray.base50,
 
                       // Fill (background)
-                      activeFillColor:  Colors.white,
+                      activeFillColor: Colors.white,
                       selectedFillColor: Colors.white,
                       inactiveFillColor: gray.base50,
 

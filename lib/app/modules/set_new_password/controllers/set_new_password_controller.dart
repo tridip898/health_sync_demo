@@ -44,7 +44,6 @@ class SetNewPasswordController extends GetxController {
       return;
     }
 
-
     Loading.show();
 
     final response = await authRepository.setNewPassword(
