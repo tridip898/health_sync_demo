@@ -57,7 +57,7 @@ class OtpController extends GetxController {
     final phone = phoneNumber!;
     if (phone.length < 6) return phone;
 
-    return phone.replaceRange(3, phone.length - 2, '******');
+    return phone;
   }
 
   // Verify OTP
