@@ -1,11 +1,12 @@
 import 'package:common/common.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:health_sync_question/app/core/config/network/interceptor/auth_interceptor.dart';
-import 'package:health_sync_question/app/core/config/network/interceptor/app_error_interceptor.dart';
-import 'package:health_sync_question/environment_config.dart';
 import 'package:get/get.dart';
+import 'package:health_sync_question/app/core/config/network/interceptor/app_error_interceptor.dart';
+import 'package:health_sync_question/app/core/config/network/interceptor/auth_interceptor.dart';
+import 'package:health_sync_question/environment_config.dart';
 import 'package:network/network.dart';
+
 import 'app/core/controller/app_controller.dart';
 import 'app/routes/app_pages.dart';
 
@@ -24,13 +25,17 @@ void main() async {
     ],
   );
 
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
   await Common.init(
     enableLogger: showWrapper,
     storageBucket: "healthsync-${EnvironmentConfig.currentEnvironment.name}",
+    navigatorKey: navigatorKey,
   );
 
   runApp(
     GetMaterialApp(
+      navigatorKey: navigatorKey,
       title: "Health Sync Question",
       initialRoute: AppPages.INITIAL,
       debugShowCheckedModeBanner: false,

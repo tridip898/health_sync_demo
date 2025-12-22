@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
-import 'package:health_sync_question/app/core/widgets/custom_button.dart';
 import 'package:health_sync_question/app/core/widgets/complaints_card.dart';
-
+import 'package:health_sync_question/app/core/widgets/custom_button.dart';
 import 'package:health_sync_question/app/modules/chielf_complaint/controllers/chielf_complaint_controller.dart';
 
 class QuestionView extends GetView<ChiefComplaintController> {

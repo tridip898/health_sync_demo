@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
@@ -22,7 +21,9 @@ class SplashView extends GetView<SplashController> {
               height: 96,
               width: 96,
               decoration: BoxDecoration(
-                color: green.base500.withOpacity(controller.glowAnimation.value),
+                color: green.base500.withOpacity(
+                  controller.glowAnimation.value,
+                ),
                 shape: BoxShape.circle,
               ),
               child: Icon(
