@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
+import 'package:health_sync_question/app/core/extensions/string_extension.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
+import 'package:health_sync_question/app/data/model/profile_model.dart';
 import 'package:health_sync_question/app/modules/dashboard/controllers/dashboard_controller.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
 
@@ -21,7 +23,7 @@ class DashboardView extends GetView<DashboardController> {
           }
           return Column(
             children: [
-              _Header(),
+              _Header(profileModel: appController.userModel.value?.profile),
               Expanded(
                 child: SingleChildScrollView(
                   child: Padding(
@@ -91,6 +93,10 @@ class DashboardView extends GetView<DashboardController> {
 }
 
 class _Header extends StatelessWidget {
+  final ProfileModel? profileModel;
+
+  const _Header({super.key, this.profileModel});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -124,13 +130,17 @@ class _Header extends StatelessWidget {
                 ],
               ),
               const SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Welcome back', style: textStyle.medium.s12),
-                  Text('Alex', style: textStyle.bold.s14),
-                ],
-              ),
+              if (profileModel?.fullName?.notNullNotEmpty == true)
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Welcome back', style: textStyle.medium.s12),
+                    Text(
+                      profileModel!.fullName!,
+                      style: textStyle.bold.s14,
+                    ),
+                  ],
+                ),
             ],
           ),
           IconButton(

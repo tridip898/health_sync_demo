@@ -80,7 +80,9 @@ class DoctorListController extends GetxController {
     final response = await doctorRepository.getDoctorList(
       page: _page,
       search: searchDoctorTextController.text.trim(),
-      activeFilter: shouldApplyFilter.value ? includeNonVerified.value : true,
+      activeFilter: shouldApplyFilter.value
+          ? (includeNonVerified.value ? null : true)
+          : true,
       organizationId: shouldApplyFilter.value
           ? selectedOrganization.value?.organizationId
           : null,
