@@ -15,71 +15,76 @@ class DashboardView extends GetView<DashboardController> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Column(
-          children: [
-            _Header(),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _OverviewHeader(),
-                      gapH12,
-                      _OverviewCard(
-                        icon: Icons.medical_information_outlined,
-                        iconBg: green.base50,
-                        iconColor: green.base500,
-                        title: 'Doctors',
-                        subtitle: 'General & Specialists',
-                        onTap: () {
-                          Get.toNamed(Routes.DOCTOR_LIST);
-                        },
-                      ),
-                      gapH12,
-                      _OverviewCard(
-                        icon: Icons.calendar_month,
-                        iconBg: blue.base50,
-                        iconColor: blue.base500,
-                        title: 'Appointments',
-                        subtitle: 'Your upcoming appointments',
-                        onTap: () {},
-                      ),
-                      gapH12,
-                      _OverviewCard(
-                        icon: Icons.history_edu,
-                        iconBg: yellow.base50,
-                        iconColor: yellow.base500,
-                        title: 'Medical History',
-                        subtitle: 'Full records & reports',
-                        onTap: () {},
-                      ),
-                      gapH12,
-                      _OverviewCard(
-                        icon: Icons.medication,
-                        iconBg: red.base50,
-                        iconColor: red.base500,
-                        title: 'Prescriptions',
-                        subtitle: '4 Active meds',
-                        onTap: () {},
-                      ),
-                      gapH12,
-                      _OverviewCard(
-                        icon: Icons.card_membership,
-                        iconBg: cyan.base50,
-                        iconColor: cyan.base500,
-                        title: 'Reports',
-                        subtitle: 'Your medical reports',
-                        onTap: () {},
-                      ),
-                    ],
+        child: Obx(() {
+          if (appController.userModel.value == null) {
+            return SizedBox();
+          }
+          return Column(
+            children: [
+              _Header(),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _OverviewHeader(),
+                        gapH12,
+                        _OverviewCard(
+                          icon: Icons.medical_information_outlined,
+                          iconBg: green.base50,
+                          iconColor: green.base500,
+                          title: 'Doctors',
+                          subtitle: 'General & Specialists',
+                          onTap: () {
+                            Get.toNamed(Routes.DOCTOR_LIST);
+                          },
+                        ),
+                        gapH12,
+                        _OverviewCard(
+                          icon: Icons.calendar_month,
+                          iconBg: blue.base50,
+                          iconColor: blue.base500,
+                          title: 'Appointments',
+                          subtitle: 'Your upcoming appointments',
+                          onTap: () {},
+                        ),
+                        gapH12,
+                        _OverviewCard(
+                          icon: Icons.history_edu,
+                          iconBg: yellow.base50,
+                          iconColor: yellow.base500,
+                          title: 'Medical History',
+                          subtitle: 'Full records & reports',
+                          onTap: () {},
+                        ),
+                        gapH12,
+                        _OverviewCard(
+                          icon: Icons.medication,
+                          iconBg: red.base50,
+                          iconColor: red.base500,
+                          title: 'Prescriptions',
+                          subtitle: '4 Active meds',
+                          onTap: () {},
+                        ),
+                        gapH12,
+                        _OverviewCard(
+                          icon: Icons.card_membership,
+                          iconBg: cyan.base50,
+                          iconColor: cyan.base500,
+                          title: 'Reports',
+                          subtitle: 'Your medical reports',
+                          onTap: () {},
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
+            ],
+          );
+        }),
       ),
     );
   }

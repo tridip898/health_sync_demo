@@ -1,3 +1,4 @@
+import 'package:health_sync_question/app/data/model/current_role_model.dart';
 import 'package:health_sync_question/app/data/model/profile_model.dart';
 import 'package:health_sync_question/app/data/model/user_role_model.dart';
 
@@ -11,6 +12,7 @@ class UserModel {
   String? profileId;
   List<UserRoleModel>? userRoles;
   ProfileModel? profile;
+  CurrentRoleModel? currentRole;
 
   UserModel({
     this.userId,
@@ -22,6 +24,7 @@ class UserModel {
     this.profileId,
     this.userRoles,
     this.profile,
+    this.currentRole,
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {
@@ -41,6 +44,9 @@ class UserModel {
     profile = json['profile'] != null
         ? ProfileModel.fromJson(json['profile'])
         : null;
+    currentRole = json['currentRole'] != null
+        ? CurrentRoleModel.fromJson(json['currentRole'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -57,6 +63,9 @@ class UserModel {
     }
     if (profile != null) {
       data['profile'] = profile!.toJson();
+    }
+    if (currentRole != null) {
+      data['currentRole'] = currentRole!.toJson();
     }
     return data;
   }
