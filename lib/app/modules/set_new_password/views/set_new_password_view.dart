@@ -40,7 +40,7 @@ class SetNewPasswordView extends GetView<SetNewPasswordController> {
                       return "Password must be at least 8 characters";
                     }
                     return null;
-                  }, hintText: '...',
+                  }, hintText: 'password',
                 ),
 
                 const SizedBox(height: 12),
@@ -54,7 +54,7 @@ class SetNewPasswordView extends GetView<SetNewPasswordController> {
                       return "Confirm password required";
                     }
                     return null;
-                  }, hintText: '',
+                  }, hintText: 'password',
                 ),
 
                 const SizedBox(height: 30),
