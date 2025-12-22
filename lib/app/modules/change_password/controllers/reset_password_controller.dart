@@ -14,10 +14,9 @@ class ResetPasswordController extends GetxController {
 
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
-  TextEditingController();
-
-  late final String otpToken;
-  late final String phoneNumber;
+      TextEditingController();
+  String? otpToken;
+  String? phoneNumber;
 
   @override
   void onInit() {
@@ -26,13 +25,20 @@ class ResetPasswordController extends GetxController {
     phoneNumber = Get.arguments['phoneNumber'];
     otpToken = Get.arguments['otpToken'];
 
-    if (otpToken.isEmpty) {
+    if (phoneNumber == null) {
+      return;
+    }
+
+    if (otpToken == null) {
       Toaster.error("OTP token missing. Please verify again.");
       Get.offAllNamed(Routes.LOGIN);
     }
   }
 
   void onResetPassword() async {
+    if (otpToken == null) {
+      return;
+    }
     if (!formKey.currentState!.validate()) return;
 
     if (passwordController.text.trim() !=
@@ -44,15 +50,16 @@ class ResetPasswordController extends GetxController {
     Loading.show();
 
     final response = await authRepository.resetNewPassword(
-      tempToken: otpToken,
+      tempToken: otpToken!,
       password: passwordController.text.trim(),
     );
+
     Loading.hide();
     response.fold(
-          (error) {
+      (error) {
         Toaster.error(error.message ?? "Failed to reset password");
       },
-          (success) {
+      (success) {
         Get.until(appController.toLogInScreen());
         Toaster.success(success.message ?? "Password set successfully");
       },

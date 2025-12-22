@@ -16,7 +16,7 @@ class ForgotPassVerifyOtpController extends GetxController {
   final RxInt remainingSeconds = 60.obs;
   final RxBool canResend = false.obs;
 
-  late final String phoneNumber;
+  String? phoneNumber;
   Timer? _timer;
 
   @override
@@ -52,8 +52,12 @@ class ForgotPassVerifyOtpController extends GetxController {
   }
 
   String get maskedPhone {
-    if (phoneNumber.length < 6) return phoneNumber;
-    return phoneNumber.replaceRange(3, phoneNumber.length - 2, '******');
+    if (phoneNumber == null) return '';
+
+    final phone = phoneNumber!;
+    if (phone.length < 6) return phone;
+
+    return phone.replaceRange(3, phone.length - 2, '******');
   }
 
   // Verify OTP
@@ -63,26 +67,35 @@ class ForgotPassVerifyOtpController extends GetxController {
       return;
     }
 
+    if (phoneNumber == null) {
+      Toaster.error("Phone number missing");
+      return;
+    }
+
     Loading.show();
 
     final response = await authRepository.verifyOtp(
-      phoneNumber: phoneNumber,
+      phoneNumber: phoneNumber!, // safe now
       otp: otp.value,
     );
 
     Loading.hide();
 
     response.fold(
-          (error) {
+      (error) {
         Toaster.error(error.message ?? "Invalid or expired OTP");
       },
-          (success) {
+      (success) {
+        final token = success.data?.otpToken;
+
+        if (token == null || token.isEmpty) {
+          Toaster.error("OTP token missing");
+          return;
+        }
+
         Get.toNamed(
           Routes.CHANGE_PASSWORD,
-          arguments: {
-            "phoneNumber": phoneNumber,
-            "otpToken": success.data?.otpToken,
-          },
+          arguments: {"phoneNumber": phoneNumber!, "otpToken": token},
         );
       },
     );
@@ -91,10 +104,15 @@ class ForgotPassVerifyOtpController extends GetxController {
   Future<void> onResendOtp() async {
     if (!canResend.value) return;
 
+    if (phoneNumber == null) {
+      Toaster.error("Phone number missing");
+      return;
+    }
+
     Loading.show();
 
     final response = await authRepository.sendForgotPasswordOtp(
-      phoneNumber: phoneNumber,
+      phoneNumber: phoneNumber!,
     );
 
     Loading.hide();
@@ -104,16 +122,17 @@ class ForgotPassVerifyOtpController extends GetxController {
         Toaster.error(error.message ?? "Failed to resend OTP");
       },
           (success) {
-
-        otpPrefix.value = success.data?.otpPrefix ?? otpPrefix.value;
-
+        final prefix = success.data?.otpPrefix;
+        if (prefix != null && prefix.isNotEmpty) {
+          otpPrefix.value = prefix;
+        }
 
         _startTimer();
-
         Toaster.success("OTP resent successfully");
       },
     );
   }
+
 
   @override
   void onClose() {

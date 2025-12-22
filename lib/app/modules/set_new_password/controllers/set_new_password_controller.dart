@@ -16,8 +16,8 @@ class SetNewPasswordController extends GetxController {
   final TextEditingController confirmPasswordController =
       TextEditingController();
 
-  late final String otpToken;
-  late final String phoneNumber;
+  String? otpToken;
+  String? phoneNumber;
 
   @override
   void onInit() {
@@ -26,7 +26,7 @@ class SetNewPasswordController extends GetxController {
     phoneNumber = Get.arguments['phoneNumber'];
     otpToken = Get.arguments['otpToken'];
 
-    if (otpToken.isEmpty) {
+    if (otpToken == null) {
       Toaster.error("OTP token missing. Please verify again.");
       Get.offAllNamed(Routes.LOGIN);
     }
@@ -40,14 +40,18 @@ class SetNewPasswordController extends GetxController {
       Toaster.error("Passwords do not match");
       return;
     }
+    if (otpToken == null) {
+      return;
+    }
+
 
     Loading.show();
 
     final response = await authRepository.setNewPassword(
-      tempToken: otpToken,
+      tempToken: otpToken!,
       password: passwordController.text.trim(),
     );
-   Loading.hide();
+    Loading.hide();
     response.fold(
       (error) {
         Toaster.error(error.message ?? "Failed to reset password");
