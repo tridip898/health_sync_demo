@@ -53,9 +53,7 @@ class ComplaintsCard extends StatelessWidget {
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(complaint, style: textStyle.bold.s16),
-                ],
+                children: [Text(complaint, style: textStyle.bold.s16)],
               ),
             ),
           ],

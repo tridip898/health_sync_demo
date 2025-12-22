@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
-
 import 'package:health_sync_question/app/core/constants/enums.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
+import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/custom_button.dart';
 import 'package:health_sync_question/app/core/widgets/custom_text_field.dart';
 import 'package:health_sync_question/app/modules/basic_info_question/controllers/basic_info_question_controller.dart';
@@ -31,10 +29,7 @@ class BasicInfoSubmitView extends GetView<BasicInfoQuestionController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         gapH24,
-                        Text(
-                          "Patient Information",
-                          style: textStyle.bold.s30,
-                        ),
+                        Text("Patient Information", style: textStyle.bold.s30),
                         gapH20,
                         CustomTextFormField(
                           controller: controller.nameController,
@@ -90,15 +85,11 @@ class BasicInfoSubmitView extends GetView<BasicInfoQuestionController> {
         RichText(
           text: TextSpan(
             text: "Gender",
-            style: textStyle.bold.s16.copyWith(
-              color: Color(0xff0E121B),
-            ),
+            style: textStyle.bold.s16.copyWith(color: Color(0xff0E121B)),
             children: [
               TextSpan(
                 text: " *",
-                style: textStyle.bold.s16.copyWith(
-                  color: Color(0xffF04438),
-                ),
+                style: textStyle.bold.s16.copyWith(color: Color(0xffF04438)),
               ),
             ],
           ),
@@ -122,9 +113,7 @@ class BasicInfoSubmitView extends GetView<BasicInfoQuestionController> {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: (isSelected)
-                                ? cyan.base500
-                                : gray.base400,
+                            color: (isSelected) ? cyan.base500 : gray.base400,
                             width: 1.5,
                           ),
                         ),
@@ -141,7 +130,7 @@ class BasicInfoSubmitView extends GetView<BasicInfoQuestionController> {
                       gapW8,
                       Expanded(
                         child: Text(
-                          Gender.values[index].name.capitalizeFirst??"",
+                          Gender.values[index].name.capitalizeFirst ?? "",
                           style: textStyle.medium.s14,
                         ),
                       ),

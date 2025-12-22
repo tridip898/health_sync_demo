@@ -3,6 +3,7 @@ part of 'app_pages.dart';
 
 abstract class Routes {
   Routes._();
+
   static const HOME = _Paths.HOME;
   static const BASIC_INFO_QUESTION = _Paths.BASIC_INFO_QUESTION;
   static const CHIELF_COMPLAINT = _Paths.CHIELF_COMPLAINT;
@@ -12,10 +13,16 @@ abstract class Routes {
   static const DASHBOARD = _Paths.DASHBOARD;
   static const DOCTOR_LIST = _Paths.DOCTOR_LIST;
   static const DOCTOR_DETAILS = _Paths.DOCTOR_DETAILS;
+  static const OTP = _Paths.OTP;
+  static const SET_NEW_PASSWORD = _Paths.SET_NEW_PASSWORD;
+  static const FORGOT_PASSWORD = _Paths.FORGOT_PASSWORD;
+  static const CHANGE_PASSWORD = _Paths.CHANGE_PASSWORD;
+  static const FORGOT_PASS_VERIFY_OTP = _Paths.FORGOT_PASS_VERIFY_OTP;
 }
 
 abstract class _Paths {
   _Paths._();
+
   static const HOME = '/home';
   static const BASIC_INFO_QUESTION = '/basic-info-question';
   static const CHIELF_COMPLAINT = '/chielf-complaint';
@@ -25,4 +32,9 @@ abstract class _Paths {
   static const DASHBOARD = '/dashboard';
   static const DOCTOR_LIST = '/doctor-list';
   static const DOCTOR_DETAILS = '/doctor-details';
+  static const OTP = '/otp';
+  static const SET_NEW_PASSWORD = '/set-new-password';
+  static const FORGOT_PASSWORD = '/forgot-password';
+  static const CHANGE_PASSWORD = '/change-password';
+  static const FORGOT_PASS_VERIFY_OTP = '/forgot-pass-verify-otp';
 }

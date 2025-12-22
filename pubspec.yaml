@@ -18,16 +18,18 @@ dependencies:
   network:
     git:
       url: git@vcs.technonext.com:TechnoNext/mobile-apps/airapps-commons/netword.git
-      ref: v0.0.13
+      ref: v0.0.14
 
   common:
     git:
       url: git@vcs.technonext.com:TechnoNext/mobile-apps/airapps-commons/common.git
-      ref: v0.0.6
+      ref: v0.0.7
 
   cupertino_icons: ^1.0.8
-  get: ^4.7.2
+  get: ^4.7.3
   google_fonts: ^6.3.2
+  pin_code_fields: ^8.0.1
+  flutter_svg: ^2.0.9
 
 dev_dependencies:
   flutter_flavorizr: 2.4.1

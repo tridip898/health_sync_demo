@@ -2,11 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:health_sync_question/app/data/app_data/basic_question_data.dart';
-import 'package:health_sync_question/app/data/model/question_model.dart';
-
 import 'package:health_sync_question/app/data/model/complaint_answer_model.dart';
+import 'package:health_sync_question/app/data/model/question_model.dart';
 
 class ChiefComplaintController extends GetxController {
   final ScrollController scrollController = ScrollController();

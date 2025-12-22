@@ -1,6 +1,4 @@
 import 'dart:ui';
-
-
 import 'base_color.dart';
 
 class Blue extends BaseColor {
