@@ -129,7 +129,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                             : widget.isPassword
                       : widget.isPassword,
                   style: textStyle.semiBold.s16.copyWith(
-                    color: widget.isViewOnly ? gray.base400 : Color(0xff0E121B),
+                    color: Color(0xff0E121B),
                   ),
                   minLines: widget.minLines,
                   autovalidateMode: widget.autoValidateMode,

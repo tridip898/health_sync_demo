@@ -12,14 +12,14 @@ import 'package:health_sync_question/app/modules/doctor_list/views/widgets/docto
 
 class DoctorListController extends GetxController {
   final TextEditingController searchDoctorTextController =
-  TextEditingController();
+      TextEditingController();
   final TextEditingController organizationNameController =
-  TextEditingController();
+      TextEditingController();
   final TextEditingController specialtyNameController = TextEditingController();
 
   final DoctorRepository doctorRepository = DoctorRepository();
   final OrganizationRepository organizationRepository =
-  OrganizationRepository();
+      OrganizationRepository();
 
   int _page = 1;
   bool _hasMore = true;
@@ -73,10 +73,10 @@ class DoctorListController extends GetxController {
       Loading.hide();
     }
     response.fold(
-          (errorRes) {
+      (errorRes) {
         Toaster.error(errorRes.message ?? 'Failed to load doctor list');
       },
-          (successRes) {
+      (successRes) {
         doctorList.addAll(successRes.data ?? []);
 
         final meta = successRes.meta;
@@ -139,7 +139,7 @@ class DoctorListController extends GetxController {
       _resetOrganizationPagination();
       Loading.show();
     }
-    if (_hasMore == false) return;
+    if (_hasMoreOrganization == false) return;
     isLoadingOrganization.value = true;
     final response = await organizationRepository.getOrganizationList(
       page: _pageOrganization,
@@ -149,10 +149,10 @@ class DoctorListController extends GetxController {
       Loading.hide();
     }
     response.fold(
-          (errorRes) {
+      (errorRes) {
         Toaster.error(errorRes.message ?? 'Failed to load organization list');
       },
-          (successRes) {
+      (successRes) {
         organizationList.addAll(successRes.data ?? []);
 
         final meta = successRes.meta;
