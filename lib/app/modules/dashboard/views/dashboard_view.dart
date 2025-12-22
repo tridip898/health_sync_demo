@@ -133,7 +133,10 @@ class _Header extends StatelessWidget {
               ),
             ],
           ),
-          IconButton(icon: const Icon(Icons.settings), onPressed: () {}),
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: appController.signOut,
+          ),
         ],
       ),
     );
