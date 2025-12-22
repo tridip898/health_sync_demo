@@ -5,21 +5,35 @@ import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/bottom_sheet_title.dart';
 import 'package:health_sync_question/app/core/widgets/custom_button.dart';
 import 'package:health_sync_question/app/core/widgets/custom_dropdown_widget.dart';
+import 'package:health_sync_question/app/core/widgets/custom_switch_widget.dart';
 import 'package:health_sync_question/app/core/widgets/custom_text_field.dart';
 
 class DoctorFilterBottomSheet extends StatelessWidget {
   final Function() onOrganizationSelect;
   final Function() onSpecialtySelect;
+  final Function() onOrganizationRemove;
+  final Function() onSpecialtyRemove;
+  final Function() onApplyFilter;
+  final Function() onClearFilter;
+  final Function() onIncludeNonVerifiedTap;
 
   final TextEditingController organizationNameController;
   final TextEditingController specialtyNameController;
+
+  final bool includeNonVerified;
 
   const DoctorFilterBottomSheet({
     super.key,
     required this.onOrganizationSelect,
     required this.onSpecialtySelect,
+    required this.onOrganizationRemove,
+    required this.onSpecialtyRemove,
+    required this.onApplyFilter,
+    required this.onClearFilter,
+    required this.onIncludeNonVerifiedTap,
     required this.organizationNameController,
     required this.specialtyNameController,
+    required this.includeNonVerified,
   });
 
   @override
@@ -46,6 +60,7 @@ class DoctorFilterBottomSheet extends StatelessWidget {
                     hintText: 'Select Organization',
                     controller: organizationNameController,
                     onTap: onOrganizationSelect,
+                    onRemove: onOrganizationRemove,
                   ),
                   gapH8,
                   CustomDropDownWidget(
@@ -53,6 +68,21 @@ class DoctorFilterBottomSheet extends StatelessWidget {
                     hintText: 'Select Specialty',
                     controller: specialtyNameController,
                     onTap: onSpecialtySelect,
+                    onRemove: onSpecialtyRemove,
+                  ),
+                  gapH12,
+                  Row(
+                    children: [
+                      Text(
+                        'Include Non Verified',
+                        style: textStyle.semiBold.s16,
+                      ),
+                      gapW8,
+                      CustomSwitchWidget(
+                        isActive: includeNonVerified,
+                        onTap: onIncludeNonVerifiedTap,
+                      ),
+                    ],
                   ),
                   gapH24,
                   Row(
@@ -60,7 +90,7 @@ class DoctorFilterBottomSheet extends StatelessWidget {
                       Expanded(
                         child: CustomButton(
                           text: 'Clear Filter',
-                          onPressed: () {},
+                          onPressed: onClearFilter,
                           variant: CustomButtonVariant.outlined,
                           borderColor: gray.base200,
                           textColor: Colors.black,
@@ -70,7 +100,7 @@ class DoctorFilterBottomSheet extends StatelessWidget {
                       Expanded(
                         child: CustomButton(
                           text: 'Apply Filter',
-                          onPressed: () {},
+                          onPressed: onApplyFilter,
                         ),
                       ),
                     ],

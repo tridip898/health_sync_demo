@@ -32,7 +32,14 @@ class NoDataFound extends StatelessWidget {
               const SizedBox(height: 32),
               GestureDetector(
                 onTap: onRefresh,
-                child: Text('Refresh Page', style: textStyle.semiBold.s16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.refresh, size: 20),
+                    gapW8,
+                    Text('Refresh Page', style: textStyle.semiBold.s16),
+                  ],
+                ),
               ),
             ],
           ],

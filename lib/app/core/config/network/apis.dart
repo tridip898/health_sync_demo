@@ -10,4 +10,6 @@ class Apis {
   static String get doctorList => '$baseUrl/doctor';
 
   static String get organizationList => '$baseUrl/organization';
+
+  static String get specialtyList => '$baseUrl/specialty';
 }

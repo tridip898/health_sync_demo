@@ -6,6 +6,9 @@ import 'package:health_sync_question/app/core/widgets/loading.dart';
 import 'package:health_sync_question/app/data/model/doctor_list_response_model.dart';
 import 'package:health_sync_question/app/data/model/organization_response_model.dart';
 import 'package:health_sync_question/app/data/model/organization_response_model.dart';
+import 'package:health_sync_question/app/data/model/specialty_model.dart';
+import 'package:health_sync_question/app/data/model/specialty_model.dart';
+import 'package:health_sync_question/app/data/model/specialty_model.dart';
 import 'package:health_sync_question/app/data/repository/doctor_repository.dart';
 import 'package:health_sync_question/app/data/repository/organization_repository.dart';
 import 'package:health_sync_question/app/modules/doctor_list/views/widgets/doctor_filter_bottom_sheet.dart';
@@ -23,7 +26,7 @@ class DoctorListController extends GetxController {
 
   int _page = 1;
   bool _hasMore = true;
-  Rx<bool?> activeFilter = Rx(null);
+  Rx<bool> includeNonVerified = Rx(false);
   Rx<bool> isLoading = false.obs;
 
   int _pageOrganization = 1;
@@ -34,6 +37,12 @@ class DoctorListController extends GetxController {
 
   RxList<OrganizationModel> organizationList = <OrganizationModel>[].obs;
   Rx<OrganizationModel?> selectedOrganization = Rx(null);
+
+  RxList<SpecialtyModel> specialtyList = <SpecialtyModel>[].obs;
+  Rx<SpecialtyModel?> selectedSpecialty = Rx(null);
+
+  Rx<bool> shouldApplyFilter = false.obs;
+  Rx<int> filterCount = 0.obs;
 
   final ScrollController scrollController = ScrollController();
 
@@ -54,9 +63,13 @@ class DoctorListController extends GetxController {
   @override
   void onClose() {
     searchDoctorTextController.dispose();
+    organizationNameController.dispose();
+    specialtyNameController.dispose();
+    scrollController.dispose();
     super.onClose();
   }
 
+  /// doctor section -----------------------------------------------------------
   getDoctorList({bool initialLoad = false}) async {
     if (initialLoad) {
       _resetPagination();
@@ -67,7 +80,13 @@ class DoctorListController extends GetxController {
     final response = await doctorRepository.getDoctorList(
       page: _page,
       search: searchDoctorTextController.text.trim(),
-      activeFilter: activeFilter.value,
+      activeFilter: shouldApplyFilter.value ? includeNonVerified.value : true,
+      organizationId: shouldApplyFilter.value
+          ? selectedOrganization.value?.organizationId
+          : null,
+      specialtyId: shouldApplyFilter.value
+          ? selectedSpecialty.value?.specialtyId
+          : null,
     );
     if (initialLoad) {
       Loading.hide();
@@ -95,16 +114,25 @@ class DoctorListController extends GetxController {
 
   void onDoctorFilterTap() {
     Get.bottomSheet(
-      DoctorFilterBottomSheet(
-        onOrganizationSelect: onOrganizationSelect,
-        onSpecialtySelect: () {},
-        organizationNameController: organizationNameController,
-        specialtyNameController: specialtyNameController,
-      ),
+      Obx(() {
+        return DoctorFilterBottomSheet(
+          onOrganizationSelect: onOrganizationSelect,
+          onSpecialtySelect: onSpecialtySelect,
+          onOrganizationRemove: _onOrganizationRemove,
+          onSpecialtyRemove: _onSpecialtyRemove,
+          onApplyFilter: _onApplyFilter,
+          onClearFilter: _onClearFilter,
+          onIncludeNonVerifiedTap: _onIncludeNonVerifiedTap,
+          organizationNameController: organizationNameController,
+          specialtyNameController: specialtyNameController,
+          includeNonVerified: includeNonVerified.value,
+        );
+      }),
       isScrollControlled: true,
     );
   }
 
+  /// organization section -----------------------------------------------------
   onOrganizationSelect() async {
     await getOrganizationList(initialLoad: true);
     if (organizationList.isEmpty) return;
@@ -167,5 +195,87 @@ class DoctorListController extends GetxController {
     organizationList.clear();
     _pageOrganization = 1;
     _hasMoreOrganization = true;
+  }
+
+  /// specialty section --------------------------------------------------------
+  onSpecialtySelect() async {
+    await getSpecialtyList();
+    if (specialtyList.isEmpty) return;
+    final pickedSpecialty = await Get.bottomSheet(
+      Obx(() {
+        return AppDropdownBottomSheet<SpecialtyModel>(
+          items: specialtyList,
+          currentItem: selectedSpecialty.value,
+          title: 'Doctor Specialty',
+          getTitle: (item) => item.title ?? 'N/A',
+          isLocalSearch: true,
+        );
+      }),
+      isScrollControlled: true,
+    );
+
+    if (pickedSpecialty != null) {
+      selectedSpecialty.value = pickedSpecialty;
+      specialtyNameController.text = selectedSpecialty.value?.title ?? '';
+    }
+  }
+
+  getSpecialtyList() async {
+    Loading.show();
+    final response = await doctorRepository.getSpecialtyList();
+    Loading.hide();
+
+    response.fold(
+      (errorRes) {
+        Toaster.error(errorRes.message ?? 'Failed to load specialty list');
+      },
+      (successRes) {
+        specialtyList.assignAll(successRes.data ?? []);
+      },
+    );
+  }
+
+  /// filter section -----------------------------------------------------------
+  _onOrganizationRemove() {
+    selectedOrganization.value = null;
+    organizationNameController.clear();
+  }
+
+  _onSpecialtyRemove() {
+    selectedSpecialty.value = null;
+    specialtyNameController.clear();
+  }
+
+  _onClearFilter() {
+    shouldApplyFilter.value = false;
+    _onOrganizationRemove();
+    _onSpecialtyRemove();
+    Get.back();
+    getDoctorList(initialLoad: true);
+    _getFilterCount();
+  }
+
+  _onApplyFilter() {
+    shouldApplyFilter.value = true;
+    Get.back();
+    getDoctorList(initialLoad: true);
+    _getFilterCount();
+  }
+
+  _onIncludeNonVerifiedTap() {
+    includeNonVerified.value = !(includeNonVerified.value);
+  }
+
+  _getFilterCount() {
+    filterCount.value = 0;
+    if (organizationNameController.text.trim().isNotEmpty) {
+      filterCount.value++;
+    }
+    if (specialtyNameController.text.trim().isNotEmpty) {
+      filterCount.value++;
+    }
+    if (includeNonVerified.value) {
+      filterCount.value++;
+    }
   }
 }
