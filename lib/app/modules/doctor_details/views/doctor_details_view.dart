@@ -42,9 +42,7 @@ class DoctorDetailsView extends GetView<DoctorDetailsController> {
               Expanded(
                 child: CustomButton(
                   text: 'Book Appointment',
-                  onPressed: () {
-                    Get.toNamed(Routes.HOME);
-                  },
+                  onPressed: controller.onBookAppointment,
                 ),
               ),
             ],

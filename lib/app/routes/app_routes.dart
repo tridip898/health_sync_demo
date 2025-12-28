@@ -4,9 +4,7 @@ part of 'app_pages.dart';
 abstract class Routes {
   Routes._();
 
-  static const HOME = _Paths.HOME;
-  static const BASIC_INFO_QUESTION = _Paths.BASIC_INFO_QUESTION;
-  static const CHIELF_COMPLAINT = _Paths.CHIELF_COMPLAINT;
+  static const COMPLAINT = _Paths.COMPLAINT;
   static const LOGIN = _Paths.LOGIN;
   static const SPLASH = _Paths.SPLASH;
   static const REGISTRATION = _Paths.REGISTRATION;
@@ -25,9 +23,7 @@ abstract class Routes {
 abstract class _Paths {
   _Paths._();
 
-  static const HOME = '/home';
-  static const BASIC_INFO_QUESTION = '/basic-info-question';
-  static const CHIELF_COMPLAINT = '/chielf-complaint';
+  static const COMPLAINT = '/complaint';
   static const LOGIN = '/login';
   static const SPLASH = '/splash';
   static const REGISTRATION = '/registration';
