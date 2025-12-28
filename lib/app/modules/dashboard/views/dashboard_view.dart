@@ -50,7 +50,9 @@ class DashboardView extends GetView<DashboardController> {
                           iconColor: blue.base500,
                           title: 'Appointments',
                           subtitle: 'Your upcoming appointments',
-                          onTap: () {},
+                          onTap: () {
+                            Get.toNamed(Routes.PROFILE_DETAILS);
+                          },
                         ),
                         gapH12,
                         _OverviewCard(

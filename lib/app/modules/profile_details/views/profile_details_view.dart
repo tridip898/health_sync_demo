@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
-import '../controllers/profile_details_controller.dart';
-
-import 'package:flutter/material.dart';
+import 'package:health_sync_question/app/modules/profile_details/views/pages/empty_profile_page.dart';
+import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:health_sync_question/app/core/constants/gap_constants.dart';
+import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
+import 'package:health_sync_question/app/core/widgets/custom_button.dart';
+import 'package:health_sync_question/app/modules/profile_details/controllers/profile_details_controller.dart';
+import 'package:health_sync_question/app/routes/app_pages.dart';
 
 class ProfileDetailsView extends GetView<ProfileDetailsController> {
   const ProfileDetailsView({super.key});
@@ -26,158 +28,184 @@ class ProfileDetailsView extends GetView<ProfileDetailsController> {
           color: textMain,
           onPressed: () => Navigator.pop(context),
         ),
-        title: Text(
-          'Profile Details',
-          style: GoogleFonts.manrope(
-            fontWeight: FontWeight.w700,
-            color: textMain,
-          ),
-        ),
+        title: Text('Profile Details', style: textStyle.semiBold.s18),
         centerTitle: true,
       ),
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            padding: const EdgeInsets.fromLTRB(16, 24, 16, 120),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _ProfileHeader(),
-                const SizedBox(height: 24),
-                _SectionTitle(
-                  icon: Icons.person,
-                  title: 'Personal Information',
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  children: const [
-                    Expanded(
-                      child: _InfoCard(
-                        label: 'Gender',
-                        icon: Icons.female,
-                        value: 'Female',
+      bottomNavigationBar: _bottomButton(),
+      body: Obx(() {
+        final profile = appController.userModel.value?.profile;
+        return profile == null
+            ? EmptyProfilePage()
+            : SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(24, 24, 24, 120),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    CircleAvatar(
+                      radius: 64,
+                      backgroundColor: Colors.grey.shade300,
+                      backgroundImage: NetworkImage(profile.image ?? ''),
+                    ),
+                    gapH16,
+                    Center(
+                      child: Text(
+                        profile.fullName ?? '',
+                        style: GoogleFonts.manrope(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w800,
+                        ),
                       ),
                     ),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: _InfoCard(
-                        label: 'Date of Birth',
-                        icon: Icons.cake,
-                        value: 'Jan 24, 1995',
-                      ),
+                    gapH24,
+                    sectionTitle(
+                      icon: Icons.person,
+                      title: 'Personal Information',
                     ),
+                    gapH12,
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _infoCard(
+                            label: 'Gender',
+                            icon: Icons.female,
+                            value: profile.gender ?? '',
+                          ),
+                        ),
+                        SizedBox(width: 12),
+                        Expanded(
+                          child: _infoCard(
+                            label: 'Date of Birth',
+                            icon: Icons.cake,
+                            value: DateFormat(
+                              'MMM dd, yyyy',
+                            ).format(DateTime.parse(profile.dateOfBirth ?? '')),
+                          ),
+                        ),
+                      ],
+                    ),
+                    if (profile.address != null) ...[
+                      gapH12,
+                      Container(
+                        padding: padAll16,
+                        decoration: _cardDecoration(),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'ADDRESS',
+                              style: GoogleFonts.manrope(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            gapH8,
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  padding: padAll8,
+                                  decoration: BoxDecoration(
+                                    color: ProfileDetailsView.primary
+                                        .withValues(alpha: 0.15),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: const Icon(
+                                    Icons.location_on,
+                                    color: ProfileDetailsView.primary,
+                                  ),
+                                ),
+                                gapW12,
+                                Expanded(
+                                  child: Text(
+                                    profile.address ?? '',
+                                    style: GoogleFonts.manrope(
+                                      fontWeight: FontWeight.w600,
+                                      height: 1.4,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+
+                    gapH24,
+                    sectionTitle(
+                      icon: Icons.contact_phone,
+                      title: 'Contact Details',
+                    ),
+                    gapH12,
+                    _contactCard(
+                      icon: Icons.call,
+                      label: 'Public Phone',
+                      value: profile.publicPhoneNumber ?? '',
+                    ),
+                    if (profile.publicEmail != null) ...[
+                      gapH12,
+                      _contactCard(
+                        icon: Icons.mail,
+                        label: 'Public Email',
+                        value: profile.publicEmail ?? '',
+                      ),
+                    ],
                   ],
                 ),
-                const SizedBox(height: 12),
-                _AddressCard(),
-                const SizedBox(height: 24),
-                _SectionTitle(
-                  icon: Icons.contact_phone,
-                  title: 'Contact Details',
-                  trailing: _VerifiedChip(),
-                ),
-                const SizedBox(height: 12),
-                const _ContactCard(
-                  icon: Icons.call,
-                  label: 'Public Phone',
-                  value: '+1 (555) 000-0000',
-                ),
-                const SizedBox(height: 12),
-                const _ContactCard(
-                  icon: Icons.mail,
-                  label: 'Public Email',
-                  value: 'sarah@example.com',
-                ),
-              ],
-            ),
-          ),
-          _BottomAction(),
-        ],
-      ),
+              );
+      }),
     );
   }
-}
 
-class _ProfileHeader extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CircleAvatar(
-          radius: 64,
-          backgroundColor: Colors.grey.shade300,
-          backgroundImage: const NetworkImage(
-            'https://lh3.googleusercontent.com/aida-public/AB6AXuBv_Q5_BHGvAl1trpMuqAPmduORF7ZiC6R9iVQ0J8HLYR5VaGf54YQd0VJNcC5zcTfAubM-PkDOUUtKoKCgjREn1t_VeKpaOuKt-3ZOL-5V_thcweF7VgsZ3-qceGNx_BWAiejY745eN5C-WHBp3FDv8Z1XWPVB6D-RJxRh7LV2aMHxklPLO5o1g3SSRncdtU7N7FDURAvycfp16RE1iEI6g_LnK-ndaHhyn8hfUEJZu-QeTwcnr1wkNmc2mfSPGQ29sJ6ZEaD_kIw',
-          ),
+  Widget _bottomButton() {
+    return Obx(() {
+      return Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.9),
+          border: Border(top: BorderSide(color: Colors.grey.shade200)),
         ),
-        const SizedBox(height: 16),
-        Text(
-          'Sarah Williams',
-          style: GoogleFonts.manrope(
-            fontSize: 22,
-            fontWeight: FontWeight.w800,
-          ),
+        child: SizedBox(
+          height: 56,
+          child: appController.userModel.value?.profile == null
+              ? CustomButton(
+                  text: "Create Profile",
+                  onPressed: () {
+                    Get.toNamed(Routes.CREATE_PROFILE);
+                  },
+                )
+              : CustomButton(
+                  text: "Edit Profile",
+                  onPressed: () {
+                    Get.toNamed(Routes.CREATE_PROFILE, arguments: true);
+                  },
+                ),
         ),
-        const SizedBox(height: 4),
-        Text(
-          'Patient ID: #883921',
-          style: GoogleFonts.manrope(
-            fontSize: 13,
-            fontWeight: FontWeight.w500,
-            color: Colors.grey,
-          ),
-        ),
-      ],
-    );
+      );
+    });
   }
-}
 
-class _SectionTitle extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final Widget? trailing;
-
-  const _SectionTitle({
-    required this.icon,
-    required this.title,
-    this.trailing,
-  });
-
-  @override
-  Widget build(BuildContext context) {
+  sectionTitle({required IconData icon, required String title}) {
     return Row(
       children: [
         Icon(icon, color: ProfileDetailsView.primary),
         const SizedBox(width: 8),
         Text(
           title,
-          style: GoogleFonts.manrope(
-            fontWeight: FontWeight.w700,
-            fontSize: 14,
-          ),
+          style: GoogleFonts.manrope(fontWeight: FontWeight.w700, fontSize: 14),
         ),
-        const Spacer(),
-        if (trailing != null) trailing!,
       ],
     );
   }
-}
 
-class _InfoCard extends StatelessWidget {
-  final String label;
-  final IconData icon;
-  final String value;
-
-  const _InfoCard({
-    required this.label,
-    required this.icon,
-    required this.value,
-  });
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _infoCard({
+    required String label,
+    required IconData icon,
+    required String value,
+  }) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: padAll16,
       decoration: _cardDecoration(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -190,11 +218,11 @@ class _InfoCard extends StatelessWidget {
               color: Colors.grey,
             ),
           ),
-          const SizedBox(height: 8),
+          gapH8,
           Row(
             children: [
               Icon(icon, size: 18, color: Colors.grey),
-              const SizedBox(width: 6),
+              gapW(6),
               Text(
                 value,
                 style: GoogleFonts.manrope(fontWeight: FontWeight.w600),
@@ -205,168 +233,45 @@ class _InfoCard extends StatelessWidget {
       ),
     );
   }
-}
 
-class _AddressCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  _contactCard({
+    required IconData icon,
+    required String label,
+    required String value,
+  }) {
     return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: _cardDecoration(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'ADDRESS',
-            style: GoogleFonts.manrope(
-              fontSize: 11,
-              fontWeight: FontWeight.w700,
-              color: Colors.grey,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: ProfileDetailsView.primary.withOpacity(0.15),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Icon(
-                  Icons.location_on,
-                  color: ProfileDetailsView.primary,
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  '123 Health Street, Apt 4B\nNew York, NY 10001',
-                  style: GoogleFonts.manrope(
-                    fontWeight: FontWeight.w600,
-                    height: 1.4,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ContactCard extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final String value;
-
-  const _ContactCard({
-    required this.icon,
-    required this.label,
-    required this.value,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
+      padding: padAll16,
       decoration: _cardDecoration(),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: ProfileDetailsView.primary.withOpacity(0.15),
+              color: ProfileDetailsView.primary.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Icon(icon, color: ProfileDetailsView.primary),
           ),
-          const SizedBox(width: 12),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                label,
-                style: GoogleFonts.manrope(
-                  fontSize: 12,
-                  color: Colors.grey,
+          gapW12,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label,
+                  style: GoogleFonts.manrope(fontSize: 12, color: Colors.grey),
                 ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                value,
-                style: GoogleFonts.manrope(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 15,
+                Text(
+                  value,
+                  style: GoogleFonts.manrope(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 15,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _VerifiedChip extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-        color: Colors.green.withOpacity(0.15),
-        borderRadius: BorderRadius.circular(6),
-      ),
-      child: Text(
-        'Verified',
-        style: GoogleFonts.manrope(
-          fontSize: 10,
-          fontWeight: FontWeight.w700,
-          color: Colors.green.shade700,
-        ),
-      ),
-    );
-  }
-}
-
-class _BottomAction extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      left: 0,
-      right: 0,
-      bottom: 0,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.9),
-          border: Border(
-            top: BorderSide(color: Colors.grey.shade200),
-          ),
-        ),
-        child: SizedBox(
-          height: 56,
-          child: ElevatedButton.icon(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: ProfileDetailsView.textMain,
-              foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-            onPressed: () {},
-            icon: const Icon(Icons.edit),
-            label: Text(
-              'Edit Profile',
-              style: GoogleFonts.manrope(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }
@@ -375,13 +280,13 @@ class _BottomAction extends StatelessWidget {
 BoxDecoration _cardDecoration() {
   return BoxDecoration(
     color: Colors.white,
-    borderRadius: BorderRadius.circular(12),
+    borderRadius: BorderRadius.circular(16),
     border: Border.all(color: Colors.grey.shade200),
-    boxShadow: const [
+    boxShadow: [
       BoxShadow(
-        color: Colors.black12,
-        blurRadius: 8,
-        offset: Offset(0, 4),
+        color: Colors.grey.withValues(alpha: .1),
+        blurRadius: 6,
+        offset: Offset(0, 2),
       ),
     ],
   );
