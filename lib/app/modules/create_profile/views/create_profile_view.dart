@@ -7,6 +7,7 @@ import 'package:health_sync_question/app/core/extensions/date_time.extensions.da
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/custom_button.dart';
 import 'package:health_sync_question/app/core/widgets/custom_date_picker.dart';
+import 'package:health_sync_question/app/core/widgets/custom_image_picker.dart';
 import 'package:health_sync_question/app/core/widgets/custom_text_field.dart';
 import 'package:health_sync_question/app/core/widgets/profile_image_picker.dart';
 
@@ -72,14 +73,22 @@ class CreateProfileView extends GetView<CreateProfileController> {
                   ),
                 ),
                 gapH(32),
-                Obx(() {
-                  return ProfileImagePicker(
-                    initialImage: controller.profileImage.value,
-                    onPickImage: (image) {
-                      controller.profileImage.value = image;
-                    },
-                  );
-                }),
+                CustomImagePicker(
+                  title: "",
+                  instructionText: "Drag and Drop an Image",
+                  onTap: controller.pickImage,
+                  isEditable: true,
+                  selectedImage: controller.exchangedImage.value,
+                  onRemove: () {},
+                ),
+                // Obx(() {
+                //   return ProfileImagePicker(
+                //     initialImage: controller.profileImage.value,
+                //     onPickImage: (image) {
+                //       controller.profileImage.value = image;
+                //     },
+                //   );
+                // }),
                 gapH(24),
                 CustomTextFormField(
                   labelText: "Full Name",

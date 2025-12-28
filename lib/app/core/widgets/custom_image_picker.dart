@@ -1,4 +1,3 @@
-import 'dart:developer' show log;
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -8,7 +7,7 @@ import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/custom_cache_network_image.dart';
 import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
 
-class DocumentUploadSection extends StatelessWidget {
+class CustomImagePicker extends StatelessWidget {
   final String title;
   final String instructionText;
   final VoidCallback onTap;
@@ -17,7 +16,7 @@ class DocumentUploadSection extends StatelessWidget {
   final bool? isEditable;
   final String? remoteSource;
 
-  const DocumentUploadSection({
+  const CustomImagePicker({
     super.key,
     required this.title,
     required this.instructionText,
@@ -33,8 +32,8 @@ class DocumentUploadSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (title.isNotEmpty) Text(title, style: textStyle.semiBold.s16),
-        gapH8,
+        // if (title.isNotEmpty) Text(title, style: textStyle.semiBold.s16),
+        // gapH8,
         InkWell(
           onTap: selectedImage == null && isEditable == true ? onTap : null,
           child: Container(

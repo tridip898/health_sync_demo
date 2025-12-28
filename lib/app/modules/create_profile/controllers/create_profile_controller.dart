@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:health_sync_question/app/core/utils/image_picker_utils.dart';
 import 'package:intl/intl.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/utils/toaster.dart';
@@ -23,7 +25,7 @@ class CreateProfileController extends GetxController {
   final Rx<Uint8List?> profileImage = Rx(null);
   final bool isEditProfile = Get.arguments ?? false;
   final Rx<DateTime?> dateOfBirth = Rx(null);
-
+  Rx<File?> exchangedImage = Rx<File?>(null);
   @override
   void onInit() {
     super.onInit();
@@ -61,7 +63,12 @@ class CreateProfileController extends GetxController {
     profileImage.close();
     super.onClose();
   }
-
+  pickImage() async {
+    final file = await ImagePickerUtil.pickImageFromGallery();
+    if (file != null) {
+      exchangedImage.value = file;
+    }
+  }
   void createProfileClick() async {
     if (formKey.currentState!.validate()) {
       Loading.show();
