@@ -50,27 +50,24 @@ class CustomImagePicker extends StatelessWidget {
                       ],
                     )
                   : (remoteSource ?? "") != ""
-                  ? Stack(
-                      alignment: Alignment.center,
+                  ? Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: gray.base50),
+                    ),
+                    child: Stack(
                       children: [
-                        Container(
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: gray.base50),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: CacheNetworkImage(
-                              imageUrl: remoteSource ?? '',
-                              width: 120,
-                              height: 120,
-                            ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(100),
+                          child: CacheNetworkImage(
+                            imageUrl: remoteSource ?? '',
+                            width: 120,
+                            height: 120,
                           ),
                         ),
-
                         Positioned(
                           bottom: 6,
-                          right: 130,
+                          right: 2,
                           child: InkWell(
                             onTap: onTap,
                             child: Container(
@@ -91,7 +88,8 @@ class CustomImagePicker extends StatelessWidget {
                           ),
                         ),
                       ],
-                    )
+                    ),
+                  )
                   : Material(
                       elevation: 0,
                       color: Colors.transparent,
