@@ -39,6 +39,35 @@ class SetNewPasswordView extends GetView<SetNewPasswordController> {
 
                 const SizedBox(height: 12),
 
+                Text(
+                  "REQUIREMENTS",
+                  style: textStyle.bold.s10.copyWith(color: Colors.grey),
+                ),
+
+                const SizedBox(height: 6),
+
+                Row(
+                  children: [
+                    Container(
+                      height: 20,
+                      width: 20,
+                      padding: EdgeInsets.only(top: 2),
+                      child: GetBuilder<SetNewPasswordController>(
+                        builder: (controller) {
+                          return Checkbox(
+                            value: controller.isPasswordMatched,
+                            onChanged: null,
+                          );
+                        },
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Text("At least 10 characters", style: textStyle.bold.s10.copyWith(color: Colors.grey)),
+                  ],
+                ),
+
+                const SizedBox(height: 10),
+
                 CustomTextFormField(
                   labelText: 'Password',
                   hintText: 'Confirm password',
@@ -46,7 +75,6 @@ class SetNewPasswordView extends GetView<SetNewPasswordController> {
                   isPassword: true,
                   validator: AppInputValidator.requiredMinMax,
                   autoValidateMode: AutovalidateMode.onUserInteraction,
-
                 ),
 
                 const SizedBox(height: 30),

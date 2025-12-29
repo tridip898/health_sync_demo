@@ -17,6 +17,7 @@ class ResetPasswordController extends GetxController {
       TextEditingController();
   String? otpToken;
   String? phoneNumber;
+  bool isPasswordMatched = false;
 
   @override
   void onInit() {
@@ -33,8 +34,25 @@ class ResetPasswordController extends GetxController {
       Toaster.error("OTP token missing. Please verify again.");
       Get.offAllNamed(Routes.LOGIN);
     }
+
+    passwordController.addListener(_checkPasswordMatch);
+    confirmPasswordController.addListener(_checkPasswordMatch);
   }
 
+  void _checkPasswordMatch() {
+    final password = passwordController.text.trim();
+    final confirmPassword = confirmPasswordController.text.trim();
+
+    final matched =
+        password.isNotEmpty &&
+            confirmPassword.isNotEmpty &&
+            password == confirmPassword;
+
+    if (matched != isPasswordMatched) {
+      isPasswordMatched = matched;
+      update();
+    }
+  }
   void onResetPassword() async {
     if (otpToken == null) {
       return;
