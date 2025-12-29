@@ -20,6 +20,11 @@ abstract class Routes {
   static const FORGOT_PASS_VERIFY_OTP = _Paths.FORGOT_PASS_VERIFY_OTP;
   static const CREATE_PROFILE = _Paths.CREATE_PROFILE;
   static const PROFILE_DETAILS = _Paths.PROFILE_DETAILS;
+  static const MEDICAL_HISTORY = _Paths.MEDICAL_HISTORY;
+  static const CRATE_MEDICAL_HISTORY = _Paths.CRATE_MEDICAL_HISTORY;
+  static const MEDICAL_HISTORY_LIST = _Paths.MEDICAL_HISTORY_LIST;
+  static const UPDATE_MEDICAL_HISTORY = _Paths.UPDATE_MEDICAL_HISTORY;
+  static const DELETE_MEDICAL_HISTORY = _Paths.DELETE_MEDICAL_HISTORY;
 }
 
 abstract class _Paths {
@@ -41,4 +46,9 @@ abstract class _Paths {
   static const FORGOT_PASS_VERIFY_OTP = '/forgot-pass-verify-otp';
   static const CREATE_PROFILE = '/create-profile';
   static const PROFILE_DETAILS = '/profile-details';
+  static const MEDICAL_HISTORY = '/medical-history';
+  static const CRATE_MEDICAL_HISTORY = '/crate-medical-history';
+  static const MEDICAL_HISTORY_LIST = '/medical-history-list';
+  static const UPDATE_MEDICAL_HISTORY = '/update-medical-history';
+  static const DELETE_MEDICAL_HISTORY = '/delete-medical-history';
 }
