@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
@@ -9,7 +8,6 @@ import 'package:health_sync_question/app/core/widgets/custom_button.dart';
 import 'package:health_sync_question/app/core/widgets/custom_date_picker.dart';
 import 'package:health_sync_question/app/core/widgets/custom_image_picker.dart';
 import 'package:health_sync_question/app/core/widgets/custom_text_field.dart';
-import 'package:health_sync_question/app/core/widgets/profile_image_picker.dart';
 
 import '../controllers/create_profile_controller.dart';
 

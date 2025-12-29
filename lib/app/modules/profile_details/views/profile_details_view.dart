@@ -1,36 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:health_sync_question/app/core/widgets/custom_cache_network_image.dart';
-import 'package:health_sync_question/app/modules/profile_details/views/pages/empty_profile_page.dart';
-import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/custom_button.dart';
+import 'package:health_sync_question/app/core/widgets/custom_cache_network_image.dart';
 import 'package:health_sync_question/app/modules/profile_details/controllers/profile_details_controller.dart';
+import 'package:health_sync_question/app/modules/profile_details/views/pages/empty_profile_page.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
+import 'package:intl/intl.dart';
 
 class ProfileDetailsView extends GetView<ProfileDetailsController> {
   const ProfileDetailsView({super.key});
 
-  static const Color primary = Color(0xFF13ECA4);
-  static const Color background = Color(0xFFF6F8F7);
-  static const Color textMain = Color(0xFF0D1B17);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: background,
+      backgroundColor: Color(0xFFF6F8F7),
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: background,
+        backgroundColor: Color(0xFFF6F8F7),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new),
-          color: textMain,
+          color: Colors.black,
           onPressed: () => Navigator.pop(context),
         ),
         title: Text('Profile Details', style: textStyle.semiBold.s18),
         centerTitle: true,
+        actions: [
+          Obx(() {
+            if (appController.userModel.value?.profile == null) {
+              return SizedBox();
+            }
+            return GestureDetector(
+              onTap: () {
+                Get.toNamed(Routes.CREATE_PROFILE, arguments: true);
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: green.base400,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                margin: padOnly(right: 16),
+                padding: padSym(horizontal: 10, vertical: 6),
+                child: Row(
+                  children: [
+                    Icon(Icons.edit, color: Colors.white, size: 14),
+                    gapW(6),
+                    Text(
+                      "Edit",
+                      style: textStyle.bold.s14.copyWith(color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }),
+        ],
       ),
       bottomNavigationBar: _bottomButton(),
       body: Obx(() {
@@ -117,13 +143,12 @@ class ProfileDetailsView extends GetView<ProfileDetailsController> {
                                 Container(
                                   padding: padAll8,
                                   decoration: BoxDecoration(
-                                    color: ProfileDetailsView.primary
-                                        .withValues(alpha: 0.15),
+                                    color: green.base50,
                                     borderRadius: BorderRadius.circular(8),
                                   ),
-                                  child: const Icon(
+                                  child: Icon(
                                     Icons.location_on,
-                                    color: ProfileDetailsView.primary,
+                                    color: green.base300,
                                   ),
                                 ),
                                 gapW12,
@@ -168,36 +193,32 @@ class ProfileDetailsView extends GetView<ProfileDetailsController> {
 
   Widget _bottomButton() {
     return Obx(() {
-      return Container(
-        padding: padAll16,
-        decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.9),
-          border: Border(top: BorderSide(color: Colors.grey.shade200)),
-        ),
-        child: SizedBox(
-          height: 56,
-          child: appController.userModel.value?.profile == null
-              ? CustomButton(
-                  text: "Create Profile",
-                  onPressed: () {
-                    Get.toNamed(Routes.CREATE_PROFILE);
-                  },
-                )
-              : CustomButton(
-                  text: "Edit Profile",
-                  onPressed: () {
-                    Get.toNamed(Routes.CREATE_PROFILE, arguments: true);
-                  },
-                ),
-        ),
-      );
+      if (appController.userModel.value?.profile == null) {
+        return Container(
+          padding: padAll16,
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: 0.9),
+            border: Border(top: BorderSide(color: Colors.grey.shade200)),
+          ),
+          child: SizedBox(
+            height: 56,
+            child: CustomButton(
+              text: "Create Profile",
+              onPressed: () {
+                Get.toNamed(Routes.CREATE_PROFILE);
+              },
+            ),
+          ),
+        );
+      }
+      return SizedBox();
     });
   }
 
   sectionTitle({required IconData icon, required String title}) {
     return Row(
       children: [
-        Icon(icon, color: ProfileDetailsView.primary),
+        Icon(icon, color: green.base300),
         gapW8,
         Text(title, style: textStyle.bold.s16),
       ],
@@ -249,10 +270,10 @@ class ProfileDetailsView extends GetView<ProfileDetailsController> {
           Container(
             padding: padAll8,
             decoration: BoxDecoration(
-              color: ProfileDetailsView.primary.withValues(alpha: 0.15),
+              color: green.base50,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(icon, color: ProfileDetailsView.primary),
+            child: Icon(icon, color: green.base300),
           ),
           gapW12,
           Expanded(
