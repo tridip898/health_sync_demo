@@ -9,7 +9,6 @@ import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
 import 'package:health_sync_question/app/core/widgets/custom_button.dart';
 import 'package:health_sync_question/app/core/widgets/custom_cache_network_image.dart';
 import 'package:health_sync_question/app/data/model/doctor_list_response_model.dart';
-import 'package:health_sync_question/app/routes/app_pages.dart';
 
 import '../controllers/doctor_details_controller.dart';
 

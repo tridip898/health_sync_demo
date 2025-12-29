@@ -198,19 +198,14 @@ final Map<String, dynamic> medicalData = {
     /* ---------------- ENT ---------------- */
     "ent_section": {
       "type": "section",
-      "questions": [
-        {
-          "type": "single_select",
-          "question": "Which area is affected?",
-          "options": {
-            "Eye": "eye_branch",
-            "Ear": "ear_branch",
-            "Nose": "nose_branch",
-            "Mouth": "mouth_branch",
-            "Throat": "throat_branch",
-          },
-        },
-      ],
+      "question": "Which area is affected?",
+      "options": {
+        "Eye": "eye_branch",
+        "Ear": "ear_branch",
+        "Nose": "nose_branch",
+        "Mouth": "mouth_branch",
+        "Throat": "throat_branch",
+      },
     },
 
     "eye_branch": {
@@ -270,17 +265,12 @@ final Map<String, dynamic> medicalData = {
     /* ---------------- CARDIAC ---------------- */
     "cardiac_section": {
       "type": "section",
-      "questions": [
-        {
-          "type": "single_select",
-          "question": "What symptom do you have?",
-          "options": {
-            "Chest pain": "chest_pain_branch",
-            "Palpitations": "palpitation_branch",
-            "Shortness of breath": "sob_branch",
-          },
-        },
-      ],
+      "question": "What symptom do you have?",
+      "options": {
+        "Chest pain": "chest_pain_branch",
+        "Palpitations": "palpitation_branch",
+        "Shortness of breath": "sob_branch",
+      },
     },
 
     "chest_pain_branch": {
@@ -340,18 +330,13 @@ final Map<String, dynamic> medicalData = {
     /* ---------------- RESPIRATORY ---------------- */
     "respiratory_section": {
       "type": "section",
-      "questions": [
-        {
-          "type": "single_select",
-          "question": "What respiratory symptom do you have?",
-          "options": {
-            "Cough": "resp_cough_branch",
-            "Shortness of breath": "resp_sob_branch",
-            "Wheezing": "resp_wheeze_branch",
-            "Chest tightness": "resp_tight_branch",
-          },
-        },
-      ],
+      "question": "What respiratory symptom do you have?",
+      "options": {
+        "Cough": "resp_cough_branch",
+        "Shortness of breath": "resp_sob_branch",
+        "Wheezing": "resp_wheeze_branch",
+        "Chest tightness": "resp_tight_branch",
+      },
     },
 
     "resp_cough_branch": {
@@ -414,19 +399,14 @@ final Map<String, dynamic> medicalData = {
     /* ---------------- DIGESTIVE ---------------- */
     "digestive_section": {
       "type": "section",
-      "questions": [
-        {
-          "type": "single_select",
-          "question": "What digestive issue do you have?",
-          "options": {
-            "Abdominal pain": "gi_pain_branch",
-            "Nausea/Vomiting": "gi_nv_branch",
-            "Diarrhea": "gi_diarrhea_branch",
-            "Constipation": "gi_constipation_branch",
-            "Acidity": "gi_acidity_branch",
-          },
-        },
-      ],
+      "question": "What digestive issue do you have?",
+      "options": {
+        "Abdominal pain": "gi_pain_branch",
+        "Nausea/Vomiting": "gi_nv_branch",
+        "Diarrhea": "gi_diarrhea_branch",
+        "Constipation": "gi_constipation_branch",
+        "Acidity": "gi_acidity_branch",
+      },
     },
 
     "gi_pain_branch": {
@@ -480,18 +460,13 @@ final Map<String, dynamic> medicalData = {
     /* ---------------- ORTHO ---------------- */
     "ortho_section": {
       "type": "section",
-      "questions": [
-        {
-          "type": "single_select",
-          "question": "What issue do you have?",
-          "options": {
-            "Joint pain": "joint_pain_branch",
-            "Muscle pain": "muscle_pain_branch",
-            "Back pain": "back_pain_branch",
-            "Injury": "injury_branch",
-          },
-        },
-      ],
+      "question": "What issue do you have?",
+      "options": {
+        "Joint pain": "joint_pain_branch",
+        "Muscle pain": "muscle_pain_branch",
+        "Back pain": "back_pain_branch",
+        "Injury": "injury_branch",
+      },
     },
 
     "joint_pain_branch": {
@@ -529,18 +504,13 @@ final Map<String, dynamic> medicalData = {
     /* ---------------- URO ---------------- */
     "uro_section": {
       "type": "section",
-      "questions": [
-        {
-          "type": "single_select",
-          "question": "What urinary/reproductive issue?",
-          "options": {
-            "Burning urination": "uro_burning_branch",
-            "Frequency": "uro_frequency_branch",
-            "Lower abdominal pain": "uro_pain_branch",
-            "Discharge": "uro_discharge_branch",
-          },
-        },
-      ],
+      "question": "What urinary/reproductive issue?",
+      "options": {
+        "Burning urination": "uro_burning_branch",
+        "Frequency": "uro_frequency_branch",
+        "Lower abdominal pain": "uro_pain_branch",
+        "Discharge": "uro_discharge_branch",
+      },
     },
 
     "uro_burning_branch": {
@@ -586,18 +556,13 @@ final Map<String, dynamic> medicalData = {
     /* ---------------- DERMA ---------------- */
     "derma_section": {
       "type": "section",
-      "questions": [
-        {
-          "type": "single_select",
-          "question": "What skin/hair/nail issue?",
-          "options": {
-            "Rash": "rash_branch",
-            "Itching": "itching_branch",
-            "Hair fall": "hairfall_branch",
-            "Nail changes": "nail_branch",
-          },
-        },
-      ],
+      "question": "What skin/hair/nail issue?",
+      "options": {
+        "Rash": "rash_branch",
+        "Itching": "itching_branch",
+        "Hair fall": "hairfall_branch",
+        "Nail changes": "nail_branch",
+      },
     },
 
     "rash_branch": {
@@ -635,18 +600,13 @@ final Map<String, dynamic> medicalData = {
     /* ---------------- GENERAL ---------------- */
     "general_section": {
       "type": "section",
-      "questions": [
-        {
-          "type": "single_select",
-          "question": "What are your main symptoms?",
-          "options": {
-            "Fever": "fever_branch",
-            "Fatigue": "fatigue_branch",
-            "Weakness": "weakness_branch",
-            "Body ache": "body_ache_branch",
-          },
-        },
-      ],
+      "question": "What are your main symptoms?",
+      "options": {
+        "Fever": "fever_branch",
+        "Fatigue": "fatigue_branch",
+        "Weakness": "weakness_branch",
+        "Body ache": "body_ache_branch",
+      },
     },
 
     "fever_branch": {

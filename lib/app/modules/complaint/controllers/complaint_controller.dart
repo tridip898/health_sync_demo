@@ -79,4 +79,30 @@ class ComplaintController extends GetxController {
   void onReviewTap() {
     currentBranchIndex.value++;
   }
+
+  Rx<bool> canPop = false.obs;
+
+  void onBackTap(bool didPop, result) async {
+    if (isExtraNoteComplete) {
+      currentBranchIndex.value--;
+    } else if (isBranchComplete) {
+      currentBranchIndex.value--;
+      extraNotesController.clear();
+    } else if (isBranch) {
+      if (currentBranchIndex.value == 0) {
+        currentQuestion.value = answerList.value.last;
+      } else {
+        currentBranchIndex.value--;
+      }
+      answerList.value.removeLast();
+    } else if (currentBranchIndex.value == 0 &&
+        !isBranch &&
+        answerList.value.isNotEmpty) {
+      currentQuestion.value = answerList.value.last;
+      answerList.value.removeLast();
+    } else if (answerList.value.isEmpty) {
+      canPop.value = true;
+      // Get.back();
+    }
+  }
 }

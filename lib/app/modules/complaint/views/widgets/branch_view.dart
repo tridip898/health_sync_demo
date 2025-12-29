@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
+import 'package:health_sync_question/app/core/widgets/boolean_selector_widget.dart';
 import 'package:health_sync_question/app/core/widgets/custom_text_field.dart';
 import 'package:health_sync_question/app/data/app_data/basic_question_data.dart';
 import 'package:health_sync_question/app/modules/complaint/views/widgets/progress_wrapper_widget.dart';
@@ -64,6 +65,11 @@ class BranchView extends StatelessWidget {
                 },
                 separatorBuilder: (context, _) => gapH8,
               ),
+            )
+          else if (section.type == InputType.boolean)
+            BooleanSelectorWidget(
+              value: null,
+              onChanged: (value) => onBranchNextTap(value.toString()),
             )
           else if (section.type == InputType.number)
             CustomTextFormField(

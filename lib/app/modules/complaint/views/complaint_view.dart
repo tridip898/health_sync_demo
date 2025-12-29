@@ -15,55 +15,61 @@ class ComplaintView extends GetView<ComplaintController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: CustomAppBar(title: "Complaint"),
-      body: Padding(
-        padding: padAll16,
-        child: Obx(() {
-          final currentQuestion = controller.currentQuestion.value;
-          if (currentQuestion != null) {
-            if (currentQuestion.type == InputType.section) {
-              return SectionView(
-                section: currentQuestion,
-                onSectionTap: controller.onSectionTap,
-              );
-            } else if (controller.isBranch) {
-              if (controller.isExtraNoteComplete) {
-                return SummaryView();
-              } else if (controller.isBranchComplete) {
-                return Column(
-                  children: [
-                    CustomTextFormField(
-                      labelText: 'Extra Notes',
-                      hintText: 'Write any other issue...',
-                    ),
-                    gapH24,
-                    CustomButton(
-                      text: 'Review',
-                      onPressed: controller.onReviewTap,
-                    ),
-                  ],
-                );
-              } else {
-                return BranchView(
-                  section: currentQuestion
-                      .questions![controller.currentBranchIndex.value],
-                  onBranchNextTap: (answer) =>
-                      controller.onBranchNextTap(answer),
-                  currentIndex: controller.currentBranchIndex.value,
-                  totalQuestions:
+    return Obx(() {
+      return PopScope(
+        onPopInvokedWithResult: controller.onBackTap,
+        canPop: controller.canPop.value,
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: CustomAppBar(title: "Complaint"),
+          body: Padding(
+            padding: padAll16,
+            child: Obx(() {
+              final currentQuestion = controller.currentQuestion.value;
+              if (currentQuestion != null) {
+                if (currentQuestion.type == InputType.section) {
+                  return SectionView(
+                    section: currentQuestion,
+                    onSectionTap: controller.onSectionTap,
+                  );
+                } else if (controller.isBranch) {
+                  if (controller.isExtraNoteComplete) {
+                    return SummaryView();
+                  } else if (controller.isBranchComplete) {
+                    return Column(
+                      children: [
+                        CustomTextFormField(
+                          labelText: 'Extra Notes',
+                          hintText: 'Write any other issue...',
+                        ),
+                        gapH24,
+                        CustomButton(
+                          text: 'Review',
+                          onPressed: controller.onReviewTap,
+                        ),
+                      ],
+                    );
+                  } else {
+                    return BranchView(
+                      section: currentQuestion
+                          .questions![controller.currentBranchIndex.value],
+                      onBranchNextTap: (answer) =>
+                          controller.onBranchNextTap(answer),
+                      currentIndex: controller.currentBranchIndex.value,
+                      totalQuestions:
                       (controller.currentQuestion.value?.questions?.length ??
                           0) +
-                      1,
-                );
+                          1,
+                    );
+                  }
+                }
+                return SizedBox();
               }
-            }
-            return SizedBox();
-          }
-          return SizedBox();
-        }),
-      ),
-    );
+              return SizedBox();
+            }),
+          ),
+        ),
+      );
+    });
   }
 }
