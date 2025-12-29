@@ -172,9 +172,7 @@ class CreateProfileView extends GetView<CreateProfileController> {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your phone number';
                     }
-
                     final bdPhoneRegex = RegExp(r'^(?:\+88)?01[3-9]\d{8}$');
-
                     if (!bdPhoneRegex.hasMatch(value)) {
                       return 'Please enter a valid phone number';
                     }
@@ -191,15 +189,12 @@ class CreateProfileView extends GetView<CreateProfileController> {
                     if (value == null || value.trim().isEmpty) {
                       return null;
                     }
-
                     final emailRegex = RegExp(
-                      r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                      r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$',
                     );
-
                     if (!emailRegex.hasMatch(value.trim())) {
                       return 'Please enter a valid email address';
                     }
-
                     return null;
                   },
                 ),
@@ -210,36 +205,4 @@ class CreateProfileView extends GetView<CreateProfileController> {
       ),
     );
   }
-
-  // Widget _genderSelectionCard({String text = ""}) {
-  //   return Expanded(
-  //     child: Obx(() {
-  //       final isSelected = controller.selectedGender.value == text;
-  //       return InkWell(
-  //         onTap: () {
-  //           controller.selectedGender.value = text;
-  //         },
-  //         borderRadius: BorderRadius.circular(12),
-  //         child: Container(
-  //           decoration: BoxDecoration(
-  //             color: isSelected ? green.base50 : Colors.white,
-  //             borderRadius: BorderRadius.circular(12),
-  //             border: Border.all(
-  //               color: isSelected ? green.base400 : gray.base300,
-  //               width: 1,
-  //             ),
-  //           ),
-  //           padding: padSym(horizontal: 16, vertical: 12),
-  //           alignment: Alignment.center,
-  //           child: Text(
-  //             text,
-  //             style: textStyle.medium.s16.copyWith(
-  //               color: isSelected ? green.base500 : Colors.black,
-  //             ),
-  //           ),
-  //         ),
-  //       );
-  //     }),
-  //   );
-  // }
 }
