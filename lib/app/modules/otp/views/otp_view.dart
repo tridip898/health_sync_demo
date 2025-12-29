@@ -40,12 +40,14 @@ class OtpView extends GetView<OtpController> {
                 const SizedBox(height: 40),
                 Container(
                   padding: EdgeInsetsGeometry.all(14),
+                  margin: EdgeInsets.only(left: 20),
                   child: Obx(
                     () => OtpTextField(
-                      isIncorrect: false,
+                      isIncorrect:controller.isOtpError.value,
                       prefixValue: controller.otpPrefix.value,
                       shouldShowPrefix: true,
                       onSubmit: controller.onOtpChanged,
+
                     ),
                   ),
                 ),

@@ -34,18 +34,20 @@ class ForgotPassVerifyOtpView extends GetView<ForgotPassVerifyOtpController> {
                 const SizedBox(height: 6),
 
                 Obx(
-                  () => Text(controller.maskedPhone, style: textStyle.bold.s14),
+                      () => Text(controller.maskedPhone, style: textStyle.bold.s14),
                 ),
 
                 const SizedBox(height: 40),
                 Container(
                   padding: EdgeInsetsGeometry.all(14),
+                  margin: EdgeInsets.only(left: 20),
                   child: Obx(
-                    () => OtpTextField(
-                      isIncorrect: false,
+                        () => OtpTextField(
+                      isIncorrect:controller.isOtpError.value,
                       prefixValue: controller.otpPrefix.value,
                       shouldShowPrefix: true,
                       onSubmit: controller.onOtpChanged,
+
                     ),
                   ),
                 ),
