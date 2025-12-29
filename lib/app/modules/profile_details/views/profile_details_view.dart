@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/widgets/custom_cache_network_image.dart';
-import 'package:health_sync_question/app/core/widgets/custom_circle_cached_network_image.dart';
 import 'package:health_sync_question/app/modules/profile_details/views/pages/empty_profile_page.dart';
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -43,11 +42,21 @@ class ProfileDetailsView extends GetView<ProfileDetailsController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    CustomCircleCachedNetworkImage(
-                      profile.image ?? '',
-                      110,
-                      60,
+                    Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: gray.base50),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: CacheNetworkImage(
+                          imageUrl: profile.image ?? '',
+                          width: 120,
+                          height: 120,
+                        ),
+                      ),
                     ),
+
                     gapH16,
                     Center(
                       child: Text(

@@ -7,8 +7,6 @@ import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/custom_cache_network_image.dart';
 import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
 
-import 'custom_circle_cached_network_image.dart';
-
 class CustomImagePicker extends StatelessWidget {
   final String title;
   final String instructionText;
@@ -53,13 +51,45 @@ class CustomImagePicker extends StatelessWidget {
                     )
                   : (remoteSource ?? "") != ""
                   ? Stack(
+                      alignment: Alignment.center,
                       children: [
-                        CustomCircleCachedNetworkImage(
-                          remoteSource ?? '',
-                          130,
-                          65,
+                        Container(
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: gray.base50),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: CacheNetworkImage(
+                              imageUrl: remoteSource ?? '',
+                              width: 120,
+                              height: 120,
+                            ),
+                          ),
                         ),
-                        imageCapture(),
+
+                        Positioned(
+                          bottom: 6,
+                          right: 130,
+                          child: InkWell(
+                            onTap: onTap,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 6,
+                                vertical: 6,
+                              ),
+                              child: Icon(
+                                Icons.camera_alt_outlined,
+                                color: Colors.white,
+                                size: 18,
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     )
                   : Material(

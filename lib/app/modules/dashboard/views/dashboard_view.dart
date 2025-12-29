@@ -4,8 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/string_extension.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
-import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
-import 'package:health_sync_question/app/core/widgets/custom_circle_cached_network_image.dart';
+import 'package:health_sync_question/app/core/widgets/custom_cache_network_image.dart';
 import 'package:health_sync_question/app/data/model/profile_model.dart';
 import 'package:health_sync_question/app/modules/dashboard/controllers/dashboard_controller.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
@@ -118,11 +117,21 @@ class _Header extends StatelessWidget {
               children: [
                 Stack(
                   children: [
-                    CustomCircleCachedNetworkImage(
-                      profileModel?.image ?? '',
-                      45,
-                      20,
+                    Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: gray.base50),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: CacheNetworkImage(
+                          imageUrl:  profileModel?.image ?? '',
+                          width: 45,
+                          height: 45,
+                        ),
+                      ),
                     ),
+
                     Positioned(
                       bottom: 0,
                       right: 0,
