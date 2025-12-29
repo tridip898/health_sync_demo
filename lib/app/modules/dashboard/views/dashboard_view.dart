@@ -73,7 +73,9 @@ class DashboardView extends GetView<DashboardController> {
                           iconColor: red.base500,
                           title: 'Prescriptions',
                           subtitle: '4 Active meds',
-                          onTap: () {},
+                          onTap: () {
+                            Get.toNamed(Routes.PRESCRIPTION);
+                          },
                         ),
                         gapH12,
                         _OverviewCard(
@@ -125,7 +127,7 @@ class _Header extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
                         child: CacheNetworkImage(
-                          imageUrl:  profileModel?.image ?? '',
+                          imageUrl: profileModel?.image ?? '',
                           width: 45,
                           height: 45,
                         ),

@@ -24,4 +24,11 @@ class Apis {
   static String get specialtyList => '$baseUrl/specialty';
 
   static String get createProfile => '$baseUrl/profile';
+
+  static String get roleList => '$baseUrl/role';
+
+  static String get roleSelection => '$baseUrl/user/select-new-role';
+
+  static String switchRole(String roleId) =>
+      '$baseUrl/user/switch-user-role/$roleId';
 }

@@ -1,5 +1,7 @@
 import 'package:health_sync_question/app/core/config/network/apis.dart';
 import 'package:health_sync_question/app/data/model/login_response_model.dart';
+import 'package:health_sync_question/app/data/model/role_list_response.dart';
+import 'package:health_sync_question/app/data/model/user_current_role_model.dart';
 import 'package:network/network.dart';
 
 import '../model/otp_verify_response_model.dart';
@@ -66,6 +68,32 @@ class AuthRepository extends BaseRepository {
       path: Apis.reset_password,
       data: {"tempToken": tempToken, "password": password},
       responseCompiler: SetNewPasswordResponseModel.fromJson,
+    );
+  }
+
+  Future<Either<ErrorResponse, RoleListResponse>> getRoleList() {
+    return get<RoleListResponse>(
+      path: Apis.roleList,
+      responseCompiler: RoleListResponse.fromJson,
+    );
+  }
+
+  Future<Either<ErrorResponse, UserCurrentRoleModel>> setUserCurrentRole({
+    required String roleId,
+  }) {
+    return post<UserCurrentRoleModel>(
+      path: Apis.roleSelection,
+      data: {'roleId': roleId},
+      responseCompiler: UserCurrentRoleModel.fromJson,
+    );
+  }
+
+  Future<Either<ErrorResponse, LoginResponseModel>> switchRole({
+    required String roleId,
+  }) {
+    return patch<LoginResponseModel>(
+      path: Apis.switchRole(roleId),
+      responseCompiler: LoginResponseModel.fromJson,
     );
   }
 }
