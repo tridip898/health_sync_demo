@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -11,6 +12,16 @@ class ComplaintController extends GetxController {
   Rx<Section?> currentQuestion = Rx(null);
   Rx<List<Section>> answerList = Rx([]);
   Rx<int> currentBranchIndex = Rx(0);
+
+  bool get isBranch {
+    return currentQuestion.value?.type == InputType.branch &&
+        currentQuestion.value?.questions?.isNotEmpty == true;
+  }
+
+  bool get isBranchComplete {
+    return isBranch &&
+        currentBranchIndex.value == currentQuestion.value?.questions?.length;
+  }
 
   @override
   void onReady() {

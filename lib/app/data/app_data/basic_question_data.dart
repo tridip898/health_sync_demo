@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 final Map<String, dynamic> medicalData = {
   "appId": "MedicalAssistantApp",
   "version": "1.0",
@@ -39,22 +41,31 @@ final Map<String, dynamic> medicalData = {
         {
           "type": "single_select",
           "question": "Location of pain?",
-          "options": {"Front", "Side", "Back", "Whole head"},
+          "options": {
+            "Front": "Front",
+            "Side": "Side",
+            "Back": "Back",
+            "Whole head": "Whole head",
+          },
         },
         {
           "type": "single_select",
           "question": "Onset?",
-          "options": {"Sudden", "Gradual"},
+          "options": {"Sudden": "Sudden", "Gradual": "Gradual"},
         },
         {
           "type": "single_select",
           "question": "Duration?",
-          "options": {"Hours", "Days", "Weeks"},
+          "options": {"Hours": "Hours", "Days": "Days", "Weeks": "Weeks"},
         },
         {
           "type": "single_select",
           "question": "Severity?",
-          "options": {"Mild", "Moderate", "Severe"},
+          "options": {
+            "Mild": "Mild",
+            "Moderate": "Moderate",
+            "Severe": "Severe",
+          },
         },
       ],
     },
@@ -65,12 +76,21 @@ final Map<String, dynamic> medicalData = {
         {
           "type": "single_select",
           "question": "When does it occur?",
-          "options": {"Standing", "Sitting", "Moving", "Randomly"},
+          "options": {
+            "Standing": "Standing",
+            "Sitting": "Sitting",
+            "Moving": "Moving",
+            "Randomly": "Randomly",
+          },
         },
         {
           "type": "single_select",
           "question": "Duration of each episode?",
-          "options": {"<1 min", "1-10 min", ">10 min"},
+          "options": {
+            "<1 min": "<1 min",
+            "1-10 min": "1-10 min",
+            ">10 min": ">10 min",
+          },
         },
       ],
     },
@@ -81,7 +101,11 @@ final Map<String, dynamic> medicalData = {
         {
           "type": "single_select",
           "question": "Frequency?",
-          "options": {"Daily", "Weekly", "Occasionally"},
+          "options": {
+            "Daily": "Daily",
+            "Weekly": "Weekly",
+            "Occasionally": "Occasionally",
+          },
         },
         {"type": "boolean", "question": "Mood changes?"},
       ],
@@ -93,12 +117,16 @@ final Map<String, dynamic> medicalData = {
         {
           "type": "single_select",
           "question": "Frequency?",
-          "options": {"Daily", "Weekly", "Occasionally"},
+          "options": {
+            "Daily": "Daily",
+            "Weekly": "Weekly",
+            "Occasionally": "Occasionally",
+          },
         },
         {
           "type": "single_select",
           "question": "Sleep quality?",
-          "options": {"Good", "Poor", "Insomnia"},
+          "options": {"Good": "Good", "Poor": "Poor", "Insomnia": "Insomnia"},
         },
       ],
     },
@@ -109,18 +137,30 @@ final Map<String, dynamic> medicalData = {
         {
           "type": "single_select",
           "question": "What best describes your condition?",
-          "options": {"Anxiety", "Depression", "Both"},
+          "options": {
+            "Anxiety": "Anxiety",
+            "Depression": "Depression",
+            "Both": "Both",
+          },
         },
         {
           "type": "single_select",
           "question": "How long have you been experiencing this?",
-          "options": {"<1 month", "1–6 months", ">6 months"},
+          "options": {
+            "<1 month": "<1 month",
+            "1–6 months": "1–6 months",
+            ">6 months": ">6 months",
+          },
         },
         {"type": "boolean", "question": "Do you experience panic attacks?"},
         {
           "type": "single_select",
           "question": "How much does it affect daily life?",
-          "options": {"Mild", "Moderate", "Severe"},
+          "options": {
+            "Mild": "Mild",
+            "Moderate": "Moderate",
+            "Severe": "Severe",
+          },
         },
       ],
     },
@@ -132,12 +172,20 @@ final Map<String, dynamic> medicalData = {
         {
           "type": "single_select",
           "question": "How often do seizures occur?",
-          "options": {"Single episode", "Occasional", "Frequent"},
+          "options": {
+            "Single episode": "Single episode",
+            "Occasional": "Occasional",
+            "Frequent": "Frequent",
+          },
         },
         {
           "type": "single_select",
           "question": "Typical duration of a seizure?",
-          "options": {"<1 minute", "1–5 minutes", ">5 minutes"},
+          "options": {
+            "<1 minute": "<1 minute",
+            "1–5 minutes": "1–5 minutes",
+            ">5 minutes": ">5 minutes",
+          },
         },
         {
           "type": "boolean",
@@ -180,7 +228,11 @@ final Map<String, dynamic> medicalData = {
         {
           "type": "single_select",
           "question": "Hearing loss?",
-          "options": {"Partial", "Complete", "None"},
+          "options": {
+            "Partial": "Partial",
+            "Complete": "Complete",
+            "None": "None",
+          },
         },
       ],
     },
@@ -192,7 +244,11 @@ final Map<String, dynamic> medicalData = {
         {
           "type": "single_select",
           "question": "Duration?",
-          "options": {"<1 week", "1-4 weeks", ">4 weeks"},
+          "options": {
+            "<1 week": "<1 week",
+            "1-4 weeks": "1-4 weeks",
+            ">4 weeks": ">4 weeks",
+          },
         },
       ],
     },
@@ -233,12 +289,17 @@ final Map<String, dynamic> medicalData = {
         {
           "type": "single_select",
           "question": "Onset?",
-          "options": {"Sudden", "Gradual"},
+          "options": {"Sudden": "Sudden", "Gradual": "Gradual"},
         },
         {
           "type": "single_select",
           "question": "Radiates?",
-          "options": {"Arm", "Jaw", "Back", "None"},
+          "options": {
+            "Arm": "Arm",
+            "Jaw": "Jaw",
+            "Back": "Back",
+            "None": "None",
+          },
         },
       ],
     },
@@ -249,7 +310,11 @@ final Map<String, dynamic> medicalData = {
         {
           "type": "single_select",
           "question": "Frequency?",
-          "options": {"Occasional", "Daily", "Continuous"},
+          "options": {
+            "Occasional": "Occasional",
+            "Daily": "Daily",
+            "Continuous": "Continuous",
+          },
         },
       ],
     },
@@ -260,12 +325,12 @@ final Map<String, dynamic> medicalData = {
         {
           "type": "single_select",
           "question": "Onset of shortness of breath?",
-          "options": {"Sudden", "Gradual"},
+          "options": {"Sudden": "Sudden", "Gradual": "Gradual"},
         },
         {
           "type": "single_select",
           "question": "Occurs during?",
-          "options": {"Exertion", "Rest", "Both"},
+          "options": {"Exertion": "Exertion", "Rest": "Rest", "Both": "Both"},
         },
         {"type": "boolean", "question": "Does it wake you up at night?"},
         {"type": "boolean", "question": "Leg or ankle swelling present?"},
@@ -295,12 +360,16 @@ final Map<String, dynamic> medicalData = {
         {
           "type": "single_select",
           "question": "Type of cough?",
-          "options": {"Dry", "Productive"},
+          "options": {"Dry": "Dry", "Productive": "Productive"},
         },
         {
           "type": "single_select",
           "question": "Duration?",
-          "options": {"<1 week", "1–3 weeks", ">3 weeks"},
+          "options": {
+            "<1 week": "<1 week",
+            "1–3 weeks": "1–3 weeks",
+            ">3 weeks": ">3 weeks",
+          },
         },
       ],
     },
@@ -311,7 +380,11 @@ final Map<String, dynamic> medicalData = {
         {
           "type": "single_select",
           "question": "Occurs during?",
-          "options": {"Rest", "Mild activity", "Severe activity"},
+          "options": {
+            "Rest": "Rest",
+            "Mild activity": "Mild activity",
+            "Severe activity": "Severe activity",
+          },
         },
       ],
     },
@@ -329,7 +402,11 @@ final Map<String, dynamic> medicalData = {
         {
           "type": "single_select",
           "question": "Severity?",
-          "options": {"Mild", "Moderate", "Severe"},
+          "options": {
+            "Mild": "Mild",
+            "Moderate": "Moderate",
+            "Severe": "Severe",
+          },
         },
       ],
     },
@@ -358,7 +435,7 @@ final Map<String, dynamic> medicalData = {
         {
           "type": "single_select",
           "question": "Location?",
-          "options": {"Upper", "Lower", "Diffuse"},
+          "options": {"Upper": "Upper", "Lower": "Lower", "Diffuse": "Diffuse"},
         },
         {"type": "boolean", "question": "Related to food?"},
       ],
@@ -370,26 +447,29 @@ final Map<String, dynamic> medicalData = {
         {
           "type": "single_select",
           "question": "Frequency?",
-          "options": {"Once", "Multiple times"},
+          "options": {"Once": "Once", "Multiple times": "Multiple times"},
         },
       ],
     },
+
     "gi_diarrhea_branch": {
       "type": "branch",
       "questions": [
         {"type": "number", "question": "How many days?"},
       ],
     },
+
     "gi_constipation_branch": {
       "type": "branch",
       "questions": [
         {
           "type": "single_select",
           "question": "Duration?",
-          "options": {"<1 week", ">1 week"},
+          "options": {"<1 week": "<1 week", ">1 week": ">1 week"},
         },
       ],
     },
+
     "gi_acidity_branch": {
       "type": "branch",
       "questions": [
@@ -420,25 +500,28 @@ final Map<String, dynamic> medicalData = {
         {"type": "boolean", "question": "Swelling present?"},
       ],
     },
+
     "muscle_pain_branch": {
       "type": "branch",
       "questions": [
         {"type": "boolean", "question": "After overuse?"},
       ],
     },
+
     "back_pain_branch": {
       "type": "branch",
       "questions": [
         {"type": "boolean", "question": "Pain radiates?"},
       ],
     },
+
     "injury_branch": {
       "type": "branch",
       "questions": [
         {
           "type": "single_select",
           "question": "When occurred?",
-          "options": {"Recent", "Old"},
+          "options": {"Recent": "Recent", "Old": "Old"},
         },
       ],
     },
@@ -466,26 +549,33 @@ final Map<String, dynamic> medicalData = {
         {
           "type": "single_select",
           "question": "Duration?",
-          "options": {"<3 days", ">3 days"},
+          "options": {"<3 days": "<3 days", ">3 days": ">3 days"},
         },
       ],
     },
+
     "uro_frequency_branch": {
       "type": "branch",
       "questions": [
         {"type": "boolean", "question": "Night frequency?"},
       ],
     },
+
     "uro_pain_branch": {
       "type": "branch",
       "questions": [
         {
           "type": "single_select",
           "question": "Severity?",
-          "options": {"Mild", "Moderate", "Severe"},
+          "options": {
+            "Mild": "Mild",
+            "Moderate": "Moderate",
+            "Severe": "Severe",
+          },
         },
       ],
     },
+
     "uro_discharge_branch": {
       "type": "branch",
       "questions": [
@@ -516,22 +606,25 @@ final Map<String, dynamic> medicalData = {
         {"type": "boolean", "question": "Spreading?"},
       ],
     },
+
     "itching_branch": {
       "type": "branch",
       "questions": [
         {"type": "boolean", "question": "Worse at night?"},
       ],
     },
+
     "hairfall_branch": {
       "type": "branch",
       "questions": [
         {
           "type": "single_select",
           "question": "Duration?",
-          "options": {"<1 month", ">1 month"},
+          "options": {"<1 month": "<1 month", ">1 month": ">1 month"},
         },
       ],
     },
+
     "nail_branch": {
       "type": "branch",
       "questions": [
@@ -562,7 +655,7 @@ final Map<String, dynamic> medicalData = {
         {
           "type": "single_select",
           "question": "Duration?",
-          "options": {"Hours", "Days", "Weeks"},
+          "options": {"Hours": "Hours", "Days": "Days", "Weeks": "Weeks"},
         },
       ],
     },
@@ -573,7 +666,7 @@ final Map<String, dynamic> medicalData = {
         {
           "type": "single_select",
           "question": "Impact on daily life?",
-          "options": {"Low", "Moderate", "High"},
+          "options": {"Low": "Low", "Moderate": "Moderate", "High": "High"},
         },
       ],
     },
@@ -584,7 +677,7 @@ final Map<String, dynamic> medicalData = {
         {
           "type": "single_select",
           "question": "Localized or generalized?",
-          "options": {"Localized", "Generalized"},
+          "options": {"Localized": "Localized", "Generalized": "Generalized"},
         },
       ],
     },
@@ -595,7 +688,11 @@ final Map<String, dynamic> medicalData = {
         {
           "type": "single_select",
           "question": "Severity?",
-          "options": {"Mild", "Moderate", "Severe"},
+          "options": {
+            "Mild": "Mild",
+            "Moderate": "Moderate",
+            "Severe": "Severe",
+          },
         },
       ],
     },
@@ -669,6 +766,16 @@ class Section {
           ? Map<String, String>.from(json['options'])
           : null,
     );
+  }
+
+  static Map<String, String?> getQuestionsAndAnswersMap(Section section) {
+    final Map<String, String?> result = {};
+
+    if (section.question != null) {
+      result[section.question!] = section.answer;
+    }
+
+    return result;
   }
 
   @override
