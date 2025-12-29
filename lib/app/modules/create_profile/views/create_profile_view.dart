@@ -73,22 +73,23 @@ class CreateProfileView extends GetView<CreateProfileController> {
                   ),
                 ),
                 gapH(32),
-                CustomImagePicker(
-                  title: "",
-                  instructionText: "Drag and Drop an Image",
-                  onTap: controller.pickImage,
-                  isEditable: true,
-                  selectedImage: controller.exchangedImage.value,
-                  onRemove: () {},
-                ),
-                // Obx(() {
-                //   return ProfileImagePicker(
-                //     initialImage: controller.profileImage.value,
-                //     onPickImage: (image) {
-                //       controller.profileImage.value = image;
-                //     },
-                //   );
-                // }),
+                Obx(() {
+                  return Center(
+                    child: CustomImagePicker(
+                      title: "",
+                      instructionText: "Drag and Drop an Image",
+                      onTap: controller.pickImage,
+                      isEditable: true,
+                      isCircle: true,
+                      remoteSource: controller.profileImageUrl.value,
+                      selectedImage: controller.profileImage.value,
+                      onRemove: () {
+                        controller.profileImage.value = null;
+                        controller.profileImageUrl.value = '';
+                      },
+                    ),
+                  );
+                }),
                 gapH(24),
                 CustomTextFormField(
                   labelText: "Full Name",
@@ -219,18 +220,21 @@ class CreateProfileView extends GetView<CreateProfileController> {
           borderRadius: BorderRadius.circular(12),
           child: Container(
             decoration: BoxDecoration(
-              color: isSelected
-                  ? Color(0xFF13ECA4).withValues(alpha: .2)
-                  : Colors.white,
+              color: isSelected ? green.base50 : Colors.white,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: isSelected ? Color(0xFF13ECA4) : gray.base300,
+                color: isSelected ? green.base400 : gray.base300,
                 width: 1,
               ),
             ),
             padding: padSym(horizontal: 16, vertical: 12),
             alignment: Alignment.center,
-            child: Text(text, style: textStyle.medium.s16),
+            child: Text(
+              text,
+              style: textStyle.medium.s16.copyWith(
+                color: isSelected ? green.base500 : Colors.black,
+              ),
+            ),
           ),
         );
       }),

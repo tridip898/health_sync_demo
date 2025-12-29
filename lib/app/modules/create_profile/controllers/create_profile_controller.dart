@@ -1,16 +1,15 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'dart:typed_data';
+
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:health_sync_question/app/core/utils/image_picker_utils.dart';
-import 'package:intl/intl.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
+import 'package:health_sync_question/app/core/utils/image_picker_utils.dart';
 import 'package:health_sync_question/app/core/utils/toaster.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
 import 'package:health_sync_question/app/data/repository/profile_repository.dart';
+import 'package:intl/intl.dart';
 
 class CreateProfileController extends GetxController {
   final ProfileRepository _profileRepository = ProfileRepository();
@@ -22,10 +21,13 @@ class CreateProfileController extends GetxController {
   final TextEditingController dobController = TextEditingController();
 
   final RxString selectedGender = 'Male'.obs;
-  final Rx<Uint8List?> profileImage = Rx(null);
+
+  // final Rx<Uint8List?> profileImage = Rx(null);
   final bool isEditProfile = Get.arguments ?? false;
   final Rx<DateTime?> dateOfBirth = Rx(null);
-  Rx<File?> exchangedImage = Rx<File?>(null);
+  Rx<File?> profileImage = Rx<File?>(null);
+  final RxString profileImageUrl="".obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -41,9 +43,11 @@ class CreateProfileController extends GetxController {
       phoneController.text = profile?.publicPhoneNumber ?? '';
       emailController.text = profile?.publicEmail ?? '';
       selectedGender.value = (profile?.gender)?.capitalizeFirst ?? 'Male';
-      profileImage.value = profile?.image != null
-          ? base64Decode(profile!.image!)
-          : null;
+      // profileImage.value = profile?.image != null
+      //     ? File(profile?.image ?? '')
+      //     : null;
+      profileImageUrl.value = profile?.image??'';
+      log("profileImageUrl $profileImageUrl");
       dobController.text = DateFormat(
         'dd-MM-yyyy',
       ).format(DateTime.parse(profile?.dateOfBirth ?? ''));
@@ -63,12 +67,14 @@ class CreateProfileController extends GetxController {
     profileImage.close();
     super.onClose();
   }
+
   pickImage() async {
     final file = await ImagePickerUtil.pickImageFromGallery();
     if (file != null) {
-      exchangedImage.value = file;
+      profileImage.value = file;
     }
   }
+
   void createProfileClick() async {
     if (formKey.currentState!.validate()) {
       Loading.show();
@@ -83,8 +89,8 @@ class CreateProfileController extends GetxController {
           if (emailController.text.isNotEmpty)
             "publicEmail": emailController.text,
           if (profileImage.value != null)
-            "file": dio.MultipartFile.fromBytes(
-              profileImage.value!,
+            "file": dio.MultipartFile.fromFile(
+              profileImage.value?.path ?? '',
               filename: "doctor_${nameController.text}.jpg",
             ),
         },
@@ -117,7 +123,7 @@ class CreateProfileController extends GetxController {
     }
   }
 
-  updateProfileClick() async{
+  updateProfileClick() async {
     if (formKey.currentState!.validate()) {
       Loading.show();
       final response = await _profileRepository.updateProfile(
@@ -131,18 +137,18 @@ class CreateProfileController extends GetxController {
           if (emailController.text.isNotEmpty)
             "publicEmail": emailController.text,
           if (profileImage.value != null)
-            "file": dio.MultipartFile.fromBytes(
-              profileImage.value!,
+            "file": await dio.MultipartFile.fromFile(
+              profileImage.value?.path ?? '',
               filename: "doctor_${nameController.text}.jpg",
             ),
         },
       );
       Loading.hide();
       response.fold(
-            (error) {
+        (error) {
           Toaster.error(error.message ?? 'Failed to create profile');
         },
-            (success) async {
+        (success) async {
           Toaster.success(success.message ?? 'Profile created successfully');
           await appController.loadProfile();
           Get.back();

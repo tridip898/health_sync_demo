@@ -5,6 +5,7 @@ import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/string_extension.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
+import 'package:health_sync_question/app/core/widgets/custom_circle_cached_network_image.dart';
 import 'package:health_sync_question/app/data/model/profile_model.dart';
 import 'package:health_sync_question/app/modules/dashboard/controllers/dashboard_controller.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
@@ -51,7 +52,10 @@ class DashboardView extends GetView<DashboardController> {
                           title: 'Appointments',
                           subtitle: 'Your upcoming appointments',
                           onTap: () {
-                            Get.toNamed(Routes.PROFILE_DETAILS);
+                            if (appController.userModel.value?.profile ==
+                                null) {
+                              Get.toNamed(Routes.PROFILE_DETAILS);
+                            }
                           },
                         ),
                         gapH12,
@@ -106,49 +110,45 @@ class _Header extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              Stack(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed(Routes.PROFILE_DETAILS);
-                    },
-                    child: CircleAvatar(
-                      radius: 24,
-                      backgroundImage: NetworkImage(
-                        'https://lh3.googleusercontent.com/aida-public/AB6AXuDIl-bskxXIrt4RZgLmVcEIit2POBFObH0x5FOXNNv7xSZ0bF9zjyxY2z_yfeDIoWgBm9mQcudFPU2deDM81zth5wmjCJb7pg6ZlxFakCR34lW8zw6HOAFXrfu35ZAYP947qbDBlmjGffxrdY4ZDDD_bMm232wll3c-2CzYc5awvFzqXKMcldJytL03ZyLPvDynEjb2cpCfYDaUZ1mltxbhjq2iRbggjZH2sP960nGjAgRA0cZeEzlkQnEV2ulJSAmyyl3RJrnLH8c',
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      width: 10,
-                      height: 10,
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.white, width: 2),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(width: 12),
-              if (profileModel?.fullName?.notNullNotEmpty == true)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(Routes.PROFILE_DETAILS);
+            },
+            child: Row(
+              children: [
+                Stack(
                   children: [
-                    Text('Welcome back', style: textStyle.medium.s12),
-                    Text(
-                      profileModel!.fullName!,
-                      style: textStyle.bold.s14,
+                    CustomCircleCachedNetworkImage(
+                      profileModel?.image ?? '',
+                      45,
+                      20,
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        width: 10,
+                        height: 10,
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.white, width: 2),
+                        ),
+                      ),
                     ),
                   ],
                 ),
-            ],
+                const SizedBox(width: 12),
+                if (profileModel?.fullName?.notNullNotEmpty == true)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Welcome back', style: textStyle.medium.s12),
+                      Text(profileModel!.fullName!, style: textStyle.bold.s14),
+                    ],
+                  ),
+              ],
+            ),
           ),
           IconButton(
             icon: const Icon(Icons.logout),

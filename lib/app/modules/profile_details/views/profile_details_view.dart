@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:health_sync_question/app/core/widgets/custom_cache_network_image.dart';
+import 'package:health_sync_question/app/core/widgets/custom_circle_cached_network_image.dart';
 import 'package:health_sync_question/app/modules/profile_details/views/pages/empty_profile_page.dart';
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -41,10 +43,10 @@ class ProfileDetailsView extends GetView<ProfileDetailsController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    CircleAvatar(
-                      radius: 64,
-                      backgroundColor: Colors.grey.shade300,
-                      backgroundImage: NetworkImage(profile.image ?? ''),
+                    CustomCircleCachedNetworkImage(
+                      profile.image ?? '',
+                      110,
+                      60,
                     ),
                     gapH16,
                     Center(
@@ -119,10 +121,7 @@ class ProfileDetailsView extends GetView<ProfileDetailsController> {
                                 Expanded(
                                   child: Text(
                                     profile.address ?? '',
-                                    style: GoogleFonts.manrope(
-                                      fontWeight: FontWeight.w600,
-                                      height: 1.4,
-                                    ),
+                                    style: textStyle.bold.s14,
                                   ),
                                 ),
                               ],
@@ -161,7 +160,7 @@ class ProfileDetailsView extends GetView<ProfileDetailsController> {
   Widget _bottomButton() {
     return Obx(() {
       return Container(
-        padding: const EdgeInsets.all(16),
+        padding: padAll16,
         decoration: BoxDecoration(
           color: Colors.white.withValues(alpha: 0.9),
           border: Border(top: BorderSide(color: Colors.grey.shade200)),
@@ -190,11 +189,8 @@ class ProfileDetailsView extends GetView<ProfileDetailsController> {
     return Row(
       children: [
         Icon(icon, color: ProfileDetailsView.primary),
-        const SizedBox(width: 8),
-        Text(
-          title,
-          style: GoogleFonts.manrope(fontWeight: FontWeight.w700, fontSize: 14),
-        ),
+        gapW8,
+        Text(title, style: textStyle.bold.s16),
       ],
     );
   }
@@ -223,10 +219,7 @@ class ProfileDetailsView extends GetView<ProfileDetailsController> {
             children: [
               Icon(icon, size: 18, color: Colors.grey),
               gapW(6),
-              Text(
-                value,
-                style: GoogleFonts.manrope(fontWeight: FontWeight.w600),
-              ),
+              Text(value, style: textStyle.bold.s14),
             ],
           ),
         ],
@@ -245,7 +238,7 @@ class ProfileDetailsView extends GetView<ProfileDetailsController> {
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(8),
+            padding: padAll8,
             decoration: BoxDecoration(
               color: ProfileDetailsView.primary.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(8),
@@ -261,13 +254,7 @@ class ProfileDetailsView extends GetView<ProfileDetailsController> {
                   label,
                   style: GoogleFonts.manrope(fontSize: 12, color: Colors.grey),
                 ),
-                Text(
-                  value,
-                  style: GoogleFonts.manrope(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15,
-                  ),
-                ),
+                Text(value, style: textStyle.bold.s14),
               ],
             ),
           ),
