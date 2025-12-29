@@ -12,6 +12,7 @@ class ComplaintController extends GetxController {
   Rx<Section?> currentQuestion = Rx(null);
   Rx<List<Section>> answerList = Rx([]);
   Rx<int> currentBranchIndex = Rx(0);
+  final TextEditingController extraNotesController = TextEditingController();
 
   bool get isBranch {
     return currentQuestion.value?.type == InputType.branch &&
@@ -23,10 +24,22 @@ class ComplaintController extends GetxController {
         currentBranchIndex.value == currentQuestion.value?.questions?.length;
   }
 
+  bool get isExtraNoteComplete {
+    return isBranch &&
+        currentBranchIndex.value ==
+            (currentQuestion.value?.questions?.length ?? 0) + 1;
+  }
+
   @override
   void onReady() {
     loadChiefComplaintData();
     super.onReady();
+  }
+
+  @override
+  void onClose() {
+    extraNotesController.dispose();
+    super.onClose();
   }
 
   void loadChiefComplaintData() {
@@ -62,4 +75,8 @@ class ComplaintController extends GetxController {
   }
 
   _onSubmitResponse() async {}
+
+  void onReviewTap() {
+    currentBranchIndex.value++;
+  }
 }
