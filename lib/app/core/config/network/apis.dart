@@ -16,4 +16,10 @@ class Apis {
   static String get reset_password => '$baseUrl/auth/reset-password';
 
   static String get loadMe => '$baseUrl/user';
+
+  static String get doctorList => '$baseUrl/doctor';
+
+  static String get organizationList => '$baseUrl/organization';
+
+  static String get specialtyList => '$baseUrl/specialty';
 }

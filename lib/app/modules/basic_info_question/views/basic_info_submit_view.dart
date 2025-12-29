@@ -13,6 +13,7 @@ class BasicInfoSubmitView extends GetView<BasicInfoQuestionController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
         padding: padAll20,
         child: Column(

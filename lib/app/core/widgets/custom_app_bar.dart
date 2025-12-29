@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:health_sync_question/app/core/constants/border_constents.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 
@@ -48,11 +47,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ? Padding(
                   padding: EdgeInsets.only(left: 16, top: 6, bottom: 6),
                   child: RawMaterialButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: borderRadius8,
-                      side: BorderSide(color: gray.base300, width: 1),
-                    ),
-                    clipBehavior: Clip.hardEdge,
                     onPressed:
                         backTap ??
                         () {
@@ -61,9 +55,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     child: Ink(
                       padding: const EdgeInsets.all(6),
                       child: Icon(
-                        Icons.arrow_back_rounded,
-                        color: Colors.black,
-                        size: 24,
+                        Icons.arrow_back_ios_new,
+                        size: 20,
                       ),
                     ),
                   ),

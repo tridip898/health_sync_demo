@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/config/storage/app_storage_service.dart';
+import 'package:health_sync_question/app/core/utils/toaster.dart';
+import 'package:health_sync_question/app/core/widgets/loading.dart';
+import 'package:health_sync_question/app/data/model/user_model.dart';
+import 'package:health_sync_question/app/data/repository/profile_repository.dart';
 import 'package:health_sync_question/app/modules/login/controllers/login_controller.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
 
@@ -46,6 +50,9 @@ class AppController extends GetxController {
   String? get token => _accessToken;
 
   AppStorageService appStorageService = AppStorageService();
+
+  Rx<UserModel?> userModel = Rx(null);
+  final ProfileRepository profileRepository = ProfileRepository();
 
   AppController() {
     language.value = "EN";
@@ -96,5 +103,20 @@ class AppController extends GetxController {
     } else {
       Get.offAllNamed(Routes.LOGIN);
     }
+  }
+
+  loadProfile() async {
+    Loading.show();
+    final response = await profileRepository.loadMe();
+    Loading.hide();
+
+    response.fold(
+      (errorRes) {
+        Toaster.error(errorRes.message ?? 'Failed to load profile data');
+      },
+      (successRes) {
+        userModel.value = successRes.data;
+      },
+    );
   }
 }

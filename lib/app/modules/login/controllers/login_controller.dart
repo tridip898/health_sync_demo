@@ -36,7 +36,7 @@ class LoginController extends GetxController {
         },
         (successRes) {
           appController.setToken(successRes.data?.accessToken ?? '');
-          Get.offAllNamed(Routes.HOME);
+          Get.offAllNamed(Routes.DASHBOARD);
         },
       );
     }

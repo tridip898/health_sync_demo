@@ -6,6 +6,14 @@ import '../modules/change_password/bindings/change_password_binding.dart';
 import '../modules/change_password/views/reset_password_view.dart';
 import '../modules/chielf_complaint/bindings/chielf_complaint_binding.dart';
 import '../modules/chielf_complaint/views/chielf_complaint_view.dart';
+import '../modules/create_profile/bindings/create_profile_binding.dart';
+import '../modules/create_profile/views/create_profile_view.dart';
+import '../modules/dashboard/bindings/dashboard_binding.dart';
+import '../modules/dashboard/views/dashboard_view.dart';
+import '../modules/doctor_details/bindings/doctor_details_binding.dart';
+import '../modules/doctor_details/views/doctor_details_view.dart';
+import '../modules/doctor_list/bindings/doctor_list_binding.dart';
+import '../modules/doctor_list/views/doctor_list_view.dart';
 import '../modules/forgot_pass_verify_otp/bindings/forgot_pass_verify_otp_binding.dart';
 import '../modules/forgot_pass_verify_otp/views/forgot_pass_verify_otp_view.dart';
 import '../modules/forgot_password/bindings/forgot_password_binding.dart';
@@ -16,6 +24,8 @@ import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
+import '../modules/profile_details/bindings/profile_details_binding.dart';
+import '../modules/profile_details/views/profile_details_view.dart';
 import '../modules/registration/bindings/registration_binding.dart';
 import '../modules/registration/views/registration_view.dart';
 import '../modules/set_new_password/bindings/set_new_password_binding.dart';
@@ -62,6 +72,21 @@ class AppPages {
       binding: RegistrationBinding(),
     ),
     GetPage(
+      name: _Paths.DASHBOARD,
+      page: () => const DashboardView(),
+      binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: _Paths.DOCTOR_LIST,
+      page: () => const DoctorListView(),
+      binding: DoctorListBinding(),
+    ),
+    GetPage(
+      name: _Paths.DOCTOR_DETAILS,
+      page: () => const DoctorDetailsView(),
+      binding: DoctorDetailsBinding(),
+    ),
+    GetPage(
       name: _Paths.OTP,
       page: () => const OtpView(),
       binding: OtpBinding(),
@@ -85,6 +110,16 @@ class AppPages {
       name: _Paths.FORGOT_PASS_VERIFY_OTP,
       page: () => const ForgotPassVerifyOtpView(),
       binding: ForgotPassVerifyOtpBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREATE_PROFILE,
+      page: () => const CreateProfileView(),
+      binding: CreateProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE_DETAILS,
+      page: () => const ProfileDetailsView(),
+      binding: ProfileDetailsBinding(),
     ),
   ];
 }
