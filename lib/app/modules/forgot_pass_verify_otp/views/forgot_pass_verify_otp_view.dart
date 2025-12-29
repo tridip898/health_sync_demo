@@ -17,29 +17,31 @@ class ForgotPassVerifyOtpView extends GetView<ForgotPassVerifyOtpController> {
       appBar: CustomAppBar(title: 'OTP'),
       body: SafeArea(
         child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(height: 30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 30),
 
-                Text("Verify Account", style: textStyle.bold.s30),
+              Text("Verify Account", style: textStyle.bold.s30),
 
-                const SizedBox(height: 10),
+              const SizedBox(height: 10),
 
-                Text(
-                  "We have sent a verification code to",
-                  style: textStyle.regular.s14.copyWith(color: Colors.grey),
-                ),
+              Text(
+                "We have sent a verification code to",
+                style: textStyle.regular.s14.copyWith(color: Colors.grey),
+              ),
 
-                const SizedBox(height: 6),
+              const SizedBox(height: 6),
 
-                Obx(
-                  () => Text(controller.maskedPhone, style: textStyle.bold.s14),
-                ),
+              Obx(
+                () => Text(controller.maskedPhone, style: textStyle.bold.s14),
+              ),
 
-                const SizedBox(height: 40),
-                Container(
-                  padding: EdgeInsetsGeometry.all(14),
+              const SizedBox(height: 40),
+
+              SizedBox(
+                width: double.infinity,
+                child: Center(
                   child: Obx(
                     () => OtpTextField(
                       isIncorrect: false,
@@ -49,47 +51,47 @@ class ForgotPassVerifyOtpView extends GetView<ForgotPassVerifyOtpController> {
                     ),
                   ),
                 ),
+              ),
 
-                const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-                Obx(() {
-                  if (controller.canResend.value) {
-                    return GestureDetector(
-                      onTap: controller.onResendOtp,
-                      child: Text(
-                        "Resend Code",
-                        style: textStyle.bold.s14.copyWith(
-                          color: const Color(0xFF4C9A80),
-                        ),
+              Obx(() {
+                if (controller.canResend.value) {
+                  return GestureDetector(
+                    onTap: controller.onResendOtp,
+                    child: Text(
+                      "Resend Code",
+                      style: textStyle.bold.s14.copyWith(
+                        color: const Color(0xFF4C9A80),
                       ),
-                    );
-                  }
-
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.access_time, size: 18),
-                      const SizedBox(width: 6),
-                      Text(
-                        "Resend code in ${controller.remainingSeconds.value}s",
-                        style: textStyle.regular.s14,
-                      ),
-                    ],
+                    ),
                   );
-                }),
+                }
 
-                const SizedBox(height: 60),
-                Container(
-                  padding: EdgeInsetsGeometry.all(18),
-                  child: CustomButton(
-                    text: 'Verify OTP',
-                    onPressed: controller.onVerifyOtp,
-                  ),
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.access_time, size: 18),
+                    const SizedBox(width: 6),
+                    Text(
+                      "Resend code in ${controller.remainingSeconds.value}s",
+                      style: textStyle.regular.s14,
+                    ),
+                  ],
+                );
+              }),
+
+              const SizedBox(height: 60),
+              Container(
+                padding: EdgeInsetsGeometry.all(18),
+                child: CustomButton(
+                  text: 'Verify OTP',
+                  onPressed: controller.onVerifyOtp,
                 ),
+              ),
 
-                const SizedBox(height: 20),
-              ],
-            ),
+              const SizedBox(height: 20),
+            ],
           ),
         ),
       ),
