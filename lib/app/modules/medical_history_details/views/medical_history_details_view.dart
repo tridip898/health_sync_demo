@@ -12,7 +12,8 @@ class MedicalHistoryDetailsView
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Medical History')),
+      backgroundColor: Colors.white,
+      appBar: AppBar(title: const Text('Medical History'),backgroundColor: Colors.white,),
       body: Obx(() {
         if (controller.isLoading.value) {
           return const Center(child: CircularProgressIndicator());
@@ -38,7 +39,6 @@ class MedicalHistoryDetailsView
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: Image.asset(
@@ -65,18 +65,18 @@ class MedicalHistoryDetailsView
               const SizedBox(height: 16),
 
               _InfoCard(
-                title: 'Date',
+                title: 'DATE RECORD',
                 child: Text(history.date?.toDdMmmYyyy() ?? ''),
               ),
 
               _InfoCard(
-                title: 'Description',
+                title: 'DESCRIPTION',
                 child: Text(history.description ?? ''),
               ),
 
               if (categories.isNotEmpty)
                 _InfoCard(
-                  title: 'Categories',
+                  title: 'ASSOCIATED CATEGORIES',
                   child: Wrap(
                     spacing: 6,
                     runSpacing: 6,
@@ -90,19 +90,37 @@ class MedicalHistoryDetailsView
 
               Column(
                 children: [
-                  OutlinedButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(Icons.edit),
-                    label: const Text('Edit'),
-                  ),
-                  const SizedBox(height: 12),
-                  ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      onPressed: () {},
+                      label: const Text('Edit Entry'),
                     ),
-                    onPressed: () {},
-                    icon: const Icon(Icons.delete),
-                    label: const Text('Delete'),
+                  ),
+
+                  const SizedBox(height: 12),
+
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton.icon(
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: Colors.red,
+                        backgroundColor: Colors.white,
+                        side: const BorderSide(color: Colors.red),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      onPressed: () {},
+                      label: const Text('Delete Entry'),
+                    ),
                   ),
                 ],
               ),
@@ -123,6 +141,7 @@ class _InfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.white,
       margin: const EdgeInsets.only(bottom: 12),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
