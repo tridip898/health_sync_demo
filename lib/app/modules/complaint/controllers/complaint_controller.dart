@@ -54,7 +54,9 @@ class ComplaintController extends GetxController {
     section?.answer = currentQuestion.value?.options?.keys.elementAt(index);
 
     if (section != null) {
-      answerList.value.add(section);
+      answerList.update((_) {
+        answerList.value.add(section);
+      });
       currentQuestion.value = questionData
           .value?[currentQuestion.value?.options?.values.elementAt(index)];
     }
@@ -65,29 +67,29 @@ class ComplaintController extends GetxController {
     section?.answer = answer;
 
     if (section != null) {
-      answerList.value.add(section);
+      answerList.update((_) {
+        answerList.value.add(section);
+      });
       currentBranchIndex.value++;
-    }
-
-    if (currentBranchIndex.value == currentQuestion.value?.questions?.length) {
-      _onSubmitResponse();
     }
   }
 
-  _onSubmitResponse() async {}
+  onSubmitResponse() async {
+    Get.back();
+  }
 
   void onReviewTap() {
     currentBranchIndex.value++;
   }
 
-  Rx<bool> canPop = false.obs;
-
   void onBackTap(bool didPop, result) async {
+    if (didPop) return;
     if (isExtraNoteComplete) {
       currentBranchIndex.value--;
     } else if (isBranchComplete) {
       currentBranchIndex.value--;
       extraNotesController.clear();
+      answerList.value.removeLast();
     } else if (isBranch) {
       if (currentBranchIndex.value == 0) {
         currentQuestion.value = answerList.value.last;
@@ -100,9 +102,7 @@ class ComplaintController extends GetxController {
         answerList.value.isNotEmpty) {
       currentQuestion.value = answerList.value.last;
       answerList.value.removeLast();
-    } else if (answerList.value.isEmpty) {
-      canPop.value = true;
-      // Get.back();
     }
+    answerList.update((_) {});
   }
 }

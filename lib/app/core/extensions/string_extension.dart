@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 extension StringExtension on String {
   Map toJson() {
@@ -24,5 +25,11 @@ extension NullableStringExtension on String? {
       return true;
     }
     return false;
+  }
+
+  String get formatUtcToMonthYear {
+    if (this == null) return '';
+    final dateTime = DateTime.parse(this!).toLocal();
+    return DateFormat('MMM yyyy').format(dateTime);
   }
 }

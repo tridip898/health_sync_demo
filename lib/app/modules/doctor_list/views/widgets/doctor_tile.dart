@@ -8,6 +8,7 @@ import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/utils/doctor_utils.dart';
 import 'package:health_sync_question/app/core/widgets/custom_cache_network_image.dart';
 import 'package:health_sync_question/app/data/model/doctor_list_response_model.dart';
+import 'package:health_sync_question/app/data/model/doctor_model.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
 
 class DoctorTile extends StatelessWidget {
@@ -20,7 +21,10 @@ class DoctorTile extends StatelessWidget {
     final profile = doctorModel.profile;
     return GestureDetector(
       onTap: () {
-        Get.toNamed(Routes.DOCTOR_DETAILS, arguments: {'doctor': doctorModel});
+        Get.toNamed(
+          Routes.DOCTOR_DETAILS,
+          arguments: {'doctorId': doctorModel.doctorId},
+        );
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 12),

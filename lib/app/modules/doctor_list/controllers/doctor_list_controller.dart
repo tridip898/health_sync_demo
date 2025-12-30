@@ -4,6 +4,7 @@ import 'package:health_sync_question/app/core/utils/toaster.dart';
 import 'package:health_sync_question/app/core/widgets/custom_dropdown_bottom_sheet.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
 import 'package:health_sync_question/app/data/model/doctor_list_response_model.dart';
+import 'package:health_sync_question/app/data/model/doctor_model.dart';
 import 'package:health_sync_question/app/data/model/organization_response_model.dart';
 import 'package:health_sync_question/app/data/model/organization_response_model.dart';
 import 'package:health_sync_question/app/data/model/specialty_model.dart';

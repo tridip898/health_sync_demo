@@ -4,7 +4,9 @@ import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/custom_button.dart';
 
 class SummaryView extends StatelessWidget {
-  const SummaryView({super.key});
+  final Function() onTap;
+
+  const SummaryView({super.key, required this.onTap});
 
   static const Color primary = Color(0xFF3B82F6);
   static const Color primaryDark = Color(0xFF2563EB);
@@ -28,13 +30,13 @@ class SummaryView extends StatelessWidget {
                 _SummaryCard(
                   title: "Primary Reason for Visit",
                   content:
-                  "Recurring migraines accompanied by nausea and sensitivity to light.",
+                      "Recurring migraines accompanied by nausea and sensitivity to light.",
                 ),
                 const SizedBox(height: 8),
                 _SummaryCard(
                   title: "Duration of Symptoms",
                   content:
-                  "Approximately 2 weeks, getting worse in the evenings.",
+                      "Approximately 2 weeks, getting worse in the evenings.",
                 ),
                 const SizedBox(height: 8),
                 Row(
@@ -124,7 +126,7 @@ class SummaryView extends StatelessWidget {
             ),
           ),
         ),
-        CustomButton(text: 'Confirm Appointment', onPressed: () {}),
+        CustomButton(text: 'Confirm Appointment', onPressed: onTap),
       ],
     );
   }
@@ -185,7 +187,7 @@ class _SummaryCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: gray.base100)
+        border: Border.all(color: gray.base100),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

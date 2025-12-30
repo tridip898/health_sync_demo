@@ -12,6 +12,7 @@ dependencies:
   url_launcher: 6.3.2
   android_intent_plus: 6.0.0
   flutter_cache_manager: 3.4.1
+  intl: 0.20.2
   flutter:
     sdk: flutter
 

@@ -18,7 +18,7 @@ class ComplaintView extends GetView<ComplaintController> {
     return Obx(() {
       return PopScope(
         onPopInvokedWithResult: controller.onBackTap,
-        canPop: controller.canPop.value,
+        canPop: controller.answerList.value.isEmpty,
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: CustomAppBar(title: "Complaint"),
@@ -34,7 +34,7 @@ class ComplaintView extends GetView<ComplaintController> {
                   );
                 } else if (controller.isBranch) {
                   if (controller.isExtraNoteComplete) {
-                    return SummaryView();
+                    return SummaryView(onTap: controller.onSubmitResponse);
                   } else if (controller.isBranchComplete) {
                     return Column(
                       children: [
@@ -57,8 +57,12 @@ class ComplaintView extends GetView<ComplaintController> {
                           controller.onBranchNextTap(answer),
                       currentIndex: controller.currentBranchIndex.value,
                       totalQuestions:
-                      (controller.currentQuestion.value?.questions?.length ??
-                          0) +
+                          (controller
+                                  .currentQuestion
+                                  .value
+                                  ?.questions
+                                  ?.length ??
+                              0) +
                           1,
                     );
                   }
