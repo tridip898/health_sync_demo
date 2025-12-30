@@ -59,7 +59,9 @@ class DashboardView extends GetView<DashboardController> {
                           iconColor: yellow.base500,
                           title: 'Medical History',
                           subtitle: 'Full records & reports',
-                          onTap: () {},
+                          onTap: () {
+                            Get.toNamed(Routes.MEDICAL_HISTORY_LIST);
+                          },
                         ),
                         gapH12,
                         _OverviewCard(

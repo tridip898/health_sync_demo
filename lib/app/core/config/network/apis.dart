@@ -22,4 +22,6 @@ class Apis {
   static String get organizationList => '$baseUrl/organization';
 
   static String get specialtyList => '$baseUrl/specialty';
+
+  static final String patientMedicalHistory = '$baseUrl/patient/{patientId}/medical-history';
 }
