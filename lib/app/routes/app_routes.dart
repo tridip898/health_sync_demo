@@ -25,6 +25,7 @@ abstract class Routes {
   static const MEDICAL_HISTORY_LIST = _Paths.MEDICAL_HISTORY_LIST;
   static const UPDATE_MEDICAL_HISTORY = _Paths.UPDATE_MEDICAL_HISTORY;
   static const DELETE_MEDICAL_HISTORY = _Paths.DELETE_MEDICAL_HISTORY;
+  static const MEDICAL_HISTORY_DETAILS = _Paths.MEDICAL_HISTORY_DETAILS;
 }
 
 abstract class _Paths {
@@ -51,4 +52,5 @@ abstract class _Paths {
   static const MEDICAL_HISTORY_LIST = '/medical-history-list';
   static const UPDATE_MEDICAL_HISTORY = '/update-medical-history';
   static const DELETE_MEDICAL_HISTORY = '/delete-medical-history';
+  static const MEDICAL_HISTORY_DETAILS = '/medical-history-details';
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:health_sync_question/app/core/constants/asset_path.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
 
 import '../../../../core/utils/date_extensions.dart';
 import '../../../../data/model/medical_history_response_model.dart';
+import '../../../../routes/app_pages.dart';
 import '../medical_history_list_view.dart';
 
 class MedicalHistoryTile extends StatelessWidget {
@@ -15,21 +17,30 @@ class MedicalHistoryTile extends StatelessWidget {
     required this.colorPair,
   });
 
-
   @override
   Widget build(BuildContext context) {
-
-    final categoryList = history.categories
-        ?.map((c) => c.category?.name ?? '')
-        .where((name) => name.isNotEmpty)
-        .toList() ?? [];
+    final categoryList =
+        history.categories
+            ?.map((c) => c.category?.name ?? '')
+            .where((name) => name.isNotEmpty)
+            .toList() ??
+        [];
 
     final formattedDate = history.date?.toDdMmmYyyy() ?? '';
 
     return GestureDetector(
       onTap: () {
-        // Navigate to details if needed
+        Get.toNamed(
+          Routes.MEDICAL_HISTORY_DETAILS,
+          arguments: {
+            'patientId': history.patientId!,
+            'medicalHistoryId': history.patientMedicalHistoryId!,
+            'colorPair': colorPair,
+          },
+        );
+
       },
+
       child: Container(
         margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.all(12),
@@ -64,7 +75,6 @@ class MedicalHistoryTile extends StatelessWidget {
 
             const SizedBox(width: 12),
 
-
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +88,6 @@ class MedicalHistoryTile extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 4),
-
 
                   if (categoryList.isNotEmpty)
                     Padding(
@@ -97,7 +106,9 @@ class MedicalHistoryTile extends StatelessWidget {
                             ),
                             backgroundColor: colorPair.light,
                             padding: EdgeInsets.zero,
-                            labelPadding: const EdgeInsets.symmetric(horizontal: 6),
+                            labelPadding: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                            ),
                             visualDensity: VisualDensity.compact,
 
                             side: BorderSide.none,
@@ -110,29 +121,20 @@ class MedicalHistoryTile extends StatelessWidget {
                       ),
                     ),
 
-
-
                   const SizedBox(height: 4),
-
 
                   Text(
                     history.description ?? '',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey.shade700,
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
                   ),
 
                   const SizedBox(height: 6),
 
                   Text(
                     formattedDate,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey.shade500,
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
                   ),
                 ],
               ),
@@ -143,4 +145,3 @@ class MedicalHistoryTile extends StatelessWidget {
     );
   }
 }
-

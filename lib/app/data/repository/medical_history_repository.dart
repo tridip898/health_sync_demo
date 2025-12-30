@@ -1,7 +1,7 @@
 import 'package:network/network.dart';
 
 import '../../core/config/network/apis.dart';
-import '../model/medical_history_response_model.dart';
+import '../model/medical_history_details_response_Model.dart';
 
 class MedicalHistoryRepository extends BaseRepository {
 
@@ -21,6 +21,20 @@ class MedicalHistoryRepository extends BaseRepository {
     );
 
   }
+
+  Future<Either<ErrorResponse, MedicalHistoryDetailsResponseModel>>
+  getPatientMedicalHistoryDetails({
+    required String patientId,
+    required String medicalHistoryId,
+  }) {
+    return get(
+      path: Apis.patientMedicalHistoryDetails
+          .replaceFirst('{patientId}', patientId)
+          .replaceFirst('{medicalHistoryId}', medicalHistoryId),
+      responseCompiler: MedicalHistoryDetailsResponseModel.fromJson,
+    );
+  }
+
 }
 
 

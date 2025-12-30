@@ -26,6 +26,8 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/medical_history_details/bindings/medical_history_details_binding.dart';
+import '../modules/medical_history_details/views/medical_history_details_view.dart';
 import '../modules/medical_history_list/bindings/medical_history_list_binding.dart';
 import '../modules/medical_history_list/views/medical_history_list_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
@@ -148,6 +150,11 @@ class AppPages {
       name: _Paths.DELETE_MEDICAL_HISTORY,
       page: () => const DeleteMedicalHistoryView(),
       binding: DeleteMedicalHistoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.MEDICAL_HISTORY_DETAILS,
+      page: () => const MedicalHistoryDetailsView(),
+      binding: MedicalHistoryDetailsBinding(),
     ),
   ];
 }
