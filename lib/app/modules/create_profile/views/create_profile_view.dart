@@ -5,6 +5,7 @@ import 'package:health_sync_question/app/core/constants/enums.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/date_time.extensions.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
+import 'package:health_sync_question/app/core/widgets/app_appbar.dart';
 import 'package:health_sync_question/app/core/widgets/custom_button.dart';
 import 'package:health_sync_question/app/core/widgets/custom_chip_button.dart';
 import 'package:health_sync_question/app/core/widgets/custom_date_picker.dart';
@@ -25,19 +26,8 @@ class CreateProfileView extends GetView<CreateProfileController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: background,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: background,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new),
-          color: textMain,
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          controller.isEditProfile ? 'Update Profile' : 'Create Profile',
-          style: textStyle.semiBold.s18,
-        ),
-        centerTitle: true,
+      appBar: AppAppbar(
+        title: controller.isEditProfile ? 'Update Profile' : 'Create Profile',
       ),
       bottomNavigationBar: Container(
         padding: padAll24,

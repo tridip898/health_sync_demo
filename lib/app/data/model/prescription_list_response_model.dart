@@ -180,7 +180,7 @@ class PrescriptionItems {
   String? medicineName;
   String? strength;
   String? dosage;
-  Null frequency;
+  int? frequency;
   int? durationDays;
   String? instructions;
   String? createdAt;

@@ -31,4 +31,14 @@ class Apis {
 
   static String switchRole(String roleId) =>
       '$baseUrl/user/switch-user-role/$roleId';
+
+  static String get prescription => '$baseUrl/prescription';
+
+  static String prescriptionDetails(String id) => '$baseUrl/prescription/$id';
+
+  static String prescriptionPdf(String prescriptionId) =>
+      '$baseUrl/prescription/$prescriptionId/generate-pdf';
+
+  static String prescriptionHistory(String prescriptionId) =>
+      '$baseUrl/prescription/$prescriptionId/history';
 }
