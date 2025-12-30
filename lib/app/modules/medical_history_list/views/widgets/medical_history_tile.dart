@@ -3,14 +3,18 @@ import 'package:health_sync_question/app/core/constants/asset_path.dart';
 
 import '../../../../core/utils/date_extensions.dart';
 import '../../../../data/model/medical_history_response_model.dart';
+import '../medical_history_list_view.dart';
 
 class MedicalHistoryTile extends StatelessWidget {
   final MedicalHistoryModel history;
+  final ColorPair colorPair;
 
   const MedicalHistoryTile({
     super.key,
     required this.history,
+    required this.colorPair,
   });
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,13 +48,17 @@ class MedicalHistoryTile extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                AssetPath.icon_medical_history,
-                width: 56,
-                height: 56,
-                fit: BoxFit.cover,
+            Container(
+              width: 56,
+              height: 56,
+              decoration: BoxDecoration(
+                color: colorPair.light,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(
+                Icons.medical_services_outlined,
+                color: colorPair.dark,
+                size: 28,
               ),
             ),
 
@@ -74,30 +82,35 @@ class MedicalHistoryTile extends StatelessWidget {
 
                   if (categoryList.isNotEmpty)
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 4),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: categoryList.map((name) {
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 6),
-                              child: Chip(
-                                label: Text(
-                                  name,
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                backgroundColor: Colors.blueGrey.shade600,
-                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0),
-                                visualDensity: VisualDensity.compact, // smaller chip
+                      padding: const EdgeInsets.only(bottom: 2),
+                      child: Wrap(
+                        spacing: 2,
+                        runSpacing: 2,
+                        children: categoryList.map((name) {
+                          return Chip(
+                            label: Text(
+                              name,
+                              style: TextStyle(
+                                fontSize: 11,
+                                color: colorPair.dark,
                               ),
-                            );
-                          }).toList(),
-                        ),
+                            ),
+                            backgroundColor: colorPair.light,
+                            padding: EdgeInsets.zero,
+                            labelPadding: const EdgeInsets.symmetric(horizontal: 6),
+                            visualDensity: VisualDensity.compact,
+
+                            side: BorderSide.none,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6),
+                              side: BorderSide.none,
+                            ),
+                          );
+                        }).toList(),
                       ),
                     ),
+
+
 
                   const SizedBox(height: 4),
 
@@ -117,7 +130,7 @@ class MedicalHistoryTile extends StatelessWidget {
                   Text(
                     formattedDate,
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: 12,
                       color: Colors.grey.shade500,
                     ),
                   ),
