@@ -36,25 +36,50 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                   // Category multi-select (example with checkboxes)
                   Text('Select Categories'),
                   const SizedBox(height: 6),
-                  Wrap(
-                    spacing: 6,
-                    runSpacing: 6,
-                    children: demoCategories.map((cat) {
-                      final selected = c.selectedCategoryIds.contains(cat['id']);
-                      return FilterChip(
-                        label: Text(cat['name']!),
-                        selected: selected,
-                        onSelected: (val) {
-                          if (val) {
-                            c.selectedCategoryIds.add(cat['id']!);
-                          } else {
-                            c.selectedCategoryIds.remove(cat['id']);
-                          }
-                        },
+
+                  DropdownButtonFormField<String>(
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Choose category',
+                    ),
+                    items: demoCategories.map((cat) {
+                      return DropdownMenuItem<String>(
+                        value: cat['id'],
+                        child: Text(cat['name']!),
                       );
                     }).toList(),
+                    onChanged: (value) {
+                      if (value == null) return;
+
+                      final cat = demoCategories.firstWhere((e) => e['id'] == value);
+                      controller.addCategory(cat['id']!, cat['name']!);
+                    },
                   ),
-                  const SizedBox(height: 16),
+
+                  const SizedBox(height: 12),
+
+                  Obx(() {
+                    if (controller.selectedCategories.isEmpty) {
+                      return const SizedBox();
+                    }
+
+                    return Wrap(
+                      spacing: 6,
+                      runSpacing: 6,
+                      children: controller.selectedCategories.map((cat) {
+                        return Chip(
+                          label: Text(
+                            cat['name']!,
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                          deleteIcon: const Icon(Icons.close, size: 16),
+                          onDeleted: () => controller.removeCategory(cat['id']!),
+                        );
+                      }).toList(),
+                    );
+                  }),
+
+
 
                   // Date picker
                   Text('Select Date'),
