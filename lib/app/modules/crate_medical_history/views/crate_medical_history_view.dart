@@ -38,7 +38,6 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
 
                   const SizedBox(height: 16),
 
-                  // Category multi-select (example with checkboxes)
                   Text('Categories'),
                   const SizedBox(height: 6),
 
@@ -76,8 +75,12 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                       ),
                       child: Row(
                         children: [
-                          const Text('Select Categories'),
-                          const Spacer(),
+                          Expanded(
+                            child: Obx(() {
+                              return Text('Select Categories');
+                            }),
+                          ),
+                          const SizedBox(width: 8),
                           const Icon(Icons.keyboard_arrow_down),
                         ],
                       ),
@@ -169,7 +172,6 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
         return SafeArea(
           child: Column(
             children: [
-              /// 🔹 Drag handle
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 width: 40,
@@ -180,7 +182,6 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                 ),
               ),
 
-              /// 🔹 Title
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Text(
@@ -194,18 +195,18 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
               Expanded(
                 child: ListView.separated(
                   padding: const EdgeInsets.all(16),
-                  itemCount: demoCategories.length,
+                  itemCount: controller.categories.length,
                   separatorBuilder: (_, __) => const Divider(height: 1),
                   itemBuilder: (_, index) {
-                    final cat = demoCategories[index];
+                    final cat = controller.categories[index];
 
                     return Obx(() {
                       final isSelected = controller.selectedCategoryIds
-                          .contains(cat['id']);
+                          .contains(cat.diseaseCategoryId);
 
                       return ListTile(
                         contentPadding: EdgeInsets.zero,
-                        title: Text(cat['name']!),
+                        title: Text(cat.name ?? ''),
                         trailing: isSelected
                             ? const Icon(
                                 Icons.check_circle,
@@ -215,15 +216,16 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                                 Icons.circle_outlined,
                                 color: Colors.grey,
                               ),
-                        onTap: () =>
-                            controller.toggleCategory(cat['id']!, cat['name']!),
+                        onTap: () => controller.toggleCategory(
+                          cat.diseaseCategoryId!,
+                          cat.name ?? '',
+                        ),
                       );
                     });
                   },
                 ),
               ),
 
-              /// 🔹 Confirm Button
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
                 child: SizedBox(
@@ -251,16 +253,3 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
     );
   }
 }
-
-final demoCategories = [
-  {"id": "d4cc8445-46d2-436f-a111-3e4779d7110b", "name": "Joint Pain"},
-  {"id": "958b093e-6d89-4a12-82b0-738862cae8b9", "name": "Dengue"},
-  {"id": "c8ecee4f-d7d1-45c4-bbba-650de364ee51", "name": "Liver Issue"},
-  {"id": "6bc10fc8-ae50-4279-9cc6-3111fd4d41ed", "name": "Fever"},
-  {"id": "9d20206e-ce4a-4d44-b907-c5f85cf6cd5f", "name": "Faver"},
-  {"id": "939b3a23-f60e-4c74-96d7-5298ade3636f", "name": "Leg Injury"},
-  {"id": "939b3a23-f60e-4c74-96d7-5298ade3636f", "name": "Leg Injury"},
-  {"id": "939b3a23-f60e-4c74-96d7-5298ade3636f", "name": "Leg Injury"},
-  {"id": "939b3a23-f60e-4c74-96d7-5298ade3636f", "name": "Leg Injury"},
-  {"id": "939b3a23-f60e-4c74-96d7-5298ade3636f", "name": "Leg Injury"},
-];

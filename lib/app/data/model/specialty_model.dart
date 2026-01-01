@@ -43,3 +43,4 @@ class SpecialtyModel {
     return data;
   }
 }
+
