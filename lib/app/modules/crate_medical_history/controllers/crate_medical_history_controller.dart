@@ -8,14 +8,24 @@ class CrateMedicalHistoryController extends GetxController {
   final descriptionController = TextEditingController();
   final selectedDate = Rxn<DateTime>();
 
-  /// Single source of truth
+
   final selectedCategories = <Map<String, String>>[].obs;
 
   final isLoading = false.obs;
 
-  void addCategory(String id, String name) {
-    final exists = selectedCategories.any((e) => e['id'] == id);
-    if (!exists) {
+
+
+  bool isCategorySelected(String id) {
+    return selectedCategories.any((e) => e['id'] == id);
+  }
+
+  void toggleCategory(String id, String name) {
+    final index =
+    selectedCategories.indexWhere((e) => e['id'] == id);
+
+    if (index >= 0) {
+      selectedCategories.removeAt(index);
+    } else {
       selectedCategories.add({'id': id, 'name': name});
     }
   }
@@ -27,15 +37,19 @@ class CrateMedicalHistoryController extends GetxController {
   List<String> get selectedCategoryIds =>
       selectedCategories.map((e) => e['id']!).toList();
 
+
+
   Future<void> saveMedicalHistory(String patientId) async {
     if (titleController.text.isEmpty) {
       Toaster.error('Title is required');
       return;
     }
+
     if (selectedCategories.isEmpty) {
       Toaster.error('Select at least one category');
       return;
     }
+
     if (selectedDate.value == null) {
       Toaster.error('Pick a date');
       return;
@@ -53,9 +67,10 @@ class CrateMedicalHistoryController extends GetxController {
       "diseaseCategoryIds": selectedCategoryIds,
     };
 
-    /// CALL API HERE
+    /// API CALL
 
     isLoading.value = false;
   }
 }
+
 
