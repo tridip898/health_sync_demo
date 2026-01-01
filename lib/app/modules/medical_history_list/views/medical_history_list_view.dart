@@ -4,6 +4,7 @@ import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
 import 'package:health_sync_question/app/modules/medical_history_list/views/widgets/medical_history_tile.dart';
 
 import '../../../core/extensions/widget_extension.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/medical_history_list_controller.dart';
 
 class MedicalHistoryListView extends GetView<MedicalHistoryListController> {
@@ -25,6 +26,19 @@ class MedicalHistoryListView extends GetView<MedicalHistoryListController> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: CustomAppBar(title: "Medical History"),
+
+        floatingActionButton: FloatingActionButton.small(
+          backgroundColor: Colors.green, // Circle color
+          onPressed: () {
+            Get.toNamed(Routes.CRATE_MEDICAL_HISTORY);
+          },
+          child: const Icon(
+            Icons.add, // Plus icon
+            color: Colors.white,
+            size: 20,
+          ),
+        ),
+
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
