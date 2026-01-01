@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:health_sync_question/app/core/constants/enums.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/date_time.extensions.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/custom_button.dart';
+import 'package:health_sync_question/app/core/widgets/custom_chip_button.dart';
 import 'package:health_sync_question/app/core/widgets/custom_date_picker.dart';
 import 'package:health_sync_question/app/core/widgets/custom_image_picker.dart';
 import 'package:health_sync_question/app/core/widgets/custom_text_field.dart';
-
-import '../controllers/create_profile_controller.dart';
+import 'package:health_sync_question/app/modules/create_profile/controllers/create_profile_controller.dart';
 
 class CreateProfileView extends GetView<CreateProfileController> {
   const CreateProfileView({super.key});
@@ -107,15 +108,18 @@ class CreateProfileView extends GetView<CreateProfileController> {
                   style: textStyle.bold.s16.copyWith(color: Color(0xff0E121B)),
                 ),
                 gapH8,
-                Row(
-                  children: [
-                    _genderSelectionCard(text: "Male"),
-                    gapW12,
-                    _genderSelectionCard(text: "Female"),
-                    gapW12,
-                    _genderSelectionCard(text: "Others"),
-                  ],
-                ),
+                Obx(() {
+                  return CustomChipButton(
+                    items: ["Male", "Female", "Others"],
+                    layoutType: ChipLayoutType.row,
+                    selectionType: ChipSelectionType.single,
+                    initialSelected: [controller.selectedGender.value],
+                    fitBehavior: ChipFitBehavior.fill,
+                    onChanged: (value) {
+                      controller.selectedGender.value = value.first;
+                    },
+                  );
+                }),
                 gapH12,
                 Obx(() {
                   return CustomDatePickerField(
@@ -168,9 +172,7 @@ class CreateProfileView extends GetView<CreateProfileController> {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your phone number';
                     }
-
                     final bdPhoneRegex = RegExp(r'^(?:\+88)?01[3-9]\d{8}$');
-
                     if (!bdPhoneRegex.hasMatch(value)) {
                       return 'Please enter a valid phone number';
                     }
@@ -187,15 +189,12 @@ class CreateProfileView extends GetView<CreateProfileController> {
                     if (value == null || value.trim().isEmpty) {
                       return null;
                     }
-
                     final emailRegex = RegExp(
-                      r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                      r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$',
                     );
-
                     if (!emailRegex.hasMatch(value.trim())) {
                       return 'Please enter a valid email address';
                     }
-
                     return null;
                   },
                 ),
@@ -204,38 +203,6 @@ class CreateProfileView extends GetView<CreateProfileController> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _genderSelectionCard({String text = ""}) {
-    return Expanded(
-      child: Obx(() {
-        final isSelected = controller.selectedGender.value == text;
-        return InkWell(
-          onTap: () {
-            controller.selectedGender.value = text;
-          },
-          borderRadius: BorderRadius.circular(12),
-          child: Container(
-            decoration: BoxDecoration(
-              color: isSelected ? green.base50 : Colors.white,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: isSelected ? green.base400 : gray.base300,
-                width: 1,
-              ),
-            ),
-            padding: padSym(horizontal: 16, vertical: 12),
-            alignment: Alignment.center,
-            child: Text(
-              text,
-              style: textStyle.medium.s16.copyWith(
-                color: isSelected ? green.base500 : Colors.black,
-              ),
-            ),
-          ),
-        );
-      }),
     );
   }
 }

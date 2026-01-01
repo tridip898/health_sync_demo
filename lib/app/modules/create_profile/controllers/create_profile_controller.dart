@@ -43,9 +43,7 @@ class CreateProfileController extends GetxController {
       phoneController.text = profile?.publicPhoneNumber ?? '';
       emailController.text = profile?.publicEmail ?? '';
       selectedGender.value = (profile?.gender)?.capitalizeFirst ?? 'Male';
-      // profileImage.value = profile?.image != null
-      //     ? File(profile?.image ?? '')
-      //     : null;
+
       profileImageUrl.value = profile?.image??'';
       log("profileImageUrl $profileImageUrl");
       dobController.text = DateFormat(
