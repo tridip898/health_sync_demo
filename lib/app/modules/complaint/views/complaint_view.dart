@@ -34,13 +34,17 @@ class ComplaintView extends GetView<ComplaintController> {
                   );
                 } else if (controller.isBranch) {
                   if (controller.isExtraNoteComplete) {
-                    return SummaryView(onTap: controller.onSubmitResponse);
+                    return SummaryView(
+                      onTap: controller.onSubmitResponse,
+                      answerList: controller.answerList.value,
+                    );
                   } else if (controller.isBranchComplete) {
                     return Column(
                       children: [
                         CustomTextFormField(
                           labelText: 'Extra Notes',
                           hintText: 'Write any other issue...',
+                          controller: controller.extraNotesController,
                         ),
                         gapH24,
                         CustomButton(

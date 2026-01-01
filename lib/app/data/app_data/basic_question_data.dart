@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:health_sync_question/app/core/extensions/string_extension.dart';
+
 final Map<String, dynamic> medicalData = {
   "appId": "MedicalAssistantApp",
   "version": "1.0",
@@ -741,5 +743,17 @@ class Section {
   @override
   String toString() {
     return 'Section{type: $type, question: $question, questions: $questions, options: $options, answer: $answer}';
+  }
+}
+
+class SectionUtils {
+  static Map<String, String> convertToMap(List<Section> sectionList) {
+    Map<String, String> result = {};
+    for (var item in sectionList) {
+      if (item.question.notNullNotEmpty && item.answer.notNullNotEmpty) {
+        result[item.question!] = item.answer!;
+      }
+    }
+    return result;
   }
 }

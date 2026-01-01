@@ -28,6 +28,7 @@ class CustomTextFormField extends StatefulWidget {
   final double? prefixIconMaxHeight;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
+  final Color? fillColor;
 
   const CustomTextFormField({
     super.key,
@@ -54,6 +55,7 @@ class CustomTextFormField extends StatefulWidget {
     this.prefixIconMaxHeight,
     this.keyboardType,
     this.inputFormatters,
+    this.fillColor,
   });
 
   @override
@@ -138,7 +140,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
                   onTap: widget.onTap,
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: gray.base10,
+                    fillColor: widget.fillColor ?? gray.base10,
                     contentPadding: EdgeInsets.symmetric(
                       vertical: widget.verticalPadding,
                       horizontal: 16,

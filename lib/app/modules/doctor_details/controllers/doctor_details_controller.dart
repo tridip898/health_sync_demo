@@ -37,6 +37,9 @@ class DoctorDetailsController extends GetxController {
   }
 
   void onBookAppointment() {
-    Get.toNamed(Routes.COMPLAINT);
+    Get.toNamed(
+      Routes.CREATE_APPOINTMENT,
+      arguments: {"doctor": doctorModel.value},
+    );
   }
 }

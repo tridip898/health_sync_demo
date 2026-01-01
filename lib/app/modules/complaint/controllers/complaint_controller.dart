@@ -75,10 +75,21 @@ class ComplaintController extends GetxController {
   }
 
   onSubmitResponse() async {
-    Get.back();
+    Get.back(result: answerList.value);
   }
 
   void onReviewTap() {
+    if (extraNotesController.text.isNotEmpty) {
+      answerList.update((_) {
+        answerList.value.add(
+          Section(
+            type: InputType.text,
+            question: 'Extra notes?',
+            answer: extraNotesController.text,
+          ),
+        );
+      });
+    }
     currentBranchIndex.value++;
   }
 
@@ -86,6 +97,11 @@ class ComplaintController extends GetxController {
     if (didPop) return;
     if (isExtraNoteComplete) {
       currentBranchIndex.value--;
+      if (extraNotesController.text.isNotEmpty) {
+        answerList.update((_) {
+          answerList.value.removeLast();
+        });
+      }
     } else if (isBranchComplete) {
       currentBranchIndex.value--;
       extraNotesController.clear();

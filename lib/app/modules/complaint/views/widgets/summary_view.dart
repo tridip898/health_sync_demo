@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/custom_button.dart';
+import 'package:health_sync_question/app/data/app_data/basic_question_data.dart';
 
 class SummaryView extends StatelessWidget {
+  final List<Section> answerList;
   final Function() onTap;
 
-  const SummaryView({super.key, required this.onTap});
-
-  static const Color primary = Color(0xFF3B82F6);
-  static const Color primaryDark = Color(0xFF2563EB);
-  static const Color surface = Colors.white;
-  static const Color surfaceMuted = Color(0xFFF3F4F6);
-  static const Color surfaceDark = Color(0xFF18181B);
-  static const Color surfaceDarkMuted = Color(0xFF27272A);
-  static const Color textMain = Color(0xFF1F2937);
-  static const Color textSecondary = Color(0xFF6B7280);
+  const SummaryView({super.key, required this.onTap, required this.answerList});
 
   @override
   Widget build(BuildContext context) {
@@ -27,101 +21,20 @@ class SummaryView extends StatelessWidget {
               children: [
                 _InfoBanner(),
                 const SizedBox(height: 12),
-                _SummaryCard(
-                  title: "Primary Reason for Visit",
-                  content:
-                      "Recurring migraines accompanied by nausea and sensitivity to light.",
+                ListView.separated(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: answerList.length,
+                  itemBuilder: (context, index) {
+                    final answer = answerList[index];
+                    return _SummaryCard(
+                      title: answer.question ?? '',
+                      content: answer.answer,
+                    );
+                  },
+                  separatorBuilder: (context, index) => gapH8,
                 ),
-                const SizedBox(height: 8),
-                _SummaryCard(
-                  title: "Duration of Symptoms",
-                  content:
-                      "Approximately 2 weeks, getting worse in the evenings.",
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    Expanded(
-                      child: _SummaryCard(
-                        title: "Pain Level",
-                        child: Row(
-                          children: const [
-                            Icon(
-                              Icons.sentiment_dissatisfied,
-                              color: Colors.amber,
-                            ),
-                            SizedBox(width: 6),
-                            Text(
-                              "7/10",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: _SummaryCard(
-                        title: "Fever?",
-                        child: Row(
-                          children: const [
-                            Icon(Icons.thermostat, color: Colors.grey),
-                            SizedBox(width: 6),
-                            Text(
-                              "No",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                _SummaryCard(
-                  title: "Current Medications",
-                  child: Wrap(
-                    spacing: 8,
-                    runSpacing: 6,
-                    children: const [
-                      _ChipLabel(label: "Ibuprofen 400mg"),
-                      _ChipLabel(label: "Sumatriptan"),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 8),
-                _SummaryCard(
-                  title: "Known Allergies",
-                  child: Row(
-                    children: const [
-                      Icon(Icons.warning, color: Colors.red, size: 16),
-                      SizedBox(width: 6),
-                      Expanded(
-                        child: Text(
-                          "Penicillin, Peanuts",
-                          style: TextStyle(fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 8),
-                _SummaryCard(
-                  title: "Additional Notes",
-                  child: const Text(
-                    "\"I have previously seen a neurologist in 2021 for similar issues but the symptoms were milder.\"",
-                    style: TextStyle(
-                      fontStyle: FontStyle.italic,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ),
+                gapH16,
               ],
             ),
           ),
@@ -160,7 +73,7 @@ class _InfoBanner extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  "Please review your questionnaire responses before confirming your appointment with Dr. Jane Doe.",
+                  "Please review your questionnaire responses before confirming.",
                   style: GoogleFonts.plusJakartaSans(color: Colors.blue),
                 ),
               ],

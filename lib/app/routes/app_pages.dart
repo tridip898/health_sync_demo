@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
-import 'package:health_sync_question/app/modules/complaint/bindings/complaint_binding.dart';
-import 'package:health_sync_question/app/modules/complaint/views/complaint_view.dart';
 
 import '../modules/change_password/bindings/change_password_binding.dart';
 import '../modules/change_password/views/reset_password_view.dart';
+import '../modules/complaint/bindings/complaint_binding.dart';
+import '../modules/complaint/views/complaint_view.dart';
+import '../modules/create_appointment/bindings/create_appointment_binding.dart';
+import '../modules/create_appointment/views/create_appointment_view.dart';
 import '../modules/create_profile/bindings/create_profile_binding.dart';
 import '../modules/create_profile/views/create_profile_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
@@ -106,6 +108,11 @@ class AppPages {
       name: _Paths.PROFILE_DETAILS,
       page: () => const ProfileDetailsView(),
       binding: ProfileDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREATE_APPOINTMENT,
+      page: () => const CreateAppointmentView(),
+      binding: CreateAppointmentBinding(),
     ),
   ];
 }

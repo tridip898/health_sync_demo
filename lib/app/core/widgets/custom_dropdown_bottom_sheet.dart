@@ -78,9 +78,9 @@ class _AppDropdownBottomSheetState<T> extends State<AppDropdownBottomSheet<T>> {
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
-      minChildSize: 0.6,
+      minChildSize: 0.7,
       initialChildSize: 1,
-      snapSizes: const [0.6, 1],
+      snapSizes: const [0.7, 1],
       builder: (context, scrollController) {
         _sheetScrollController = scrollController;
         _sheetScrollController.removeListener(_onScroll);
@@ -98,7 +98,9 @@ class _AppDropdownBottomSheetState<T> extends State<AppDropdownBottomSheet<T>> {
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(12),
+                    ),
                   ),
                   padding: EdgeInsets.only(left: 16, right: 16, bottom: 8),
                   child: Column(

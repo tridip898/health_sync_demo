@@ -115,26 +115,6 @@ class DoctorListController extends GetxController {
     _hasMore = true;
   }
 
-  void onDoctorFilterTap() {
-    Get.bottomSheet(
-      Obx(() {
-        return DoctorFilterBottomSheet(
-          onOrganizationSelect: onOrganizationSelect,
-          onSpecialtySelect: onSpecialtySelect,
-          onOrganizationRemove: _onOrganizationRemove,
-          onSpecialtyRemove: _onSpecialtyRemove,
-          onApplyFilter: _onApplyFilter,
-          onClearFilter: _onClearFilter,
-          onIncludeNonVerifiedTap: _onIncludeNonVerifiedTap,
-          organizationNameController: organizationNameController,
-          specialtyNameController: specialtyNameController,
-          includeNonVerified: includeNonVerified.value,
-        );
-      }),
-      isScrollControlled: true,
-    );
-  }
-
   /// organization section -----------------------------------------------------
   onOrganizationSelect() async {
     await getOrganizationList(initialLoad: true);
@@ -239,6 +219,26 @@ class DoctorListController extends GetxController {
   }
 
   /// filter section -----------------------------------------------------------
+  void onDoctorFilterTap() {
+    Get.bottomSheet(
+      Obx(() {
+        return DoctorFilterBottomSheet(
+          onOrganizationSelect: onOrganizationSelect,
+          onSpecialtySelect: onSpecialtySelect,
+          onOrganizationRemove: _onOrganizationRemove,
+          onSpecialtyRemove: _onSpecialtyRemove,
+          onApplyFilter: _onApplyFilter,
+          onClearFilter: _onClearFilter,
+          onIncludeNonVerifiedTap: _onIncludeNonVerifiedTap,
+          organizationNameController: organizationNameController,
+          specialtyNameController: specialtyNameController,
+          includeNonVerified: includeNonVerified.value,
+        );
+      }),
+      isScrollControlled: true,
+    );
+  }
+
   _onOrganizationRemove() {
     selectedOrganization.value = null;
     organizationNameController.clear();
