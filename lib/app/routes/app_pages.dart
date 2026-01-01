@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/appointment_list/bindings/appointment_list_binding.dart';
+import '../modules/appointment_list/views/appointment_list_view.dart';
 import '../modules/change_password/bindings/change_password_binding.dart';
 import '../modules/change_password/views/reset_password_view.dart';
 import '../modules/complaint/bindings/complaint_binding.dart';
@@ -113,6 +115,11 @@ class AppPages {
       name: _Paths.CREATE_APPOINTMENT,
       page: () => const CreateAppointmentView(),
       binding: CreateAppointmentBinding(),
+    ),
+    GetPage(
+      name: _Paths.APPOINTMENT_LIST,
+      page: () => const AppointmentListView(),
+      binding: AppointmentListBinding(),
     ),
   ];
 }

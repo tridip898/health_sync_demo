@@ -19,6 +19,7 @@ abstract class Routes {
   static const CREATE_PROFILE = _Paths.CREATE_PROFILE;
   static const PROFILE_DETAILS = _Paths.PROFILE_DETAILS;
   static const CREATE_APPOINTMENT = _Paths.CREATE_APPOINTMENT;
+  static const APPOINTMENT_LIST = _Paths.APPOINTMENT_LIST;
 }
 
 abstract class _Paths {
@@ -39,4 +40,5 @@ abstract class _Paths {
   static const CREATE_PROFILE = '/create-profile';
   static const PROFILE_DETAILS = '/profile-details';
   static const CREATE_APPOINTMENT = '/create-appointment';
+  static const APPOINTMENT_LIST = '/appointment-list';
 }

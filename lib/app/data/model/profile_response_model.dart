@@ -1,3 +1,5 @@
+import 'package:health_sync_question/app/data/model/profile_model.dart';
+import 'package:health_sync_question/app/data/model/profile_model.dart';
 import 'package:health_sync_question/app/data/model/user_model.dart';
 import 'package:network/network.dart';
 
@@ -39,6 +41,7 @@ class Patient {
   String? updatedAt;
   String? userRoleId;
   String? profileId;
+  ProfileModel? profile;
 
   Patient({
     this.patientId,
@@ -47,6 +50,7 @@ class Patient {
     this.updatedAt,
     this.userRoleId,
     this.profileId,
+    this.profile,
   });
 
   Patient.fromJson(Map<String, dynamic> json) {
@@ -56,6 +60,9 @@ class Patient {
     updatedAt = json['updatedAt'];
     userRoleId = json['userRoleId'];
     profileId = json['profileId'];
+    profile = json['profile'] != null
+        ? ProfileModel.fromJson(json['profile'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -66,6 +73,9 @@ class Patient {
     data['updatedAt'] = updatedAt;
     data['userRoleId'] = userRoleId;
     data['profileId'] = profileId;
+    if (profile != null) {
+      data['profile'] = profile!.toJson();
+    }
     return data;
   }
 }

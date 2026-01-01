@@ -51,8 +51,9 @@ class DashboardView extends GetView<DashboardController> {
                           title: 'Appointments',
                           subtitle: 'Your upcoming appointments',
                           onTap: () {
-                            if (appController.userModel.value?.profile ==
-                                null) {
+                            if (appController.isProfileAvailable) {
+                              Get.toNamed(Routes.APPOINTMENT_LIST);
+                            } else {
                               Get.toNamed(Routes.PROFILE_DETAILS);
                             }
                           },
@@ -125,7 +126,7 @@ class _Header extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
                         child: CacheNetworkImage(
-                          imageUrl:  profileModel?.image ?? '',
+                          imageUrl: profileModel?.image ?? '',
                           width: 45,
                           height: 45,
                         ),

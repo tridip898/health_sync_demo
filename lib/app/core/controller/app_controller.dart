@@ -54,6 +54,8 @@ class AppController extends GetxController {
   Rx<UserModel?> userModel = Rx(null);
   final ProfileRepository profileRepository = ProfileRepository();
 
+  bool get isProfileAvailable => userModel.value?.profile != null;
+
   AppController() {
     language.value = "EN";
     tr = Rx(en);
