@@ -25,5 +25,7 @@ class Apis {
 
   static String get specialtyList => '$baseUrl/specialty';
 
+  static String get createProfile => '$baseUrl/profile';
+
   static String get appointment => '$baseUrl/appointment';
 }

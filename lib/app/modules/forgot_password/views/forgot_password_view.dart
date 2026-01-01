@@ -14,57 +14,69 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: true,
       appBar: CustomAppBar(title: 'Forgot Password'),
-      body: Form(
-        key: controller.formKey,
-        child: Column(
-          children: [
-            const SizedBox(height: 40),
 
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                "Please enter your phone number. We use it to verify your identity and secure your medical information.",
-                style: textStyle.regular.s14.copyWith(color: Colors.black),
-              ),
+      body: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: appController.closeKeyboard,
+        child: SingleChildScrollView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          padding: const EdgeInsets.only(bottom: 24),
+          child: Form(
+            key: controller.formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 40),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Text(
+                    "Please enter your phone number. We use it to verify your identity and secure your medical information.",
+                    style: textStyle.regular.s14.copyWith(color: Colors.black),
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: CustomTextFormField(
+                    labelText: 'Phone Number',
+                    hintText: '01*********',
+                    controller: controller.phoneController,
+                    keyboardType: TextInputType.phone,
+                    validator: AppInputValidator.bdPhoneValidator,
+                    autoValidateMode: AutovalidateMode.onUserInteraction,
+                  ),
+                ),
+
+                const SizedBox(height: 200), // simulate long content
+              ],
             ),
+          ),
+        ),
+      ),
 
-            const SizedBox(height: 20),
-
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: CustomTextFormField(
-                labelText: 'Phone Number',
-                hintText: '01*********',
-                controller: controller.phoneController,
-                keyboardType: TextInputType.phone,
-                validator: AppInputValidator.bdPhoneValidator,
-                autoValidateMode: AutovalidateMode.onUserInteraction,
-              ),
-            ),
-
-            const Spacer(),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
                 "By continuing, you agree to our Terms of Service and Privacy Policy.",
+                textAlign: TextAlign.center,
                 style: textStyle.regular.s14.copyWith(
                   color: const Color(0xFF4C9A80),
                 ),
               ),
-            ),
-
-            const SizedBox(height: 20),
-
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: CustomButton(
-                text: 'Send Otp',
-                onPressed: controller.onSendOtp,
-              ),
-            ),
-          ],
+              const SizedBox(height: 12),
+              CustomButton(text: 'Send Otp', onPressed: controller.onSendOtp),
+            ],
+          ),
         ),
       ),
     );

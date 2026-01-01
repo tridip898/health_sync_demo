@@ -12,6 +12,7 @@ class OtpController extends GetxController {
 
   final RxString otp = ''.obs;
   final RxString otpPrefix = ''.obs;
+  final RxBool isOtpError = false.obs;
 
   final RxInt remainingSeconds = 60.obs;
   final RxBool canResend = false.obs;
@@ -57,7 +58,7 @@ class OtpController extends GetxController {
     final phone = phoneNumber!;
     if (phone.length < 6) return phone;
 
-    return phone.replaceRange(3, phone.length - 2, '******');
+    return phone;
   }
 
   // Verify OTP
@@ -84,8 +85,10 @@ class OtpController extends GetxController {
     response.fold(
       (error) {
         Toaster.error(error.message ?? "Invalid or expired OTP");
+        isOtpError.value = true;
       },
       (success) {
+        isOtpError.value = false;
         Get.toNamed(
           Routes.SET_NEW_PASSWORD,
           arguments: {

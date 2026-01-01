@@ -42,7 +42,7 @@ class OtpTextField extends StatelessWidget {
             width: constraintWidth,
             height: itemWidth,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 if (shouldShowPrefix) ...[
                   Container(
@@ -51,7 +51,7 @@ class OtpTextField extends StatelessWidget {
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: gray.base50,
-                      border: Border.all(color: blue.base500, width: 2),
+                      border: isIncorrect?Border.all(color: red.base500, width: 2):Border.all(color: blue.base500, width: 2),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(prefixValue, style: textStyle.bold.s14),
@@ -75,17 +75,13 @@ class OtpTextField extends StatelessWidget {
                       fieldHeight: itemWidth,
                       fieldWidth: itemWidth,
 
-                      // Border
-                      activeColor: blue.base500,
-                      selectedColor: blue.base500,
-                      inactiveColor: gray.base50,
+                      activeColor: isIncorrect ? Colors.red : blue.base500,
+                      selectedColor: isIncorrect ? Colors.red : blue.base500,
+                      inactiveColor: isIncorrect ? Colors.red : gray.base50,
 
-                      // Fill (background)
                       activeFillColor: Colors.white,
                       selectedFillColor: Colors.white,
                       inactiveFillColor: gray.base50,
-
-                      borderWidth: 2,
                     ),
 
                     cursorColor: Colors.black,

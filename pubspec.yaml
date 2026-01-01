@@ -9,10 +9,14 @@ environment:
 
 dependencies:
   shimmer: 3.0.0
+  file_picker: ^10.3.3
   url_launcher: 6.3.2
+  image_picker: ^1.2.1
+  image_cropper: ^9.1.0
   android_intent_plus: 6.0.0
   flutter_cache_manager: 3.4.1
   intl: 0.20.2
+  mobkit_dashed_border: ^0.0.8
   flutter:
     sdk: flutter
 
