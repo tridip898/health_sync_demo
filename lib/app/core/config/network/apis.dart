@@ -47,4 +47,7 @@ class Apis {
 
   static String prescriptionHistory(String prescriptionId) =>
       '$baseUrl/prescription/$prescriptionId/history';
+
+  static String appointmentDetails(String appointmentId) =>
+      '$baseUrl/appointment/$appointmentId';
 }
