@@ -1,12 +1,12 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
-
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/utils/toaster.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
 import 'package:health_sync_question/app/data/model/prescription_list_response_model.dart';
 import 'package:health_sync_question/app/data/repository/prescription_repository.dart';
+import 'package:health_sync_question/app/modules/prescription_details/widgets/prescription_details_card.dart';
 
 class PrescriptionDetailsController extends GetxController {
   final PrescriptionRepository _prescriptionRepository =
@@ -17,30 +17,12 @@ class PrescriptionDetailsController extends GetxController {
   final String id = Get.arguments['id'];
   final RxInt selectedIndex = 0.obs;
   final RxBool isLoading = true.obs;
-  final bool isHistory = Get.arguments['isHistory'] ?? false;
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   @override
   void onReady() async {
-    log(prescriptionId);
-    if (isHistory) {
-      prescriptionDetails.value = Get.arguments['prescriptionDetails'];
-      isLoading.value = false;
-    } else {
-      await fetchPrescriptionHistory();
-      await fetchPrescriptionDetails();
-    }
-
+    await fetchPrescriptionHistory();
+    await fetchPrescriptionDetails();
     super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 
   Future<void> fetchPrescriptionDetails() async {
@@ -112,6 +94,13 @@ class PrescriptionDetailsController extends GetxController {
       (success) {
         prescriptionHistory.value = success.data ?? [];
       },
+    );
+  }
+
+  void prescriptionHistoryDetailsClick(Prescription prescription) {
+    Get.bottomSheet(
+      SafeArea(child: PrescriptionDetailsCard(prescription: prescription)),
+      isScrollControlled: true,
     );
   }
 }

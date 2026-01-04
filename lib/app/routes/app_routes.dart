@@ -22,8 +22,6 @@ abstract class Routes {
   static const PROFILE_DETAILS = _Paths.PROFILE_DETAILS;
   static const PRESCRIPTION = _Paths.PRESCRIPTION;
   static const PRESCRIPTION_DETAILS = _Paths.PRESCRIPTION_DETAILS;
-  static const PRESCRIPTION_HISTORY_DETAILS =
-      _Paths.PRESCRIPTION_HISTORY_DETAILS;
 }
 
 abstract class _Paths {
@@ -47,5 +45,4 @@ abstract class _Paths {
   static const PROFILE_DETAILS = '/profile-details';
   static const PRESCRIPTION = '/prescription';
   static const PRESCRIPTION_DETAILS = '/prescription-details';
-  static const PRESCRIPTION_HISTORY_DETAILS = '/prescription-history-details';
 }

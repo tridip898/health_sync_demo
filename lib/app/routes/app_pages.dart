@@ -28,8 +28,6 @@ import '../modules/prescription/bindings/prescription_binding.dart';
 import '../modules/prescription/views/prescription_view.dart';
 import '../modules/prescription_details/bindings/prescription_details_binding.dart';
 import '../modules/prescription_details/views/prescription_details_view.dart';
-import '../modules/prescription_history_details/bindings/prescription_history_details_binding.dart';
-import '../modules/prescription_history_details/views/prescription_history_details_view.dart';
 import '../modules/profile_details/bindings/profile_details_binding.dart';
 import '../modules/profile_details/views/profile_details_view.dart';
 import '../modules/registration/bindings/registration_binding.dart';
@@ -136,11 +134,6 @@ class AppPages {
       name: _Paths.PRESCRIPTION_DETAILS,
       page: () => const PrescriptionDetailsView(),
       binding: PrescriptionDetailsBinding(),
-    ),
-    GetPage(
-      name: _Paths.PRESCRIPTION_HISTORY_DETAILS,
-      page: () => const PrescriptionHistoryDetailsView(),
-      binding: PrescriptionHistoryDetailsBinding(),
     ),
   ];
 }
