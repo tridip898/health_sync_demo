@@ -51,6 +51,7 @@ class OrganizationModel {
   List<String>? phoneNumber;
   List<String>? email;
   String? website;
+  num? capacity;
   bool? isActive;
   String? createdAt;
   String? updatedAt;
@@ -64,6 +65,7 @@ class OrganizationModel {
     this.phoneNumber,
     this.email,
     this.website,
+    this.capacity,
     this.isActive,
     this.createdAt,
     this.updatedAt,
@@ -78,6 +80,7 @@ class OrganizationModel {
     phoneNumber = json['phoneNumber'].cast<String>();
     email = json['email'].cast<String>();
     website = json['website'];
+    capacity = json['capacity'];
     isActive = json['isActive'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
@@ -93,6 +96,7 @@ class OrganizationModel {
     data['phoneNumber'] = phoneNumber;
     data['email'] = email;
     data['website'] = website;
+    data['capacity'] = capacity;
     data['isActive'] = isActive;
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;

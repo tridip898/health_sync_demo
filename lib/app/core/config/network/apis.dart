@@ -19,11 +19,15 @@ class Apis {
 
   static String get doctorList => '$baseUrl/doctor';
 
+  static String doctorDetails(dynamic doctorId) => '$baseUrl/doctor/$doctorId';
+
   static String get organizationList => '$baseUrl/organization';
 
   static String get specialtyList => '$baseUrl/specialty';
 
   static String get createProfile => '$baseUrl/profile';
+
+  static String get appointment => '$baseUrl/appointment';
 
   static String get roleList => '$baseUrl/role';
 

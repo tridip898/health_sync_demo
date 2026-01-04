@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 
-import '../modules/basic_info_question/bindings/basic_info_question_binding.dart';
-import '../modules/basic_info_question/views/basic_info_question_view.dart';
 import '../modules/change_password/bindings/change_password_binding.dart';
 import '../modules/change_password/views/reset_password_view.dart';
-import '../modules/chielf_complaint/bindings/chielf_complaint_binding.dart';
-import '../modules/chielf_complaint/views/chielf_complaint_view.dart';
+import '../modules/complaint/bindings/complaint_binding.dart';
+import '../modules/complaint/views/complaint_view.dart';
+import '../modules/create_appointment/bindings/create_appointment_binding.dart';
+import '../modules/create_appointment/views/create_appointment_view.dart';
 import '../modules/create_profile/bindings/create_profile_binding.dart';
 import '../modules/create_profile/views/create_profile_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
@@ -18,8 +18,6 @@ import '../modules/forgot_pass_verify_otp/bindings/forgot_pass_verify_otp_bindin
 import '../modules/forgot_pass_verify_otp/views/forgot_pass_verify_otp_view.dart';
 import '../modules/forgot_password/bindings/forgot_password_binding.dart';
 import '../modules/forgot_password/views/forgot_password_view.dart';
-import '../modules/home/bindings/home_binding.dart';
-import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
@@ -46,19 +44,9 @@ class AppPages {
 
   static final routes = [
     GetPage(
-      name: _Paths.HOME,
-      page: () => const HomeView(),
-      binding: HomeBinding(),
-    ),
-    GetPage(
-      name: _Paths.BASIC_INFO_QUESTION,
-      page: () => const BasicInfoQuestionView(),
-      binding: BasicInfoQuestionBinding(),
-    ),
-    GetPage(
-      name: _Paths.CHIELF_COMPLAINT,
-      page: () => const ChielfComplaintView(),
-      binding: ChielfComplaintBinding(),
+      name: _Paths.COMPLAINT,
+      page: () => const ComplaintView(),
+      binding: ComplaintBinding(),
     ),
     GetPage(
       name: _Paths.LOGIN,
@@ -124,6 +112,11 @@ class AppPages {
       name: _Paths.PROFILE_DETAILS,
       page: () => const ProfileDetailsView(),
       binding: ProfileDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREATE_APPOINTMENT,
+      page: () => const CreateAppointmentView(),
+      binding: CreateAppointmentBinding(),
     ),
     GetPage(
       name: _Paths.PRESCRIPTION,

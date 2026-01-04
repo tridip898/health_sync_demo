@@ -1,4 +1,4 @@
-import 'package:health_sync_question/app/data/model/doctor_list_response_model.dart';
+import 'package:health_sync_question/app/data/model/doctor_model.dart';
 import 'package:health_sync_question/app/data/model/profile_response_model.dart';
 import 'package:health_sync_question/app/data/model/role_model.dart';
 

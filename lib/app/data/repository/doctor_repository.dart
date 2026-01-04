@@ -1,4 +1,6 @@
 import 'package:health_sync_question/app/core/config/network/apis.dart';
+import 'package:health_sync_question/app/data/model/doctor_details_response_model.dart';
+import 'package:health_sync_question/app/data/model/doctor_details_response_model.dart';
 import 'package:health_sync_question/app/data/model/doctor_list_response_model.dart';
 import 'package:health_sync_question/app/data/model/specialty_list_response_model.dart';
 import 'package:health_sync_question/app/data/model/specialty_list_response_model.dart';
@@ -31,6 +33,15 @@ class DoctorRepository extends BaseRepository {
     return get(
       path: Apis.specialtyList,
       responseCompiler: SpecialtyListResponseModel.fromJson,
+    );
+  }
+
+  Future<Either<ErrorResponse, DoctorDetailsResponseModel>> getDoctorDetails({
+    required dynamic doctorId,
+  }) {
+    return get(
+      path: Apis.doctorDetails(doctorId),
+      responseCompiler: DoctorDetailsResponseModel.fromJson,
     );
   }
 }
