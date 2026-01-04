@@ -74,7 +74,9 @@ class DashboardView extends GetView<DashboardController> {
                           iconColor: red.base500,
                           title: 'Prescriptions',
                           subtitle: '4 Active meds',
-                          onTap: () {},
+                          onTap: () {
+                            Get.toNamed(Routes.PRESCRIPTION);
+                          },
                         ),
                         gapH12,
                         _OverviewCard(

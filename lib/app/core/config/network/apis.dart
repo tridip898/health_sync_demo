@@ -28,4 +28,21 @@ class Apis {
   static String get createProfile => '$baseUrl/profile';
 
   static String get appointment => '$baseUrl/appointment';
+
+  static String get roleList => '$baseUrl/role';
+
+  static String get roleSelection => '$baseUrl/user/select-new-role';
+
+  static String switchRole(String roleId) =>
+      '$baseUrl/user/switch-user-role/$roleId';
+
+  static String get prescription => '$baseUrl/prescription';
+
+  static String prescriptionDetails(String id) => '$baseUrl/prescription/$id';
+
+  static String prescriptionPdf(String prescriptionId) =>
+      '$baseUrl/prescription/$prescriptionId/generate-pdf';
+
+  static String prescriptionHistory(String prescriptionId) =>
+      '$baseUrl/prescription/$prescriptionId/history';
 }

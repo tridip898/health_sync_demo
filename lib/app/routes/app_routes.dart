@@ -19,6 +19,8 @@ abstract class Routes {
   static const CREATE_PROFILE = _Paths.CREATE_PROFILE;
   static const PROFILE_DETAILS = _Paths.PROFILE_DETAILS;
   static const CREATE_APPOINTMENT = _Paths.CREATE_APPOINTMENT;
+  static const PRESCRIPTION = _Paths.PRESCRIPTION;
+  static const PRESCRIPTION_DETAILS = _Paths.PRESCRIPTION_DETAILS;
   static const APPOINTMENT_LIST = _Paths.APPOINTMENT_LIST;
 }
 
@@ -39,6 +41,8 @@ abstract class _Paths {
   static const FORGOT_PASS_VERIFY_OTP = '/forgot-pass-verify-otp';
   static const CREATE_PROFILE = '/create-profile';
   static const PROFILE_DETAILS = '/profile-details';
+  static const PRESCRIPTION = '/prescription';
+  static const PRESCRIPTION_DETAILS = '/prescription-details';
   static const CREATE_APPOINTMENT = '/create-appointment';
   static const APPOINTMENT_LIST = '/appointment-list';
 }
