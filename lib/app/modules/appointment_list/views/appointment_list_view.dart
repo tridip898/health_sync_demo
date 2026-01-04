@@ -16,13 +16,14 @@ class AppointmentListView extends GetView<AppointmentListController> {
       backgroundColor: Colors.white,
       appBar: CustomAppBar(title: 'Appointments'),
       body: Padding(
-        padding: EdgeInsetsGeometry.symmetric(horizontal: 16, vertical: 12),
+        padding: padSym(horizontal: 20, vertical: 16),
         child: Column(
           children: [
             Obx(() {
               if (controller.appointmentList.isEmpty) return SizedBox();
               return Expanded(
                 child: ListView.separated(
+                  controller: controller.scrollController,
                   itemBuilder: (context, index) {
                     return AppointmentCard(
                       appointmentModel: controller.appointmentList[index],

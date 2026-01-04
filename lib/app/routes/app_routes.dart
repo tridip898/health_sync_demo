@@ -22,6 +22,7 @@ abstract class Routes {
   static const PRESCRIPTION = _Paths.PRESCRIPTION;
   static const PRESCRIPTION_DETAILS = _Paths.PRESCRIPTION_DETAILS;
   static const APPOINTMENT_LIST = _Paths.APPOINTMENT_LIST;
+  static const APPOINTMENT_DETAILS = _Paths.APPOINTMENT_DETAILS;
 }
 
 abstract class _Paths {
@@ -45,4 +46,5 @@ abstract class _Paths {
   static const PRESCRIPTION_DETAILS = '/prescription-details';
   static const CREATE_APPOINTMENT = '/create-appointment';
   static const APPOINTMENT_LIST = '/appointment-list';
+  static const APPOINTMENT_DETAILS = '/appointment-details';
 }

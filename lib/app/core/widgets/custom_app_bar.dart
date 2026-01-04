@@ -47,6 +47,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ? Padding(
                   padding: EdgeInsets.only(left: 16, top: 6, bottom: 6),
                   child: RawMaterialButton(
+                    shape: CircleBorder(),
                     onPressed:
                         backTap ??
                         () {
@@ -54,10 +55,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         },
                     child: Ink(
                       padding: const EdgeInsets.all(6),
-                      child: Icon(
-                        Icons.arrow_back_ios_new,
-                        size: 20,
-                      ),
+                      child: Icon(Icons.arrow_back_ios_new, size: 20),
                     ),
                   ),
                 )

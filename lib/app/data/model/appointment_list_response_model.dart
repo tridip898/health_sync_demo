@@ -61,7 +61,7 @@ class AppointmentModel {
   String? patientId;
   String? doctorId;
   String? organizationId;
-  String? extra;
+  Extra? extra;
   String? note;
   Patient? patient;
   DoctorModel? doctor;
@@ -92,7 +92,7 @@ class AppointmentModel {
     patientId = json['patientId'];
     doctorId = json['doctorId'];
     organizationId = json['organizationId'];
-    extra = json['extra'];
+    extra = json['extra'] != null ? new Extra.fromJson(json['extra']) : null;
     note = json['note'];
     patient = json['patient'] != null
         ? Patient.fromJson(json['patient'])
@@ -115,7 +115,9 @@ class AppointmentModel {
     data['patientId'] = patientId;
     data['doctorId'] = doctorId;
     data['organizationId'] = organizationId;
-    data['extra'] = extra;
+    if (this.extra != null) {
+      data['extra'] = this.extra?.toJson();
+    }
     data['note'] = note;
     if (patient != null) {
       data['patient'] = patient!.toJson();
@@ -126,6 +128,22 @@ class AppointmentModel {
     if (organization != null) {
       data['organization'] = organization!.toJson();
     }
+    return data;
+  }
+}
+
+class Extra {
+  String? note;
+
+  Extra({this.note});
+
+  Extra.fromJson(Map<String, dynamic> json) {
+    note = json['note'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['note'] = this.note;
     return data;
   }
 }

@@ -17,7 +17,6 @@ dependencies:
   image_cropper: ^9.1.0
   android_intent_plus: 6.0.0
   flutter_cache_manager: 3.4.1
-  intl: 0.20.2
   mobkit_dashed_border: ^0.0.8
   flutter:
     sdk: flutter

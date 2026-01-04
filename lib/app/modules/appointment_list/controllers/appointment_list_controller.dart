@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/utils/toaster.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
@@ -10,9 +11,26 @@ class AppointmentListController extends GetxController {
   Rx<bool> includeNonVerified = Rx(false);
   Rx<bool> isLoading = false.obs;
 
+  final ScrollController scrollController = ScrollController();
   final AppointmentRepository appointmentRepository = AppointmentRepository();
 
   RxList<AppointmentModel> appointmentList = <AppointmentModel>[].obs;
+
+  @override
+  void onInit() {
+    scrollController.addListener(() {
+      if (scrollController.hasClients) {
+        if (scrollController.offset ==
+            scrollController.position.maxScrollExtent) {
+          if (_hasMore) {
+            getAppointmentList();
+          }
+        }
+      }
+    });
+
+    super.onInit();
+  }
 
   @override
   onReady() {
