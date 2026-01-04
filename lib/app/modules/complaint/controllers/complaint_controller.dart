@@ -3,9 +3,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:health_sync_question/app/core/utils/toaster.dart';
+import 'package:health_sync_question/app/core/widgets/loading.dart';
 import 'package:health_sync_question/app/data/app_data/basic_question_data.dart';
 import 'package:health_sync_question/app/data/model/complaint_answer_model.dart';
 import 'package:health_sync_question/app/data/model/question_model.dart';
+import 'package:health_sync_question/app/data/repository/appointment_repository.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
 
 class ComplaintController extends GetxController {
@@ -32,6 +35,8 @@ class ComplaintController extends GetxController {
   }
 
   bool isCategorySelector = Get.arguments?['isCategorySelector'] ?? false;
+
+  final AppointmentRepository appointmentRepository = AppointmentRepository();
 
   @override
   void onReady() {
@@ -79,10 +84,34 @@ class ComplaintController extends GetxController {
 
   onSubmitResponse() async {
     if (isCategorySelector) {
-      Get.offNamed(Routes.DOCTOR_LIST);
+      onSubmitQuestionnaire();
     } else {
       Get.back(result: answerList.value);
     }
+  }
+
+  onSubmitQuestionnaire() async {
+    Loading.show();
+    final response = await appointmentRepository.getQuestionnaireResponse([
+      SectionUtils.convertToMap(answerList.value),
+    ]);
+    Loading.hide();
+    response.fold(
+      (errorRes) {
+        Toaster.error(
+          errorRes.message ?? "Failed to generate complain response",
+        );
+      },
+      (successRes) {
+        Get.offNamed(
+          Routes.DOCTOR_LIST,
+          arguments: {
+            "questionnaire": answerList.value,
+            "specialties": successRes.data?.category,
+          },
+        );
+      },
+    );
   }
 
   void onReviewTap() {

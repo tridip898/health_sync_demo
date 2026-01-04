@@ -15,6 +15,11 @@ class AppointmentListView extends GetView<AppointmentListController> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppBar(title: 'Appointments'),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
+        onPressed: controller.onAddAppointmentQuestionnaire,
+        child: Icon(Icons.add),
+      ),
       body: Padding(
         padding: padSym(horizontal: 20, vertical: 16),
         child: Column(

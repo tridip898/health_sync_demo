@@ -5,6 +5,7 @@ import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/string_extension.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/custom_cache_network_image.dart';
+import 'package:health_sync_question/app/core/widgets/dotted_border_widget.dart';
 import 'package:health_sync_question/app/data/model/profile_model.dart';
 import 'package:health_sync_question/app/modules/dashboard/controllers/dashboard_controller.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
@@ -31,6 +32,25 @@ class DashboardView extends GetView<DashboardController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        DottedBorderContainer(
+                          radius: 8,
+                          child: GestureDetector(
+                            onTap: controller.onAnalyzeMySymptomTap,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: gray.base100,
+                                borderRadius: radius12,
+                              ),
+                              padding: EdgeInsets.symmetric(vertical: 16),
+                              alignment: Alignment.center,
+                              child: Text(
+                                'Analyze My Symptoms',
+                                style: textStyle.medium.s20,
+                              ),
+                            ),
+                          ),
+                        ),
+                        gapH12,
                         _OverviewHeader(),
                         gapH12,
                         _OverviewCard(

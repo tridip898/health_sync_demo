@@ -48,7 +48,25 @@ class DoctorListController extends GetxController {
   final ScrollController scrollController = ScrollController();
 
   @override
-  void onReady() {
+  void onReady() async {
+    final specialtyListItems = Get.arguments?['specialties'];
+    if (specialtyListItems != null) {
+      if (specialtyListItems is List && specialtyListItems.isNotEmpty) {
+        await getSpecialtyList();
+        await Future.delayed(Duration(milliseconds: 100));
+        if (specialtyList.isNotEmpty) {
+          selectedSpecialty.value = specialtyList.firstWhereOrNull((item) {
+            return item.title.toString().toLowerCase() ==
+                specialtyListItems.first.toString().toLowerCase();
+          });
+          if (selectedSpecialty.value != null) {
+            specialtyNameController.text = selectedSpecialty.value?.title ?? '';
+            shouldApplyFilter.value = true;
+            _getFilterCount();
+          }
+        }
+      }
+    }
     getDoctorList(initialLoad: true);
     scrollController.addListener(() {
       final position = scrollController.position;
@@ -208,11 +226,11 @@ class DoctorListController extends GetxController {
     final response = await doctorRepository.getSpecialtyList();
     Loading.hide();
 
-    response.fold(
-      (errorRes) {
+    await response.fold(
+      (errorRes) async {
         Toaster.error(errorRes.message ?? 'Failed to load specialty list');
       },
-      (successRes) {
+      (successRes) async {
         specialtyList.assignAll(successRes.data ?? []);
       },
     );

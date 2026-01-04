@@ -1,6 +1,6 @@
 import 'package:network/network.dart';
 
-class QuestionnaireResponseModel extends BaseResponseModel {
+class QuestionnaireResponseModel extends BaseResponseModel<QuestionnaireModel> {
   bool? status;
   int? statusCode;
 
