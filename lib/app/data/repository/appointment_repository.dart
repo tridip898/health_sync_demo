@@ -15,9 +15,12 @@ class AppointmentRepository extends BaseRepository {
     );
   }
 
-  Future<Either<ErrorResponse, AppointmentResponseModel>> getAppointmentList() {
+  Future<Either<ErrorResponse, AppointmentResponseModel>> getAppointmentList({
+    required int page,
+  }) {
     return get(
       path: Apis.appointment,
+      queryParameters: {"page": page.toString()},
       responseCompiler: AppointmentResponseModel.fromJson,
     );
   }

@@ -32,4 +32,14 @@ extension NullableStringExtension on String? {
     final dateTime = DateTime.parse(this!).toLocal();
     return DateFormat('MMM yyyy').format(dateTime);
   }
+
+  String get formatToDdMmmYyyy {
+    if (this == null) return '';
+    try {
+      final dateTime = DateTime.parse(this!).toLocal();
+      return DateFormat('dd MMM yyyy').format(dateTime);
+    } catch (e) {
+      return '';
+    }
+  }
 }

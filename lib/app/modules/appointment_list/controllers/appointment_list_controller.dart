@@ -27,7 +27,9 @@ class AppointmentListController extends GetxController {
     }
     if (_hasMore == false) return;
     isLoading.value = true;
-    final response = await appointmentRepository.getAppointmentList();
+    final response = await appointmentRepository.getAppointmentList(
+      page: _page,
+    );
     if (initialLoad) {
       Loading.hide();
     }

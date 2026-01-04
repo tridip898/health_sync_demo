@@ -19,16 +19,21 @@ class AppointmentResponseModel
   });
 
   AppointmentResponseModel.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    statusCode = json['status_code'];
-    message = json['message'];
-    if (json['data'] != null) {
-      data = <AppointmentModel>[];
-      json['data'].forEach((v) {
-        data!.add(AppointmentModel.fromJson(v));
-      });
+    try {
+      status = json['status'];
+      statusCode = json['status_code'];
+      message = json['message'];
+      if (json['data'] != null) {
+        data = <AppointmentModel>[];
+        json['data'].forEach((v) {
+          data!.add(AppointmentModel.fromJson(v));
+        });
+      }
+      meta = json['meta'] != null ? MetaModel.fromJson(json['meta']) : null;
+    } catch (error) {
+      print('model conversion error');
+      print(error);
     }
-    meta = json['meta'] != null ? MetaModel.fromJson(json['meta']) : null;
   }
 
   @override
@@ -56,7 +61,7 @@ class AppointmentModel {
   String? patientId;
   String? doctorId;
   String? organizationId;
-  Map<String, dynamic>? extra;
+  String? extra;
   String? note;
   Patient? patient;
   DoctorModel? doctor;
