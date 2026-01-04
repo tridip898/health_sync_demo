@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:health_sync_question/app/core/extensions/string_extension.dart';
 
 final Map<String, dynamic> medicalData = {

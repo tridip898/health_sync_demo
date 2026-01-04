@@ -24,7 +24,7 @@ dependencies:
   network:
     git:
       url: git@vcs.technonext.com:TechnoNext/mobile-apps/airapps-commons/netword.git
-      ref: v0.0.14
+      ref: v0.0.15
 
   common:
     git:

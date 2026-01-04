@@ -525,8 +525,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "v0.0.14"
-      resolved-ref: "8f8d6027e32be7106c790bad8a4842d4877571ae"
+      ref: "v0.0.15"
+      resolved-ref: ba560ea59d3e06f5b24b70e4b1a623f5758ed696
       url: "git@vcs.technonext.com:TechnoNext/mobile-apps/airapps-commons/netword.git"
     source: git
     version: "0.0.11"
