@@ -2,6 +2,7 @@ import 'package:common/common.dart';
 import 'package:health_sync_question/app/core/config/network/apis.dart';
 import 'package:health_sync_question/app/data/model/appointment_list_response_model.dart';
 import 'package:health_sync_question/app/data/model/general_data_model.dart';
+import 'package:health_sync_question/app/data/model/questionnaire_response_model.dart';
 import 'package:health_sync_question/app/data/model/request/create_appointment_request_model.dart';
 import 'package:network/network.dart';
 
@@ -23,6 +24,14 @@ class AppointmentRepository extends BaseRepository {
       path: Apis.appointment,
       queryParameters: {"page": page.toString()},
       responseCompiler: AppointmentResponseModel.fromJson,
+    );
+  }
+
+  Future<Either<ErrorResponse, QuestionnaireResponseModel>>
+  getQuestionnaireResponse(List<Map<String, String>> questionnaire) {
+    return post(
+      path: Apis.questionnaire,
+      responseCompiler: QuestionnaireResponseModel.fromJson,
     );
   }
 }

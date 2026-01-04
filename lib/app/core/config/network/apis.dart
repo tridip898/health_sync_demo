@@ -29,6 +29,8 @@ class Apis {
 
   static String get appointment => '$baseUrl/appointment';
 
+  static String get questionnaire => '$baseUrl/appointment/questionnaire';
+
   static String get roleList => '$baseUrl/role';
 
   static String get roleSelection => '$baseUrl/user/select-new-role';

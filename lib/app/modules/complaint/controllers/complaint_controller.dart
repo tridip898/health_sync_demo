@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:health_sync_question/app/data/app_data/basic_question_data.dart';
 import 'package:health_sync_question/app/data/model/complaint_answer_model.dart';
 import 'package:health_sync_question/app/data/model/question_model.dart';
+import 'package:health_sync_question/app/routes/app_pages.dart';
 
 class ComplaintController extends GetxController {
   Rx<Map<String, Section>?> questionData = Rx(null);
@@ -29,6 +30,8 @@ class ComplaintController extends GetxController {
         currentBranchIndex.value ==
             (currentQuestion.value?.questions?.length ?? 0) + 1;
   }
+
+  bool isCategorySelector = Get.arguments?['isCategorySelector'] ?? false;
 
   @override
   void onReady() {
@@ -75,7 +78,11 @@ class ComplaintController extends GetxController {
   }
 
   onSubmitResponse() async {
-    Get.back(result: answerList.value);
+    if (isCategorySelector) {
+      Get.offNamed(Routes.DOCTOR_LIST);
+    } else {
+      Get.back(result: answerList.value);
+    }
   }
 
   void onReviewTap() {

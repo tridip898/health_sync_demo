@@ -106,9 +106,6 @@ class CreateAppointmentController extends GetxController {
           doctorId == null ||
           organizationId == null ||
           selectedDate.value == null) {
-        print(appController.userModel.value?.toJson());
-        print(doctorId);
-        print(organizationId);
         Toaster.warning('Some fields are missing');
         return;
       }
