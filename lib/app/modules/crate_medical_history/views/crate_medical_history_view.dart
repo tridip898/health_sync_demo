@@ -74,12 +74,9 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Expanded(
-                            child: Obx(() {
-                              return Text('Select Categories');
-                            }),
-                          ),
+                          Text('Select Categories'),
                           const SizedBox(width: 8),
                           const Icon(Icons.keyboard_arrow_down),
                         ],
