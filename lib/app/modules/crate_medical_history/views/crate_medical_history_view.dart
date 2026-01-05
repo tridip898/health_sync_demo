@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:health_sync_question/app/core/controller/app_controller.dart';
 
+import '../../../core/extensions/widget_extension.dart';
 import '../../../core/utils/app_input_validator.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/custom_text_field.dart';
@@ -12,7 +14,6 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
   @override
   Widget build(BuildContext context) {
     final c = controller;
-
     return Scaffold(
       appBar: AppBar(title: const Text('Add Medical History')),
       body: Obx(
@@ -31,7 +32,6 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                       hintText: 'e.g Chronic Migraine',
                       controller: controller.titleController,
                       keyboardType: TextInputType.text,
-                      validator: AppInputValidator.bdPhoneValidator,
                       autoValidateMode: AutovalidateMode.onUserInteraction,
                     ),
                   ),
@@ -171,7 +171,7 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                   SizedBox(
                     width: double.infinity,
                     child: CustomButton(
-                      onPressed: () {},
+                      onPressed: () { controller.saveMedicalHistory(controller.patientId);},
                       text: 'Save Medical History',
                       textColor: Colors.black,
                     ),

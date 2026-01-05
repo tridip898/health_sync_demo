@@ -1,6 +1,8 @@
 import 'package:network/network.dart';
 
 import '../../core/config/network/apis.dart';
+import '../model/create_medical_history_request.dart';
+import '../model/create_medical_history_response.dart';
 import '../model/disease_category.dart';
 import '../model/medical_history_details_response_Model.dart';
 import '../model/specialty_list_response_model.dart';
@@ -35,6 +37,19 @@ class MedicalHistoryRepository extends BaseRepository {
       responseCompiler: MedicalHistoryDetailsResponseModel.fromJson,
     );
   }
+
+  Future<Either<ErrorResponse, CreateMedicalHistoryResponse>>
+  createMedicalHistory({
+    required String patientId,
+    required CreateMedicalHistoryRequest request,
+  }) {
+    return post(
+      path: Apis.createHistory(patientId),
+      data: request.toJson(),
+      responseCompiler: CreateMedicalHistoryResponse.fromJson,
+    );
+  }
+
 
   Future<Either<ErrorResponse, DiseaseCategoryResponse>> getDiseaseCategories() {
     return get<DiseaseCategoryResponse>(

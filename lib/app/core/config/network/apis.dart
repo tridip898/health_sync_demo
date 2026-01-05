@@ -11,9 +11,9 @@ class Apis {
 
   static String get verifyOtp => '$baseUrl/auth/verify-otp';
 
-  static String get set_password => '$baseUrl/auth/set-password';
+  static String get setPassword => '$baseUrl/auth/set-password';
 
-  static String get reset_password => '$baseUrl/auth/reset-password';
+  static String get resetPassword => '$baseUrl/auth/reset-password';
 
   static String get loadMe => '$baseUrl/user';
 
@@ -26,6 +26,8 @@ class Apis {
       '$baseUrl/patient/{patientId}/medical-history';
   static final patientMedicalHistoryDetails =
       '$baseUrl/patient/{patientId}/medical-history/{medicalHistoryId}';
-  static final diseaseCategories =
-      '$baseUrl/disease-category';
+  static final diseaseCategories = '$baseUrl/disease-category';
+
+  static String createHistory(String patientId) =>
+      '$baseUrl/patient/$patientId/medical-history';
 }

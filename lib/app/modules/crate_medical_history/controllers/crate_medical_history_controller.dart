@@ -1,12 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:health_sync_question/app/data/model/disease_category.dart';
+import 'package:health_sync_question/app/modules/medical_history_list/controllers/medical_history_list_controller.dart';
 
+import '../../../core/config/network/apis.dart';
+import '../../../core/extensions/widget_extension.dart';
 import '../../../core/utils/toaster.dart';
+import '../../../data/model/create_medical_history_request.dart';
 import '../../../data/repository/medical_history_repository.dart';
 
 class CrateMedicalHistoryController extends GetxController {
   final MedicalHistoryRepository repository = MedicalHistoryRepository();
+  final MedicalHistoryListController medicalHistoryListController = Get.find();
 
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
@@ -14,12 +19,14 @@ class CrateMedicalHistoryController extends GetxController {
   RxList<DiseaseCategoryModel> categories = <DiseaseCategoryModel>[].obs;
 
   final selectedCategories = <Map<String, String>>[].obs;
+  late final String patientId;
 
   final isLoading = false.obs;
 
   @override
   void onInit() {
     fetchCategories();
+    patientId = appController.userModel.value?.currentRole?.patient?.patientId ?? '';
     super.onInit();
   }
 
@@ -45,35 +52,42 @@ class CrateMedicalHistoryController extends GetxController {
       selectedCategories.map((e) => e['id']!).toList();
 
   Future<void> saveMedicalHistory(String patientId) async {
-    if (titleController.text.isEmpty) {
-      Toaster.error('Title is required');
-      return;
-    }
-
-    if (selectedCategories.isEmpty) {
-      Toaster.error('Select at least one category');
-      return;
-    }
-
     if (selectedDate.value == null) {
-      Toaster.error('Pick a date');
+      Get.snackbar('Error', 'Please select date');
       return;
     }
+
+    final request = CreateMedicalHistoryRequest(
+      title: titleController.text.trim(),
+      description: descriptionController.text.trim(),
+      date:
+      "${selectedDate.value!.day.toString().padLeft(2, '0')}-"
+          "${selectedDate.value!.month.toString().padLeft(2, '0')}-"
+          "${selectedDate.value!.year}",
+      diseaseCategoryIds: selectedCategoryIds.toList(),
+    );
 
     isLoading.value = true;
 
-    final body = {
-      "title": titleController.text,
-      "description": descriptionController.text,
-      "date":
-          "${selectedDate.value!.day.toString().padLeft(2, '0')}-"
-          "${selectedDate.value!.month.toString().padLeft(2, '0')}-"
-          "${selectedDate.value!.year}",
-      "diseaseCategoryIds": selectedCategoryIds,
-    };
+    final response = await repository.createMedicalHistory(
+      patientId: patientId,
+      request: request,
+    );
 
     isLoading.value = false;
+
+    response.fold(
+          (error) {
+        Get.snackbar('Error', error.message ?? 'Something went wrong');
+      },
+          (success) {
+        Get.back();
+        medicalHistoryListController.fetchMedicalHistory();
+        Get.snackbar('Success', 'Medical history added');
+      },
+    );
   }
+
 
   Future<void> fetchCategories() async {
     isLoading.value = true;
