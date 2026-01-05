@@ -30,4 +30,8 @@ class Apis {
 
   static String createHistory(String patientId) =>
       '$baseUrl/patient/$patientId/medical-history';
+
+  static final updateHistory =
+      '$baseUrl/patient/{patientId}/medical-history/{medicalHistoryId}';
+
 }

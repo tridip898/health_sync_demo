@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:health_sync_question/app/data/model/disease_category.dart';
 import 'package:health_sync_question/app/modules/medical_history_list/controllers/medical_history_list_controller.dart';
 
-import '../../../core/config/network/apis.dart';
 import '../../../core/extensions/widget_extension.dart';
 import '../../../core/utils/toaster.dart';
 import '../../../data/model/create_medical_history_request.dart';
@@ -26,7 +25,8 @@ class CrateMedicalHistoryController extends GetxController {
   @override
   void onInit() {
     fetchCategories();
-    patientId = appController.userModel.value?.currentRole?.patient?.patientId ?? '';
+    patientId =
+        appController.userModel.value?.currentRole?.patient?.patientId ?? '';
     super.onInit();
   }
 
@@ -50,7 +50,18 @@ class CrateMedicalHistoryController extends GetxController {
 
   List<String> get selectedCategoryIds =>
       selectedCategories.map((e) => e['id']!).toList();
+  Future<void> fetchCategories() async {
+    isLoading.value = true;
+    final result = await repository.getDiseaseCategories();
+    result.fold(
+          (error) => Toaster.error(error.message ?? 'Failed to load categories'),
+          (success) {
+        categories.assignAll(success.data ?? []);
+      },
+    );
 
+    isLoading.value = false;
+  }
   Future<void> saveMedicalHistory(String patientId) async {
     if (selectedDate.value == null) {
       Get.snackbar('Error', 'Please select date');
@@ -61,7 +72,7 @@ class CrateMedicalHistoryController extends GetxController {
       title: titleController.text.trim(),
       description: descriptionController.text.trim(),
       date:
-      "${selectedDate.value!.day.toString().padLeft(2, '0')}-"
+          "${selectedDate.value!.day.toString().padLeft(2, '0')}-"
           "${selectedDate.value!.month.toString().padLeft(2, '0')}-"
           "${selectedDate.value!.year}",
       diseaseCategoryIds: selectedCategoryIds.toList(),
@@ -77,10 +88,10 @@ class CrateMedicalHistoryController extends GetxController {
     isLoading.value = false;
 
     response.fold(
-          (error) {
+      (error) {
         Get.snackbar('Error', error.message ?? 'Something went wrong');
       },
-          (success) {
+      (success) {
         Get.back();
         medicalHistoryListController.fetchMedicalHistory();
         Get.snackbar('Success', 'Medical history added');
@@ -89,18 +100,4 @@ class CrateMedicalHistoryController extends GetxController {
   }
 
 
-  Future<void> fetchCategories() async {
-    isLoading.value = true;
-
-    final result = await repository.getDiseaseCategories();
-
-    result.fold(
-      (error) => Toaster.error(error.message ?? 'Failed to load categories'),
-      (success) {
-        categories.assignAll(success.data ?? []);
-      },
-    );
-
-    isLoading.value = false;
-  }
 }

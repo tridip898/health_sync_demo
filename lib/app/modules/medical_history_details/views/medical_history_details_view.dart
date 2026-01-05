@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../core/constants/asset_path.dart';
 import '../../../core/utils/date_extensions.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/medical_history_details_controller.dart';
 
 class MedicalHistoryDetailsView
@@ -100,7 +100,18 @@ class MedicalHistoryDetailsView
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed(
+                          Routes.UPDATE_MEDICAL_HISTORY,
+                          arguments: {
+                            'patientId': controller.patientId,
+                            'medicalHistoryId': controller.medicalHistoryId,
+                            'history': controller.history.value,
+                          },
+                        );
+                      },
+
+
                       label: const Text('Edit Entry'),
                     ),
                   ),
