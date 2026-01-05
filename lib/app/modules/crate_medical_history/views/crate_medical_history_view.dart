@@ -37,54 +37,64 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                   ),
 
                   const SizedBox(height: 16),
-
                   Text('Categories'),
                   const SizedBox(height: 6),
+                  Container(
 
-                  Obx(() {
-                    if (controller.selectedCategories.isEmpty) {
-                      return const SizedBox();
-                    }
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    padding: EdgeInsetsGeometry.all(2),
+                    child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
 
-                    return Wrap(
-                      spacing: 6,
-                      runSpacing: 6,
-                      children: controller.selectedCategories.map((cat) {
-                        return Chip(
-                          label: Text(cat['name']!),
-                          deleteIcon: const Icon(Icons.close, size: 16),
-                          onDeleted: () =>
-                              controller.removeCategory(cat['id']!),
-                        );
-                      }).toList(),
-                    );
-                  }),
+                        Obx(() {
+                          if (controller.selectedCategories.isEmpty) {
+                            return const SizedBox();
+                          }
 
-                  const SizedBox(height: 6),
+                          return Wrap(
+                            spacing: 6,
+                            runSpacing: 6,
+                            children: controller.selectedCategories.map((cat) {
+                              return Chip(
+                                label: Text(cat['name']!),
+                                deleteIcon: const Icon(Icons.close, size: 16),
+                                onDeleted: () =>
+                                    controller.removeCategory(cat['id']!),
+                              );
+                            }).toList(),
+                          );
+                        }),
 
-                  GestureDetector(
-                    onTap: () => openCategoryBottomSheet(context),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 14,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Select Categories'),
-                          const SizedBox(width: 8),
-                          const Icon(Icons.keyboard_arrow_down),
-                        ],
-                      ),
+                        const SizedBox(height: 6),
+
+                        GestureDetector(
+                          onTap: () => openCategoryBottomSheet(context),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 14,
+                            ),
+
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Add more categories...',style: TextStyle(color: Colors.grey[500]),),
+                                const SizedBox(width: 8),
+                                const Icon(Icons.keyboard_arrow_down),
+                              ],
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(height: 12),
+                      ],
                     ),
                   ),
-
-                  const SizedBox(height: 12),
 
                   // Date picker
                   Text('Select Date'),
@@ -102,19 +112,42 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                       }
                     },
                     child: Container(
+                      width: double.infinity,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 12,
                         vertical: 14,
                       ),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.grey),
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Obx(
-                        () => Text(
-                          c.selectedDate.value == null
-                              ? 'Pick a date'
-                              : "${c.selectedDate.value!.day.toString().padLeft(2, '0')}-${c.selectedDate.value!.month.toString().padLeft(2, '0')}-${c.selectedDate.value!.year}",
+                        () => Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                c.selectedDate.value == null
+                                    ? 'mm/dd/yyyy'
+                                    : "${c.selectedDate.value!.day.toString().padLeft(2, '0')}-"
+                                          "${c.selectedDate.value!.month.toString().padLeft(2, '0')}-"
+                                          "${c.selectedDate.value!.year}",
+                                style: TextStyle(
+                                  color: c.selectedDate.value == null
+                                      ? Colors.grey
+                                      : Colors.black,
+                                ),
+                              ),
+                            ),
+
+                            const SizedBox(width: 8),
+
+                            const Icon(
+                              Icons.calendar_month_outlined,
+                              color: Colors.black,
+                              size: 22,
+                            ),
+                          ],
                         ),
                       ),
                     ),
