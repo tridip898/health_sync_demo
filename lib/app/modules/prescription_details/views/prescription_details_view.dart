@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
-import 'package:health_sync_question/app/core/widgets/app_appbar.dart';
+import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
 import 'package:health_sync_question/app/core/widgets/custom_button.dart';
 import 'package:health_sync_question/app/core/widgets/custom_filter_tab.dart';
 import 'package:health_sync_question/app/modules/prescription/widgets/prescription_card.dart';
@@ -15,11 +15,11 @@ class PrescriptionDetailsView extends GetView<PrescriptionDetailsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF6F8F7),
-      appBar: AppAppbar(title: "Details"),
+      backgroundColor: Colors.white,
+      appBar: CustomAppBar(title: "Details"),
       bottomNavigationBar: _bottomButton(),
       body: Padding(
-        padding: padSym(horizontal: 20),
+        padding: padSym(horizontal: 16, vertical: 16),
         child: Column(
           children: [
             Obx(() {
@@ -27,7 +27,7 @@ class PrescriptionDetailsView extends GetView<PrescriptionDetailsController> {
                 return SizedBox();
               }
               return Padding(
-                padding: const EdgeInsets.only(top: 12),
+                padding: const EdgeInsets.only(bottom: 16),
                 child: CustomFilterTab(
                   items: ["Active", "History"],
                   selectedIndex: controller.selectedIndex.value,
@@ -37,7 +37,6 @@ class PrescriptionDetailsView extends GetView<PrescriptionDetailsController> {
                 ),
               );
             }),
-            gapH16,
             Flexible(
               child: Obx(() {
                 if (controller.isLoading.value) {
@@ -60,7 +59,9 @@ class PrescriptionDetailsView extends GetView<PrescriptionDetailsController> {
                       return PrescriptionCard(
                         prescription: prescription,
                         onTap: () {
-                          controller.prescriptionHistoryDetailsClick(prescription);
+                          controller.prescriptionHistoryDetailsClick(
+                            prescription,
+                          );
                         },
                       );
                     },

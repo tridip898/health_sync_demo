@@ -17,12 +17,12 @@ class DoctorCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: borderRadius(16),
+        borderRadius:  borderRadius12,
         boxShadow: [
           BoxShadow(color: Colors.black.withValues(alpha: .08), blurRadius: 8),
         ],
       ),
-      padding: padAll20,
+      padding: padAll12,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -52,17 +52,16 @@ class DoctorCard extends StatelessWidget {
                   specialty,
                   style: textStyle.semiBold.s16.copyWith(color: blue.base500),
                 ),
-                gapH4,
+                gapH8,
                 Row(
                   children: [
-                    Icon(Icons.call, size: 16, color: Colors.black54),
+                    Icon(Icons.call, size: 18, color: Colors.black54),
                     gapW8,
                     Expanded(
                       child: Text(
                         doctor?.profile?.publicPhoneNumber ?? '',
-                        style: textStyle.medium.s14.copyWith(
+                        style: textStyle.medium.s16.copyWith(
                           color: Colors.black54,
-                          fontSize: 15,
                         ),
                       ),
                     ),
@@ -71,14 +70,13 @@ class DoctorCard extends StatelessWidget {
                 gapH4,
                 Row(
                   children: [
-                    Icon(Icons.email, size: 16, color: Colors.black54),
+                    Icon(Icons.email, size: 18, color: Colors.black54),
                     gapW8,
                     Expanded(
                       child: Text(
                         doctor?.profile?.publicEmail ?? '',
-                        style: textStyle.medium.s14.copyWith(
+                        style: textStyle.medium.s16.copyWith(
                           color: Colors.black54,
-                          fontSize: 15,
                         ),
                       ),
                     ),

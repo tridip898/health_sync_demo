@@ -11,6 +11,7 @@ class PrescriptionController extends GetxController {
       PrescriptionRepository();
   final ScrollController scrollController = ScrollController();
   final RxList<PrescriptionData> prescriptionList = <PrescriptionData>[].obs;
+  final RxBool isLoading = true.obs;
 
   @override
   void onInit() {
@@ -47,5 +48,6 @@ class PrescriptionController extends GetxController {
         prescriptionList.value = success.data ?? [];
       },
     );
+    isLoading.value = false;
   }
 }

@@ -10,6 +10,7 @@ import 'package:health_sync_question/app/modules/appointment_details/views/widge
 import 'package:health_sync_question/app/modules/appointment_details/views/widgets/medical_records_card.dart';
 import 'package:health_sync_question/app/modules/appointment_details/views/widgets/organization_card.dart';
 import 'package:health_sync_question/app/modules/appointment_details/views/widgets/patient_details_card.dart';
+import 'package:health_sync_question/app/modules/appointment_details/views/widgets/scheduled_info_card.dart';
 
 import '../controllers/appointment_details_controller.dart';
 
@@ -22,7 +23,7 @@ class AppointmentDetailsView extends GetView<AppointmentDetailsController> {
       appBar: CustomAppBar(title: "Appointment Details"),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        padding: padSym(horizontal: 20, vertical: 16),
+        padding: padSym(horizontal: 16, vertical: 16),
         child: Obx(() {
           if (controller.isLoading.value) return SizedBox.shrink();
           final appointment = controller.appointmentDetails.value;
@@ -38,9 +39,14 @@ class AppointmentDetailsView extends GetView<AppointmentDetailsController> {
                 OrganizationCard(organization: organization),
               ],
               gapH24,
+              ScheduledInfoCard(appointmentDetails: appointment),
+              gapH24,
               PatientDetailsCard(patient: patient),
               gapH24,
-              MedicalRecordsCard(extraNote: extraNote),
+              MedicalRecordsCard(
+                extraNote: extraNote,
+                appointmentDetails: appointment,
+              ),
             ],
           );
         }),

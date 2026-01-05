@@ -17,12 +17,12 @@ class PatientDetailsCard extends StatelessWidget {
       width: double.maxFinite,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: borderRadius(16),
+        borderRadius: borderRadius12,
         boxShadow: [
           BoxShadow(color: Colors.black.withValues(alpha: .08), blurRadius: 8),
         ],
       ),
-      padding: padAll20,
+      padding: padAll12,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

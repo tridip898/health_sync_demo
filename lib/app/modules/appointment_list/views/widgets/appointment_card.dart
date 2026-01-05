@@ -27,7 +27,7 @@ class AppointmentCard extends StatelessWidget {
         );
       },
       child: Container(
-        padding: padAll16,
+        padding: padAll12,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: radius16,
@@ -156,7 +156,7 @@ class AppointmentCard extends StatelessWidget {
   _statusButton({String status = ''}) {
     return Container(
       decoration: BoxDecoration(
-        color: _getStatusTextColor(status),
+        color: _getStatusColor(status)?.withValues(alpha: .1),
         borderRadius: borderRadius8,
       ),
       padding: padSym(horizontal: 10, vertical: 4),
@@ -179,22 +179,6 @@ class AppointmentCard extends StatelessWidget {
       return green.base500;
     } else if (status == AppointmentStatus.paymentPending.value) {
       return red.base500;
-    }
-    return null;
-  }
-
-  Color? _getStatusTextColor(String status) {
-    if (status == AppointmentStatus.pending.value ||
-        status == AppointmentStatus.paymentPending.value) {
-      return Colors.orangeAccent.withValues(alpha: .1);
-    } else if (status == AppointmentStatus.confirmed.value) {
-      return blue.base50;
-    } else if (status == AppointmentStatus.paymentDone.value ||
-        status == AppointmentStatus.completed.value ||
-        status == AppointmentStatus.prescribed.value) {
-      return green.base50;
-    } else if (status == AppointmentStatus.paymentPending.value) {
-      return red.base50;
     }
     return null;
   }

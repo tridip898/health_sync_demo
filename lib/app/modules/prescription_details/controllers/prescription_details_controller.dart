@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/utils/toaster.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
 import 'package:health_sync_question/app/data/model/prescription_list_response_model.dart';
@@ -99,7 +101,19 @@ class PrescriptionDetailsController extends GetxController {
 
   void prescriptionHistoryDetailsClick(Prescription prescription) {
     Get.bottomSheet(
-      SafeArea(child: PrescriptionDetailsCard(prescription: prescription)),
+      SafeArea(
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+            ),
+          ),
+          padding: padSym(horizontal: 16, vertical: 24),
+          child: PrescriptionDetailsCard(prescription: prescription),
+        ),
+      ),
       isScrollControlled: true,
     );
   }

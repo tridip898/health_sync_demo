@@ -22,7 +22,7 @@ class CustomFilterTab extends StatelessWidget {
     return Container(
       height: height,
       decoration: BoxDecoration(
-        color: Colors.grey.shade200,
+        color: Colors.grey.shade100,
         borderRadius: borderRadius8,
       ),
       padding: padSym(horizontal: 4, vertical: 4),

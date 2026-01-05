@@ -16,7 +16,7 @@ class AppointmentListView extends GetView<AppointmentListController> {
       backgroundColor: Colors.white,
       appBar: CustomAppBar(title: 'Appointments'),
       body: Padding(
-        padding: padSym(horizontal: 20, vertical: 16),
+        padding: padSym(horizontal: 16, vertical: 16),
         child: Column(
           children: [
             Obx(() {
