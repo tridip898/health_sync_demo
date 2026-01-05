@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
-import 'package:health_sync_question/app/core/widgets/app_appbar.dart';
+import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
 import 'package:health_sync_question/app/core/widgets/custom_button.dart';
 import 'package:health_sync_question/app/core/widgets/custom_cache_network_image.dart';
 import 'package:health_sync_question/app/modules/profile_details/controllers/profile_details_controller.dart';
@@ -18,7 +18,7 @@ class ProfileDetailsView extends GetView<ProfileDetailsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF6F8F7),
-      appBar: AppAppbar(
+      appBar: CustomAppBar(
         title: 'Profile Details',
         actions: [
           Obx(() {

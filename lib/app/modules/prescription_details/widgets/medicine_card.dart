@@ -21,10 +21,11 @@ class MedicineCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(medicine?.medicineName ?? '', style: textStyle.bold.s16),
-          Text(
-            medicine?.strength ?? '',
-            style: textStyle.medium.s14.copyWith(color: blue.base800),
-          ),
+          if ((medicine?.strength ?? '') != '')
+            Text(
+              medicine?.strength ?? '',
+              style: textStyle.semiBold.s14.copyWith(color: blue.base800),
+            ),
           gapH12,
           Row(
             children: [

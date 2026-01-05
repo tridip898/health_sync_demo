@@ -21,7 +21,7 @@ class AppointmentListView extends GetView<AppointmentListController> {
         child: Icon(Icons.add),
       ),
       body: Padding(
-        padding: padSym(horizontal: 20, vertical: 16),
+        padding: padSym(horizontal: 16, vertical: 16),
         child: Column(
           children: [
             Obx(() {

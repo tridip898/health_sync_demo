@@ -16,14 +16,14 @@ class PrescriptionCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: padAll16,
+        padding: padAll12,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: borderRadius12,
           boxShadow: [
             BoxShadow(
-              blurRadius: 6,
-              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 8,
+              color: Colors.black.withValues(alpha: 0.08),
             ),
           ],
         ),

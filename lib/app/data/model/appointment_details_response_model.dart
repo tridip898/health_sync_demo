@@ -1,5 +1,6 @@
 import 'package:health_sync_question/app/data/model/doctor_model.dart';
 import 'package:health_sync_question/app/data/model/organization_response_model.dart';
+import 'package:health_sync_question/app/data/model/prescription_list_response_model.dart';
 import 'package:network/network.dart';
 import 'package:health_sync_question/app/data/model/profile_response_model.dart';
 
@@ -50,7 +51,7 @@ class AppointmentDetails {
   Patient? patient;
   DoctorModel? doctor;
   OrganizationModel? organization;
-  DoctorPrescription? doctorPrescription;
+  Prescription? doctorPrescription;
 
   AppointmentDetails({
     this.appointmentId,
@@ -90,7 +91,7 @@ class AppointmentDetails {
         ? new OrganizationModel.fromJson(json['organization'])
         : null;
     doctorPrescription = json['doctorPrescription'] != null
-        ? new DoctorPrescription.fromJson(json['doctorPrescription'])
+        ? new Prescription.fromJson(json['doctorPrescription'])
         : null;
   }
 
@@ -140,172 +141,173 @@ class Extra {
   }
 }
 
-class DoctorPrescription {
-  String? prescriptionId;
-  String? prescriptionText;
-  String? pdfPath;
-  bool? isDeleted;
-  String? previousId;
-  String? nextId;
-  String? createdBy;
-  bool? isOngoing;
-  String? createdAt;
-  String? updatedAt;
-  List<PrescriptionItems>? prescriptionItems;
-  List<LabTests>? labTests;
-
-  DoctorPrescription({
-    this.prescriptionId,
-    this.prescriptionText,
-    this.pdfPath,
-    this.isDeleted,
-    this.previousId,
-    this.nextId,
-    this.createdBy,
-    this.isOngoing,
-    this.createdAt,
-    this.updatedAt,
-    this.prescriptionItems,
-    this.labTests,
-  });
-
-  DoctorPrescription.fromJson(Map<String, dynamic> json) {
-    prescriptionId = json['prescriptionId'];
-    prescriptionText = json['prescriptionText'];
-    pdfPath = json['pdfPath'];
-    isDeleted = json['isDeleted'];
-    previousId = json['previousId'];
-    nextId = json['nextId'];
-    createdBy = json['createdBy'];
-    isOngoing = json['isOngoing'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    if (json['prescriptionItems'] != null) {
-      prescriptionItems = <PrescriptionItems>[];
-      json['prescriptionItems'].forEach((v) {
-        prescriptionItems?.add(new PrescriptionItems.fromJson(v));
-      });
-    }
-    if (json['labTests'] != null) {
-      labTests = <LabTests>[];
-      json['labTests'].forEach((v) {
-        labTests?.add(new LabTests.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['prescriptionId'] = this.prescriptionId;
-    data['prescriptionText'] = this.prescriptionText;
-    data['pdfPath'] = this.pdfPath;
-    data['isDeleted'] = this.isDeleted;
-    data['previousId'] = this.previousId;
-    data['nextId'] = this.nextId;
-    data['createdBy'] = this.createdBy;
-    data['isOngoing'] = this.isOngoing;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    if (this.prescriptionItems != null) {
-      data['prescriptionItems'] = this.prescriptionItems
-          ?.map((v) => v.toJson())
-          .toList();
-    }
-    if (this.labTests != null) {
-      data['labTests'] = this.labTests?.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
-class PrescriptionItems {
-  String? prescriptionItemId;
-  String? medicineName;
-  String? strength;
-  String? dosage;
-  int? frequency;
-  int? durationDays;
-  String? instructions;
-  String? createdAt;
-  bool? isOngoing;
-  String? prescriptionId;
-
-  PrescriptionItems({
-    this.prescriptionItemId,
-    this.medicineName,
-    this.strength,
-    this.dosage,
-    this.frequency,
-    this.durationDays,
-    this.instructions,
-    this.createdAt,
-    this.isOngoing,
-    this.prescriptionId,
-  });
-
-  PrescriptionItems.fromJson(Map<String, dynamic> json) {
-    prescriptionItemId = json['prescriptionItemId'];
-    medicineName = json['medicineName'];
-    strength = json['strength'];
-    dosage = json['dosage'];
-    frequency = json['frequency'];
-    durationDays = json['durationDays'];
-    instructions = json['instructions'];
-    createdAt = json['createdAt'];
-    isOngoing = json['isOngoing'];
-    prescriptionId = json['prescriptionId'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['prescriptionItemId'] = this.prescriptionItemId;
-    data['medicineName'] = this.medicineName;
-    data['strength'] = this.strength;
-    data['dosage'] = this.dosage;
-    data['frequency'] = this.frequency;
-    data['durationDays'] = this.durationDays;
-    data['instructions'] = this.instructions;
-    data['createdAt'] = this.createdAt;
-    data['isOngoing'] = this.isOngoing;
-    data['prescriptionId'] = this.prescriptionId;
-    return data;
-  }
-}
-
-class LabTests {
-  String? prescripitonLabTestId;
-  String? testName;
-  String? notes;
-  String? createdAt;
-  bool? isOngoing;
-  String? prescriptionId;
-
-  LabTests({
-    this.prescripitonLabTestId,
-    this.testName,
-    this.notes,
-    this.createdAt,
-    this.isOngoing,
-    this.prescriptionId,
-  });
-
-  LabTests.fromJson(Map<String, dynamic> json) {
-    prescripitonLabTestId = json['prescripitonLabTestId'];
-    testName = json['testName'];
-    notes = json['notes'];
-    createdAt = json['createdAt'];
-    isOngoing = json['isOngoing'];
-    prescriptionId = json['prescriptionId'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['prescripitonLabTestId'] = this.prescripitonLabTestId;
-    data['testName'] = this.testName;
-    data['notes'] = this.notes;
-    data['createdAt'] = this.createdAt;
-    data['isOngoing'] = this.isOngoing;
-    data['prescriptionId'] = this.prescriptionId;
-    return data;
-  }
-}
+//
+// class DoctorPrescription {
+//   String? prescriptionId;
+//   String? prescriptionText;
+//   String? pdfPath;
+//   bool? isDeleted;
+//   String? previousId;
+//   String? nextId;
+//   String? createdBy;
+//   bool? isOngoing;
+//   String? createdAt;
+//   String? updatedAt;
+//   List<PrescriptionItems>? prescriptionItems;
+//   List<LabTests>? labTests;
+//
+//   DoctorPrescription({
+//     this.prescriptionId,
+//     this.prescriptionText,
+//     this.pdfPath,
+//     this.isDeleted,
+//     this.previousId,
+//     this.nextId,
+//     this.createdBy,
+//     this.isOngoing,
+//     this.createdAt,
+//     this.updatedAt,
+//     this.prescriptionItems,
+//     this.labTests,
+//   });
+//
+//   DoctorPrescription.fromJson(Map<String, dynamic> json) {
+//     prescriptionId = json['prescriptionId'];
+//     prescriptionText = json['prescriptionText'];
+//     pdfPath = json['pdfPath'];
+//     isDeleted = json['isDeleted'];
+//     previousId = json['previousId'];
+//     nextId = json['nextId'];
+//     createdBy = json['createdBy'];
+//     isOngoing = json['isOngoing'];
+//     createdAt = json['createdAt'];
+//     updatedAt = json['updatedAt'];
+//     if (json['prescriptionItems'] != null) {
+//       prescriptionItems = <PrescriptionItems>[];
+//       json['prescriptionItems'].forEach((v) {
+//         prescriptionItems?.add(new PrescriptionItems.fromJson(v));
+//       });
+//     }
+//     if (json['labTests'] != null) {
+//       labTests = <LabTests>[];
+//       json['labTests'].forEach((v) {
+//         labTests?.add(new LabTests.fromJson(v));
+//       });
+//     }
+//   }
+//
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['prescriptionId'] = this.prescriptionId;
+//     data['prescriptionText'] = this.prescriptionText;
+//     data['pdfPath'] = this.pdfPath;
+//     data['isDeleted'] = this.isDeleted;
+//     data['previousId'] = this.previousId;
+//     data['nextId'] = this.nextId;
+//     data['createdBy'] = this.createdBy;
+//     data['isOngoing'] = this.isOngoing;
+//     data['createdAt'] = this.createdAt;
+//     data['updatedAt'] = this.updatedAt;
+//     if (this.prescriptionItems != null) {
+//       data['prescriptionItems'] = this.prescriptionItems
+//           ?.map((v) => v.toJson())
+//           .toList();
+//     }
+//     if (this.labTests != null) {
+//       data['labTests'] = this.labTests?.map((v) => v.toJson()).toList();
+//     }
+//     return data;
+//   }
+// }
+//
+// class PrescriptionItems {
+//   String? prescriptionItemId;
+//   String? medicineName;
+//   String? strength;
+//   String? dosage;
+//   int? frequency;
+//   int? durationDays;
+//   String? instructions;
+//   String? createdAt;
+//   bool? isOngoing;
+//   String? prescriptionId;
+//
+//   PrescriptionItems({
+//     this.prescriptionItemId,
+//     this.medicineName,
+//     this.strength,
+//     this.dosage,
+//     this.frequency,
+//     this.durationDays,
+//     this.instructions,
+//     this.createdAt,
+//     this.isOngoing,
+//     this.prescriptionId,
+//   });
+//
+//   PrescriptionItems.fromJson(Map<String, dynamic> json) {
+//     prescriptionItemId = json['prescriptionItemId'];
+//     medicineName = json['medicineName'];
+//     strength = json['strength'];
+//     dosage = json['dosage'];
+//     frequency = json['frequency'];
+//     durationDays = json['durationDays'];
+//     instructions = json['instructions'];
+//     createdAt = json['createdAt'];
+//     isOngoing = json['isOngoing'];
+//     prescriptionId = json['prescriptionId'];
+//   }
+//
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['prescriptionItemId'] = this.prescriptionItemId;
+//     data['medicineName'] = this.medicineName;
+//     data['strength'] = this.strength;
+//     data['dosage'] = this.dosage;
+//     data['frequency'] = this.frequency;
+//     data['durationDays'] = this.durationDays;
+//     data['instructions'] = this.instructions;
+//     data['createdAt'] = this.createdAt;
+//     data['isOngoing'] = this.isOngoing;
+//     data['prescriptionId'] = this.prescriptionId;
+//     return data;
+//   }
+// }
+//
+// class LabTests {
+//   String? prescripitonLabTestId;
+//   String? testName;
+//   String? notes;
+//   String? createdAt;
+//   bool? isOngoing;
+//   String? prescriptionId;
+//
+//   LabTests({
+//     this.prescripitonLabTestId,
+//     this.testName,
+//     this.notes,
+//     this.createdAt,
+//     this.isOngoing,
+//     this.prescriptionId,
+//   });
+//
+//   LabTests.fromJson(Map<String, dynamic> json) {
+//     prescripitonLabTestId = json['prescripitonLabTestId'];
+//     testName = json['testName'];
+//     notes = json['notes'];
+//     createdAt = json['createdAt'];
+//     isOngoing = json['isOngoing'];
+//     prescriptionId = json['prescriptionId'];
+//   }
+//
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['prescripitonLabTestId'] = this.prescripitonLabTestId;
+//     data['testName'] = this.testName;
+//     data['notes'] = this.notes;
+//     data['createdAt'] = this.createdAt;
+//     data['isOngoing'] = this.isOngoing;
+//     data['prescriptionId'] = this.prescriptionId;
+//     return data;
+//   }
+// }
