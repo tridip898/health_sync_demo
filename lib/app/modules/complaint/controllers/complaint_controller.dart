@@ -9,6 +9,7 @@ import 'package:health_sync_question/app/data/app_data/basic_question_data.dart'
 import 'package:health_sync_question/app/data/model/complaint_answer_model.dart';
 import 'package:health_sync_question/app/data/model/question_model.dart';
 import 'package:health_sync_question/app/data/repository/appointment_repository.dart';
+import 'package:health_sync_question/app/modules/complain_summary/controllers/complain_summary_controller.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
 
 class ComplaintController extends GetxController {
@@ -84,7 +85,11 @@ class ComplaintController extends GetxController {
 
   onSubmitResponse() async {
     if (isCategorySelector) {
-      onSubmitQuestionnaire();
+      if (Get.isRegistered<ComplainSummaryController>()) {
+        Get.back(result: answerList.value);
+      } else {
+        Get.toNamed(Routes.COMPLAIN_SUMMARY);
+      }
     } else {
       Get.back(result: answerList.value);
     }

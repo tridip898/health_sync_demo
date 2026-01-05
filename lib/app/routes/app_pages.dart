@@ -6,6 +6,8 @@ import '../modules/appointment_list/bindings/appointment_list_binding.dart';
 import '../modules/appointment_list/views/appointment_list_view.dart';
 import '../modules/change_password/bindings/change_password_binding.dart';
 import '../modules/change_password/views/reset_password_view.dart';
+import '../modules/complain_summary/bindings/complain_summary_binding.dart';
+import '../modules/complain_summary/views/complain_summary_view.dart';
 import '../modules/complaint/bindings/complaint_binding.dart';
 import '../modules/complaint/views/complaint_view.dart';
 import '../modules/create_appointment/bindings/create_appointment_binding.dart';
@@ -141,6 +143,11 @@ class AppPages {
       name: _Paths.APPOINTMENT_DETAILS,
       page: () => const AppointmentDetailsView(),
       binding: AppointmentDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.COMPLAIN_SUMMARY,
+      page: () => const ComplainSummaryView(),
+      binding: ComplainSummaryBinding(),
     ),
   ];
 }

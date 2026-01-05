@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
+import 'package:health_sync_question/app/core/widgets/complain_summary_widget.dart';
 import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
 import 'package:health_sync_question/app/core/widgets/custom_button.dart';
 import 'package:health_sync_question/app/core/widgets/custom_dropdown_widget.dart';
@@ -79,54 +80,10 @@ class CreateAppointmentView extends GetView<CreateAppointmentController> {
             gapH8,
             Obx(() {
               if (controller.questionnaires.isNotEmpty) {
-                return ListView.separated(
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: controller.questionnaires.length,
-                  itemBuilder: (context, index) {
-                    final question = controller.questionnaires[index];
-                    return Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12) +
-                          EdgeInsets.only(bottom: 12),
-                      decoration: BoxDecoration(
-                        borderRadius: radius12,
-                        border: Border.all(color: gray.base200),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          gapH8,
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: GestureDetector(
-                              onTap: () =>
-                                  controller.onRemoveQuestionnaire(index),
-                              child: Text(
-                                'Remove',
-                                style: textStyle.bold.s12.copyWith(
-                                  color: red.base500,
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                            ),
-                          ),
-                          ...question.entries.map(
-                            (item) => Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                gapH8,
-                                Text(item.key, style: textStyle.semiBold.s14),
-                                Text(item.value, style: textStyle.medium.s12),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                  separatorBuilder: (context, index) => gapH8,
+                return ComplainSummaryWidget(
+                  questionnaires: controller.questionnaires,
+                  onRemoveQuestionnaire: (indexValue) =>
+                      controller.onRemoveQuestionnaire(indexValue),
                 );
               }
               return SizedBox();
