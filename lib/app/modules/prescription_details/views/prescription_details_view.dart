@@ -19,9 +19,10 @@ class PrescriptionDetailsView extends GetView<PrescriptionDetailsController> {
       appBar: CustomAppBar(title: "Details"),
       bottomNavigationBar: _bottomButton(),
       body: Padding(
-        padding: padSym(horizontal: 16, vertical: 16),
+        padding: padSym(horizontal: 16, vertical: 0),
         child: Column(
           children: [
+            gapH12,
             Obx(() {
               if (controller.prescriptionHistory.isEmpty) {
                 return SizedBox();

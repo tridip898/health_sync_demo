@@ -73,7 +73,7 @@ class AppointmentListController extends GetxController {
     _hasMore = true;
   }
 
-  void onAddAppointmentQuestionnaire() {
+  /*void onAddAppointmentQuestionnaire() {
     Get.toNamed(Routes.COMPLAINT, arguments: {"isCategorySelector": true});
-  }
+  }*/
 }

@@ -3,12 +3,8 @@ import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/utils/toaster.dart';
 import 'package:health_sync_question/app/core/widgets/custom_dropdown_bottom_sheet.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
-import 'package:health_sync_question/app/data/model/doctor_list_response_model.dart';
 import 'package:health_sync_question/app/data/model/doctor_model.dart';
 import 'package:health_sync_question/app/data/model/organization_response_model.dart';
-import 'package:health_sync_question/app/data/model/organization_response_model.dart';
-import 'package:health_sync_question/app/data/model/specialty_model.dart';
-import 'package:health_sync_question/app/data/model/specialty_model.dart';
 import 'package:health_sync_question/app/data/model/specialty_model.dart';
 import 'package:health_sync_question/app/data/repository/doctor_repository.dart';
 import 'package:health_sync_question/app/data/repository/organization_repository.dart';
@@ -24,7 +20,7 @@ class DoctorListController extends GetxController {
   final DoctorRepository doctorRepository = DoctorRepository();
   final OrganizationRepository organizationRepository =
       OrganizationRepository();
-
+  RxList<Map<String, String>> questionnaires = (Get.arguments?['questionnaire'] as List<Map<String, String>>? ?? []).obs;
   int _page = 1;
   bool _hasMore = true;
   Rx<bool> includeNonVerified = Rx(false);

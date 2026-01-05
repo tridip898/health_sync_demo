@@ -36,6 +36,9 @@ class CreateAppointmentController extends GetxController {
     } else {
       doctorNameController.text = doctorModel!.profile?.fullName ?? '';
     }
+    if (Get.arguments['questionnaire'] != null) {
+      questionnaires.assignAll(Get.arguments['questionnaire']);
+    }
     super.onReady();
   }
 

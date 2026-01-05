@@ -5,6 +5,7 @@ import 'package:health_sync_question/app/core/utils/toaster.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
 import 'package:health_sync_question/app/data/model/doctor_model.dart';
 import 'package:health_sync_question/app/data/repository/doctor_repository.dart';
+import 'package:health_sync_question/app/modules/doctor_list/controllers/doctor_list_controller.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
 
 class DoctorDetailsController extends GetxController {
@@ -39,7 +40,12 @@ class DoctorDetailsController extends GetxController {
   void onBookAppointment() {
     Get.toNamed(
       Routes.CREATE_APPOINTMENT,
-      arguments: {"doctor": doctorModel.value},
+      arguments: {
+        "doctor": doctorModel.value,
+        'questionnaire': Get.isRegistered<DoctorListController>()
+            ? Get.find<DoctorListController>().questionnaires.value
+            : null,
+      },
     );
   }
 }
