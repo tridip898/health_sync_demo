@@ -37,7 +37,7 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                   ),
 
                   const SizedBox(height: 16),
-                  Text('Categories'),
+                  Text('Categories',style: TextStyle(color: Colors.black)),
                   const SizedBox(height: 6),
                   Container(
 
@@ -97,7 +97,7 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                   ),
 
                   // Date picker
-                  Text('Select Date'),
+                  Text('Select Date',style: TextStyle(color: Colors.black),),
                   const SizedBox(height: 6),
                   GestureDetector(
                     onTap: () async {
