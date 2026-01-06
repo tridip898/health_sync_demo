@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/complain_summary_widget.dart';
 import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
 import 'package:health_sync_question/app/core/widgets/custom_button.dart';
-import 'package:health_sync_question/app/data/app_data/basic_question_data.dart';
+import 'package:health_sync_question/app/data/model/questionnaire_response_model.dart';
 
 import '../controllers/complain_summary_controller.dart';
 
@@ -70,7 +69,7 @@ class ComplainSummaryView extends GetView<ComplainSummaryController> {
         gapH20,
         Text(
           'Please select the specialties for the appointment',
-          style: textStyle.medium.s12.copyWith(color: gray.base400),
+          style: textStyle.medium.s12.copyWith(color: gray.base500),
         ),
         gapH12,
         ListView.separated(
@@ -88,7 +87,7 @@ class ComplainSummaryView extends GetView<ComplainSummaryController> {
     );
   }
 
-  _categoryCard(String? category, int index) {
+  _categoryCard(Category? category, int index) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -105,13 +104,13 @@ class ComplainSummaryView extends GetView<ComplainSummaryController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(category ?? '', style: textStyle.bold.s20),
+                Text(category?.specialty ?? '', style: textStyle.bold.s18),
                 Divider(color: gray.base100, height: 32),
                 Row(
                   children: [
                     Expanded(
                       child: Text(
-                        category ?? '',
+                        category?.reason ?? '',
                         style: textStyle.semiBold.s14.copyWith(
                           color: gray.base500,
                         ),

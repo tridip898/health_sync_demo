@@ -4,7 +4,6 @@ import 'package:health_sync_question/app/core/utils/toaster.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
 import 'package:health_sync_question/app/data/model/appointment_list_response_model.dart';
 import 'package:health_sync_question/app/data/repository/appointment_repository.dart';
-import 'package:health_sync_question/app/routes/app_pages.dart';
 
 class AppointmentListController extends GetxController {
   int _page = 1;
@@ -72,8 +71,4 @@ class AppointmentListController extends GetxController {
     _page = 1;
     _hasMore = true;
   }
-
-  /*void onAddAppointmentQuestionnaire() {
-    Get.toNamed(Routes.COMPLAINT, arguments: {"isCategorySelector": true});
-  }*/
 }

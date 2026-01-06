@@ -20,7 +20,8 @@ class DoctorListController extends GetxController {
   final DoctorRepository doctorRepository = DoctorRepository();
   final OrganizationRepository organizationRepository =
       OrganizationRepository();
-  RxList<Map<String, String>> questionnaires = (Get.arguments?['questionnaire'] as List<Map<String, String>>? ?? []).obs;
+  RxList<Map<String, String>> questionnaires =
+      (Get.arguments?['questionnaire'] as List<Map<String, String>>? ?? []).obs;
   int _page = 1;
   bool _hasMore = true;
   Rx<bool> includeNonVerified = Rx(false);
@@ -36,7 +37,7 @@ class DoctorListController extends GetxController {
   Rx<OrganizationModel?> selectedOrganization = Rx(null);
 
   RxList<SpecialtyModel> specialtyList = <SpecialtyModel>[].obs;
-  Rx<SpecialtyModel?> selectedSpecialty = Rx(null);
+  final RxList<SpecialtyModel> selectedSpecialty = RxList([]);
 
   Rx<bool> shouldApplyFilter = false.obs;
   Rx<int> filterCount = 0.obs;
@@ -51,12 +52,15 @@ class DoctorListController extends GetxController {
         await getSpecialtyList();
         await Future.delayed(Duration(milliseconds: 100));
         if (specialtyList.isNotEmpty) {
-          selectedSpecialty.value = specialtyList.firstWhereOrNull((item) {
-            return item.title.toString().toLowerCase() ==
-                specialtyListItems.first.toString().toLowerCase();
-          });
-          if (selectedSpecialty.value != null) {
-            specialtyNameController.text = selectedSpecialty.value?.title ?? '';
+          selectedSpecialty.value = specialtyList.where((item) {
+            return specialtyListItems.any(
+              (selected) =>
+                  item.title.toString().toLowerCase() ==
+                  selected.specialty.toString().toLowerCase(),
+            );
+          }).toList();
+          if (selectedSpecialty.isNotEmpty) {
+            specialtyNameController.text = selectedSpecialty.first.title ?? '';
             shouldApplyFilter.value = true;
             _getFilterCount();
           }
@@ -101,9 +105,8 @@ class DoctorListController extends GetxController {
       organizationId: shouldApplyFilter.value
           ? selectedOrganization.value?.organizationId
           : null,
-      specialtyId: shouldApplyFilter.value
-          ? selectedSpecialty.value?.specialtyId
-          : null,
+
+      specialtyId: shouldApplyFilter.value ? selectedSpecialty : [],
     );
     if (initialLoad) {
       Loading.hide();
@@ -202,7 +205,7 @@ class DoctorListController extends GetxController {
       Obx(() {
         return AppDropdownBottomSheet<SpecialtyModel>(
           items: specialtyList,
-          currentItem: selectedSpecialty.value,
+          currentItem: selectedSpecialty.first,
           title: 'Doctor Specialty',
           getTitle: (item) => item.title ?? 'N/A',
           isLocalSearch: true,
@@ -213,7 +216,7 @@ class DoctorListController extends GetxController {
 
     if (pickedSpecialty != null) {
       selectedSpecialty.value = pickedSpecialty;
-      specialtyNameController.text = selectedSpecialty.value?.title ?? '';
+      specialtyNameController.text = selectedSpecialty.first.title ?? '';
     }
   }
 
@@ -259,7 +262,7 @@ class DoctorListController extends GetxController {
   }
 
   _onSpecialtyRemove() {
-    selectedSpecialty.value = null;
+    selectedSpecialty.value = [];
     specialtyNameController.clear();
   }
 

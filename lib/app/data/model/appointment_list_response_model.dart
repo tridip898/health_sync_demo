@@ -61,7 +61,7 @@ class AppointmentModel {
   String? patientId;
   String? doctorId;
   String? organizationId;
-  Extra? extra;
+  String? extra;
   String? note;
   Patient? patient;
   DoctorModel? doctor;
@@ -92,7 +92,7 @@ class AppointmentModel {
     patientId = json['patientId'];
     doctorId = json['doctorId'];
     organizationId = json['organizationId'];
-    extra = json['extra'] != null ? new Extra.fromJson(json['extra']) : null;
+    extra = json['extra'];
     note = json['note'];
     patient = json['patient'] != null
         ? Patient.fromJson(json['patient'])
@@ -115,9 +115,7 @@ class AppointmentModel {
     data['patientId'] = patientId;
     data['doctorId'] = doctorId;
     data['organizationId'] = organizationId;
-    if (this.extra != null) {
-      data['extra'] = this.extra?.toJson();
-    }
+    data['extra'] = this.extra;
     data['note'] = note;
     if (patient != null) {
       data['patient'] = patient!.toJson();

@@ -59,9 +59,16 @@ class CreateAppointmentView extends GetView<CreateAppointmentController> {
             ),
             gapH16,
             Obx(() {
-              if (controller.selectedDoctorOrganization.value != null) {
+              if (controller.selectedDoctorOrganization.value != null &&
+                  controller.selectedDoctorOrganization.value!
+                      .getNext7DaysAvailability()
+                      .values
+                      .contains(true)) {
                 return Column(
                   children: [
+                    Text(
+                      "${controller.selectedDoctorOrganization.value!.getNext7DaysAvailability().keys}",
+                    ),
                     _WorkingHours(
                       availability: controller.selectedDoctorOrganization.value!
                           .getNext7DaysAvailability(),

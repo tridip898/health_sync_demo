@@ -15,7 +15,7 @@ class ComplainSummaryController extends GetxController {
   final Rx<QuestionnaireModel> questionnaireModel = QuestionnaireModel().obs;
   final List<Section> answerList = Get.arguments;
   final RxBool isListShowing = true.obs;
-  final RxList<String> selectedCategory = <String>[].obs;
+  final RxList<Category> selectedCategory = <Category>[].obs;
 
   @override
   void onInit() {
@@ -82,11 +82,11 @@ class ComplainSummaryController extends GetxController {
     }
   }
 
-  void categorySelection(String? category) {
+  void categorySelection(Category? category) {
     if (selectedCategory.contains(category)) {
       selectedCategory.remove(category);
     } else {
-      selectedCategory.add(category ?? '');
+      selectedCategory.add(category ??Category());
     }
     selectedCategory.refresh();
   }
