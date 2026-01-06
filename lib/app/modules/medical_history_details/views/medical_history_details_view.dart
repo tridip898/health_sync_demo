@@ -129,7 +129,16 @@ class MedicalHistoryDetailsView
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed(
+                          Routes.DELETE_MEDICAL_HISTORY,
+                          arguments: {
+                            'patientId': controller.patientId,
+                            'medicalHistoryId': controller.medicalHistoryId,
+                            'history': controller.history.value,
+                          },
+                        );
+                      },
                       label: const Text('Delete Entry'),
                     ),
                   ),

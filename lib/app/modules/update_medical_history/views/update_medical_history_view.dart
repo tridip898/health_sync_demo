@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
+import '../../../core/utils/multiple_picker_bottom_sheet.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/custom_text_field.dart';
+import '../../../data/model/disease_category.dart';
 import '../controllers/update_medical_history_controller.dart';
 
 class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
   const UpdateMedicalHistoryView({super.key});
+
   @override
   Widget build(BuildContext context) {
     final c = controller;
     return Scaffold(
       appBar: AppBar(title: const Text('Add Medical History')),
       body: Obx(
-            () => Stack(
+        () => Stack(
           children: [
             SingleChildScrollView(
               padding: const EdgeInsets.all(16),
@@ -34,10 +36,9 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
                   ),
 
                   const SizedBox(height: 16),
-                  Text('Categories',style: TextStyle(color: Colors.black)),
+                  Text('Categories', style: TextStyle(color: Colors.black)),
                   const SizedBox(height: 6),
                   Container(
-
                     decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(color: Colors.grey),
@@ -47,12 +48,10 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
                         Obx(() {
                           if (controller.selectedCategories.isEmpty) {
                             return const SizedBox();
                           }
-
                           return Wrap(
                             spacing: 6,
                             runSpacing: 6,
@@ -80,7 +79,10 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('Add more categories...',style: TextStyle(color: Colors.grey[500]),),
+                                Text(
+                                  'Add more categories...',
+                                  style: TextStyle(color: Colors.grey[500]),
+                                ),
                                 const SizedBox(width: 8),
                                 const Icon(Icons.keyboard_arrow_down),
                               ],
@@ -94,7 +96,7 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
                   ),
 
                   // Date picker
-                  Text('Select Date',style: TextStyle(color: Colors.black),),
+                  Text('Select Date', style: TextStyle(color: Colors.black)),
                   const SizedBox(height: 6),
                   GestureDetector(
                     onTap: () async {
@@ -120,15 +122,15 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Obx(
-                            () => Row(
+                        () => Row(
                           children: [
                             Expanded(
                               child: Text(
                                 c.selectedDate.value == null
                                     ? 'mm/dd/yyyy'
                                     : "${c.selectedDate.value!.day.toString().padLeft(2, '0')}-"
-                                    "${c.selectedDate.value!.month.toString().padLeft(2, '0')}-"
-                                    "${c.selectedDate.value!.year}",
+                                          "${c.selectedDate.value!.month.toString().padLeft(2, '0')}-"
+                                          "${c.selectedDate.value!.year}",
                                 style: TextStyle(
                                   color: c.selectedDate.value == null
                                       ? Colors.grey
@@ -158,7 +160,7 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
                       controller: c.descriptionController,
                       maxLines: 4,
                       hintText:
-                      'Enter Details about the condition, symtoms, or notes...',
+                          'Enter Details about the condition, symtoms, or notes...',
                       labelText: 'Description',
                     ),
                   ),
@@ -170,8 +172,7 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
                     child: CustomButton(
                       onPressed: controller.updateMedicalHistory,
                       text: 'Update Medical History',
-                    )
-
+                    ),
                   ),
                 ],
               ),
@@ -188,6 +189,10 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
   void openCategoryBottomSheet(BuildContext context) {
     final controller = Get.find<UpdateMedicalHistoryController>();
 
+    if (controller.categories.isEmpty) {
+      controller.fetchCategories();
+    }
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -196,87 +201,35 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder: (_) {
-        return SafeArea(
-          child: Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
+        return Obx(() {
+          if (controller.categories.isEmpty) {
+            return SizedBox(
+              height: 200,
+              child: Center(child: CircularProgressIndicator()),
+            );
+          }
 
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Text(
-                  'Select Categories',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                ),
-              ),
-
-              const Divider(height: 1),
-
-              Expanded(
-                child: ListView.separated(
-                  padding: const EdgeInsets.all(16),
-                  itemCount: controller.categories.length,
-                  separatorBuilder: (_, __) => const Divider(height: 1),
-                  itemBuilder: (_, index) {
-                    final cat = controller.categories[index];
-
-                    return Obx(() {
-                      final isSelected = controller.selectedCategoryIds
-                          .contains(cat.diseaseCategoryId);
-
-                      return ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: Text(cat.name ?? ''),
-                        trailing: isSelected
-                            ? const Icon(
-                          Icons.check_circle,
-                          color: Colors.green,
-                        )
-                            : const Icon(
-                          Icons.circle_outlined,
-                          color: Colors.grey,
-                        ),
-                        onTap: () => controller.toggleCategory(
-                          cat.diseaseCategoryId!,
-                          cat.name ?? '',
-                        ),
-                      );
-                    });
-                  },
-                ),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 48,
-                  child: ElevatedButton(
-                    onPressed: () => Get.back(),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    child: const Text(
-                      'Confirm',
-                      style: TextStyle(fontSize: 14),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
+          return MultiSelectBottomSheet<DiseaseCategoryModel>(
+            items: controller.categories,
+            selectedIds: controller.selectedCategoryIds,
+            getId: (cat) => cat.diseaseCategoryId!,
+            getLabel: (cat) => cat.name ?? '',
+            onConfirm: () {
+              controller.selectedCategories.clear();
+              for (final cat in controller.categories) {
+                if (controller.selectedCategoryIds.contains(cat.diseaseCategoryId)) {
+                  controller.selectedCategories.add({
+                    'id': cat.diseaseCategoryId!,
+                    'name': cat.name ?? '',
+                  });
+                }
+              }
+              Get.back();
+            },
+          );
+        });
       },
     );
   }
+
 }

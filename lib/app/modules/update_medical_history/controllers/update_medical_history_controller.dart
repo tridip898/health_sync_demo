@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 
 import '../../../core/utils/toaster.dart';
 import '../../../data/model/create_medical_history_request.dart';
-import '../../../data/model/medical_history_response_model.dart';
 import '../../../data/repository/medical_history_repository.dart';
+import 'package:health_sync_question/app/data/model/disease_category.dart';
 
 class UpdateMedicalHistoryController extends GetxController {
   final MedicalHistoryRepository repository = MedicalHistoryRepository();
@@ -13,7 +13,6 @@ class UpdateMedicalHistoryController extends GetxController {
   final descriptionController = TextEditingController();
   final selectedDate = Rxn<DateTime>();
   RxList<DiseaseCategoryModel> categories = <DiseaseCategoryModel>[].obs;
-  final selectedCategoryIds = <String>[].obs;
   final selectedCategories = <Map<String, String>>[].obs;
 
   late final String patientId;
@@ -24,12 +23,12 @@ class UpdateMedicalHistoryController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
+    fetchCategories();
     final args = Get.arguments as Map<String, dynamic>;
     patientId = args['patientId'];
     medicalHistoryId = args['medicalHistoryId'];
 
-    final history = args['history'] as MedicalHistoryModel;
+    final history = args['history'];
 
     /// Prefill fields
     titleController.text = history.title ?? '';
@@ -79,24 +78,20 @@ class UpdateMedicalHistoryController extends GetxController {
     selectedCategories.removeWhere((e) => e['id'] == id);
   }
 
-  void toggleCategory(String id, String name) {
-    final index = selectedCategories.indexWhere((e) => e['id'] == id);
 
-    if (index >= 0) {
-      selectedCategories.removeAt(index);
-    } else {
-      selectedCategories.add({'id': id, 'name': name});
-    }
-  }
+  final selectedCategoryIds = <String>[].obs;
+
+
   Future<void> fetchCategories() async {
     isLoading.value = true;
     final result = await repository.getDiseaseCategories();
     result.fold(
           (error) => Toaster.error(error.message ?? 'Failed to load categories'),
           (success) {
-        categories.assignAll((success.data ?? []) as Iterable<DiseaseCategoryModel>);
+        categories.assignAll(success.data ?? []);
       },
     );
+
     isLoading.value = false;
   }
 
