@@ -40,6 +40,7 @@ class AppointmentRepository extends BaseRepository {
   getQuestionnaireResponse(List<Map<String, String>> questionnaire) {
     return post(
       path: Apis.questionnaire,
+      data: questionnaire,
       responseCompiler: QuestionnaireResponseModel.fromJson,
     );
   }

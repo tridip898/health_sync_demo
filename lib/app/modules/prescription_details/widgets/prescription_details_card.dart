@@ -14,6 +14,7 @@ class PrescriptionDetailsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(prescription.prescriptionText ?? '', style: textStyle.bold.s18),

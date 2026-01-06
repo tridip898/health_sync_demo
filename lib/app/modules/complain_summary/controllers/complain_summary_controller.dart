@@ -86,7 +86,7 @@ class ComplainSummaryController extends GetxController {
     if (selectedCategory.contains(category)) {
       selectedCategory.remove(category);
     } else {
-      selectedCategory.add(category ??Category());
+      selectedCategory.add(category ?? Category());
     }
     selectedCategory.refresh();
   }

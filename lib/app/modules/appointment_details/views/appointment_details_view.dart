@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:health_sync_question/app/core/constants/border_constents.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
-import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
-import 'package:health_sync_question/app/core/widgets/custom_cache_network_image.dart';
+import 'package:health_sync_question/app/modules/appointment_details/controllers/appointment_details_controller.dart';
 import 'package:health_sync_question/app/modules/appointment_details/views/widgets/doctor_card.dart';
 import 'package:health_sync_question/app/modules/appointment_details/views/widgets/medical_records_card.dart';
 import 'package:health_sync_question/app/modules/appointment_details/views/widgets/organization_card.dart';
 import 'package:health_sync_question/app/modules/appointment_details/views/widgets/patient_details_card.dart';
 import 'package:health_sync_question/app/modules/appointment_details/views/widgets/scheduled_info_card.dart';
-
-import '../controllers/appointment_details_controller.dart';
 
 class AppointmentDetailsView extends GetView<AppointmentDetailsController> {
   const AppointmentDetailsView({super.key});
@@ -35,14 +30,14 @@ class AppointmentDetailsView extends GetView<AppointmentDetailsController> {
             children: [
               DoctorCard(doctor: doctor),
               if (organization != null) ...[
-                gapH24,
+                gapH20,
                 OrganizationCard(organization: organization),
               ],
-              gapH24,
+              gapH20,
               ScheduledInfoCard(appointmentDetails: appointment),
-              gapH24,
+              gapH20,
               PatientDetailsCard(patient: patient),
-              gapH24,
+              gapH20,
               MedicalRecordsCard(
                 extraNote: extraNote,
                 appointmentDetails: appointment,

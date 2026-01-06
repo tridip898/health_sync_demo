@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:health_sync_question/app/core/constants/border_constents.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/string_extension.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/custom_cache_network_image.dart';
 import 'package:health_sync_question/app/data/model/profile_response_model.dart';
+import 'package:health_sync_question/app/modules/appointment_details/views/widgets/card_background.dart';
 
 class PatientDetailsCard extends StatelessWidget {
   final Patient? patient;
@@ -13,16 +13,7 @@ class PatientDetailsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.maxFinite,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: borderRadius12,
-        boxShadow: [
-          BoxShadow(color: Colors.black.withValues(alpha: .08), blurRadius: 8),
-        ],
-      ),
-      padding: padAll12,
+    return CardBackground(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

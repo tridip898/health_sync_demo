@@ -66,9 +66,6 @@ class CreateAppointmentView extends GetView<CreateAppointmentController> {
                       .contains(true)) {
                 return Column(
                   children: [
-                    Text(
-                      "${controller.selectedDoctorOrganization.value!.getNext7DaysAvailability().keys}",
-                    ),
                     _WorkingHours(
                       availability: controller.selectedDoctorOrganization.value!
                           .getNext7DaysAvailability(),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:health_sync_question/app/core/constants/border_constents.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/data/model/organization_response_model.dart';
+import 'package:health_sync_question/app/modules/appointment_details/views/widgets/card_background.dart';
 
 class OrganizationCard extends StatelessWidget {
   final OrganizationModel? organization;
@@ -11,16 +11,7 @@ class OrganizationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.maxFinite,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius:  borderRadius12,
-        boxShadow: [
-          BoxShadow(color: Colors.black.withValues(alpha: .08), blurRadius: 8),
-        ],
-      ),
-      padding: padAll12,
+    return CardBackground(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -29,10 +20,7 @@ class OrganizationCard extends StatelessWidget {
             style: textStyle.bold.s12.copyWith(color: gray.base700),
           ),
           gapH8,
-          Text(
-            organization?.name ?? '',
-            style: textStyle.bold.s18,
-          ),
+          Text(organization?.name ?? '', style: textStyle.bold.s18),
           gapH4,
           Row(
             children: [

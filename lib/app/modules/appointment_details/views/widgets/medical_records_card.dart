@@ -5,10 +5,11 @@ import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/data/model/appointment_details_response_model.dart';
 import 'package:health_sync_question/app/data/model/request/get_appointment_request_model.dart';
+import 'package:health_sync_question/app/modules/appointment_details/views/widgets/card_background.dart';
 import 'package:health_sync_question/app/modules/appointment_details/views/widgets/prescription_bottom_widget.dart';
 
 class MedicalRecordsCard extends StatelessWidget {
-  final Extra? extraNote;
+  final String? extraNote;
   final AppointmentDetails? appointmentDetails;
 
   const MedicalRecordsCard({
@@ -19,16 +20,7 @@ class MedicalRecordsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.maxFinite,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: borderRadius12,
-        boxShadow: [
-          BoxShadow(color: Colors.black.withValues(alpha: .08), blurRadius: 8),
-        ],
-      ),
-      padding: padAll12,
+    return CardBackground(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -52,7 +44,7 @@ class MedicalRecordsCard extends StatelessWidget {
                   "Extra Note",
                   style: textStyle.medium.s12.copyWith(color: gray.base500),
                 ),
-                Text(extraNote?.note ?? '', style: textStyle.medium.s14),
+                Text(extraNote ?? '', style: textStyle.medium.s14),
               ],
             ),
           ),

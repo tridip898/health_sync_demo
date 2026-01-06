@@ -25,13 +25,16 @@ class PrescriptionBottomWidget extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                height: 6,
-                width: 44,
-                decoration: BoxDecoration(
-                  color: gray.base200,
-                  borderRadius: BorderRadius.circular(100),
+              Center(
+                child: Container(
+                  height: 6,
+                  width: 44,
+                  decoration: BoxDecoration(
+                    color: gray.base200,
+                    borderRadius: BorderRadius.circular(100),
+                  ),
                 ),
               ),
               gapH20,

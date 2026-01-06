@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:health_sync_question/app/core/constants/border_constents.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/utils/doctor_utils.dart';
 import 'package:health_sync_question/app/core/widgets/custom_cache_network_image.dart';
 import 'package:health_sync_question/app/data/model/doctor_model.dart';
+import 'package:health_sync_question/app/modules/appointment_details/views/widgets/card_background.dart';
 
 class DoctorCard extends StatelessWidget {
   final DoctorModel? doctor;
@@ -14,15 +14,7 @@ class DoctorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final specialty = DoctorUtils.getSpecialty(doctor?.doctorSpecialties);
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius:  borderRadius12,
-        boxShadow: [
-          BoxShadow(color: Colors.black.withValues(alpha: .08), blurRadius: 8),
-        ],
-      ),
-      padding: padAll12,
+    return CardBackground(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -47,11 +39,14 @@ class DoctorCard extends StatelessWidget {
                   doctor?.profile?.fullName ?? '',
                   style: textStyle.bold.s20,
                 ),
-                gapH4,
-                Text(
-                  specialty,
-                  style: textStyle.semiBold.s16.copyWith(color: blue.base500),
-                ),
+                if (specialty.isNotEmpty) ...[
+                  gapH4,
+                  Text(
+                    specialty,
+                    style: textStyle.semiBold.s16.copyWith(color: blue.base500),
+                  ),
+                ],
+
                 gapH8,
                 Row(
                   children: [
@@ -67,21 +62,23 @@ class DoctorCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                gapH4,
-                Row(
-                  children: [
-                    Icon(Icons.email, size: 18, color: Colors.black54),
-                    gapW8,
-                    Expanded(
-                      child: Text(
-                        doctor?.profile?.publicEmail ?? '',
-                        style: textStyle.medium.s16.copyWith(
-                          color: Colors.black54,
+                if (doctor?.profile?.publicEmail != null) ...[
+                  gapH4,
+                  Row(
+                    children: [
+                      Icon(Icons.email, size: 18, color: Colors.black54),
+                      gapW8,
+                      Expanded(
+                        child: Text(
+                          doctor?.profile?.publicEmail ?? '',
+                          style: textStyle.medium.s16.copyWith(
+                            color: Colors.black54,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+                ],
               ],
             ),
           ),
