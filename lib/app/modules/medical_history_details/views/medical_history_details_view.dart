@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:health_sync_question/app/core/extensions/string_extension.dart';
 import '../../../core/constants/asset_path.dart';
 import '../../../core/utils/date_extensions.dart';
 import '../../../routes/app_pages.dart';
@@ -13,7 +14,10 @@ class MedicalHistoryDetailsView
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(title: const Text('Medical History'),backgroundColor: Colors.white,),
+      appBar: AppBar(
+        title: const Text('Medical History'),
+        backgroundColor: Colors.white,
+      ),
       body: Obx(() {
         if (controller.isLoading.value) {
           return const Center(child: CircularProgressIndicator());
@@ -42,7 +46,7 @@ class MedicalHistoryDetailsView
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: Image.asset(
-                        AssetPath.icon_medical_history,
+                        AssetPath.iconMedicalHistory,
                         width: 56,
                         height: 56,
                         fit: BoxFit.cover,
@@ -66,7 +70,7 @@ class MedicalHistoryDetailsView
 
               _InfoCard(
                 title: 'DATE RECORD',
-                child: Text(history.date?.toDdMmmYyyy() ?? ''),
+                child: Text(history.date?.formatToDdMmmYyyy ?? ''),
               ),
 
               _InfoCard(
@@ -110,7 +114,6 @@ class MedicalHistoryDetailsView
                           },
                         );
                       },
-
 
                       label: const Text('Edit Entry'),
                     ),
