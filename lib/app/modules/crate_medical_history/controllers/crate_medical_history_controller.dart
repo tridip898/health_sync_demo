@@ -48,8 +48,7 @@ class CrateMedicalHistoryController extends GetxController {
     selectedCategories.removeWhere((e) => e['id'] == id);
   }
 
-  List<String> get selectedCategoryIds =>
-      selectedCategories.map((e) => e['id']!).toList();
+  final selectedCategoryIds = <String>[].obs;
   Future<void> fetchCategories() async {
     isLoading.value = true;
     final result = await repository.getDiseaseCategories();

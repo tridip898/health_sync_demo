@@ -4,8 +4,10 @@ import 'package:health_sync_question/app/core/controller/app_controller.dart';
 
 import '../../../core/extensions/widget_extension.dart';
 import '../../../core/utils/app_input_validator.dart';
+import '../../../core/utils/multiple_picker_bottom_sheet.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/custom_text_field.dart';
+import '../../../data/model/disease_category.dart';
 import '../controllers/crate_medical_history_controller.dart';
 
 class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
@@ -63,8 +65,7 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                               return Chip(
                                 label: Text(cat['name']!),
                                 deleteIcon: const Icon(Icons.close, size: 16),
-                                onDeleted: () =>
-                                    controller.removeCategory(cat['id']!),
+                                onDeleted: () => controller.removeCategory(cat['id']!),
                               );
                             }).toList(),
                           );
@@ -187,9 +188,12 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
       ),
     );
   }
-
   void openCategoryBottomSheet(BuildContext context) {
     final controller = Get.find<CrateMedicalHistoryController>();
+
+    if (controller.categories.isEmpty) {
+      controller.fetchCategories(); // fetch from API if empty
+    }
 
     showModalBottomSheet(
       context: context,
@@ -198,88 +202,24 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (_) {
-        return SafeArea(
-          child: Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Text(
-                  'Select Categories',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                ),
-              ),
-
-              const Divider(height: 1),
-
-              Expanded(
-                child: ListView.separated(
-                  padding: const EdgeInsets.all(16),
-                  itemCount: controller.categories.length,
-                  separatorBuilder: (_, __) => const Divider(height: 1),
-                  itemBuilder: (_, index) {
-                    final cat = controller.categories[index];
-
-                    return Obx(() {
-                      final isSelected = controller.selectedCategoryIds
-                          .contains(cat.diseaseCategoryId);
-
-                      return ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: Text(cat.name ?? ''),
-                        trailing: isSelected
-                            ? const Icon(
-                                Icons.check_circle,
-                                color: Colors.green,
-                              )
-                            : const Icon(
-                                Icons.circle_outlined,
-                                color: Colors.grey,
-                              ),
-                        onTap: () => controller.toggleCategory(
-                          cat.diseaseCategoryId!,
-                          cat.name ?? '',
-                        ),
-                      );
-                    });
-                  },
-                ),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 48,
-                  child: ElevatedButton(
-                    onPressed: () => Get.back(),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    child: const Text(
-                      'Confirm',
-                      style: TextStyle(fontSize: 14),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
+      builder: (_) => MultiSelectBottomSheet<DiseaseCategoryModel>(
+        items: controller.categories,
+        selectedIds: controller.selectedCategoryIds,
+        getId: (cat) => cat.diseaseCategoryId!,
+        getLabel: (cat) => cat.name ?? '',
+        onConfirm: () {
+          controller.selectedCategories.clear();
+          for (final cat in controller.categories) {
+            if (controller.selectedCategoryIds.contains(cat.diseaseCategoryId)) {
+              controller.selectedCategories.add({
+                'id': cat.diseaseCategoryId!,
+                'name': cat.name ?? '',
+              });
+            }
+          }
+          Get.back(); // close bottom sheet
+        },
+      ),
     );
   }
 }

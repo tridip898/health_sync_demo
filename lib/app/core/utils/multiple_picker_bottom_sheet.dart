@@ -7,7 +7,7 @@ class MultiSelectBottomSheet<T> extends StatelessWidget {
   final RxList<String> selectedIds;
   final String Function(T item) getId;
   final String Function(T item) getLabel;
-  final void Function()? onConfirm;
+  final VoidCallback? onConfirm;
 
   const MultiSelectBottomSheet({
     super.key,
@@ -23,7 +23,6 @@ class MultiSelectBottomSheet<T> extends StatelessWidget {
     return SafeArea(
       child: Column(
         children: [
-          // Handle bar
           Container(
             margin: const EdgeInsets.symmetric(vertical: 10),
             width: 40,
@@ -33,24 +32,17 @@ class MultiSelectBottomSheet<T> extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
           ),
-
-          // Title
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Text(
-              'Select Categories',
+              'Select Items',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
           ),
-
           const Divider(height: 1),
-
-          // List of items
           Expanded(
             child: Obx(() {
-              if (items.isEmpty) {
-                return const Center(child: Text('No categories found'));
-              }
+              if (items.isEmpty) return const Center(child: Text('No items found'));
 
               return ListView.separated(
                 padding: const EdgeInsets.all(16),
@@ -60,27 +52,27 @@ class MultiSelectBottomSheet<T> extends StatelessWidget {
                   final item = items[index];
                   final id = getId(item);
                   final label = getLabel(item);
-                  final isSelected = selectedIds.contains(id);
 
-                  return ListTile(
-                    title: Text(label),
-                    trailing: isSelected
-                        ? const Icon(Icons.check_circle, color: Colors.green)
-                        : const Icon(Icons.circle_outlined, color: Colors.grey),
-                    onTap: () {
-                      if (isSelected) {
-                        selectedIds.remove(id);
-                      } else {
-                        selectedIds.add(id);
-                      }
-                    },
-                  );
+                  return Obx(() {
+                    final isSelected = selectedIds.contains(id);
+                    return ListTile(
+                      title: Text(label),
+                      trailing: isSelected
+                          ? const Icon(Icons.check_circle, color: Colors.green)
+                          : const Icon(Icons.circle_outlined, color: Colors.grey),
+                      onTap: () {
+                        if (isSelected) {
+                          selectedIds.remove(id);
+                        } else {
+                          selectedIds.add(id);
+                        }
+                      },
+                    );
+                  });
                 },
               );
             }),
           ),
-
-          // Confirm button
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
             child: SizedBox(
@@ -94,10 +86,7 @@ class MultiSelectBottomSheet<T> extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                child: const Text(
-                  'Confirm',
-                  style: TextStyle(fontSize: 14),
-                ),
+                child: const Text('Confirm', style: TextStyle(fontSize: 14)),
               ),
             ),
           ),
@@ -106,6 +95,8 @@ class MultiSelectBottomSheet<T> extends StatelessWidget {
     );
   }
 }
+
+
 
 
 

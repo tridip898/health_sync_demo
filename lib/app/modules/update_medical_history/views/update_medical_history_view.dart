@@ -52,6 +52,7 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
                           if (controller.selectedCategories.isEmpty) {
                             return const SizedBox();
                           }
+
                           return Wrap(
                             spacing: 6,
                             runSpacing: 6,
@@ -59,12 +60,12 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
                               return Chip(
                                 label: Text(cat['name']!),
                                 deleteIcon: const Icon(Icons.close, size: 16),
-                                onDeleted: () =>
-                                    controller.removeCategory(cat['id']!),
+                                onDeleted: () => controller.removeCategory(cat['id']!),
                               );
                             }).toList(),
                           );
                         }),
+
 
                         const SizedBox(height: 6),
 
@@ -190,7 +191,7 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
     final controller = Get.find<UpdateMedicalHistoryController>();
 
     if (controller.categories.isEmpty) {
-      controller.fetchCategories();
+      controller.fetchCategories(); // fetch from API if empty
     }
 
     showModalBottomSheet(
@@ -200,36 +201,26 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (_) {
-        return Obx(() {
-          if (controller.categories.isEmpty) {
-            return SizedBox(
-              height: 200,
-              child: Center(child: CircularProgressIndicator()),
-            );
+      builder: (_) => MultiSelectBottomSheet<DiseaseCategoryModel>(
+        items: controller.categories,
+        selectedIds: controller.selectedCategoryIds,
+        getId: (cat) => cat.diseaseCategoryId!,
+        getLabel: (cat) => cat.name ?? '',
+        onConfirm: () {
+          controller.selectedCategories.clear();
+          for (final cat in controller.categories) {
+            if (controller.selectedCategoryIds.contains(cat.diseaseCategoryId)) {
+              controller.selectedCategories.add({
+                'id': cat.diseaseCategoryId!,
+                'name': cat.name ?? '',
+              });
+            }
           }
-
-          return MultiSelectBottomSheet<DiseaseCategoryModel>(
-            items: controller.categories,
-            selectedIds: controller.selectedCategoryIds,
-            getId: (cat) => cat.diseaseCategoryId!,
-            getLabel: (cat) => cat.name ?? '',
-            onConfirm: () {
-              controller.selectedCategories.clear();
-              for (final cat in controller.categories) {
-                if (controller.selectedCategoryIds.contains(cat.diseaseCategoryId)) {
-                  controller.selectedCategories.add({
-                    'id': cat.diseaseCategoryId!,
-                    'name': cat.name ?? '',
-                  });
-                }
-              }
-              Get.back();
-            },
-          );
-        });
-      },
+          Get.back(); // close bottom sheet
+        },
+      ),
     );
   }
+
 
 }
