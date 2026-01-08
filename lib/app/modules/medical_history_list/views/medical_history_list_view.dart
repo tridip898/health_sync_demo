@@ -53,12 +53,12 @@ class MedicalHistoryListView extends GetView<MedicalHistoryListController> {
                   onRefresh: controller.fetchMedicalHistory,
                   child: ListView(
                     physics: const AlwaysScrollableScrollPhysics(),
-                    children: const [
-                      SizedBox(height: 200),
+                    children: [
+                      const SizedBox(height: 200),
                       Center(
                         child: Text(
                           'No medical history found',
-                          style: TextStyle(color: Colors.grey),
+                            style: textStyle.regular.s10
                         ),
                       ),
                     ],

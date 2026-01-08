@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
 
 import '../../../core/extensions/widget_extension.dart';
 import '../../../core/utils/app_input_validator.dart';
@@ -13,7 +14,7 @@ class SetNewPasswordView extends GetView<SetNewPasswordController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Set New Password'), centerTitle: true),
+      appBar: CustomAppBar(title: "Set New Password"),
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: appController.closeKeyboard,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
 
+import '../../../core/extensions/widget_extension.dart';
 import '../../../core/utils/multiple_picker_bottom_sheet.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../../core/widgets/custom_text_field.dart';
@@ -14,7 +16,7 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
   Widget build(BuildContext context) {
     final c = controller;
     return Scaffold(
-      appBar: AppBar(title: const Text('Add Medical History')),
+      appBar: CustomAppBar(title: "Add Medical History"),
       body: Obx(
         () => Stack(
           children: [
@@ -36,7 +38,7 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
                   ),
 
                   const SizedBox(height: 16),
-                  Text('Categories', style: TextStyle(color: Colors.black)),
+                  Text('Categories', style: textStyle.regular.s14.copyWith(color: Colors.black)),
                   const SizedBox(height: 6),
                   Container(
                     decoration: BoxDecoration(
@@ -58,7 +60,7 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
                             runSpacing: 6,
                             children: controller.selectedCategories.map((cat) {
                               return Chip(
-                                label: Text(cat['name']!),
+                                label: Text(cat['name']!,style: textStyle.regular.s10.copyWith(color: Colors.grey,)),
                                 deleteIcon: const Icon(Icons.close, size: 16),
                                 onDeleted: () => controller.removeCategory(cat['id']!),
                               );
@@ -82,7 +84,7 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
                               children: [
                                 Text(
                                   'Add more categories...',
-                                  style: TextStyle(color: Colors.grey[500]),
+                                  style: textStyle.regular.s14.copyWith(color: Colors.grey.shade500),
                                 ),
                                 const SizedBox(width: 8),
                                 const Icon(Icons.keyboard_arrow_down),

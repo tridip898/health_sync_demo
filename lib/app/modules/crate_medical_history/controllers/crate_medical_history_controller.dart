@@ -18,7 +18,7 @@ class CrateMedicalHistoryController extends GetxController {
   RxList<DiseaseCategoryModel> categories = <DiseaseCategoryModel>[].obs;
 
   final selectedCategories = <Map<String, String>>[].obs;
-  late final String patientId;
+  String? patientId;
 
   final isLoading = false.obs;
 

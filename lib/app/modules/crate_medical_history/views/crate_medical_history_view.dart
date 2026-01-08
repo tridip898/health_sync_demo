@@ -172,7 +172,13 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                   SizedBox(
                     width: double.infinity,
                     child: CustomButton(
-                      onPressed: () { controller.saveMedicalHistory(controller.patientId);},
+                      onPressed: () {
+                        final id = controller.patientId;
+                        if (id != null) {
+                          controller.saveMedicalHistory(id);
+                        }
+                      },
+
                       text: 'Save Medical History',
                       textColor: Colors.black,
                     ),

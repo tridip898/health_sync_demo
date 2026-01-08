@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
+
 import '../../../core/constants/asset_path.dart';
+import '../../../core/extensions/widget_extension.dart';
 import '../../../core/utils/date_extensions.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/medical_history_details_controller.dart';
@@ -13,7 +16,7 @@ class MedicalHistoryDetailsView
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(title: const Text('Medical History'),backgroundColor: Colors.white,),
+      appBar: CustomAppBar(title: "Medical History"),
       body: Obx(() {
         if (controller.isLoading.value) {
           return const Center(child: CircularProgressIndicator());
@@ -21,7 +24,12 @@ class MedicalHistoryDetailsView
 
         final history = controller.history.value;
         if (history == null) {
-          return const Center(child: Text('No data found'));
+          return Center(
+            child: Text(
+              'No data found',
+              style: textStyle.regular.s14.copyWith(color: Colors.grey),
+            ),
+          );
         }
 
         final categories =
@@ -66,12 +74,12 @@ class MedicalHistoryDetailsView
 
               _InfoCard(
                 title: 'DATE RECORD',
-                child: Text(history.date?.toDdMmmYyyy() ?? ''),
+                child: Text(history.date?.toDdMmmYyyy() ?? '',style: textStyle.regular.s14,),
               ),
 
               _InfoCard(
                 title: 'DESCRIPTION',
-                child: Text(history.description ?? ''),
+                child: Text(history.description ?? '',style: textStyle.regular.s14),
               ),
 
               if (categories.isNotEmpty)
@@ -111,8 +119,7 @@ class MedicalHistoryDetailsView
                         );
                       },
 
-
-                      label: const Text('Edit Entry'),
+                      label:  Text('Edit Entry',style: textStyle.regular.s14),
                     ),
                   ),
 
@@ -139,7 +146,7 @@ class MedicalHistoryDetailsView
                           },
                         );
                       },
-                      label: const Text('Delete Entry'),
+                      label:  Text('Delete Entry',style: textStyle.regular.s14),
                     ),
                   ),
                 ],

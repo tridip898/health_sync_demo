@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 import '../../../core/utils/toaster.dart';
-import '../../../data/model/create_medical_history_request.dart';
 import '../../../data/model/medical_history_response_model.dart';
 import '../../../data/repository/medical_history_repository.dart';
 import '../../medical_history_list/views/medical_history_list_view.dart';
@@ -16,9 +14,9 @@ class MedicalHistoryDetailsController extends GetxController {
   final isLoading = true.obs;
   final history = Rxn<MedicalHistoryModel>();
 
-  late final String patientId;
-  late final String medicalHistoryId;
-  late final ColorPair colorPair;
+  String? patientId;
+   String? medicalHistoryId;
+   ColorPair? colorPair;
 
   @override
   void onInit() {
@@ -41,11 +39,16 @@ class MedicalHistoryDetailsController extends GetxController {
 
   Future<void> fetchDetails() async {
     isLoading.value = true;
+    final id = patientId;
+    final historyId = medicalHistoryId;
 
-    final response =
-    await repository.getPatientMedicalHistoryDetails(
-      patientId: patientId,
-      medicalHistoryId: medicalHistoryId,
+    if (id == null || historyId == null) {
+      return;
+    }
+
+    final response = await repository.getPatientMedicalHistoryDetails(
+      patientId: id,
+      medicalHistoryId: historyId,
     );
 
     response.fold(
@@ -59,8 +62,4 @@ class MedicalHistoryDetailsController extends GetxController {
 
     isLoading.value = false;
   }
-
-
-
-
 }

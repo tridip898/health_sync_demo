@@ -45,20 +45,13 @@ class LoginView extends GetView<LoginController> {
                   const SizedBox(height: 24),
                   Text(
                     "Welcome Back",
-                    style: GoogleFonts.manrope(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xFF0D1B17),
-                    ),
+                    style: textStyle.regular.s14,
                   ),
                   const SizedBox(height: 8),
                   Text(
                     "Sign in to your account to continue",
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.manrope(
-                      fontSize: 16,
-                      color: const Color(0xFF4C9A80),
-                    ),
+                    style: textStyle.regular.s14,
                   ),
                   const SizedBox(height: 40),
 
@@ -89,11 +82,7 @@ class LoginView extends GetView<LoginController> {
                       onTap: controller.onForgotPasswordTap,
                       child: Text(
                         "Forgot Password?",
-                        style: GoogleFonts.manrope(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: primary,
-                        ),
+                        style: textStyle.regular.s14,
                       ),
                     ),
                   ),
@@ -105,10 +94,7 @@ class LoginView extends GetView<LoginController> {
 
                   Text(
                     "Don't have an account? ",
-                    style: GoogleFonts.manrope(
-                      fontSize: 16,
-                      color: Colors.grey[600],
-                    ),
+                    style: textStyle.regular.s14,
                   ),
                   GestureDetector(
                     onTap: controller.onRegisterTap,
