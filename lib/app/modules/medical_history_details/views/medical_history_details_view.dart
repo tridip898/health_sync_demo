@@ -5,6 +5,7 @@ import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
 import '../../../core/constants/asset_path.dart';
 import '../../../core/extensions/widget_extension.dart';
 import '../../../core/utils/date_extensions.dart';
+import '../../../core/utils/delete_confirm_dialog.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/medical_history_details_controller.dart';
 
@@ -137,15 +138,18 @@ class MedicalHistoryDetailsView
                         ),
                       ),
                       onPressed: () {
-                        Get.toNamed(
-                          Routes.DELETE_MEDICAL_HISTORY,
-                          arguments: {
-                            'patientId': controller.patientId,
-                            'medicalHistoryId': controller.medicalHistoryId,
-                            'history': controller.history.value,
-                          },
+                        Get.dialog(
+                          DeleteConfirmDialog(
+                            title: "Delete Medical History",
+                            subtitle: "Are you sure you want to delete this medical history?",
+                            onYes: () {
+                              controller.deleteMedicalHistory();
+                            },
+                          ),
+                          barrierDismissible: false,
                         );
                       },
+
                       label:  Text('Delete Entry',style: textStyle.regular.s14),
                     ),
                   ),

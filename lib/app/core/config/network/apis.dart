@@ -65,5 +65,7 @@ class Apis {
 
   static String appointmentDetails(String appointmentId) =>
       '$baseUrl/appointment/$appointmentId';
+  static String deleteHistory(String patientId, String medicalHistoryId) =>
+      '$baseUrl/patient/$patientId/medical-history/$medicalHistoryId';
 
 }
