@@ -93,12 +93,12 @@ class DashboardView extends GetView<DashboardController> {
                           iconBg: red.base50,
                           iconColor: red.base500,
                           title: 'Prescriptions',
-                          subtitle: '4 Active meds',
+                          subtitle: 'Active meds',
                           onTap: () {
                             Get.toNamed(Routes.PRESCRIPTION);
                           },
                         ),
-                        gapH12,
+                        /*gapH12,
                         _OverviewCard(
                           icon: Icons.card_membership,
                           iconBg: cyan.base50,
@@ -106,7 +106,7 @@ class DashboardView extends GetView<DashboardController> {
                           title: 'Reports',
                           subtitle: 'Your medical reports',
                           onTap: () {},
-                        ),
+                        ),*/
                       ],
                     ),
                   ),

@@ -5,7 +5,10 @@ import 'package:health_sync_question/app/routes/app_pages.dart';
 class DashboardController extends GetxController {
   @override
   void onReady() {
-    appController.loadProfile();
+    if (!appController.isProfileAvailable) {
+      appController.loadProfile();
+    }
+
     super.onReady();
   }
 
