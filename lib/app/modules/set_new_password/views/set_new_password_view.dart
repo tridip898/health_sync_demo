@@ -84,8 +84,8 @@ class SetNewPasswordView extends GetView<SetNewPasswordController> {
                   const SizedBox(height: 30),
 
                   CustomButton(
-                    text: 'Reset Password',
-                    onPressed: controller.onResetPassword,
+                    text: 'Set Password',
+                    onPressed: controller.SetPassword,
                   ),
                 ],
               ),

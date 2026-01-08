@@ -20,7 +20,6 @@ class SetNewPasswordController extends GetxController {
   String? phoneNumber;
   bool isPasswordMatched = false;
 
-
   @override
   void onInit() {
     super.onInit();
@@ -37,7 +36,7 @@ class SetNewPasswordController extends GetxController {
     confirmPasswordController.addListener(_checkPasswordMatch);
   }
 
-  void onResetPassword() async {
+  void SetPassword() async {
     if (!formKey.currentState!.validate()) return;
 
     if (passwordController.text.trim() !=
@@ -61,7 +60,7 @@ class SetNewPasswordController extends GetxController {
         Toaster.error(error.message ?? "Failed to reset password");
       },
       (success) {
-        Get.until(appController.toLogInScreen());
+        appController.toLogInScreen();
         Toaster.success(success.message ?? "Password set successfully");
       },
     );
@@ -73,8 +72,8 @@ class SetNewPasswordController extends GetxController {
 
     final matched =
         password.isNotEmpty &&
-            confirmPassword.isNotEmpty &&
-            password == confirmPassword;
+        confirmPassword.isNotEmpty &&
+        password == confirmPassword;
 
     if (matched != isPasswordMatched) {
       isPasswordMatched = matched;
