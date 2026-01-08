@@ -9,16 +9,21 @@ environment:
 
 dependencies:
   shimmer: 3.0.0
+  file_picker: ^10.3.3
+  path_provider: ^2.1.5
   url_launcher: 6.3.2
+  image_picker: ^1.2.1
+  image_cropper: ^9.1.0
   android_intent_plus: 6.0.0
   flutter_cache_manager: 3.4.1
+  mobkit_dashed_border: ^0.0.8
   flutter:
     sdk: flutter
 
   network:
     git:
       url: git@vcs.technonext.com:TechnoNext/mobile-apps/airapps-commons/netword.git
-      ref: v0.0.14
+      ref: v0.0.15
 
   common:
     git:

@@ -3,11 +3,8 @@ import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/utils/toaster.dart';
 import 'package:health_sync_question/app/core/widgets/custom_dropdown_bottom_sheet.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
-import 'package:health_sync_question/app/data/model/doctor_list_response_model.dart';
+import 'package:health_sync_question/app/data/model/doctor_model.dart';
 import 'package:health_sync_question/app/data/model/organization_response_model.dart';
-import 'package:health_sync_question/app/data/model/organization_response_model.dart';
-import 'package:health_sync_question/app/data/model/specialty_model.dart';
-import 'package:health_sync_question/app/data/model/specialty_model.dart';
 import 'package:health_sync_question/app/data/model/specialty_model.dart';
 import 'package:health_sync_question/app/data/repository/doctor_repository.dart';
 import 'package:health_sync_question/app/data/repository/organization_repository.dart';
@@ -23,7 +20,8 @@ class DoctorListController extends GetxController {
   final DoctorRepository doctorRepository = DoctorRepository();
   final OrganizationRepository organizationRepository =
       OrganizationRepository();
-
+  RxList<Map<String, String>> questionnaires =
+      (Get.arguments?['questionnaire'] as List<Map<String, String>>? ?? []).obs;
   int _page = 1;
   bool _hasMore = true;
   Rx<bool> includeNonVerified = Rx(false);
@@ -39,7 +37,7 @@ class DoctorListController extends GetxController {
   Rx<OrganizationModel?> selectedOrganization = Rx(null);
 
   RxList<SpecialtyModel> specialtyList = <SpecialtyModel>[].obs;
-  Rx<SpecialtyModel?> selectedSpecialty = Rx(null);
+  final RxList<SpecialtyModel> selectedSpecialty = RxList([]);
 
   Rx<bool> shouldApplyFilter = false.obs;
   Rx<int> filterCount = 0.obs;
@@ -47,7 +45,28 @@ class DoctorListController extends GetxController {
   final ScrollController scrollController = ScrollController();
 
   @override
-  void onReady() {
+  void onReady() async {
+    final specialtyListItems = Get.arguments?['specialties'];
+    if (specialtyListItems != null) {
+      if (specialtyListItems is List && specialtyListItems.isNotEmpty) {
+        await getSpecialtyList();
+        await Future.delayed(Duration(milliseconds: 100));
+        if (specialtyList.isNotEmpty) {
+          selectedSpecialty.value = specialtyList.where((item) {
+            return specialtyListItems.any(
+              (selected) =>
+                  item.title.toString().toLowerCase() ==
+                  selected.specialty.toString().toLowerCase(),
+            );
+          }).toList();
+          if (selectedSpecialty.isNotEmpty) {
+            specialtyNameController.text = selectedSpecialty.first.title ?? '';
+            shouldApplyFilter.value = true;
+            _getFilterCount();
+          }
+        }
+      }
+    }
     getDoctorList(initialLoad: true);
     scrollController.addListener(() {
       final position = scrollController.position;
@@ -86,9 +105,8 @@ class DoctorListController extends GetxController {
       organizationId: shouldApplyFilter.value
           ? selectedOrganization.value?.organizationId
           : null,
-      specialtyId: shouldApplyFilter.value
-          ? selectedSpecialty.value?.specialtyId
-          : null,
+
+      specialtyId: shouldApplyFilter.value ? selectedSpecialty : [],
     );
     if (initialLoad) {
       Loading.hide();
@@ -112,26 +130,6 @@ class DoctorListController extends GetxController {
     doctorList.clear();
     _page = 1;
     _hasMore = true;
-  }
-
-  void onDoctorFilterTap() {
-    Get.bottomSheet(
-      Obx(() {
-        return DoctorFilterBottomSheet(
-          onOrganizationSelect: onOrganizationSelect,
-          onSpecialtySelect: onSpecialtySelect,
-          onOrganizationRemove: _onOrganizationRemove,
-          onSpecialtyRemove: _onSpecialtyRemove,
-          onApplyFilter: _onApplyFilter,
-          onClearFilter: _onClearFilter,
-          onIncludeNonVerifiedTap: _onIncludeNonVerifiedTap,
-          organizationNameController: organizationNameController,
-          specialtyNameController: specialtyNameController,
-          includeNonVerified: includeNonVerified.value,
-        );
-      }),
-      isScrollControlled: true,
-    );
   }
 
   /// organization section -----------------------------------------------------
@@ -207,7 +205,7 @@ class DoctorListController extends GetxController {
       Obx(() {
         return AppDropdownBottomSheet<SpecialtyModel>(
           items: specialtyList,
-          currentItem: selectedSpecialty.value,
+          currentItem: selectedSpecialty.first,
           title: 'Doctor Specialty',
           getTitle: (item) => item.title ?? 'N/A',
           isLocalSearch: true,
@@ -218,7 +216,7 @@ class DoctorListController extends GetxController {
 
     if (pickedSpecialty != null) {
       selectedSpecialty.value = pickedSpecialty;
-      specialtyNameController.text = selectedSpecialty.value?.title ?? '';
+      specialtyNameController.text = selectedSpecialty.first.title ?? '';
     }
   }
 
@@ -227,24 +225,44 @@ class DoctorListController extends GetxController {
     final response = await doctorRepository.getSpecialtyList();
     Loading.hide();
 
-    response.fold(
-      (errorRes) {
+    await response.fold(
+      (errorRes) async {
         Toaster.error(errorRes.message ?? 'Failed to load specialty list');
       },
-      (successRes) {
+      (successRes) async {
         specialtyList.assignAll(successRes.data ?? []);
       },
     );
   }
 
   /// filter section -----------------------------------------------------------
+  void onDoctorFilterTap() {
+    Get.bottomSheet(
+      Obx(() {
+        return DoctorFilterBottomSheet(
+          onOrganizationSelect: onOrganizationSelect,
+          onSpecialtySelect: onSpecialtySelect,
+          onOrganizationRemove: _onOrganizationRemove,
+          onSpecialtyRemove: _onSpecialtyRemove,
+          onApplyFilter: _onApplyFilter,
+          onClearFilter: _onClearFilter,
+          onIncludeNonVerifiedTap: _onIncludeNonVerifiedTap,
+          organizationNameController: organizationNameController,
+          specialtyNameController: specialtyNameController,
+          includeNonVerified: includeNonVerified.value,
+        );
+      }),
+      isScrollControlled: true,
+    );
+  }
+
   _onOrganizationRemove() {
     selectedOrganization.value = null;
     organizationNameController.clear();
   }
 
   _onSpecialtyRemove() {
-    selectedSpecialty.value = null;
+    selectedSpecialty.value = [];
     specialtyNameController.clear();
   }
 

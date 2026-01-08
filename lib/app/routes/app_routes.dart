@@ -4,9 +4,7 @@ part of 'app_pages.dart';
 abstract class Routes {
   Routes._();
 
-  static const HOME = _Paths.HOME;
-  static const BASIC_INFO_QUESTION = _Paths.BASIC_INFO_QUESTION;
-  static const CHIELF_COMPLAINT = _Paths.CHIELF_COMPLAINT;
+  static const COMPLAINT = _Paths.COMPLAINT;
   static const LOGIN = _Paths.LOGIN;
   static const SPLASH = _Paths.SPLASH;
   static const REGISTRATION = _Paths.REGISTRATION;
@@ -26,14 +24,18 @@ abstract class Routes {
   static const UPDATE_MEDICAL_HISTORY = _Paths.UPDATE_MEDICAL_HISTORY;
   static const DELETE_MEDICAL_HISTORY = _Paths.DELETE_MEDICAL_HISTORY;
   static const MEDICAL_HISTORY_DETAILS = _Paths.MEDICAL_HISTORY_DETAILS;
+  static const CREATE_APPOINTMENT = _Paths.CREATE_APPOINTMENT;
+  static const PRESCRIPTION = _Paths.PRESCRIPTION;
+  static const PRESCRIPTION_DETAILS = _Paths.PRESCRIPTION_DETAILS;
+  static const APPOINTMENT_LIST = _Paths.APPOINTMENT_LIST;
+  static const APPOINTMENT_DETAILS = _Paths.APPOINTMENT_DETAILS;
+  static const COMPLAIN_SUMMARY = _Paths.COMPLAIN_SUMMARY;
 }
 
 abstract class _Paths {
   _Paths._();
 
-  static const HOME = '/home';
-  static const BASIC_INFO_QUESTION = '/basic-info-question';
-  static const CHIELF_COMPLAINT = '/chielf-complaint';
+  static const COMPLAINT = '/complaint';
   static const LOGIN = '/login';
   static const SPLASH = '/splash';
   static const REGISTRATION = '/registration';
@@ -53,4 +55,10 @@ abstract class _Paths {
   static const UPDATE_MEDICAL_HISTORY = '/update-medical-history';
   static const DELETE_MEDICAL_HISTORY = '/delete-medical-history';
   static const MEDICAL_HISTORY_DETAILS = '/medical-history-details';
+  static const PRESCRIPTION = '/prescription';
+  static const PRESCRIPTION_DETAILS = '/prescription-details';
+  static const CREATE_APPOINTMENT = '/create-appointment';
+  static const APPOINTMENT_LIST = '/appointment-list';
+  static const APPOINTMENT_DETAILS = '/appointment-details';
+  static const COMPLAIN_SUMMARY = '/complain-summary';
 }

@@ -1,6 +1,11 @@
+import 'package:common/common.dart';
 import 'package:health_sync_question/app/core/config/network/apis.dart';
+import 'package:health_sync_question/app/data/model/doctor_details_response_model.dart';
+import 'package:health_sync_question/app/data/model/doctor_details_response_model.dart';
 import 'package:health_sync_question/app/data/model/doctor_list_response_model.dart';
 import 'package:health_sync_question/app/data/model/specialty_list_response_model.dart';
+import 'package:health_sync_question/app/data/model/specialty_list_response_model.dart';
+import 'package:health_sync_question/app/data/model/specialty_model.dart';
 import 'package:network/network.dart';
 
 class DoctorRepository extends BaseRepository {
@@ -9,7 +14,7 @@ class DoctorRepository extends BaseRepository {
     int limit = 15,
     required String search,
     required bool? activeFilter,
-    required String? specialtyId,
+    required List<SpecialtyModel> specialtyId,
     required String? organizationId,
   }) {
     return get(
@@ -20,7 +25,9 @@ class DoctorRepository extends BaseRepository {
         'search': search,
         if (activeFilter != null) 'active': activeFilter.toString(),
         if (organizationId != null) 'organizationId': organizationId,
-        if (specialtyId != null) 'specialityId': specialtyId,
+        if (specialtyId.isNotEmpty)
+          for (var i = 0; i < (specialtyId.length); i++)
+            'specialityId[$i]': specialtyId[i].specialtyId ?? '',
       },
       responseCompiler: DoctorListResponseModel.fromJson,
     );
@@ -30,6 +37,15 @@ class DoctorRepository extends BaseRepository {
     return get(
       path: Apis.specialtyList,
       responseCompiler: SpecialtyListResponseModel.fromJson,
+    );
+  }
+
+  Future<Either<ErrorResponse, DoctorDetailsResponseModel>> getDoctorDetails({
+    required dynamic doctorId,
+  }) {
+    return get(
+      path: Apis.doctorDetails(doctorId),
+      responseCompiler: DoctorDetailsResponseModel.fromJson,
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:health_sync_question/app/core/constants/gap_constants.dart';
+import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 
 class EmptyProfilePage extends StatelessWidget {
   const EmptyProfilePage({super.key});
@@ -11,242 +12,118 @@ class EmptyProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: background,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: background,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new),
-          color: textMain,
-          onPressed: () => Navigator.pop(context),
-        ),
-        centerTitle: true,
-        title: Text(
-          'Profile Details',
-          style: GoogleFonts.manrope(
-            fontWeight: FontWeight.w700,
-            color: textMain,
-          ),
-        ),
-      ),
-      body: Stack(
-        children: [
-          Center(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(24, 24, 24, 140),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _AvatarSection(),
-                  const SizedBox(height: 24),
-                  Text(
-                    'Your profile is empty',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.manrope(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w800,
-                      color: textMain,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    "It looks like you haven't set up your profile yet. "
-                        "Create one to manage your medical history, appointments, and doctors easily.",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.manrope(
-                      fontSize: 13,
-                      height: 1.5,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  const SizedBox(height: 28),
-                  _InfoCard(
-                    icon: Icons.medical_information,
-                    iconBg: Colors.green.withOpacity(0.15),
-                    iconColor: Colors.green,
-                    title: 'Medical History',
-                    subtitle: 'Track your health records',
-                  ),
-                  const Divider(height: 24),
-                  _InfoCard(
-                    icon: Icons.calendar_month,
-                    iconBg: Colors.blue.withOpacity(0.15),
-                    iconColor: Colors.blue,
-                    title: 'Appointments',
-                    subtitle: 'Manage upcoming visits',
-                  ),
-                ],
-              ),
-            ),
-          ),
-          _BottomAction(),
-        ],
-      ),
-    );
-  }
-}
-
-class _AvatarSection extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          height: 128,
-          width: 128,
-          decoration: BoxDecoration(
-            color: Colors.grey.shade100,
-            shape: BoxShape.circle,
-            border: Border.all(color: Colors.white, width: 4),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 8,
-                offset: Offset(0, 4),
-              ),
-            ],
-          ),
-          child: const Icon(
-            Icons.person_off,
-            size: 64,
-            color: Colors.grey,
-          ),
-        ),
-        Positioned(
-          bottom: 0,
-          right: 0,
-          child: Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-              border: Border.all(color: Colors.grey.shade200),
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 6,
-                ),
-              ],
-            ),
-            child: const Icon(
-              Icons.add,
-              color: EmptyProfilePage.primary,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _InfoCard extends StatelessWidget {
-  final IconData icon;
-  final Color iconBg;
-  final Color iconColor;
-  final String title;
-  final String subtitle;
-
-  const _InfoCard({
-    required this.icon,
-    required this.iconBg,
-    required this.iconColor,
-    required this.title,
-    required this.subtitle,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey.shade200),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 8,
-            offset: Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: iconBg,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Icon(icon, color: iconColor),
-          ),
-          const SizedBox(width: 12),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Center(
+      child: SingleChildScrollView(
+        padding: padAll24,
+        child: Center(
+          child: Column(
             children: [
-              Text(
-                title,
-                style: GoogleFonts.manrope(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                  color: EmptyProfilePage.textMain,
+              Text("Your profile is empty", style: textStyle.semiBold.s24),
+              gapH8,
+              Padding(
+                padding: padSym(horizontal: 48),
+                child: Text(
+                  "It loos like you haven't set up your profile yet. Create one to manage your medical history, appointments and doctors easily.",
+                  style: textStyle.regular.s14.copyWith(color: Colors.black38),
+                  textAlign: TextAlign.center,
                 ),
               ),
-              const SizedBox(height: 2),
-              Text(
-                subtitle,
-                style: GoogleFonts.manrope(
-                  fontSize: 12,
-                  color: Colors.grey,
+              gapH(48),
+              Container(
+                padding: padAll20,
+                decoration: _cardDecoration(),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.green.withValues(alpha: .1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          padding: padAll8,
+                          child: Icon(Icons.history, color: Colors.green),
+                        ),
+                        gapW12,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Medical History",
+                                style: textStyle.semiBold.s16,
+                              ),
+                              Text(
+                                "Track your health records",
+                                style: textStyle.regular.s14.copyWith(
+                                  color: Colors.black45,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Divider(
+                      thickness: .5,
+                      color: Colors.grey.withValues(alpha: .2),
+                      height: 40,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.blueAccent.withValues(alpha: .1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          padding: padAll8,
+                          child: Icon(
+                            Icons.calendar_month_rounded,
+                            color: Colors.blueAccent,
+                          ),
+                        ),
+                        gapW12,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Appointments",
+                                style: textStyle.semiBold.s16,
+                              ),
+                              Text(
+                                "Manage upcoming visits",
+                                style: textStyle.regular.s14.copyWith(
+                                  color: Colors.black45,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
 }
 
-class _BottomAction extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      left: 0,
-      right: 0,
-      bottom: 0,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.9),
-          border: Border(
-            top: BorderSide(color: Colors.grey.shade200),
-          ),
-        ),
-        child: SizedBox(
-          height: 56,
-          child: ElevatedButton.icon(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: EmptyProfilePage.primary,
-              foregroundColor: EmptyProfilePage.textMain,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              elevation: 4,
-            ),
-            onPressed: () {},
-            icon: const Icon(Icons.add_circle),
-            label: Text(
-              'Create Profile',
-              style: GoogleFonts.manrope(
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-        ),
+BoxDecoration _cardDecoration() {
+  return BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(16),
+    border: Border.all(color: Colors.grey.shade200),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.grey.withValues(alpha: .1),
+        blurRadius: 6,
+        offset: Offset(0, 2),
       ),
-    );
-  }
+    ],
+  );
 }

@@ -1,13 +1,21 @@
 import 'package:get/get.dart';
 
-import '../modules/basic_info_question/bindings/basic_info_question_binding.dart';
-import '../modules/basic_info_question/views/basic_info_question_view.dart';
+import '../modules/appointment_details/bindings/appointment_details_binding.dart';
+import '../modules/appointment_details/views/appointment_details_view.dart';
+import '../modules/appointment_list/bindings/appointment_list_binding.dart';
+import '../modules/appointment_list/views/appointment_list_view.dart';
 import '../modules/change_password/bindings/change_password_binding.dart';
 import '../modules/change_password/views/reset_password_view.dart';
 import '../modules/chielf_complaint/bindings/chielf_complaint_binding.dart';
 import '../modules/chielf_complaint/views/chielf_complaint_view.dart';
 import '../modules/crate_medical_history/bindings/crate_medical_history_binding.dart';
 import '../modules/crate_medical_history/views/crate_medical_history_view.dart';
+import '../modules/complain_summary/bindings/complain_summary_binding.dart';
+import '../modules/complain_summary/views/complain_summary_view.dart';
+import '../modules/complaint/bindings/complaint_binding.dart';
+import '../modules/complaint/views/complaint_view.dart';
+import '../modules/create_appointment/bindings/create_appointment_binding.dart';
+import '../modules/create_appointment/views/create_appointment_view.dart';
 import '../modules/create_profile/bindings/create_profile_binding.dart';
 import '../modules/create_profile/views/create_profile_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
@@ -22,8 +30,6 @@ import '../modules/forgot_pass_verify_otp/bindings/forgot_pass_verify_otp_bindin
 import '../modules/forgot_pass_verify_otp/views/forgot_pass_verify_otp_view.dart';
 import '../modules/forgot_password/bindings/forgot_password_binding.dart';
 import '../modules/forgot_password/views/forgot_password_view.dart';
-import '../modules/home/bindings/home_binding.dart';
-import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/medical_history_details/bindings/medical_history_details_binding.dart';
@@ -32,6 +38,10 @@ import '../modules/medical_history_list/bindings/medical_history_list_binding.da
 import '../modules/medical_history_list/views/medical_history_list_view.dart';
 import '../modules/otp/bindings/otp_binding.dart';
 import '../modules/otp/views/otp_view.dart';
+import '../modules/prescription/bindings/prescription_binding.dart';
+import '../modules/prescription/views/prescription_view.dart';
+import '../modules/prescription_details/bindings/prescription_details_binding.dart';
+import '../modules/prescription_details/views/prescription_details_view.dart';
 import '../modules/profile_details/bindings/profile_details_binding.dart';
 import '../modules/profile_details/views/profile_details_view.dart';
 import '../modules/registration/bindings/registration_binding.dart';
@@ -52,19 +62,9 @@ class AppPages {
 
   static final routes = [
     GetPage(
-      name: _Paths.HOME,
-      page: () => const HomeView(),
-      binding: HomeBinding(),
-    ),
-    GetPage(
-      name: _Paths.BASIC_INFO_QUESTION,
-      page: () => const BasicInfoQuestionView(),
-      binding: BasicInfoQuestionBinding(),
-    ),
-    GetPage(
-      name: _Paths.CHIELF_COMPLAINT,
-      page: () => const ChielfComplaintView(),
-      binding: ChielfComplaintBinding(),
+      name: _Paths.COMPLAINT,
+      page: () => const ComplaintView(),
+      binding: ComplaintBinding(),
     ),
     GetPage(
       name: _Paths.LOGIN,
@@ -155,6 +155,36 @@ class AppPages {
       name: _Paths.MEDICAL_HISTORY_DETAILS,
       page: () => const MedicalHistoryDetailsView(),
       binding: MedicalHistoryDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREATE_APPOINTMENT,
+      page: () => const CreateAppointmentView(),
+      binding: CreateAppointmentBinding(),
+    ),
+    GetPage(
+      name: _Paths.PRESCRIPTION,
+      page: () => const PrescriptionView(),
+      binding: PrescriptionBinding(),
+    ),
+    GetPage(
+      name: _Paths.PRESCRIPTION_DETAILS,
+      page: () => const PrescriptionDetailsView(),
+      binding: PrescriptionDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.APPOINTMENT_LIST,
+      page: () => const AppointmentListView(),
+      binding: AppointmentListBinding(),
+    ),
+    GetPage(
+      name: _Paths.APPOINTMENT_DETAILS,
+      page: () => const AppointmentDetailsView(),
+      binding: AppointmentDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.COMPLAIN_SUMMARY,
+      page: () => const ComplainSummaryView(),
+      binding: ComplainSummaryBinding(),
     ),
   ];
 }

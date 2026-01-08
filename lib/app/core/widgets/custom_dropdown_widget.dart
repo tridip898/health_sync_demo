@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/custom_text_field.dart';
 
 class CustomDropDownWidget extends StatelessWidget {
@@ -8,6 +9,7 @@ class CustomDropDownWidget extends StatelessWidget {
   final Function()? onTap;
   final String? Function(String?)? validator;
   final Function()? onRemove;
+  final bool isRequired;
 
   const CustomDropDownWidget({
     super.key,
@@ -17,6 +19,7 @@ class CustomDropDownWidget extends StatelessWidget {
     this.onTap,
     this.validator,
     this.onRemove,
+    this.isRequired = false,
   });
 
   @override
@@ -25,12 +28,17 @@ class CustomDropDownWidget extends StatelessWidget {
       valueListenable: controller,
       builder: (context, value, child) {
         return CustomTextFormField(
+          isRequired: isRequired,
           controller: controller,
           labelText: labelText,
           hintText: hintText,
           isViewOnly: true,
           onTap: onTap,
           validator: validator,
+          autoValidateMode: validator != null
+              ? AutovalidateMode.onUserInteraction
+              : null,
+          fillColor: value.text.isNotEmpty ? green.base25 : null,
           suffixIcon: Container(
             width: 40,
             height: 40,

@@ -4,7 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/string_extension.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
-import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
+import 'package:health_sync_question/app/core/widgets/custom_cache_network_image.dart';
+import 'package:health_sync_question/app/core/widgets/dotted_border_widget.dart';
 import 'package:health_sync_question/app/data/model/profile_model.dart';
 import 'package:health_sync_question/app/modules/dashboard/controllers/dashboard_controller.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
@@ -31,6 +32,25 @@ class DashboardView extends GetView<DashboardController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        DottedBorderContainer(
+                          radius: 8,
+                          child: GestureDetector(
+                            onTap: controller.onAnalyzeMySymptomTap,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: gray.base100,
+                                borderRadius: radius12,
+                              ),
+                              padding: EdgeInsets.symmetric(vertical: 16),
+                              alignment: Alignment.center,
+                              child: Text(
+                                'Analyze My Symptoms',
+                                style: textStyle.medium.s20,
+                              ),
+                            ),
+                          ),
+                        ),
+                        gapH12,
                         _OverviewHeader(),
                         gapH12,
                         _OverviewCard(
@@ -50,7 +70,13 @@ class DashboardView extends GetView<DashboardController> {
                           iconColor: blue.base500,
                           title: 'Appointments',
                           subtitle: 'Your upcoming appointments',
-                          onTap: () {},
+                          onTap: () {
+                            if (appController.isProfileAvailable) {
+                              Get.toNamed(Routes.APPOINTMENT_LIST);
+                            } else {
+                              Get.toNamed(Routes.PROFILE_DETAILS);
+                            }
+                          },
                         ),
                         gapH12,
                         _OverviewCard(
@@ -69,10 +95,12 @@ class DashboardView extends GetView<DashboardController> {
                           iconBg: red.base50,
                           iconColor: red.base500,
                           title: 'Prescriptions',
-                          subtitle: '4 Active meds',
-                          onTap: () {},
+                          subtitle: 'Active meds',
+                          onTap: () {
+                            Get.toNamed(Routes.PRESCRIPTION);
+                          },
                         ),
-                        gapH12,
+                        /*gapH12,
                         _OverviewCard(
                           icon: Icons.card_membership,
                           iconBg: cyan.base50,
@@ -80,7 +108,7 @@ class DashboardView extends GetView<DashboardController> {
                           title: 'Reports',
                           subtitle: 'Your medical reports',
                           onTap: () {},
-                        ),
+                        ),*/
                       ],
                     ),
                   ),
@@ -106,49 +134,55 @@ class _Header extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              Stack(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed(Routes.PROFILE_DETAILS);
-                    },
-                    child: CircleAvatar(
-                      radius: 24,
-                      backgroundImage: NetworkImage(
-                        'https://lh3.googleusercontent.com/aida-public/AB6AXuDIl-bskxXIrt4RZgLmVcEIit2POBFObH0x5FOXNNv7xSZ0bF9zjyxY2z_yfeDIoWgBm9mQcudFPU2deDM81zth5wmjCJb7pg6ZlxFakCR34lW8zw6HOAFXrfu35ZAYP947qbDBlmjGffxrdY4ZDDD_bMm232wll3c-2CzYc5awvFzqXKMcldJytL03ZyLPvDynEjb2cpCfYDaUZ1mltxbhjq2iRbggjZH2sP960nGjAgRA0cZeEzlkQnEV2ulJSAmyyl3RJrnLH8c',
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      width: 10,
-                      height: 10,
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.white, width: 2),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(width: 12),
-              if (profileModel?.fullName?.notNullNotEmpty == true)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(Routes.PROFILE_DETAILS);
+            },
+            child: Row(
+              children: [
+                Stack(
                   children: [
-                    Text('Welcome back', style: textStyle.medium.s12),
-                    Text(
-                      profileModel!.fullName!,
-                      style: textStyle.bold.s14,
+                    Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: gray.base50),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: CacheNetworkImage(
+                          imageUrl: profileModel?.image ?? '',
+                          width: 45,
+                          height: 45,
+                        ),
+                      ),
+                    ),
+
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        width: 10,
+                        height: 10,
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.white, width: 2),
+                        ),
+                      ),
                     ),
                   ],
                 ),
-            ],
+                const SizedBox(width: 12),
+                if (profileModel?.fullName?.notNullNotEmpty == true)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Welcome back', style: textStyle.medium.s12),
+                      Text(profileModel!.fullName!, style: textStyle.bold.s14),
+                    ],
+                  ),
+              ],
+            ),
           ),
           IconButton(
             icon: const Icon(Icons.logout),
