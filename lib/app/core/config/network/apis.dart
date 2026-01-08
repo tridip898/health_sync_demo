@@ -23,13 +23,19 @@ class Apis {
 
   static String get specialtyList => '$baseUrl/specialty';
 
-  static String get patientMedicalHistory => '$baseUrl/patient/{patientId}/medical-history';
+  static String patientMedicalHistory(String patientId) =>
+      '$baseUrl/patient/$patientId/medical-history';
 
-  static String get  patientMedicalHistoryDetails => '$baseUrl/patient/{patientId}/medical-history/{medicalHistoryId}';
+  static String patientMedicalHistoryDetails(
+    String patientId,
+    String medicalHistoryId,
+  ) => '$baseUrl/patient/$patientId/medical-history/$medicalHistoryId';
 
-  static String get  diseaseCategories => '$baseUrl/disease-category';
+  static String get diseaseCategories => '$baseUrl/disease-category';
 
-  static String  createHistory(String patientId) => '$baseUrl/patient/$patientId/medical-history';
+  static String createHistory(String patientId) =>
+      '$baseUrl/patient/$patientId/medical-history';
 
-  static String get  updateHistory => '$baseUrl/patient/{patientId}/medical-history/{medicalHistoryId}';
+  static String updateHistory(String patientId, String medicalHistoryId) =>
+      '$baseUrl/patient/$patientId/medical-history/$medicalHistoryId';
 }

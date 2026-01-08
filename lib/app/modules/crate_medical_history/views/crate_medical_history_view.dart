@@ -39,10 +39,9 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                   ),
 
                   const SizedBox(height: 16),
-                  Text('Categories',style: TextStyle(color: Colors.black)),
+                  Text('Categories', style: TextStyle(color: Colors.black)),
                   const SizedBox(height: 6),
                   Container(
-
                     decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(color: Colors.grey),
@@ -50,14 +49,12 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                     ),
                     padding: EdgeInsetsGeometry.all(2),
                     child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
                         Obx(() {
                           if (controller.selectedCategories.isEmpty) {
                             return const SizedBox();
                           }
-
                           return Wrap(
                             spacing: 6,
                             runSpacing: 6,
@@ -65,14 +62,13 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                               return Chip(
                                 label: Text(cat['name']!),
                                 deleteIcon: const Icon(Icons.close, size: 16),
-                                onDeleted: () => controller.removeCategory(cat['id']!),
+                                onDeleted: () =>
+                                    controller.removeCategory(cat['id']!),
                               );
                             }).toList(),
                           );
                         }),
-
-                        const SizedBox(height: 6),
-
+                        SizedBox(height: 6),
                         GestureDetector(
                           onTap: () => openCategoryBottomSheet(context),
                           child: Container(
@@ -80,25 +76,26 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                               horizontal: 12,
                               vertical: 14,
                             ),
-
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('Add more categories...',style: TextStyle(color: Colors.grey[500]),),
+                                Text(
+                                  'Add more categories...',
+                                  style: TextStyle(color: Colors.grey[500]),
+                                ),
                                 const SizedBox(width: 8),
                                 const Icon(Icons.keyboard_arrow_down),
                               ],
                             ),
                           ),
                         ),
-
-                        const SizedBox(height: 12),
+                        SizedBox(height: 12),
                       ],
                     ),
                   ),
 
                   // Date picker
-                  Text('Select Date',style: TextStyle(color: Colors.black),),
+                  Text('Select Date', style: TextStyle(color: Colors.black)),
                   const SizedBox(height: 6),
                   GestureDetector(
                     onTap: () async {
@@ -194,6 +191,7 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
       ),
     );
   }
+
   void openCategoryBottomSheet(BuildContext context) {
     final controller = Get.find<CrateMedicalHistoryController>();
 
@@ -216,7 +214,9 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
         onConfirm: () {
           controller.selectedCategories.clear();
           for (final cat in controller.categories) {
-            if (controller.selectedCategoryIds.contains(cat.diseaseCategoryId)) {
+            if (controller.selectedCategoryIds.contains(
+              cat.diseaseCategoryId,
+            )) {
               controller.selectedCategories.add({
                 'id': cat.diseaseCategoryId!,
                 'name': cat.name ?? '',

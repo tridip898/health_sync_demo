@@ -20,6 +20,8 @@ class CrateMedicalHistoryController extends GetxController {
   final selectedCategories = <Map<String, String>>[].obs;
   String? patientId;
 
+  final selectedCategoryIds = <String>[].obs;
+
   final isLoading = false.obs;
 
   @override
@@ -48,19 +50,19 @@ class CrateMedicalHistoryController extends GetxController {
     selectedCategories.removeWhere((e) => e['id'] == id);
   }
 
-  final selectedCategoryIds = <String>[].obs;
   Future<void> fetchCategories() async {
     isLoading.value = true;
     final result = await repository.getDiseaseCategories();
     result.fold(
-          (error) => Toaster.error(error.message ?? 'Failed to load categories'),
-          (success) {
+      (error) => Toaster.error(error.message ?? 'Failed to load categories'),
+      (success) {
         categories.assignAll(success.data ?? []);
       },
     );
 
     isLoading.value = false;
   }
+
   Future<void> saveMedicalHistory(String patientId) async {
     if (selectedDate.value == null) {
       Get.snackbar('Error', 'Please select date');
@@ -97,6 +99,4 @@ class CrateMedicalHistoryController extends GetxController {
       },
     );
   }
-
-
 }

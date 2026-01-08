@@ -50,7 +50,7 @@ class MedicalHistoryDetailsView
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: Image.asset(
-                        AssetPath.icon_medical_history,
+                        AssetPath.iconMedicalHistory,
                         width: 56,
                         height: 56,
                         fit: BoxFit.cover,

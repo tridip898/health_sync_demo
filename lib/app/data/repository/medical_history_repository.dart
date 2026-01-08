@@ -14,7 +14,7 @@ class MedicalHistoryRepository extends BaseRepository {
     int limit = 15,
   }) {
     return get(
-      path: Apis.patientMedicalHistory.replaceFirst('{patientId}', patientId),
+      path: Apis.patientMedicalHistory(patientId),
       queryParameters: {'page': page.toString(), 'limit': limit.toString()},
       responseCompiler: MedicalHistoryListResponseModel.fromJson,
     );
@@ -26,9 +26,7 @@ class MedicalHistoryRepository extends BaseRepository {
     required String medicalHistoryId,
   }) {
     return get(
-      path: Apis.patientMedicalHistoryDetails
-          .replaceFirst('{patientId}', patientId)
-          .replaceFirst('{medicalHistoryId}', medicalHistoryId),
+      path: Apis.patientMedicalHistoryDetails(patientId, medicalHistoryId),
       responseCompiler: MedicalHistoryDetailsResponseModel.fromJson,
     );
   }
@@ -59,9 +57,7 @@ class MedicalHistoryRepository extends BaseRepository {
     required CreateMedicalHistoryRequest request,
   }) {
     return patch(
-      path: Apis.updateHistory
-          .replaceFirst('{patientId}', patientId)
-          .replaceFirst('{medicalHistoryId}', medicalHistoryId),
+      path: Apis.updateHistory(patientId, medicalHistoryId),
       data: request.toJson(),
       responseCompiler: CreateMedicalHistoryResponse.fromJson,
     );

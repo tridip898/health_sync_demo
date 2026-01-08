@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:health_sync_question/app/core/extensions/string_extension.dart';
 
 import '../../../../core/utils/date_extensions.dart';
 import '../../../../data/model/medical_history_response_model.dart';
@@ -26,7 +27,7 @@ class MedicalHistoryTile extends StatelessWidget {
             .toList() ??
         [];
 
-    final formattedDate = history.date?.toDdMmmYyyy() ?? '';
+    final formattedDate = history.date?.formatToDdMmmYyyy ?? '';
 
     return GestureDetector(
       onTap: () {
@@ -38,7 +39,6 @@ class MedicalHistoryTile extends StatelessWidget {
             'colorPair': colorPair,
           },
         );
-
       },
 
       child: Container(
