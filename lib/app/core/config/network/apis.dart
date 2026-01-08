@@ -19,6 +19,8 @@ class Apis {
 
   static String get doctorList => '$baseUrl/doctor';
 
+  static String doctorDetails(dynamic doctorId) => '$baseUrl/doctor/$doctorId';
+
   static String get organizationList => '$baseUrl/organization';
 
   static String get specialtyList => '$baseUrl/specialty';
@@ -38,4 +40,30 @@ class Apis {
 
   static String updateHistory(String patientId, String medicalHistoryId) =>
       '$baseUrl/patient/$patientId/medical-history/$medicalHistoryId';
+  static String get createProfile => '$baseUrl/profile';
+
+  static String get appointment => '$baseUrl/appointment';
+
+  static String get questionnaire => '$baseUrl/appointment/questionnaire';
+
+  static String get roleList => '$baseUrl/role';
+
+  static String get roleSelection => '$baseUrl/user/select-new-role';
+
+  static String switchRole(String roleId) =>
+      '$baseUrl/user/switch-user-role/$roleId';
+
+  static String get prescription => '$baseUrl/prescription';
+
+  static String prescriptionDetails(String id) => '$baseUrl/prescription/$id';
+
+  static String prescriptionPdf(String prescriptionId) =>
+      '$baseUrl/prescription/$prescriptionId/generate-pdf';
+
+  static String prescriptionHistory(String prescriptionId) =>
+      '$baseUrl/prescription/$prescriptionId/history';
+
+  static String appointmentDetails(String appointmentId) =>
+      '$baseUrl/appointment/$appointmentId';
+
 }

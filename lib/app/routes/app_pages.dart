@@ -6,8 +6,6 @@ import '../modules/appointment_list/bindings/appointment_list_binding.dart';
 import '../modules/appointment_list/views/appointment_list_view.dart';
 import '../modules/change_password/bindings/change_password_binding.dart';
 import '../modules/change_password/views/reset_password_view.dart';
-import '../modules/chielf_complaint/bindings/chielf_complaint_binding.dart';
-import '../modules/chielf_complaint/views/chielf_complaint_view.dart';
 import '../modules/crate_medical_history/bindings/crate_medical_history_binding.dart';
 import '../modules/crate_medical_history/views/crate_medical_history_view.dart';
 import '../modules/complain_summary/bindings/complain_summary_binding.dart';
