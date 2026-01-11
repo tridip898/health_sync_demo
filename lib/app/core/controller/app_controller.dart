@@ -5,7 +5,7 @@ import 'package:health_sync_question/app/core/utils/toaster.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
 import 'package:health_sync_question/app/data/model/user_model.dart';
 import 'package:health_sync_question/app/data/repository/profile_repository.dart';
-import 'package:health_sync_question/app/modules/login/controllers/login_controller.dart';
+import 'package:health_sync_question/app/modules/auth/login/controllers/login_controller.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
 
 import '../config/color/base_color.dart';

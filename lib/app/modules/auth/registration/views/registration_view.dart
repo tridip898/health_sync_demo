@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/utils/app_input_validator.dart';
 import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
 import 'package:health_sync_question/app/core/widgets/custom_button.dart';
 import 'package:health_sync_question/app/core/widgets/custom_text_field.dart';
-
-import '../controllers/registration_controller.dart';
+import 'package:health_sync_question/app/modules/auth/registration/controllers/registration_controller.dart';
 
 class RegistrationView extends GetView<RegistrationController> {
   const RegistrationView({super.key});
@@ -29,20 +29,17 @@ class RegistrationView extends GetView<RegistrationController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 40),
-
+                gapH(32),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: padSym(horizontal: 16),
                   child: Text(
                     "Please enter your phone number. We use it to verify your identity and secure your medical information.",
                     style: textStyle.regular.s14.copyWith(color: Colors.black),
                   ),
                 ),
-
-                const SizedBox(height: 20),
-
+                gapH20,
                 Padding(
-                  padding: const EdgeInsets.all(12),
+                  padding: padSym(horizontal: 16),
                   child: CustomTextFormField(
                     labelText: 'Phone Number',
                     hintText: '01*********',
@@ -52,8 +49,6 @@ class RegistrationView extends GetView<RegistrationController> {
                     autoValidateMode: AutovalidateMode.onUserInteraction,
                   ),
                 ),
-
-                const SizedBox(height: 200), // simulate long content
               ],
             ),
           ),
@@ -62,18 +57,16 @@ class RegistrationView extends GetView<RegistrationController> {
 
       bottomNavigationBar: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          padding: padSym(horizontal: 16, vertical: 24),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 "By continuing, you agree to our Terms of Service and Privacy Policy.",
                 textAlign: TextAlign.center,
-                style: textStyle.regular.s14.copyWith(
-                  color: const Color(0xFF4C9A80),
-                ),
+                style: textStyle.regular.s14.copyWith(color: green.base400),
               ),
-              const SizedBox(height: 12),
+              gapH12,
               CustomButton(text: 'Send Otp', onPressed: controller.onSendOtp),
             ],
           ),

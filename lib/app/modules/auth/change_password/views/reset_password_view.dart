@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/extensions/widget_extension.dart';
-import '../../../core/utils/app_input_validator.dart';
-import '../../../core/widgets/custom_button.dart';
-import '../../../core/widgets/custom_text_field.dart';
-import '../controllers/set_new_password_controller.dart';
+import '../../../../core/extensions/widget_extension.dart';
+import '../../../../core/utils/app_input_validator.dart';
+import '../../../../core/widgets/custom_button.dart';
+import '../../../../core/widgets/custom_text_field.dart';
+import '../controllers/reset_password_controller.dart';
 
-class SetNewPasswordView extends GetView<SetNewPasswordController> {
-  const SetNewPasswordView({super.key});
+class ResetPasswordView extends GetView<ResetPasswordController> {
+  const ResetPasswordView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Set New Password'), centerTitle: true),
+      appBar: AppBar(title: const Text('Reset Password'), centerTitle: true),
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: appController.closeKeyboard,
@@ -55,7 +55,7 @@ class SetNewPasswordView extends GetView<SetNewPasswordController> {
                         height: 20,
                         width: 20,
                         padding: EdgeInsets.only(top: 2),
-                        child: GetBuilder<SetNewPasswordController>(
+                        child: GetBuilder<ResetPasswordController>(
                           builder: (controller) {
                             return Checkbox(
                               value: controller.isPasswordMatched,

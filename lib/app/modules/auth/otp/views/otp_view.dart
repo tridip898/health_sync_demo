@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/extensions/widget_extension.dart';
-import '../../../core/widgets/custom_app_bar.dart';
-import '../../../core/widgets/custom_button.dart';
-import '../../../core/widgets/otp_text_field.dart';
+import '../../../../core/extensions/widget_extension.dart';
+import '../../../../core/widgets/custom_app_bar.dart';
+import '../../../../core/widgets/custom_button.dart';
+import '../../../../core/widgets/otp_text_field.dart';
 import '../controllers/otp_controller.dart';
 
 class OtpView extends GetView<OtpController> {

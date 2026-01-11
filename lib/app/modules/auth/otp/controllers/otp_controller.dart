@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 
-import '../../../core/utils/toaster.dart';
-import '../../../core/widgets/loading.dart';
-import '../../../data/repository/auth_repository.dart';
-import '../../../routes/app_pages.dart';
+import '../../../../core/utils/toaster.dart';
+import '../../../../core/widgets/loading.dart';
+import '../../../../data/repository/auth_repository.dart';
+import '../../../../routes/app_pages.dart';
 
 class OtpController extends GetxController {
   final AuthRepository authRepository = AuthRepository();

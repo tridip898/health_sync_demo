@@ -4,10 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
-import 'package:health_sync_question/app/core/widgets/custom_button.dart';
 import 'package:health_sync_question/app/core/widgets/custom_cache_network_image.dart';
 import 'package:health_sync_question/app/modules/profile_details/controllers/profile_details_controller.dart';
-import 'package:health_sync_question/app/modules/profile_details/views/pages/empty_profile_page.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
 import 'package:intl/intl.dart';
 
@@ -51,140 +49,132 @@ class ProfileDetailsView extends GetView<ProfileDetailsController> {
           }),
         ],
       ),
-      bottomNavigationBar: _bottomButton(),
+      /*bottomNavigationBar: _bottomButton(),*/
       body: Obx(() {
         final profile = appController.userModel.value?.profile;
-        return profile == null
-            ? EmptyProfilePage()
-            : SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(24, 24, 24, 120),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Container(
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: gray.base50),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: CacheNetworkImage(
-                          imageUrl: profile.image ?? '',
-                          width: 120,
-                          height: 120,
-                        ),
-                      ),
-                    ),
-
-                    gapH16,
-                    Center(
-                      child: Text(
-                        profile.fullName ?? '',
-                        style: GoogleFonts.manrope(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                    ),
-                    gapH24,
-                    sectionTitle(
-                      icon: Icons.person,
-                      title: 'Personal Information',
-                    ),
-                    gapH12,
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _infoCard(
-                            label: 'Gender',
-                            icon: Icons.female,
-                            value: profile.gender ?? '',
-                          ),
-                        ),
-                        SizedBox(width: 12),
-                        Expanded(
-                          child: _infoCard(
-                            label: 'Date of Birth',
-                            icon: Icons.cake,
-                            value: DateFormat(
-                              'MMM dd, yyyy',
-                            ).format(DateTime.parse(profile.dateOfBirth ?? '')),
-                          ),
-                        ),
-                      ],
-                    ),
-                    if (profile.address != null) ...[
-                      gapH12,
-                      Container(
-                        padding: padAll16,
-                        decoration: _cardDecoration(),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'ADDRESS',
-                              style: GoogleFonts.manrope(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            gapH8,
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  padding: padAll8,
-                                  decoration: BoxDecoration(
-                                    color: green.base50,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Icon(
-                                    Icons.location_on,
-                                    color: green.base300,
-                                  ),
-                                ),
-                                gapW12,
-                                Expanded(
-                                  child: Text(
-                                    profile.address ?? '',
-                                    style: textStyle.bold.s14,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-
-                    gapH24,
-                    sectionTitle(
-                      icon: Icons.contact_phone,
-                      title: 'Contact Details',
-                    ),
-                    gapH12,
-                    _contactCard(
-                      icon: Icons.call,
-                      label: 'Public Phone',
-                      value: profile.publicPhoneNumber ?? '',
-                    ),
-                    if (profile.publicEmail != null) ...[
-                      gapH12,
-                      _contactCard(
-                        icon: Icons.mail,
-                        label: 'Public Email',
-                        value: profile.publicEmail ?? '',
-                      ),
-                    ],
-                  ],
+        return SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(24, 24, 24, 120),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  border: Border.all(color: gray.base50),
                 ),
-              );
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: CacheNetworkImage(
+                    imageUrl: profile?.image ?? '',
+                    width: 120,
+                    height: 120,
+                  ),
+                ),
+              ),
+
+              gapH16,
+              Center(
+                child: Text(
+                  profile?.fullName ?? '',
+                  style: GoogleFonts.manrope(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ),
+              gapH24,
+              sectionTitle(icon: Icons.person, title: 'Personal Information'),
+              gapH12,
+              Row(
+                children: [
+                  Expanded(
+                    child: _infoCard(
+                      label: 'Gender',
+                      icon: Icons.female,
+                      value: profile?.gender ?? '',
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: _infoCard(
+                      label: 'Date of Birth',
+                      icon: Icons.cake,
+                      value: DateFormat(
+                        'MMM dd, yyyy',
+                      ).format(DateTime.parse(profile?.dateOfBirth ?? '')),
+                    ),
+                  ),
+                ],
+              ),
+              if (profile?.address != null) ...[
+                gapH12,
+                Container(
+                  padding: padAll16,
+                  decoration: _cardDecoration(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'ADDRESS',
+                        style: GoogleFonts.manrope(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      gapH8,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            padding: padAll8,
+                            decoration: BoxDecoration(
+                              color: green.base50,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Icon(
+                              Icons.location_on,
+                              color: green.base300,
+                            ),
+                          ),
+                          gapW12,
+                          Expanded(
+                            child: Text(
+                              profile?.address ?? '',
+                              style: textStyle.bold.s14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+
+              gapH24,
+              sectionTitle(icon: Icons.contact_phone, title: 'Contact Details'),
+              gapH12,
+              _contactCard(
+                icon: Icons.call,
+                label: 'Public Phone',
+                value: profile?.publicPhoneNumber ?? '',
+              ),
+              if (profile?.publicEmail != null) ...[
+                gapH12,
+                _contactCard(
+                  icon: Icons.mail,
+                  label: 'Public Email',
+                  value: profile?.publicEmail ?? '',
+                ),
+              ],
+            ],
+          ),
+        );
       }),
     );
   }
 
-  Widget _bottomButton() {
+  /*Widget _bottomButton() {
     return Obx(() {
       if (appController.userModel.value?.profile == null) {
         return Container(
@@ -206,7 +196,7 @@ class ProfileDetailsView extends GetView<ProfileDetailsController> {
       }
       return SizedBox();
     });
-  }
+  }*/
 
   sectionTitle({required IconData icon, required String title}) {
     return Row(
