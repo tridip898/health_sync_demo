@@ -1,11 +1,8 @@
 import 'package:get/get.dart';
-
 import '../modules/appointment_details/bindings/appointment_details_binding.dart';
 import '../modules/appointment_details/views/appointment_details_view.dart';
 import '../modules/appointment_list/bindings/appointment_list_binding.dart';
 import '../modules/appointment_list/views/appointment_list_view.dart';
-import '../modules/change_password/bindings/change_password_binding.dart';
-import '../modules/change_password/views/reset_password_view.dart';
 import '../modules/crate_medical_history/bindings/crate_medical_history_binding.dart';
 import '../modules/crate_medical_history/views/crate_medical_history_view.dart';
 import '../modules/auth/change_password/bindings/change_password_binding.dart';
@@ -28,16 +25,10 @@ import '../modules/doctor_list/bindings/doctor_list_binding.dart';
 import '../modules/doctor_list/views/doctor_list_view.dart';
 import '../modules/forgot_pass_verify_otp/bindings/forgot_pass_verify_otp_binding.dart';
 import '../modules/forgot_pass_verify_otp/views/forgot_pass_verify_otp_view.dart';
-import '../modules/forgot_password/bindings/forgot_password_binding.dart';
-import '../modules/forgot_password/views/forgot_password_view.dart';
-import '../modules/login/bindings/login_binding.dart';
-import '../modules/login/views/login_view.dart';
 import '../modules/medical_history_details/bindings/medical_history_details_binding.dart';
 import '../modules/medical_history_details/views/medical_history_details_view.dart';
 import '../modules/medical_history_list/bindings/medical_history_list_binding.dart';
 import '../modules/medical_history_list/views/medical_history_list_view.dart';
-import '../modules/otp/bindings/otp_binding.dart';
-import '../modules/otp/views/otp_view.dart';
 import '../modules/auth/forgot_password/bindings/forgot_password_binding.dart';
 import '../modules/auth/forgot_password/views/forgot_password_view.dart';
 import '../modules/auth/login/bindings/login_binding.dart';
