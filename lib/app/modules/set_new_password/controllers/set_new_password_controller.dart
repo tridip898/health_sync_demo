@@ -11,6 +11,8 @@ class SetNewPasswordController extends GetxController {
   final AuthRepository authRepository = AuthRepository();
 
   final formKey = GlobalKey<FormState>();
+  bool get isAtLeast10Chars =>
+      passwordController.text.trim().length >= 10;
 
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
