@@ -11,9 +11,9 @@ class Apis {
 
   static String get verifyOtp => '$baseUrl/auth/verify-otp';
 
-  static String get set_password => '$baseUrl/auth/set-password';
+  static String get setPassword => '$baseUrl/auth/set-password';
 
-  static String get reset_password => '$baseUrl/auth/reset-password';
+  static String get resetPassword => '$baseUrl/auth/reset-password';
 
   static String get loadMe => '$baseUrl/user';
 
@@ -25,6 +25,21 @@ class Apis {
 
   static String get specialtyList => '$baseUrl/specialty';
 
+  static String patientMedicalHistory(String patientId) =>
+      '$baseUrl/patient/$patientId/medical-history';
+
+  static String patientMedicalHistoryDetails(
+    String patientId,
+    String medicalHistoryId,
+  ) => '$baseUrl/patient/$patientId/medical-history/$medicalHistoryId';
+
+  static String get diseaseCategories => '$baseUrl/disease-category';
+
+  static String createHistory(String patientId) =>
+      '$baseUrl/patient/$patientId/medical-history';
+
+  static String updateHistory(String patientId, String medicalHistoryId) =>
+      '$baseUrl/patient/$patientId/medical-history/$medicalHistoryId';
   static String get createProfile => '$baseUrl/profile';
 
   static String get appointment => '$baseUrl/appointment';
@@ -50,4 +65,7 @@ class Apis {
 
   static String appointmentDetails(String appointmentId) =>
       '$baseUrl/appointment/$appointmentId';
+  static String deleteHistory(String patientId, String medicalHistoryId) =>
+      '$baseUrl/patient/$patientId/medical-history/$medicalHistoryId';
+
 }

@@ -4,6 +4,10 @@ import '../modules/appointment_details/bindings/appointment_details_binding.dart
 import '../modules/appointment_details/views/appointment_details_view.dart';
 import '../modules/appointment_list/bindings/appointment_list_binding.dart';
 import '../modules/appointment_list/views/appointment_list_view.dart';
+import '../modules/change_password/bindings/change_password_binding.dart';
+import '../modules/change_password/views/reset_password_view.dart';
+import '../modules/crate_medical_history/bindings/crate_medical_history_binding.dart';
+import '../modules/crate_medical_history/views/crate_medical_history_view.dart';
 import '../modules/auth/change_password/bindings/change_password_binding.dart';
 import '../modules/auth/change_password/views/reset_password_view.dart';
 import '../modules/complain_summary/bindings/complain_summary_binding.dart';
@@ -16,12 +20,24 @@ import '../modules/create_profile/bindings/create_profile_binding.dart';
 import '../modules/create_profile/views/create_profile_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
+import '../modules/delete_medical_history/bindings/delete_medical_history_binding.dart';
+import '../modules/delete_medical_history/views/delete_medical_history_view.dart';
 import '../modules/doctor_details/bindings/doctor_details_binding.dart';
 import '../modules/doctor_details/views/doctor_details_view.dart';
 import '../modules/doctor_list/bindings/doctor_list_binding.dart';
 import '../modules/doctor_list/views/doctor_list_view.dart';
 import '../modules/forgot_pass_verify_otp/bindings/forgot_pass_verify_otp_binding.dart';
 import '../modules/forgot_pass_verify_otp/views/forgot_pass_verify_otp_view.dart';
+import '../modules/forgot_password/bindings/forgot_password_binding.dart';
+import '../modules/forgot_password/views/forgot_password_view.dart';
+import '../modules/login/bindings/login_binding.dart';
+import '../modules/login/views/login_view.dart';
+import '../modules/medical_history_details/bindings/medical_history_details_binding.dart';
+import '../modules/medical_history_details/views/medical_history_details_view.dart';
+import '../modules/medical_history_list/bindings/medical_history_list_binding.dart';
+import '../modules/medical_history_list/views/medical_history_list_view.dart';
+import '../modules/otp/bindings/otp_binding.dart';
+import '../modules/otp/views/otp_view.dart';
 import '../modules/auth/forgot_password/bindings/forgot_password_binding.dart';
 import '../modules/auth/forgot_password/views/forgot_password_view.dart';
 import '../modules/auth/login/bindings/login_binding.dart';
@@ -40,6 +56,8 @@ import '../modules/auth/set_new_password/bindings/set_new_password_binding.dart'
 import '../modules/auth/set_new_password/views/set_new_password_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../modules/update_medical_history/bindings/update_medical_history_binding.dart';
+import '../modules/update_medical_history/views/update_medical_history_view.dart';
 
 part 'app_routes.dart';
 
@@ -118,6 +136,31 @@ class AppPages {
       name: _Paths.PROFILE_DETAILS,
       page: () => const ProfileDetailsView(),
       binding: ProfileDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.MEDICAL_HISTORY_LIST,
+      page: () => const MedicalHistoryListView(),
+      binding: MedicalHistoryListBinding(),
+    ),
+    GetPage(
+      name: _Paths.CRATE_MEDICAL_HISTORY,
+      page: () => const CrateMedicalHistoryView(),
+      binding: CrateMedicalHistoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.UPDATE_MEDICAL_HISTORY,
+      page: () => const UpdateMedicalHistoryView(),
+      binding: UpdateMedicalHistoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.DELETE_MEDICAL_HISTORY,
+      page: () => const DeleteMedicalHistoryView(),
+      binding: DeleteMedicalHistoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.MEDICAL_HISTORY_DETAILS,
+      page: () => const MedicalHistoryDetailsView(),
+      binding: MedicalHistoryDetailsBinding(),
     ),
     GetPage(
       name: _Paths.CREATE_APPOINTMENT,

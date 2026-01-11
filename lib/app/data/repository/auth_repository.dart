@@ -55,7 +55,7 @@ class AuthRepository extends BaseRepository {
     required String password,
   }) async {
     return post(
-      path: Apis.set_password,
+      path: Apis.setPassword,
       data: {"tempToken": tempToken, "password": password},
       responseCompiler: SetNewPasswordResponseModel.fromJson,
     );
@@ -66,7 +66,7 @@ class AuthRepository extends BaseRepository {
     required String password,
   }) async {
     return post(
-      path: Apis.reset_password,
+      path: Apis.resetPassword,
       data: {"tempToken": tempToken, "password": password},
       responseCompiler: SetNewPasswordResponseModel.fromJson,
     );

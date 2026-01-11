@@ -6,4 +6,5 @@ class AssetPath {
 
   static String searchIcon = '$_iconBase/search.png';
   static String noDataFoundIcon = '$_iconBase/no_data_found.png';
+  static String iconMedicalHistory = '$_iconBase/ic_migraine.png';
 }
