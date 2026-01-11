@@ -13,6 +13,9 @@ class ResetPasswordController extends GetxController {
   final formKey = GlobalKey<FormState>();
 
   final TextEditingController passwordController = TextEditingController();
+  bool get isAtLeast10Chars =>
+      passwordController.text.trim().length >= 10;
+
   final TextEditingController confirmPasswordController =
       TextEditingController();
   String? otpToken;
@@ -35,23 +38,17 @@ class ResetPasswordController extends GetxController {
       Get.offAllNamed(Routes.LOGIN);
     }
 
-    passwordController.addListener(_checkPasswordMatch);
-    confirmPasswordController.addListener(_checkPasswordMatch);
+    passwordController.addListener(_onPasswordChanged);
+    confirmPasswordController.addListener(_onPasswordChanged);
   }
 
-  void _checkPasswordMatch() {
+  void _onPasswordChanged() {
     final password = passwordController.text.trim();
-    final confirmPassword = confirmPasswordController.text.trim();
+    final confirm = confirmPasswordController.text.trim();
 
-    final matched =
-        password.isNotEmpty &&
-            confirmPassword.isNotEmpty &&
-            password == confirmPassword;
+    isPasswordMatched = password.isNotEmpty && password == confirm;
 
-    if (matched != isPasswordMatched) {
-      isPasswordMatched = matched;
-      update();
-    }
+    update();
   }
   void onResetPassword() async {
     if (otpToken == null) {

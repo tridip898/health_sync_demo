@@ -51,85 +51,90 @@ class SetNewPasswordView extends GetView<SetNewPasswordController> {
 
                   const SizedBox(height: 6),
 
-                  Row(
-                    children: [
-                      SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: GetBuilder<SetNewPasswordController>(
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: GetBuilder<SetNewPasswordController>(
+                            builder: (controller) {
+                              final isValid = controller.isAtLeast10Chars;
+                              return Checkbox(
+                                value: isValid,
+                                onChanged: null, // read-only
+                                fillColor: MaterialStateProperty.resolveWith(
+                                        (states) => isValid ? Colors.green : Colors.transparent),
+                                checkColor: Colors.white,
+                                side: BorderSide(
+                                  color: isValid ? Colors.green : Colors.grey,
+                                  width: 1.5,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        GetBuilder<SetNewPasswordController>(
                           builder: (controller) {
                             final isValid = controller.isAtLeast10Chars;
-
-                            return Checkbox(
-                              value: isValid,
-                              onChanged: null,
-                              activeColor: Colors.green,
-                              checkColor: Colors.white,
-                              side: BorderSide(
+                            return Text(
+                              "At least 10 characters",
+                              style: textStyle.bold.s10.copyWith(
                                 color: isValid ? Colors.green : Colors.grey,
-                                width: 1.5,
                               ),
                             );
                           },
                         ),
-                      ),
-                      const SizedBox(width: 6),
-                      GetBuilder<SetNewPasswordController>(
-                        builder: (controller) {
-                          final isValid = controller.isAtLeast10Chars;
+                      ],
+                    ),
 
-                          return Text(
-                            "At least 10 characters",
-                            style: textStyle.bold.s10.copyWith(
-                              color: isValid ? Colors.green : Colors.grey,
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
+                    const SizedBox(height: 10),
 
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: GetBuilder<SetNewPasswordController>(
+
+                    Row(
+                      children: [
+                        SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: GetBuilder<SetNewPasswordController>(
+                            builder: (controller) {
+                              final isMatched = controller.isPasswordMatched;
+                              return Checkbox(
+                                value: isMatched,
+                                onChanged: null, // read-only
+                                fillColor: MaterialStateProperty.resolveWith(
+                                        (states) => isMatched ? Colors.green : Colors.transparent),
+                                checkColor: Colors.white,
+                                side: BorderSide(
+                                  color: isMatched ? Colors.green : Colors.grey,
+                                  width: 1.5,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        GetBuilder<SetNewPasswordController>(
                           builder: (controller) {
                             final isMatched = controller.isPasswordMatched;
-
-                            return Checkbox(
-                              value: isMatched,
-                              onChanged: null,
-                              activeColor: Colors.green,
-                              checkColor: Colors.white,
-                              side: BorderSide(
+                            return Text(
+                              "Password Matched",
+                              style: textStyle.bold.s10.copyWith(
                                 color: isMatched ? Colors.green : Colors.grey,
-                                width: 1.5,
                               ),
                             );
                           },
                         ),
-                      ),
-                      const SizedBox(width: 6),
-                      GetBuilder<SetNewPasswordController>(
-                        builder: (controller) {
-                          final isMatched = controller.isPasswordMatched;
-
-                          return Text(
-                            "Password Matched",
-                            style: textStyle.bold.s10.copyWith(
-                              color: isMatched ? Colors.green : Colors.grey,
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
+                  ],
+                ),
 
 
-                  const SizedBox(height: 10),
+
+                const SizedBox(height: 10),
 
                   CustomTextFormField(
                     labelText: 'Password',

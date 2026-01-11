@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
 
 import '../../../core/extensions/widget_extension.dart';
 import '../../../core/utils/app_input_validator.dart';
@@ -13,7 +14,8 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Reset Password'), centerTitle: true),
+      backgroundColor: Colors.white,
+      appBar: CustomAppBar(title: "Reset Password",),
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: appController.closeKeyboard,
@@ -49,26 +51,86 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
 
                   const SizedBox(height: 6),
 
-                  Row(
+                  Column(
                     children: [
-                      Container(
-                        height: 20,
-                        width: 20,
-                        padding: EdgeInsets.only(top: 2),
-                        child: GetBuilder<ResetPasswordController>(
-                          builder: (controller) {
-                            return Checkbox(
-                              value: controller.isPasswordMatched,
-                              onChanged: null,
-                            );
-                          },
-                        ),
+                      Row(
+                        children: [
+                          SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: GetBuilder<ResetPasswordController>(
+                              builder: (controller) {
+                                final isValid = controller.isAtLeast10Chars;
+                                return Checkbox(
+                                  value: isValid,
+                                  onChanged: null, // read-only
+                                  fillColor: MaterialStateProperty.resolveWith(
+                                          (states) => isValid ? Colors.green : Colors.transparent),
+                                  checkColor: Colors.white,
+                                  side: BorderSide(
+                                    color: isValid ? Colors.green : Colors.grey,
+                                    width: 1.5,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          GetBuilder<ResetPasswordController>(
+                            builder: (controller) {
+                              final isValid = controller.isAtLeast10Chars;
+                              return Text(
+                                "At least 10 characters",
+                                style: textStyle.bold.s10.copyWith(
+                                  color: isValid ? Colors.green : Colors.grey,
+                                ),
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 6),
-                      Text("At least 10 characters", style: textStyle.bold.s10.copyWith(color: Colors.grey)),
+
+                      const SizedBox(height: 10),
+
+
+                      Row(
+                        children: [
+                          SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: GetBuilder<ResetPasswordController>(
+                              builder: (controller) {
+                                final isMatched = controller.isPasswordMatched;
+                                return Checkbox(
+                                  value: isMatched,
+                                  onChanged: null, // read-only
+                                  fillColor: MaterialStateProperty.resolveWith(
+                                          (states) => isMatched ? Colors.green : Colors.transparent),
+                                  checkColor: Colors.white,
+                                  side: BorderSide(
+                                    color: isMatched ? Colors.green : Colors.grey,
+                                    width: 1.5,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          GetBuilder<ResetPasswordController>(
+                            builder: (controller) {
+                              final isMatched = controller.isPasswordMatched;
+                              return Text(
+                                "Password Matched",
+                                style: textStyle.bold.s10.copyWith(
+                                  color: isMatched ? Colors.green : Colors.grey,
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ],
                   ),
-
                   const SizedBox(height: 10),
 
                   CustomTextFormField(
