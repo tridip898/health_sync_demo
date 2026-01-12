@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
+import 'package:health_sync_question/app/core/widgets/no_data_found.dart';
 import 'package:health_sync_question/app/modules/medical_history_list/views/widgets/medical_history_tile.dart';
 
 import '../../../core/extensions/widget_extension.dart';
+import '../../../core/widgets/custom_button.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/medical_history_list_controller.dart';
 
@@ -25,18 +27,26 @@ class MedicalHistoryListView extends GetView<MedicalHistoryListController> {
       behavior: HitTestBehavior.opaque,
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: CustomAppBar(title: "Medical History"),
-
-        floatingActionButton: FloatingActionButton.small(
-          backgroundColor: Colors.green, // Circle color
-          onPressed: () {
-            Get.toNamed(Routes.CRATE_MEDICAL_HISTORY);
-          },
-          child: const Icon(
-            Icons.add, // Plus icon
-            color: Colors.white,
-            size: 20,
-          ),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: Obx(() {
+            final controller = Get.find<MedicalHistoryListController>();
+            return CustomAppBar(
+              title: "Medical History",
+              actions: [
+                if (controller.medicalHistoryList.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 16),
+                    child: GestureDetector(
+                      onTap: () {
+                        Get.toNamed(Routes.CRATE_MEDICAL_HISTORY);
+                      },
+                      child: const Icon(Icons.add, size: 26),
+                    ),
+                  ),
+              ],
+            );
+          }),
         ),
 
         body: SafeArea(
@@ -55,11 +65,14 @@ class MedicalHistoryListView extends GetView<MedicalHistoryListController> {
                     physics: const AlwaysScrollableScrollPhysics(),
                     children: [
                       const SizedBox(height: 200),
-                      Center(
-                        child: Text(
-                          'No medical history found',
-                            style: textStyle.regular.s10
-                        ),
+                      Center(child: NoDataFound()),
+
+                      const SizedBox(height: 16),
+                      CustomButton(
+                        text: 'Add Medical History',
+                        onPressed: () {
+                          Get.toNamed(Routes.CRATE_MEDICAL_HISTORY);
+                        },
                       ),
                     ],
                   ),

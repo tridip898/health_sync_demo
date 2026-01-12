@@ -8,7 +8,7 @@ import '../../../data/repository/medical_history_repository.dart';
 
 class MedicalHistoryListController extends GetxController {
   final MedicalHistoryRepository repository = MedicalHistoryRepository();
-
+  bool get hasData => medicalHistoryList.isNotEmpty;
   final medicalHistoryList = <MedicalHistoryModel>[].obs;
   final isLoading = false.obs;
 
