@@ -203,10 +203,9 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
       backgroundColor: Colors.transparent,
       builder: (context) {
         return DraggableScrollableSheet(
-          expand: false,
-          initialChildSize: 0.8,
-          minChildSize: 0.3,
-          maxChildSize: 0.95,
+          minChildSize: 0.7,
+          initialChildSize: 1,
+          snapSizes: const [0.7, 1],
           builder: (_, scrollController) {
             return Container(
               decoration: const BoxDecoration(

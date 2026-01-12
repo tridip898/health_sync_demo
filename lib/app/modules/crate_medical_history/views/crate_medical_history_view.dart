@@ -225,10 +225,9 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
       backgroundColor: Colors.transparent,
       builder: (context) {
         return DraggableScrollableSheet(
-          expand: false,
-          initialChildSize: 0.6,
-          minChildSize: 0.3,
-          maxChildSize: 0.95,
+          minChildSize: 0.7,
+          initialChildSize: .92,
+          snapSizes: const [0.7, 1],
           builder: (_, scrollController) {
             return Container(
               decoration: const BoxDecoration(
@@ -240,7 +239,7 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                 selectedIds: controller.selectedCategoryIds,
                 getId: (cat) => cat.diseaseCategoryId!,
                 getLabel: (cat) => cat.name ?? '',
-                scrollController: scrollController, // ✅ MUST
+                scrollController: scrollController,
                 onConfirm: () {
                   controller.selectedCategories.clear();
                   for (final cat in controller.categories) {

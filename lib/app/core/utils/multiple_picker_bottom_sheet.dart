@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../widgets/custom_button.dart';
+
 
 class MultiSelectBottomSheet<T> extends StatelessWidget {
   final List<T> items;
@@ -81,15 +83,9 @@ class MultiSelectBottomSheet<T> extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               height: 48,
-              child: ElevatedButton(
+              child: CustomButton(
                 onPressed: onConfirm ?? () => Get.back(),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                child: const Text('Confirm', style: TextStyle(fontSize: 14)),
+                text: 'Confirm',
               ),
             ),
           ),
