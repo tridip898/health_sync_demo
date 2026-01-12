@@ -8,6 +8,7 @@ class MultiSelectBottomSheet<T> extends StatelessWidget {
   final String Function(T item) getId;
   final String Function(T item) getLabel;
   final VoidCallback? onConfirm;
+  final ScrollController scrollController;
 
   const MultiSelectBottomSheet({
     super.key,
@@ -16,6 +17,7 @@ class MultiSelectBottomSheet<T> extends StatelessWidget {
     required this.getId,
     required this.getLabel,
     this.onConfirm,
+    required this.scrollController,
   });
 
   @override
@@ -46,6 +48,7 @@ class MultiSelectBottomSheet<T> extends StatelessWidget {
 
               return ListView.separated(
                 padding: const EdgeInsets.all(16),
+                controller: scrollController,
                 itemCount: items.length,
                 separatorBuilder: (_, __) => const Divider(height: 1),
                 itemBuilder: (_, index) {

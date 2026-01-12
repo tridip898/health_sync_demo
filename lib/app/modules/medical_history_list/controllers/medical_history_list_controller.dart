@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 import '../../../core/extensions/widget_extension.dart';
 import '../../../core/utils/toaster.dart';
+import '../../../core/widgets/loading.dart';
 import '../../../data/model/medical_history_response_model.dart';
 import '../../../data/repository/medical_history_repository.dart';
 
@@ -24,6 +25,7 @@ class MedicalHistoryListController extends GetxController {
   }
 
   Future<void> fetchMedicalHistory() async {
+
     isLoading.value = true;
     final id = patientId;
     if (id == null) {
@@ -35,10 +37,10 @@ class MedicalHistoryListController extends GetxController {
       );
 
       response.fold(
-        (error) {
+            (error) {
           Toaster.error(error.message ?? 'Failed to load medical history');
         },
-        (success) {
+            (success) {
           medicalHistoryList.assignAll(success.data ?? []);
         },
       );

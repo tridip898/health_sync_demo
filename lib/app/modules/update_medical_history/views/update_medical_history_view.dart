@@ -16,6 +16,7 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
   Widget build(BuildContext context) {
     final c = controller;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: CustomAppBar(title: "Add Medical History"),
       body: Obx(
         () => Stack(
@@ -199,29 +200,48 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: Colors.white,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (_) => MultiSelectBottomSheet<DiseaseCategoryModel>(
-        items: controller.categories,
-        selectedIds: controller.selectedCategoryIds,
-        getId: (cat) => cat.diseaseCategoryId!,
-        getLabel: (cat) => cat.name ?? '',
-        onConfirm: () {
-          controller.selectedCategories.clear();
-          for (final cat in controller.categories) {
-            if (controller.selectedCategoryIds.contains(cat.diseaseCategoryId)) {
-              controller.selectedCategories.add({
-                'id': cat.diseaseCategoryId!,
-                'name': cat.name ?? '',
-              });
-            }
-          }
-          Get.back(); // close bottom sheet
-        },
-      ),
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return DraggableScrollableSheet(
+          expand: false,
+          initialChildSize: 0.8,
+          minChildSize: 0.3,
+          maxChildSize: 0.95,
+          builder: (_, scrollController) {
+            return Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+              ),
+              child: MultiSelectBottomSheet<DiseaseCategoryModel>(
+                items: controller.categories,
+                selectedIds: controller.selectedCategoryIds,
+                getId: (cat) => cat.diseaseCategoryId!,
+                getLabel: (cat) => cat.name ?? '',
+                scrollController: scrollController,
+                onConfirm: () {
+                  controller.selectedCategories.clear();
+                  for (final cat in controller.categories) {
+                    if (controller.selectedCategoryIds
+                        .contains(cat.diseaseCategoryId)) {
+                      controller.selectedCategories.add({
+                        'id': cat.diseaseCategoryId!,
+                        'name': cat.name ?? '',
+                      });
+                    }
+                  }
+                  Get.back();
+                },
+              ),
+            );
+          },
+        );
+      },
     );
+
+
+
+
   }
 
 
