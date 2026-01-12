@@ -30,6 +30,8 @@ abstract class Routes {
   static const APPOINTMENT_LIST = _Paths.APPOINTMENT_LIST;
   static const APPOINTMENT_DETAILS = _Paths.APPOINTMENT_DETAILS;
   static const COMPLAIN_SUMMARY = _Paths.COMPLAIN_SUMMARY;
+  static const USER_BINDINGS_LIST = _Paths.USER_BINDINGS_LIST;
+  static const PROFILE_SETUP_OPTIONS = _Paths.PROFILE_SETUP_OPTIONS;
 }
 
 abstract class _Paths {
@@ -61,4 +63,6 @@ abstract class _Paths {
   static const APPOINTMENT_LIST = '/appointment-list';
   static const APPOINTMENT_DETAILS = '/appointment-details';
   static const COMPLAIN_SUMMARY = '/complain-summary';
+  static const USER_BINDINGS_LIST = '/user-bindings-list';
+  static const PROFILE_SETUP_OPTIONS = '/profile-setup-options';
 }

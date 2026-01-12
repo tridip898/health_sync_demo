@@ -68,4 +68,5 @@ class Apis {
   static String deleteHistory(String patientId, String medicalHistoryId) =>
       '$baseUrl/patient/$patientId/medical-history/$medicalHistoryId';
 
+  static String get userBinding => '$baseUrl/user-binding';
 }

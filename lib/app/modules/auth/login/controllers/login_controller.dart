@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/constants/enums.dart';
+import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/utils/toaster.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
@@ -45,7 +47,9 @@ class LoginController extends GetxController {
         },
         (successRes) async {
           await appController.setToken(successRes.data?.accessToken ?? '');
-          if (successRes.data?.user?.profile == null) {
+          Get.toNamed(Routes.PROFILE_SETUP_OPTIONS);
+          /* if (successRes.data?.user?.profile == null) {
+
             Get.toNamed(Routes.CREATE_PROFILE);
           } else if (successRes.data?.user?.userRoles?.isEmpty ?? false) {
             await fetchRoleList();
@@ -57,7 +61,7 @@ class LoginController extends GetxController {
             } else {
               await fetchRoleList(isRoleSelection: false);
             }
-          }
+          }*/
         },
       );
     }
