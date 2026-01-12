@@ -50,14 +50,19 @@ class MedicalHistoryDetailsView
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                      child: Image.asset(
-                        AssetPath.iconMedicalHistory,
+                      child: Container(
                         width: 56,
                         height: 56,
-                        fit: BoxFit.cover,
+                        color: Colors.green.shade50, // optional background
+                        alignment: Alignment.center,
+                        child: const Icon(
+                          Icons.medical_services,
+                          size: 32,
+                          color: Colors.green,
+                        ),
                       ),
-                    ),
-
+                    )
+                    ,
                     const SizedBox(height: 12),
                     Text(
                       history.title ?? '',
