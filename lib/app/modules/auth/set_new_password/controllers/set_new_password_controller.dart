@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../../../core/extensions/widget_extension.dart';
-import '../../../core/utils/toaster.dart';
-import '../../../core/widgets/loading.dart';
-import '../../../data/repository/auth_repository.dart';
-import '../../../routes/app_pages.dart';
+import '../../../../core/extensions/widget_extension.dart';
+import '../../../../core/utils/toaster.dart';
+import '../../../../core/widgets/loading.dart';
+import '../../../../data/repository/auth_repository.dart';
+import '../../../../routes/app_pages.dart';
 
 class SetNewPasswordController extends GetxController {
   final AuthRepository authRepository = AuthRepository();

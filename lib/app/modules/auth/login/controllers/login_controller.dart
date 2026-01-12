@@ -19,7 +19,7 @@ class LoginController extends GetxController {
   @override
   void onInit() {
     phoneController.text = '01731109791';
-    passwordController.text = 'Tridip-1234';
+    passwordController.text = '1234567890';
     super.onInit();
   }
 
@@ -45,7 +45,9 @@ class LoginController extends GetxController {
         },
         (successRes) async {
           await appController.setToken(successRes.data?.accessToken ?? '');
-          if (successRes.data?.user?.userRoles?.isEmpty ?? false) {
+          if (successRes.data?.user?.profile == null) {
+            Get.toNamed(Routes.CREATE_PROFILE);
+          } else if (successRes.data?.user?.userRoles?.isEmpty ?? false) {
             await fetchRoleList();
           } else {
             await appController.loadProfile();
