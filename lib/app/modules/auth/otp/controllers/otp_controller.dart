@@ -61,7 +61,7 @@ class OtpController extends GetxController {
     return phone;
   }
 
-  // Verify OTP
+
   void onVerifyOtp() async {
     if (otp.value.length != 4) {
       Toaster.error("Please enter valid OTP");
