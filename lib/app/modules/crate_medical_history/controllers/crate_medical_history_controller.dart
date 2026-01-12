@@ -5,6 +5,7 @@ import 'package:health_sync_question/app/modules/medical_history_list/controller
 
 import '../../../core/extensions/widget_extension.dart';
 import '../../../core/utils/toaster.dart';
+import '../../../core/widgets/loading.dart';
 import '../../../data/model/create_medical_history_request.dart';
 import '../../../data/repository/medical_history_repository.dart';
 
