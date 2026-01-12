@@ -17,7 +17,7 @@ class ForgotPassVerifyOtpView extends GetView<ForgotPassVerifyOtpController> {
       onTap: appController.closeKeyboard,
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: CustomAppBar(title: 'OTP'),
+        appBar: CustomAppBar(title: 'Forgot Password OTP'),
         body: SafeArea(
           child: Center(
             child: SingleChildScrollView(

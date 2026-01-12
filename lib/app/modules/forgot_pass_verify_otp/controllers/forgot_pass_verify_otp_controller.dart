@@ -90,7 +90,7 @@ class ForgotPassVerifyOtpController extends GetxController {
       (success) {
         isOtpError.value = false;
         Get.toNamed(
-          Routes.SET_NEW_PASSWORD,
+          Routes.CHANGE_PASSWORD,
           arguments: {
             "phoneNumber": phoneNumber,
             "otpToken": success.data?.otpToken,
