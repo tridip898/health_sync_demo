@@ -112,7 +112,7 @@ class MedicalHistoryDetailsController extends GetxController {
         Toaster.success(
           success.message ?? "Medical history deleted successfully",
         );
-        medicalHistoryListController.fetchMedicalHistory();
+        Get.find<MedicalHistoryListController>().fetchMedicalHistory();
         Get.back();
 
       },

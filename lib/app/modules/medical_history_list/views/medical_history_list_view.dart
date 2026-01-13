@@ -6,6 +6,7 @@ import 'package:health_sync_question/app/modules/medical_history_list/views/widg
 
 import '../../../core/extensions/widget_extension.dart';
 import '../../../core/widgets/custom_button.dart';
+import '../../../core/widgets/loading.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/medical_history_list_controller.dart';
 
@@ -54,19 +55,22 @@ class MedicalHistoryListView extends GetView<MedicalHistoryListController> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Obx(() {
               if (controller.isLoading.value) {
-                return const Center(child: CircularProgressIndicator());
+                // Show loader while fetching
+                return Center(child: SizedBox());
               }
 
-              if (controller.medicalHistoryList.isEmpty) {
+              // After loading is complete
+              final list = controller.medicalHistoryList;
+
+              if (list.isEmpty) {
                 return RefreshIndicator(
                   backgroundColor: Colors.white,
-                  onRefresh: controller.fetchMedicalHistory,
+                  onRefresh: controller.onRefresh,
                   child: ListView(
                     physics: const AlwaysScrollableScrollPhysics(),
                     children: [
                       const SizedBox(height: 200),
-                      Center(child: NoDataFound()),
-
+                      const Center(child: NoDataFound()),
                       const SizedBox(height: 16),
                       CustomButton(
                         text: 'Add Medical History',
@@ -79,16 +83,15 @@ class MedicalHistoryListView extends GetView<MedicalHistoryListController> {
                 );
               }
 
+              // Show list if data exists
               return RefreshIndicator(
                 backgroundColor: Colors.white,
-                onRefresh: controller.fetchMedicalHistory,
+                onRefresh: controller.onRefresh,
                 child: ListView.builder(
-                  itemCount: controller.medicalHistoryList.length,
+                  itemCount: list.length,
                   itemBuilder: (context, index) {
-                    final history = controller.medicalHistoryList[index];
-                    final colorPair =
-                        medicalColors[index % medicalColors.length];
-
+                    final history = list[index];
+                    final colorPair = medicalColors[index % medicalColors.length];
                     return MedicalHistoryTile(
                       history: history,
                       colorPair: colorPair,
@@ -99,6 +102,8 @@ class MedicalHistoryListView extends GetView<MedicalHistoryListController> {
             }),
           ),
         ),
+
+
       ),
     );
   }

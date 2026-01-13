@@ -95,8 +95,7 @@ class CrateMedicalHistoryController extends GetxController {
       },
       (success) {
         Get.back();
-        medicalHistoryListController.fetchMedicalHistory();
-        Get.snackbar('Success', 'Medical history added');
+        Get.find<MedicalHistoryListController>().fetchMedicalHistory();
       },
     );
   }
