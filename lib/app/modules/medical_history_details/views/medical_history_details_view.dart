@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
+import 'package:health_sync_question/app/core/widgets/custom_button.dart';
+import 'package:health_sync_question/app/core/widgets/no_data_found.dart';
 
-import '../../../core/constants/asset_path.dart';
 import '../../../core/extensions/widget_extension.dart';
 import '../../../core/utils/date_extensions.dart';
 import '../../../core/utils/delete_confirm_dialog.dart';
@@ -19,18 +20,14 @@ class MedicalHistoryDetailsView
       backgroundColor: Colors.white,
       appBar: CustomAppBar(title: "Medical History"),
       body: Obx(() {
-        if (controller.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
+        if (!controller.hasLoadedOnce.value) {
+          return const SizedBox();
         }
 
         final history = controller.history.value;
+
         if (history == null) {
-          return Center(
-            child: Text(
-              'No data found',
-              style: textStyle.regular.s14.copyWith(color: Colors.grey),
-            ),
-          );
+          return const Center(child: NoDataFound());
         }
 
         final categories =
@@ -50,14 +47,19 @@ class MedicalHistoryDetailsView
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),
-                      child: Image.asset(
-                        AssetPath.iconMedicalHistory,
+                      child: Container(
                         width: 56,
                         height: 56,
-                        fit: BoxFit.cover,
+                        color: Colors.green.shade50,
+                        // optional background
+                        alignment: Alignment.center,
+                        child: const Icon(
+                          Icons.medical_services,
+                          size: 32,
+                          color: Colors.green,
+                        ),
                       ),
                     ),
-
                     const SizedBox(height: 12),
                     Text(
                       history.title ?? '',
@@ -75,12 +77,18 @@ class MedicalHistoryDetailsView
 
               _InfoCard(
                 title: 'DATE RECORD',
-                child: Text(history.date?.toDdMmmYyyy() ?? '',style: textStyle.regular.s14,),
+                child: Text(
+                  history.date?.toDdMmmYyyy() ?? '',
+                  style: textStyle.regular.s14,
+                ),
               ),
 
               _InfoCard(
                 title: 'DESCRIPTION',
-                child: Text(history.description ?? '',style: textStyle.regular.s14),
+                child: Text(
+                  history.description ?? '',
+                  style: textStyle.regular.s14,
+                ),
               ),
 
               if (categories.isNotEmpty)
@@ -101,14 +109,8 @@ class MedicalHistoryDetailsView
                 children: [
                   SizedBox(
                     width: double.infinity,
-                    child: ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
+                    child: CustomButton(
+                      text: "Edit Entry",
                       onPressed: () {
                         Get.toNamed(
                           Routes.UPDATE_MEDICAL_HISTORY,
@@ -119,8 +121,6 @@ class MedicalHistoryDetailsView
                           },
                         );
                       },
-
-                      label:  Text('Edit Entry',style: textStyle.regular.s14),
                     ),
                   ),
 
@@ -128,20 +128,17 @@ class MedicalHistoryDetailsView
 
                   SizedBox(
                     width: double.infinity,
-                    child: OutlinedButton.icon(
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: Colors.red,
-                        backgroundColor: Colors.white,
-                        side: const BorderSide(color: Colors.red),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
+                    child: CustomButton(
+                      text: "Delete Entry",
+                      variant: CustomButtonVariant.outlined,
+                      borderColor: Colors.red,
+                      textColor: Colors.red,
                       onPressed: () {
                         Get.dialog(
                           DeleteConfirmDialog(
                             title: "Delete Medical History",
-                            subtitle: "Are you sure you want to delete this medical history?",
+                            subtitle:
+                                "Are you sure you want to delete this medical history?",
                             onYes: () {
                               controller.deleteMedicalHistory();
                             },
@@ -149,8 +146,6 @@ class MedicalHistoryDetailsView
                           barrierDismissible: false,
                         );
                       },
-
-                      label:  Text('Delete Entry',style: textStyle.regular.s14),
                     ),
                   ),
                 ],

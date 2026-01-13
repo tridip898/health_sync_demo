@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:health_sync_question/app/modules/medical_history_details/controllers/medical_history_details_controller.dart';
 
 import '../../../core/utils/toaster.dart';
 import '../../../data/model/create_medical_history_request.dart';
@@ -8,6 +9,8 @@ import 'package:health_sync_question/app/data/model/disease_category.dart';
 
 class UpdateMedicalHistoryController extends GetxController {
   final MedicalHistoryRepository repository = MedicalHistoryRepository();
+
+
 
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
@@ -30,7 +33,6 @@ class UpdateMedicalHistoryController extends GetxController {
 
     final history = args['history'];
 
-    /// Prefill fields
     titleController.text = history.title ?? '';
     descriptionController.text = history.description ?? '';
     selectedDate.value = parseApiDate(history.date);
@@ -64,15 +66,26 @@ class UpdateMedicalHistoryController extends GetxController {
       request: request,
     );
 
-    response.fold((error) => Toaster.error(error.message ?? 'Update failed'), (
-      _,
-    ) {
-      Toaster.success('Medical history updated');
-      Get.back(result: true);
-    });
+    response.fold(
+          (error) {
+        Toaster.error(error.message ?? 'Update failed');
+      },
+          (_) {
+        Toaster.success('Medical history updated');
+        if (Get.isRegistered<MedicalHistoryDetailsController>()) {
+          final controller = Get.find<MedicalHistoryDetailsController>();
+          controller.fetchDetails();
+        }
+
+        if (Get.key.currentState?.canPop() == true) {
+          Get.back(result: true);
+        }
+      },
+    );
 
     isLoading.value = false;
   }
+
 
   void removeCategory(String id) {
     selectedCategories.removeWhere((e) => e['id'] == id);

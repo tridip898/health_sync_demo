@@ -11,6 +11,8 @@ class SetNewPasswordController extends GetxController {
   final AuthRepository authRepository = AuthRepository();
 
   final formKey = GlobalKey<FormState>();
+  bool get isAtLeast10Chars =>
+      passwordController.text.trim().length >= 10;
 
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
@@ -32,10 +34,18 @@ class SetNewPasswordController extends GetxController {
       Get.offAllNamed(Routes.LOGIN);
     }
 
-    passwordController.addListener(_checkPasswordMatch);
-    confirmPasswordController.addListener(_checkPasswordMatch);
+     passwordController.addListener(_onPasswordChanged);
+    confirmPasswordController.addListener(_onPasswordChanged);
   }
 
+  void _onPasswordChanged() {
+    final password = passwordController.text.trim();
+    final confirm = confirmPasswordController.text.trim();
+
+    isPasswordMatched = password.isNotEmpty && password == confirm;
+
+    update();
+  }
   void SetPassword() async {
     if (!formKey.currentState!.validate()) return;
 
@@ -66,20 +76,6 @@ class SetNewPasswordController extends GetxController {
     );
   }
 
-  void _checkPasswordMatch() {
-    final password = passwordController.text.trim();
-    final confirmPassword = confirmPasswordController.text.trim();
-
-    final matched =
-        password.isNotEmpty &&
-        confirmPassword.isNotEmpty &&
-        password == confirmPassword;
-
-    if (matched != isPasswordMatched) {
-      isPasswordMatched = matched;
-      update();
-    }
-  }
 
   @override
   void onClose() {
