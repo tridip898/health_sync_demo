@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:health_sync_question/app/core/widgets/custom_button.dart';
+
+import '../extensions/widget_extension.dart';
 
 class DeleteConfirmDialog extends StatelessWidget {
   final String title;
@@ -17,6 +20,8 @@ class DeleteConfirmDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      insetPadding: EdgeInsets.symmetric(horizontal: 16),
+      backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
@@ -25,17 +30,18 @@ class DeleteConfirmDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // 🔴 Top Icon
+
             Container(
+
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: Colors.red.withOpacity(0.1),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
+              child:  Icon(
                 Icons.delete_forever,
-                color: Colors.red,
-                size: 40,
+                color: red.base500,
+                size: 30,
               ),
             ),
 
@@ -69,23 +75,14 @@ class DeleteConfirmDialog extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: OutlinedButton(
-                    onPressed: () => Get.back(),
-                    child: const Text("No"),
-                  ),
+                  child: CustomButton(text: 'No', variant: CustomButtonVariant.filled, borderColor: Colors.red,textColor: Colors.black,backgroundColor: gray.base100,  onPressed: () => Get.back(),),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
-                    ),
-                    onPressed: () {
-                      Get.back();
-                      onYes();
-                    },
-                    child: const Text("Yes"),
-                  ),
+                  child:CustomButton(text: 'Yes',  onPressed: () {
+                    Get.back();
+                    onYes();
+                  },),
                 ),
               ],
             ),
