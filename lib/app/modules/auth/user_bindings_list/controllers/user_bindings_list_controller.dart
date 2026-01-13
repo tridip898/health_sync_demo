@@ -3,17 +3,25 @@ import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/utils/toaster.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
 import 'package:health_sync_question/app/data/model/binding_user_list_response_model.dart';
+import 'package:health_sync_question/app/data/model/profile_model.dart';
 import 'package:health_sync_question/app/data/repository/auth_repository.dart';
 import 'package:health_sync_question/app/modules/auth/user_bindings_list/widgets/link_user_dialog.dart';
+import 'package:health_sync_question/app/routes/app_pages.dart';
 
 class UserBindingsListController extends GetxController {
   final AuthRepository _authRepository = AuthRepository();
-  final RxList<BindingUserModel> bindingUserList = <BindingUserModel>[].obs;
+  final TextEditingController searchController = TextEditingController();
+  final RxList<ProfileModel> bindingUserList = <ProfileModel>[].obs;
+  final RxList<ProfileModel> filteredBindingUserList =
+      <ProfileModel>[].obs;
   final RxBool isLoading = true.obs;
-  final Rx<BindingUserModel> selectedUser = BindingUserModel().obs;
+  final Rx<ProfileModel> selectedUser = ProfileModel().obs;
 
   @override
   void onInit() {
+    searchController.addListener(() {
+      return searchUser(searchController.text);
+    });
     super.onInit();
   }
 
@@ -38,17 +46,55 @@ class UserBindingsListController extends GetxController {
       },
       (success) {
         bindingUserList.value = success.data ?? [];
+        filteredBindingUserList.addAll(bindingUserList);
       },
     );
     isLoading.value = false;
   }
 
-  void selectUser(BindingUserModel user) {
+  void selectUser(ProfileModel user) {
     selectedUser.value = user;
     Get.dialog(
       Dialog(
-        child: LinkUserDialog(user: user),
+        child: LinkUserDialog(
+          user: user,
+          confirmTap: () {
+            bindingUserProfile(user.profileId);
+          },
+        ),
       ),
     );
+  }
+
+  void bindingUserProfile(String? profileId) async {
+    Loading.show();
+    final response = await _authRepository.createUserBinding(
+      profileId: profileId ?? '',
+    );
+    Loading.hide();
+    Get.back();
+    response.fold(
+      (error) {
+        Toaster.error(error.message ?? 'Failed to bind user profile');
+      },
+      (success) {
+        Toaster.success('User profile linked successfully');
+        Get.until((route) => Get.currentRoute == Routes.LOGIN);
+      },
+    );
+  }
+
+  void searchUser(String text) {
+    List<ProfileModel> result = [];
+    if (text.isEmpty) {
+      result = filteredBindingUserList;
+    } else {
+      result = filteredBindingUserList
+          .where(
+            (user) => user.fullName!.toLowerCase().contains(text.toLowerCase()),
+          )
+          .toList();
+    }
+    bindingUserList.value = result;
   }
 }

@@ -4,12 +4,13 @@ import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/string_extension.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/widgets/custom_cache_network_image.dart';
-import 'package:health_sync_question/app/data/model/binding_user_list_response_model.dart';
+import 'package:health_sync_question/app/data/model/profile_model.dart';
 
 class UserCard extends StatelessWidget {
-  final BindingUserModel user;
+  final ProfileModel user;
   final bool selected;
   final Function()? onTap;
+  final String? status;
 
   const UserCard({
     super.key,
@@ -17,6 +18,7 @@ class UserCard extends StatelessWidget {
     this.selected = false,
     required this.user,
     this.onTap,
+    this.status,
   });
 
   @override
@@ -30,7 +32,7 @@ class UserCard extends StatelessWidget {
           borderRadius: borderRadius12,
           border: Border.all(
             color: selected ? green.base200 : Colors.transparent,
-            width: 1
+            width: 1,
           ),
           boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 6)],
         ),
@@ -83,7 +85,11 @@ class UserCard extends StatelessWidget {
                       Text(user.fullName ?? '', style: textStyle.bold.s18),
                       Row(
                         children: [
-                          Icon(Icons.location_on, size: 14, color: gray.base400),
+                          Icon(
+                            Icons.location_on,
+                            size: 14,
+                            color: gray.base400,
+                          ),
                           gapW4,
                           Expanded(
                             child: Text(
@@ -98,12 +104,14 @@ class UserCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Icon(
-                  selected
-                      ? Icons.radio_button_checked
-                      : Icons.radio_button_unchecked,
-                  color: selected ? green.base300 : gray.base300,
-                ),
+                status != null
+                    ? _statusCard(status)
+                    : Icon(
+                        selected
+                            ? Icons.radio_button_checked
+                            : Icons.radio_button_unchecked,
+                        color: selected ? green.base300 : gray.base300,
+                      ),
               ],
             ),
 
@@ -116,7 +124,7 @@ class UserCard extends StatelessWidget {
                 Expanded(
                   child: _infoRow(
                     Icons.cake,
-                    (user.dateOfBirth?.formatToDdMmmYyyy?? ''),
+                    (user.dateOfBirth?.formatToDdMmmYyyy ?? ''),
                   ),
                 ),
               ],
@@ -150,5 +158,40 @@ class UserCard extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _statusCard(String? status) {
+    return Container(
+      decoration: BoxDecoration(
+        color: _getStatusColor(status)?.withValues(alpha: .2),
+        borderRadius: radius16,
+        border: Border.all(
+          color:
+              _getStatusColor(status)?.withValues(alpha: .3) ??
+              Colors.transparent,
+          width: 1,
+        ),
+      ),
+      padding: padSym(horizontal: 6, vertical: 4),
+      child: Text(
+        status ?? '',
+        style: textStyle.semiBold.s12.copyWith(color: _getStatusColor(status)),
+      ),
+    );
+  }
+
+  Color? _getStatusColor(String? status) {
+    switch (status?.toLowerCase()) {
+      case 'pending':
+        return Colors.orangeAccent;
+      case 'approved':
+        return green.base300;
+      case 'rejected':
+        return Colors.red;
+      case 'cancelled':
+        return Colors.red;
+      default:
+        return null;
+    }
   }
 }

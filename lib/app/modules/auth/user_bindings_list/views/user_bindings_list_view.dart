@@ -24,6 +24,7 @@ class UserBindingsListView extends GetView<UserBindingsListController> {
             CustomTextFormField(
               labelText: '',
               hintText: 'Search by name or ID...',
+              controller: controller.searchController,
               prefixIcon: Padding(
                 padding: padSym(horizontal: 12),
                 child: Icon(Icons.search, color: gray.base400, size: 20),

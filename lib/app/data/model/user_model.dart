@@ -13,6 +13,7 @@ class UserModel {
   List<UserRoleModel>? userRoles;
   ProfileModel? profile;
   CurrentRoleModel? currentRole;
+  UserBindRequestId? userBindRequestId;
 
   UserModel({
     this.userId,
@@ -25,6 +26,7 @@ class UserModel {
     this.userRoles,
     this.profile,
     this.currentRole,
+    this.userBindRequestId,
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {
@@ -47,6 +49,9 @@ class UserModel {
     currentRole = json['currentRole'] != null
         ? CurrentRoleModel.fromJson(json['currentRole'])
         : null;
+    userBindRequestId = json['userBindRequestId'] != null
+        ? new UserBindRequestId.fromJson(json['userBindRequestId'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -66,6 +71,47 @@ class UserModel {
     }
     if (currentRole != null) {
       data['currentRole'] = currentRole!.toJson();
+    }
+    if (this.userBindRequestId != null) {
+      data['userBindRequestId'] = this.userBindRequestId?.toJson();
+    }
+    return data;
+  }
+}
+
+class UserBindRequestId {
+  String? userBindRequestId;
+  String? userBindRequestStatus;
+  String? profileId;
+  String? userId;
+  ProfileModel? profile;
+
+  UserBindRequestId({
+    this.userBindRequestId,
+    this.userBindRequestStatus,
+    this.profileId,
+    this.userId,
+    this.profile,
+  });
+
+  UserBindRequestId.fromJson(Map<String, dynamic> json) {
+    userBindRequestId = json['userBindRequestId'];
+    userBindRequestStatus = json['userBindRequestStatus'];
+    profileId = json['profileId'];
+    userId = json['userId'];
+    profile = json['profile'] != null
+        ? ProfileModel.fromJson(json['profile'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['userBindRequestId'] = this.userBindRequestId;
+    data['userBindRequestStatus'] = this.userBindRequestStatus;
+    data['profileId'] = this.profileId;
+    data['userId'] = this.userId;
+    if (profile != null) {
+      data['profile'] = profile!.toJson();
     }
     return data;
   }

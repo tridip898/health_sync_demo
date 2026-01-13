@@ -1,7 +1,8 @@
+import 'package:health_sync_question/app/data/model/profile_model.dart';
 import 'package:network/network.dart';
 
 class BindingUserListResponseModel
-    extends BaseResponseModel<List<BindingUserModel>> {
+    extends BaseResponseModel<List<ProfileModel>> {
   bool? status;
   int? statusCode;
 
@@ -17,9 +18,9 @@ class BindingUserListResponseModel
     message = json['message'];
     statusCode = json['status_code'];
     if (json['data'] != null) {
-      data = <BindingUserModel>[];
+      data = <ProfileModel>[];
       json['data'].forEach((v) {
-        data?.add(new BindingUserModel.fromJson(v));
+        data?.add(new ProfileModel.fromJson(v));
       });
     }
   }
@@ -36,56 +37,3 @@ class BindingUserListResponseModel
   }
 }
 
-class BindingUserModel {
-  String? profileId;
-  String? fullName;
-  String? gender;
-  String? dateOfBirth;
-  String? address;
-  String? image;
-  String? publicPhoneNumber;
-  String? publicEmail;
-  String? createdAt;
-  String? updatedAt;
-
-  BindingUserModel({
-    this.profileId,
-    this.fullName,
-    this.gender,
-    this.dateOfBirth,
-    this.address,
-    this.image,
-    this.publicPhoneNumber,
-    this.publicEmail,
-    this.createdAt,
-    this.updatedAt,
-  });
-
-  BindingUserModel.fromJson(Map<String, dynamic> json) {
-    profileId = json['profileId'];
-    fullName = json['fullName'];
-    gender = json['gender'];
-    dateOfBirth = json['dateOfBirth'];
-    address = json['address'];
-    image = json['image'];
-    publicPhoneNumber = json['publicPhoneNumber'];
-    publicEmail = json['publicEmail'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['profileId'] = this.profileId;
-    data['fullName'] = this.fullName;
-    data['gender'] = this.gender;
-    data['dateOfBirth'] = this.dateOfBirth;
-    data['address'] = this.address;
-    data['image'] = this.image;
-    data['publicPhoneNumber'] = this.publicPhoneNumber;
-    data['publicEmail'] = this.publicEmail;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    return data;
-  }
-}

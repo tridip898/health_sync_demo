@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,10 +49,14 @@ class LoginController extends GetxController {
         },
         (successRes) async {
           await appController.setToken(successRes.data?.accessToken ?? '');
-          Get.toNamed(Routes.PROFILE_SETUP_OPTIONS);
-          /* if (successRes.data?.user?.profile == null) {
-
-            Get.toNamed(Routes.CREATE_PROFILE);
+          if (successRes.data?.user?.profile == null) {
+            log('user bind ${successRes.data?.user?.userBindRequestId?.toJson()}');
+            Get.toNamed(
+              Routes.PROFILE_SETUP_OPTIONS,
+              arguments: {
+                'user_bind':successRes.data?.user?.userBindRequestId
+              },
+            );
           } else if (successRes.data?.user?.userRoles?.isEmpty ?? false) {
             await fetchRoleList();
           } else {
@@ -61,7 +67,7 @@ class LoginController extends GetxController {
             } else {
               await fetchRoleList(isRoleSelection: false);
             }
-          }*/
+          }
         },
       );
     }

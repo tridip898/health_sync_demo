@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
+import 'package:health_sync_question/app/data/model/user_model.dart';
+import 'package:health_sync_question/app/routes/app_pages.dart';
 
 class ProfileSetupOptionsController extends GetxController {
-  //TODO: Implement ProfileSetupOptionsController
+  final UserBindRequestId? isUserBindingExist = Get.arguments['user_bind'];
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +20,11 @@ class ProfileSetupOptionsController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  void linkProfileClick() {
+    Get.toNamed(Routes.USER_BINDINGS_LIST);
+  }
+
+  void createProfileClick() {
+    Get.toNamed(Routes.CREATE_PROFILE);
+  }
 }

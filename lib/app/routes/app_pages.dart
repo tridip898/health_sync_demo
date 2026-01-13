@@ -26,8 +26,8 @@ import '../modules/crate_medical_history/bindings/crate_medical_history_binding.
 import '../modules/crate_medical_history/views/crate_medical_history_view.dart';
 import '../modules/create_appointment/bindings/create_appointment_binding.dart';
 import '../modules/create_appointment/views/create_appointment_view.dart';
-import '../modules/create_profile/bindings/create_profile_binding.dart';
-import '../modules/create_profile/views/create_profile_view.dart';
+import '../modules/auth/create_profile/bindings/create_profile_binding.dart';
+import '../modules/auth/create_profile/views/create_profile_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/delete_medical_history/bindings/delete_medical_history_binding.dart';

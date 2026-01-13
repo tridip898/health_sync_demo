@@ -26,10 +26,13 @@ class PrescriptionView extends GetView<PrescriptionController> {
                 return SizedBox(
                   height: Get.height * .7,
                   child: Center(
-                    child: Text(
-                      "No prescription has been generated for you.",
-                      style: textStyle.semiBold.s18,
-                      textAlign: TextAlign.center,
+                    child: Padding(
+                      padding: padSym(horizontal: 16),
+                      child: Text(
+                        "No prescription has been generated for you.",
+                        style: textStyle.semiBold.s18,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                 );
