@@ -1,5 +1,7 @@
 import 'package:common/common.dart';
 import 'package:health_sync_question/app/core/config/network/apis.dart';
+import 'package:health_sync_question/app/data/model/binding_user_list_response_model.dart';
+import 'package:health_sync_question/app/data/model/binding_user_response_model.dart';
 import 'package:health_sync_question/app/data/model/login_response_model.dart';
 import 'package:health_sync_question/app/data/model/role_list_response.dart';
 import 'package:health_sync_question/app/data/model/user_current_role_model.dart';
@@ -95,6 +97,24 @@ class AuthRepository extends BaseRepository {
     return patch<LoginResponseModel>(
       path: Apis.switchRole(roleId),
       responseCompiler: LoginResponseModel.fromJson,
+    );
+  }
+
+  Future<Either<ErrorResponse, BindingUserListResponseModel>>
+  getUserBindingList() {
+    return get(
+      path: Apis.userBinding,
+      responseCompiler: BindingUserListResponseModel.fromJson,
+    );
+  }
+
+  Future<Either<ErrorResponse, BindingUserResponseModel>> createUserBinding({
+    required String profileId,
+  }) {
+    return post(
+      path: Apis.userBinding,
+      data: {'profileId': profileId},
+      responseCompiler: BindingUserResponseModel.fromJson,
     );
   }
 }

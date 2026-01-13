@@ -11,7 +11,7 @@ import 'package:health_sync_question/app/core/widgets/custom_chip_button.dart';
 import 'package:health_sync_question/app/core/widgets/custom_date_picker.dart';
 import 'package:health_sync_question/app/core/widgets/custom_image_picker.dart';
 import 'package:health_sync_question/app/core/widgets/custom_text_field.dart';
-import 'package:health_sync_question/app/modules/create_profile/controllers/create_profile_controller.dart';
+import 'package:health_sync_question/app/modules/auth/create_profile/controllers/create_profile_controller.dart';
 
 class CreateProfileView extends GetView<CreateProfileController> {
   const CreateProfileView({super.key});

@@ -9,6 +9,7 @@ import 'package:health_sync_question/app/core/utils/image_picker_utils.dart';
 import 'package:health_sync_question/app/core/utils/toaster.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
 import 'package:health_sync_question/app/data/repository/profile_repository.dart';
+import 'package:health_sync_question/app/routes/app_pages.dart';
 import 'package:intl/intl.dart';
 
 class CreateProfileController extends GetxController {
@@ -26,7 +27,7 @@ class CreateProfileController extends GetxController {
   final bool isEditProfile = Get.arguments ?? false;
   final Rx<DateTime?> dateOfBirth = Rx(null);
   Rx<File?> profileImage = Rx<File?>(null);
-  final RxString profileImageUrl="".obs;
+  final RxString profileImageUrl = "".obs;
 
   @override
   void onInit() {
@@ -44,7 +45,7 @@ class CreateProfileController extends GetxController {
       emailController.text = profile?.publicEmail ?? '';
       selectedGender.value = (profile?.gender)?.capitalizeFirst ?? 'Male';
 
-      profileImageUrl.value = profile?.image??'';
+      profileImageUrl.value = profile?.image ?? '';
       log("profileImageUrl $profileImageUrl");
       dobController.text = DateFormat(
         'dd-MM-yyyy',
@@ -74,7 +75,7 @@ class CreateProfileController extends GetxController {
   }
 
   void createProfileClick() async {
-    if (formKey.currentState!.validate()) {
+    if (formKey.currentState?.validate() ?? false) {
       Loading.show();
       final response = await _profileRepository.createProfile(
         data: {
@@ -87,7 +88,7 @@ class CreateProfileController extends GetxController {
           if (emailController.text.isNotEmpty)
             "publicEmail": emailController.text,
           if (profileImage.value != null)
-            "file": dio.MultipartFile.fromFile(
+            "file":await dio.MultipartFile.fromFile(
               profileImage.value?.path ?? '',
               filename: "doctor_${nameController.text}.jpg",
             ),
@@ -100,8 +101,7 @@ class CreateProfileController extends GetxController {
         },
         (success) async {
           Toaster.success(success.message ?? 'Profile created successfully');
-          await appController.loadProfile();
-          Get.back();
+          Get.until((route) => Get.currentRoute == Routes.LOGIN);
         },
       );
     }
@@ -122,7 +122,7 @@ class CreateProfileController extends GetxController {
   }
 
   updateProfileClick() async {
-    if (formKey.currentState!.validate()) {
+    if (formKey.currentState?.validate() ?? false) {
       Loading.show();
       final response = await _profileRepository.updateProfile(
         data: {

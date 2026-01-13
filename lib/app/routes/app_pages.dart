@@ -1,20 +1,33 @@
 import 'package:get/get.dart';
+
 import '../modules/appointment_details/bindings/appointment_details_binding.dart';
 import '../modules/appointment_details/views/appointment_details_view.dart';
 import '../modules/appointment_list/bindings/appointment_list_binding.dart';
 import '../modules/appointment_list/views/appointment_list_view.dart';
-import '../modules/crate_medical_history/bindings/crate_medical_history_binding.dart';
-import '../modules/crate_medical_history/views/crate_medical_history_view.dart';
 import '../modules/auth/change_password/bindings/change_password_binding.dart';
 import '../modules/auth/change_password/views/reset_password_view.dart';
+import '../modules/auth/forgot_password/bindings/forgot_password_binding.dart';
+import '../modules/auth/forgot_password/views/forgot_password_view.dart';
+import '../modules/auth/login/bindings/login_binding.dart';
+import '../modules/auth/login/views/login_view.dart';
+import '../modules/auth/otp/bindings/otp_binding.dart';
+import '../modules/auth/otp/views/otp_view.dart';
+import '../modules/auth/registration/bindings/registration_binding.dart';
+import '../modules/auth/registration/views/registration_view.dart';
+import '../modules/auth/set_new_password/bindings/set_new_password_binding.dart';
+import '../modules/auth/set_new_password/views/set_new_password_view.dart';
+import '../modules/auth/user_bindings_list/bindings/user_bindings_list_binding.dart';
+import '../modules/auth/user_bindings_list/views/user_bindings_list_view.dart';
 import '../modules/complain_summary/bindings/complain_summary_binding.dart';
 import '../modules/complain_summary/views/complain_summary_view.dart';
 import '../modules/complaint/bindings/complaint_binding.dart';
 import '../modules/complaint/views/complaint_view.dart';
+import '../modules/crate_medical_history/bindings/crate_medical_history_binding.dart';
+import '../modules/crate_medical_history/views/crate_medical_history_view.dart';
 import '../modules/create_appointment/bindings/create_appointment_binding.dart';
 import '../modules/create_appointment/views/create_appointment_view.dart';
-import '../modules/create_profile/bindings/create_profile_binding.dart';
-import '../modules/create_profile/views/create_profile_view.dart';
+import '../modules/auth/create_profile/bindings/create_profile_binding.dart';
+import '../modules/auth/create_profile/views/create_profile_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/delete_medical_history/bindings/delete_medical_history_binding.dart';
@@ -29,22 +42,14 @@ import '../modules/medical_history_details/bindings/medical_history_details_bind
 import '../modules/medical_history_details/views/medical_history_details_view.dart';
 import '../modules/medical_history_list/bindings/medical_history_list_binding.dart';
 import '../modules/medical_history_list/views/medical_history_list_view.dart';
-import '../modules/auth/forgot_password/bindings/forgot_password_binding.dart';
-import '../modules/auth/forgot_password/views/forgot_password_view.dart';
-import '../modules/auth/login/bindings/login_binding.dart';
-import '../modules/auth/login/views/login_view.dart';
-import '../modules/auth/otp/bindings/otp_binding.dart';
-import '../modules/auth/otp/views/otp_view.dart';
 import '../modules/prescription/bindings/prescription_binding.dart';
 import '../modules/prescription/views/prescription_view.dart';
 import '../modules/prescription_details/bindings/prescription_details_binding.dart';
 import '../modules/prescription_details/views/prescription_details_view.dart';
 import '../modules/profile_details/bindings/profile_details_binding.dart';
 import '../modules/profile_details/views/profile_details_view.dart';
-import '../modules/auth/registration/bindings/registration_binding.dart';
-import '../modules/auth/registration/views/registration_view.dart';
-import '../modules/auth/set_new_password/bindings/set_new_password_binding.dart';
-import '../modules/auth/set_new_password/views/set_new_password_view.dart';
+import '../modules/auth/profile_setup_options/bindings/profile_setup_options_binding.dart';
+import '../modules/auth/profile_setup_options/views/profile_setup_options_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/update_medical_history/bindings/update_medical_history_binding.dart';
@@ -182,6 +187,16 @@ class AppPages {
       name: _Paths.COMPLAIN_SUMMARY,
       page: () => const ComplainSummaryView(),
       binding: ComplainSummaryBinding(),
+    ),
+    GetPage(
+      name: _Paths.USER_BINDINGS_LIST,
+      page: () => const UserBindingsListView(),
+      binding: UserBindingsListBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE_SETUP_OPTIONS,
+      page: () => const ProfileSetupOptionsView(),
+      binding: ProfileSetupOptionsBinding(),
     ),
   ];
 }
