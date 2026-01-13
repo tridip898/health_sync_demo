@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
@@ -16,7 +17,7 @@ class MedicalHistoryDetailsController extends GetxController {
   final MedicalHistoryRepository repository = MedicalHistoryRepository();
   final MedicalHistoryListController medicalHistoryListController = Get.find();
 
-  final isLoading = true.obs;
+  final hasLoadedOnce = false.obs;
   final history = Rxn<MedicalHistoryModel>();
 
   String? patientId;
@@ -39,34 +40,52 @@ class MedicalHistoryDetailsController extends GetxController {
     patientId = args['patientId'] as String;
     medicalHistoryId = args['medicalHistoryId'] as String;
     colorPair = args['colorPair'] as ColorPair;
+
+  }
+  @override
+  void onReady() {
+    super.onReady();
     fetchDetails();
+
   }
 
+
   Future<void> fetchDetails() async {
-    isLoading.value = true;
     final id = patientId;
     final historyId = medicalHistoryId;
 
     if (id == null || historyId == null) {
+      Toaster.error('Invalid data');
+      hasLoadedOnce.value = true;
       return;
     }
 
-    final response = await repository.getPatientMedicalHistoryDetails(
-      patientId: id,
-      medicalHistoryId: historyId,
-    );
+    Loading.show();
 
-    response.fold(
-      (error) {
-        Toaster.error(error.message ?? 'Failed to load details');
-      },
-      (success) {
-        history.value = success.data;
-      },
-    );
+    try {
+      final response = await repository.getPatientMedicalHistoryDetails(
+        patientId: id,
+        medicalHistoryId: historyId,
+      );
 
-    isLoading.value = false;
+      response.fold(
+            (error) {
+          Toaster.error(error.message ?? 'Failed to load details');
+          history.value = null;
+        },
+            (success) {
+          history.value = success.data;
+        },
+      );
+    } finally {
+      hasLoadedOnce.value = true;
+      Loading.hide();
+    }
   }
+
+
+
+
 
   Future<void> deleteMedicalHistory() async {
     Loading.show();
