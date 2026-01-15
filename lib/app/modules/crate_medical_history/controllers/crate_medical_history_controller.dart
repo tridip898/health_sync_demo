@@ -13,8 +13,8 @@ class CrateMedicalHistoryController extends GetxController {
   final MedicalHistoryRepository repository = MedicalHistoryRepository();
   final MedicalHistoryListController medicalHistoryListController = Get.find();
 
-  final TextEditingController  titleController = TextEditingController();
-  final TextEditingController  descriptionController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
   final selectedDate = Rxn<DateTime>();
   RxList<DiseaseCategoryModel> categories = <DiseaseCategoryModel>[].obs;
 
@@ -25,13 +25,11 @@ class CrateMedicalHistoryController extends GetxController {
   Rx<bool> isLoading = false.obs;
   final isSubmitting = false.obs;
 
-
   List<DiseaseCategoryModel> get selectedCategoryModels {
     return categories
         .where((c) => selectedCategoryIds.contains(c.diseaseCategoryId))
         .toList();
   }
-
 
   @override
   void onInit() {
@@ -63,10 +61,9 @@ class CrateMedicalHistoryController extends GetxController {
     isLoading.value = false;
     Loading.hide();
   }
+
   Future<void> saveMedicalHistory(String patientId) async {
-
     if (isSubmitting.value) return;
-
 
     if (!_isRequestValid()) return;
 
@@ -77,12 +74,11 @@ class CrateMedicalHistoryController extends GetxController {
       title: titleController.text.trim(),
       description: descriptionController.text.trim(),
       date:
-      "${selectedDate.value!.day.toString().padLeft(2, '0')}-"
+          "${selectedDate.value!.day.toString().padLeft(2, '0')}-"
           "${selectedDate.value!.month.toString().padLeft(2, '0')}-"
           "${selectedDate.value!.year}",
       diseaseCategoryIds: selectedCategoryIds.toList(),
     );
-
 
     final response = await repository.createMedicalHistory(
       patientId: patientId,
@@ -93,18 +89,19 @@ class CrateMedicalHistoryController extends GetxController {
     isSubmitting.value = false;
 
     response.fold(
-          (error) {
+      (error) {
         Get.snackbar('Error', error.message ?? 'Something went wrong');
       },
-          (success) {
+      (success) {
         Get.back();
         Get.find<MedicalHistoryListController>().fetchMedicalHistory();
       },
     );
   }
+
   bool _isRequestValid() {
     if (titleController.text.trim().isEmpty) {
-      Get.snackbar('Error', 'Title is required');
+      Toaster.error('Title is required');
       return false;
     }
 
@@ -118,7 +115,7 @@ class CrateMedicalHistoryController extends GetxController {
       return false;
     }
 
-    if (selectedCategoryIds.isEmpty ) {
+    if (selectedCategoryIds.isEmpty) {
       Toaster.error('Please select at least one category');
       selectedCategoryIds.clear();
       return false;
@@ -126,5 +123,4 @@ class CrateMedicalHistoryController extends GetxController {
 
     return true;
   }
-
 }

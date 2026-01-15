@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
 
+import '../../../core/constants/gap_constants.dart';
 import '../../../core/extensions/widget_extension.dart';
 import '../../../core/utils/multiple_picker_bottom_sheet.dart';
 import '../../../core/widgets/custom_button.dart';
@@ -23,30 +24,29 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
         appBar: CustomAppBar(title: "Add Medical History"),
         body: Obx(
           () => Stack(
+
             children: [
+              if (controller.isLoading.value)
+                const Center(child: SizedBox())
+              else
               SingleChildScrollView(
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Title
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CustomTextFormField(
-                        labelText: 'Title',
-                        hintText: 'e.g Chronic Migraine',
-                        controller: controller.titleController,
-                        keyboardType: TextInputType.text,
-                        autoValidateMode: AutovalidateMode.onUserInteraction,
-                      ),
+                    CustomTextFormField(
+                      labelText: 'Title',
+                      hintText: 'e.g Chronic Migraine',
+                      controller: controller.titleController,
+                      keyboardType: TextInputType.text,
+                      autoValidateMode: AutovalidateMode.onUserInteraction,
                     ),
-
-                    const SizedBox(height: 6),
+                    gapH(6),
                     Text(
                       'Categories',
-                      style: textStyle.bold.s14.copyWith(color: Colors.black),
+                      style: textStyle.bold.s16.copyWith(color: Colors.black),
                     ),
-                    const SizedBox(height: 6),
+                    gapH(6),
                     GestureDetector(
                       child: Padding(
                         padding: const EdgeInsets.only(left: 8.0, right: 8),
@@ -61,27 +61,20 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Obx(() {
-                                if (controller.selectedCategories.isEmpty) {
-                                  return const SizedBox();
-                                }
                                 return Wrap(
                                   spacing: 6,
                                   runSpacing: 6,
-                                  children: controller.selectedCategories.map((
-                                      cat,
-                                      ) {
+                                  children: controller.selectedCategoryModels.map((cat) {
                                     return Chip(
-                                      label: Text(cat['name']!),
-                                      deleteIcon: const Icon(
-                                        Icons.close,
-                                        size: 16,
-                                      ),
+                                      label: Text(cat.name ?? ''),
+                                      deleteIcon: const Icon(Icons.close, size: 16),
                                       onDeleted: () =>
-                                          controller.removeCategory(cat['id']!),
+                                          controller.removeCategory(cat.diseaseCategoryId!),
                                     );
                                   }).toList(),
                                 );
                               }),
+
                               SizedBox(height: 6),
                               GestureDetector(
                                 onTap: () => openCategoryBottomSheet(context),
@@ -110,9 +103,12 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 6),
-                    Text('Select Date', style: textStyle.bold.s14.copyWith(color: Colors.black),),
-                    const SizedBox(height: 6),
+                    gapH(6),
+                    Text(
+                      'Select Date',
+                      style: textStyle.bold.s16.copyWith(color: Colors.black),
+                    ),
+                    gapH(6),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: GestureDetector(
@@ -169,19 +165,16 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 6),
-                    // Description
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CustomTextFormField(
-                        controller: c.descriptionController,
-                        maxLines: 4,
-                        hintText:
-                            'Enter Details about the condition, symtoms, or notes...',
-                        labelText: 'Description',
-                      ),
+                    gapH(6),
+                    CustomTextFormField(
+                      controller: c.descriptionController,
+                      maxLines: 4,
+
+                      hintText:
+                      'Enter Details about the condition, symtoms, or notes...',
+                      labelText: 'Description',
                     ),
-                    const SizedBox(height: 24),
+                    gapH(16),
                     // Save button
                     SizedBox(
                       width: double.infinity,
@@ -193,9 +186,6 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
                   ],
                 ),
               ),
-
-              if (c.isLoading.value)
-                const Center(child: CircularProgressIndicator()),
             ],
           ),
         ),
@@ -231,19 +221,7 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
                 getId: (cat) => cat.diseaseCategoryId!,
                 getLabel: (cat) => cat.name ?? '',
                 scrollController: scrollController,
-                onConfirm: () {
-                  controller.selectedCategories.clear();
-                  for (final cat in controller.categories) {
-                    if (controller.selectedCategoryIds
-                        .contains(cat.diseaseCategoryId)) {
-                      controller.selectedCategories.add({
-                        'id': cat.diseaseCategoryId!,
-                        'name': cat.name ?? '',
-                      });
-                    }
-                  }
-                  Get.back();
-                },
+                onConfirm: () => Get.back(),
               ),
             );
           },
