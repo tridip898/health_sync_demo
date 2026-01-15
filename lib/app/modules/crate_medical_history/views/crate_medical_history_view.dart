@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/widgets/custom_app_bar.dart';
 
 import '../../../core/extensions/widget_extension.dart';
@@ -22,44 +23,35 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
         backgroundColor: Colors.white,
         appBar: CustomAppBar(title: 'Add Medical History'),
         body: Obx(
-          () =>  Stack(
+          () => Stack(
             children: [
               if (controller.isLoading.value)
                 const Center(child: SizedBox())
               else
-              SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CustomTextFormField(
+                SingleChildScrollView(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomTextFormField(
                         labelText: 'Title',
                         hintText: 'e.g Chronic Migraine',
                         controller: controller.titleController,
                         keyboardType: TextInputType.text,
                         autoValidateMode: AutovalidateMode.onUserInteraction,
                       ),
-                    ),
-                    const SizedBox(height: 6),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(
+                      gapH(6),
+                      Text(
                         'Categories',
-                        style: textStyle.bold.s14.copyWith(color: Colors.black),
+                        style: textStyle.bold.s16.copyWith(color: Colors.black),
                       ),
-                    ),
-                    const SizedBox(height: 6),
-                    GestureDetector(
-                      onTap: () => openCategoryBottomSheet(context),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 8),
+                      gapH(6),
+                      GestureDetector(
+                        onTap: () => openCategoryBottomSheet(context),
                         child: Container(
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            border: Border.all(color: Colors.grey),
+                            border: Border.all(color: gray.base300),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           padding: EdgeInsets.only(left: 10, right: 10, top: 8),
@@ -67,68 +59,59 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Obx(() {
-                                if (controller.selectedCategories.isEmpty) {
+                                if (controller.selectedCategoryIds.isEmpty) {
                                   return const SizedBox();
                                 }
                                 return Wrap(
-                                  spacing: 6,
-                                  runSpacing: 6,
-                                  children: controller.selectedCategories.map((
-                                    cat,
-                                  ) {
-                                    return Chip(
-                                      label: Text(cat['name']!),
-                                      deleteIcon: const Icon(
-                                        Icons.close,
-                                        size: 16,
-                                      ),
-                                      onDeleted: () =>
-                                          controller.removeCategory(cat['id']!),
-                                    );
-                                  }).toList(),
+                                  spacing: 8,
+                                  children: controller.selectedCategoryModels
+                                      .map((cat) {
+                                        return Chip(
+                                          label: Text(cat.name ?? ''),
+                                          onDeleted: () {
+                                            controller.removeCategory(
+                                              cat.diseaseCategoryId!,
+                                            );
+                                          },
+                                        );
+                                      })
+                                      .toList(),
                                 );
                               }),
                               SizedBox(height: 6),
-                              GestureDetector(
-                                onTap: () => openCategoryBottomSheet(context),
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 12,
-                                    vertical: 14,
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        'Add more categories...',
-                                        style: TextStyle(color: Colors.grey[500]),
-                                      ),
-                                      const SizedBox(width: 8),
-                                      const Icon(Icons.keyboard_arrow_down),
-                                    ],
-                                  ),
+
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 14,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Add more categories...',
+                                      style: TextStyle(color: Colors.grey[500]),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    const Icon(Icons.keyboard_arrow_down),
+                                  ],
                                 ),
                               ),
+
                               SizedBox(height: 12),
                             ],
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 10),
-                    // Date picker
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(
+                      gapH(6),
+                      // Date picker
+                      Text(
                         'Select Date',
-                        style: textStyle.bold.s14.copyWith(color: Colors.black),
+                        style: textStyle.bold.s16.copyWith(color: Colors.black),
                       ),
-                    ),
-                    const SizedBox(height: 6),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 8),
-                      child: GestureDetector(
+                      gapH(6),
+                      GestureDetector(
                         onTap: () async {
                           final picked = await showDatePicker(
                             context: context,
@@ -147,7 +130,7 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                             vertical: 14,
                           ),
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
+                            border: Border.all(color: gray.base300),
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -181,43 +164,33 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 6),
-
-                    // Description
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CustomTextFormField(
+                      gapH(6),
+                      CustomTextFormField(
                         controller: c.descriptionController,
                         maxLines: 4,
+
                         hintText:
                             'Enter Details about the condition, symtoms, or notes...',
                         labelText: 'Description',
                       ),
-                    ),
-                    const SizedBox(height: 24),
+                      gapH(16),
+                      SizedBox(
+                        width: double.infinity,
+                        child: CustomButton(
+                          onPressed: () {
+                            final id = controller.patientId;
+                            if (id == null) return;
 
-                    // Save button
-                    SizedBox(
-                      width: double.infinity,
-                      child: CustomButton(
-                        onPressed: () {
-                          final id = controller.patientId;
-                          if (id == null) return;
-
-                          controller.saveMedicalHistory(id);
-                        },
-                        text: 'Save Medical History',
-                        textColor: Colors.black,
+                            controller.saveMedicalHistory(id);
+                          },
+                          text: 'Save Medical History',
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-
             ],
           ),
-
         ),
       ),
     );
@@ -226,7 +199,7 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
   void openCategoryBottomSheet(BuildContext context) {
     final controller = Get.find<CrateMedicalHistoryController>();
 
-    if (controller.categories.isEmpty ) {
+    if (controller.categories.isEmpty) {
       controller.fetchCategories();
     }
 
@@ -251,25 +224,12 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                 getId: (cat) => cat.diseaseCategoryId!,
                 getLabel: (cat) => cat.name ?? '',
                 scrollController: scrollController,
-                onConfirm: () {
-                  controller.selectedCategories.clear();
-                  for (final cat in controller.categories) {
-                    if (controller.selectedCategoryIds
-                        .contains(cat.diseaseCategoryId)) {
-                      controller.selectedCategories.add({
-                        'id': cat.diseaseCategoryId!,
-                        'name': cat.name ?? '',
-                      });
-                    }
-                  }
-                  Get.back();
-                },
+                onConfirm: () => Get.back(),
               ),
             );
           },
         );
       },
     );
-
   }
 }

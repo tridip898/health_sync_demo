@@ -18,13 +18,19 @@ class CrateMedicalHistoryController extends GetxController {
   final selectedDate = Rxn<DateTime>();
   RxList<DiseaseCategoryModel> categories = <DiseaseCategoryModel>[].obs;
 
-  final selectedCategories = <Map<String, String>>[].obs;
   String? patientId;
 
   final selectedCategoryIds = <String>[].obs;
 
   Rx<bool> isLoading = false.obs;
   final isSubmitting = false.obs;
+
+
+  List<DiseaseCategoryModel> get selectedCategoryModels {
+    return categories
+        .where((c) => selectedCategoryIds.contains(c.diseaseCategoryId))
+        .toList();
+  }
 
 
   @override
@@ -41,7 +47,6 @@ class CrateMedicalHistoryController extends GetxController {
   }
 
   void removeCategory(String id) {
-    selectedCategories.removeWhere((e) => e['id'] == id);
     selectedCategoryIds.remove(id);
   }
 
@@ -113,10 +118,9 @@ class CrateMedicalHistoryController extends GetxController {
       return false;
     }
 
-    if (selectedCategoryIds.isEmpty || selectedCategories.isEmpty) {
+    if (selectedCategoryIds.isEmpty ) {
       Toaster.error('Please select at least one category');
       selectedCategoryIds.clear();
-      selectedCategories.clear();
       return false;
     }
 
