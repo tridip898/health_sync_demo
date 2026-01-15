@@ -74,6 +74,7 @@ class MedicalHistoryListView extends GetView<MedicalHistoryListController> {
                       const SizedBox(height: 16),
                       CustomButton(
                         text: 'Add Medical History',
+                        textStyle: textStyle.regular.s16,
                         onPressed: () {
                           Get.toNamed(Routes.CRATE_MEDICAL_HISTORY);
                         },

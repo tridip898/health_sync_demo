@@ -56,7 +56,6 @@ class MedicalHistoryDetailsController extends GetxController {
       return;
     }
 
-
     Loading.show();
 
     final response = await repository.getPatientMedicalHistoryDetails(
@@ -71,13 +70,11 @@ class MedicalHistoryDetailsController extends GetxController {
         history.value = null;
       },
       (success) async {
-
         history.value = success.data;
       },
     );
 
     hasLoadedOnce.value = true;
-
   }
 
   Future<void> deleteMedicalHistory() async {
@@ -93,19 +90,20 @@ class MedicalHistoryDetailsController extends GetxController {
       patientId: id,
       medicalHistoryId: historyId,
     );
-
     Loading.hide();
-
-    response.fold(
+    await response.fold(
       (error) {
         Toaster.error(error.message ?? "Failed to delete medical history");
       },
-      (success) {
+      (success) async {
+        if (Get.isRegistered<MedicalHistoryListController>()) {
+          final controller = Get.find<MedicalHistoryListController>();
+          await controller.fetchMedicalHistory();
+        }
+        Get.back();
         Toaster.success(
           success.message ?? "Medical history deleted successfully",
         );
-        Get.find<MedicalHistoryListController>().fetchMedicalHistory();
-        Get.back();
       },
     );
   }

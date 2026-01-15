@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:health_sync_question/app/core/extensions/string_extension.dart';
+import '../../../../core/extensions/widget_extension.dart';
 import '../../../../data/model/medical_history_response_model.dart';
 import '../../../../routes/app_pages.dart';
 import '../medical_history_list_view.dart';
@@ -79,10 +80,7 @@ class MedicalHistoryTile extends StatelessWidget {
                 children: [
                   Text(
                     history.title ?? 'Medical Record',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: textStyle.bold.s14
                   ),
 
                   const SizedBox(height: 4),
