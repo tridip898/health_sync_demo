@@ -22,14 +22,17 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
         backgroundColor: Colors.white,
         appBar: CustomAppBar(title: 'Add Medical History'),
         body: Obx(
-          () => Stack(
+          () =>  Stack(
             children: [
+              if (controller.isLoading.value)
+                const Center(child: SizedBox())
+              else
               SingleChildScrollView(
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Title
+
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: CustomTextFormField(
@@ -40,11 +43,13 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                         autoValidateMode: AutovalidateMode.onUserInteraction,
                       ),
                     ),
-
                     const SizedBox(height: 6),
-                    Text(
-                      'Categories',
-                      style: textStyle.bold.s14.copyWith(color: Colors.black),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        'Categories',
+                        style: textStyle.bold.s14.copyWith(color: Colors.black),
+                      ),
                     ),
                     const SizedBox(height: 6),
                     GestureDetector(
@@ -112,9 +117,12 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                     ),
                     SizedBox(height: 10),
                     // Date picker
-                    Text(
-                      'Select Date',
-                      style: textStyle.bold.s14.copyWith(color: Colors.black),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        'Select Date',
+                        style: textStyle.bold.s14.copyWith(color: Colors.black),
+                      ),
                     ),
                     const SizedBox(height: 6),
                     Padding(
@@ -194,11 +202,10 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                       child: CustomButton(
                         onPressed: () {
                           final id = controller.patientId;
-                          if (id != null) {
-                            controller.saveMedicalHistory(id);
-                          }
-                        },
+                          if (id == null) return;
 
+                          controller.saveMedicalHistory(id);
+                        },
                         text: 'Save Medical History',
                         textColor: Colors.black,
                       ),
@@ -207,10 +214,9 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                 ),
               ),
 
-              if (c.isLoading.value)
-                const Center(child: CircularProgressIndicator()),
             ],
           ),
+
         ),
       ),
     );
@@ -219,7 +225,7 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
   void openCategoryBottomSheet(BuildContext context) {
     final controller = Get.find<CrateMedicalHistoryController>();
 
-    if (controller.categories.isEmpty) {
+    if (controller.categories.isEmpty ) {
       controller.fetchCategories(); // fetch from API if empty
     }
 

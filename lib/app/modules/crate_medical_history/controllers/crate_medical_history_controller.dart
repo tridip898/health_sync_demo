@@ -13,8 +13,8 @@ class CrateMedicalHistoryController extends GetxController {
   final MedicalHistoryRepository repository = MedicalHistoryRepository();
   final MedicalHistoryListController medicalHistoryListController = Get.find();
 
-  final titleController = TextEditingController();
-  final descriptionController = TextEditingController();
+  final TextEditingController  titleController = TextEditingController();
+  final TextEditingController  descriptionController = TextEditingController();
   final selectedDate = Rxn<DateTime>();
   RxList<DiseaseCategoryModel> categories = <DiseaseCategoryModel>[].obs;
 
@@ -23,20 +23,22 @@ class CrateMedicalHistoryController extends GetxController {
 
   final selectedCategoryIds = <String>[].obs;
 
-  final isLoading = false.obs;
+  Rx<bool> isLoading = false.obs;
+  final isSubmitting = false.obs;
+
 
   @override
   void onInit() {
-    fetchCategories();
     patientId =
         appController.userModel.value?.currentRole?.patient?.patientId ?? '';
     super.onInit();
   }
 
-  bool isCategorySelected(String id) {
-    return selectedCategories.any((e) => e['id'] == id);
+  @override
+  void onReady() {
+    super.onReady();
+    fetchCategories();
   }
-
   void toggleCategory(String id, String name) {
     final index = selectedCategories.indexWhere((e) => e['id'] == id);
 
@@ -52,6 +54,7 @@ class CrateMedicalHistoryController extends GetxController {
   }
 
   Future<void> fetchCategories() async {
+    Loading.show();
     isLoading.value = true;
     final result = await repository.getDiseaseCategories();
     result.fold(
@@ -60,43 +63,73 @@ class CrateMedicalHistoryController extends GetxController {
         categories.assignAll(success.data ?? []);
       },
     );
-
     isLoading.value = false;
+    Loading.hide();
   }
 
   Future<void> saveMedicalHistory(String patientId) async {
-    if (selectedDate.value == null) {
-      Get.snackbar('Error', 'Please select date');
-      return;
-    }
+
+    if (isSubmitting.value) return;
+
+
+    if (!_isRequestValid()) return;
+
+    isSubmitting.value = true;
+    Loading.show();
 
     final request = CreateMedicalHistoryRequest(
       title: titleController.text.trim(),
       description: descriptionController.text.trim(),
       date:
-          "${selectedDate.value!.day.toString().padLeft(2, '0')}-"
+      "${selectedDate.value!.day.toString().padLeft(2, '0')}-"
           "${selectedDate.value!.month.toString().padLeft(2, '0')}-"
           "${selectedDate.value!.year}",
       diseaseCategoryIds: selectedCategoryIds.toList(),
     );
 
-    isLoading.value = true;
 
     final response = await repository.createMedicalHistory(
       patientId: patientId,
       request: request,
     );
 
-    isLoading.value = false;
+    Loading.hide();
+    isSubmitting.value = false;
 
     response.fold(
-      (error) {
+          (error) {
         Get.snackbar('Error', error.message ?? 'Something went wrong');
       },
-      (success) {
+          (success) {
         Get.back();
         Get.find<MedicalHistoryListController>().fetchMedicalHistory();
       },
     );
   }
+
+
+  bool _isRequestValid() {
+    if (titleController.text.trim().isEmpty) {
+      Get.snackbar('Error', 'Title is required');
+      return false;
+    }
+
+    if (descriptionController.text.trim().isEmpty) {
+      Toaster.error('Description is required');
+      return false;
+    }
+
+    if (selectedDate.value == null) {
+      Toaster.error('Please select date');
+      return false;
+    }
+
+    if (categories.isEmpty) {
+      Toaster.error('Please select at least one category');
+      return false;
+    }
+
+    return true;
+  }
+
 }
