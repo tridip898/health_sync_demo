@@ -53,6 +53,7 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                     ),
                     const SizedBox(height: 6),
                     GestureDetector(
+                      onTap: () => openCategoryBottomSheet(context),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 8.0, right: 8),
                         child: Container(
@@ -226,7 +227,7 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
     final controller = Get.find<CrateMedicalHistoryController>();
 
     if (controller.categories.isEmpty ) {
-      controller.fetchCategories(); // fetch from API if empty
+      controller.fetchCategories();
     }
 
     showModalBottomSheet(

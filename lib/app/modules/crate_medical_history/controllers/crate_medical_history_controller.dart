@@ -39,18 +39,10 @@ class CrateMedicalHistoryController extends GetxController {
     super.onReady();
     fetchCategories();
   }
-  void toggleCategory(String id, String name) {
-    final index = selectedCategories.indexWhere((e) => e['id'] == id);
-
-    if (index >= 0) {
-      selectedCategories.removeAt(index);
-    } else {
-      selectedCategories.add({'id': id, 'name': name});
-    }
-  }
 
   void removeCategory(String id) {
     selectedCategories.removeWhere((e) => e['id'] == id);
+    selectedCategoryIds.remove(id);
   }
 
   Future<void> fetchCategories() async {
@@ -66,7 +58,6 @@ class CrateMedicalHistoryController extends GetxController {
     isLoading.value = false;
     Loading.hide();
   }
-
   Future<void> saveMedicalHistory(String patientId) async {
 
     if (isSubmitting.value) return;
@@ -106,8 +97,6 @@ class CrateMedicalHistoryController extends GetxController {
       },
     );
   }
-
-
   bool _isRequestValid() {
     if (titleController.text.trim().isEmpty) {
       Get.snackbar('Error', 'Title is required');
@@ -124,8 +113,10 @@ class CrateMedicalHistoryController extends GetxController {
       return false;
     }
 
-    if (categories.isEmpty) {
+    if (selectedCategoryIds.isEmpty || selectedCategories.isEmpty) {
       Toaster.error('Please select at least one category');
+      selectedCategoryIds.clear();
+      selectedCategories.clear();
       return false;
     }
 

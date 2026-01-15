@@ -6,7 +6,7 @@ import '../widgets/custom_button.dart';
 
 class MultiSelectBottomSheet<T> extends StatelessWidget {
   final List<T> items;
-  final RxList<String> selectedIds;
+  final List<String> selectedIds;
   final String Function(T item) getId;
   final String Function(T item) getLabel;
   final VoidCallback? onConfirm;
