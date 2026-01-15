@@ -16,7 +16,6 @@ class UpdateMedicalHistoryController extends GetxController {
   final selectedDate = Rxn<DateTime>();
   RxList<DiseaseCategoryModel> categories = <DiseaseCategoryModel>[].obs;
   final selectedCategoryIds = <String>[].obs;
-  final isSubmitting = false.obs;
 
   String? patientId;
   String? medicalHistoryId;
@@ -63,11 +62,9 @@ class UpdateMedicalHistoryController extends GetxController {
   }
 
   Future<void> updateMedicalHistory() async {
-    if (isSubmitting.value) return;
 
     if (!_isRequestValid()) return;
 
-    isSubmitting.value = true;
     if (patientId == null || medicalHistoryId == null) {
       Toaster.error('Patient ID or Medical History ID is missing');
       return;
@@ -81,33 +78,29 @@ class UpdateMedicalHistoryController extends GetxController {
       date: selectedDate.value != null ? _formatDate(selectedDate.value!) : '',
       diseaseCategoryIds: selectedCategoryIds.toList(),
     );
-
     final response = await repository.updateMedicalHistory(
       patientId: patientId!, // Safe now after null check
       medicalHistoryId: medicalHistoryId!,
       request: request,
     );
 
-    response.fold(
+    Loading.hide();
+
+    await response.fold(
       (error) {
         Toaster.error(error.message ?? 'Update failed');
       },
-      (_) {
+      (_) async {
+        if (Get.isRegistered<MedicalHistoryDetailsController>()) {
+          final  controller = Get.find<MedicalHistoryDetailsController>();
+          await controller.fetchDetails();
+        }
+        Get.back();
         Toaster.success('Medical history updated');
 
-        if (Get.isRegistered<MedicalHistoryDetailsController>()) {
-          final controller = Get.find<MedicalHistoryDetailsController>();
-          controller.fetchDetails();
-        }
-
-        if (Get.key.currentState?.canPop() == true) {
-          Get.back(result: true);
-        }
       },
     );
 
-    Loading.hide();
-    isSubmitting.value = false;
   }
 
   void removeCategory(String id) {

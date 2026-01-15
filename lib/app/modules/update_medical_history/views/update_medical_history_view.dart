@@ -24,32 +24,30 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
         appBar: CustomAppBar(title: "Add Medical History"),
         body: Obx(
           () => Stack(
-
             children: [
               if (controller.isLoading.value)
                 const Center(child: SizedBox())
               else
-              SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomTextFormField(
-                      labelText: 'Title',
-                      hintText: 'e.g Chronic Migraine',
-                      controller: controller.titleController,
-                      keyboardType: TextInputType.text,
-                      autoValidateMode: AutovalidateMode.onUserInteraction,
-                    ),
-                    gapH(6),
-                    Text(
-                      'Categories',
-                      style: textStyle.bold.s16.copyWith(color: Colors.black),
-                    ),
-                    gapH(6),
-                    GestureDetector(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 8),
+                SingleChildScrollView(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomTextFormField(
+                        labelText: 'Title',
+                        hintText: 'e.g Chronic Migraine',
+                        controller: controller.titleController,
+                        keyboardType: TextInputType.text,
+                        autoValidateMode: AutovalidateMode.onUserInteraction,
+                      ),
+                      gapH(6),
+                      Text(
+                        'Categories',
+                        style: textStyle.bold.s16.copyWith(color: Colors.black),
+                      ),
+                      gapH(6),
+                      GestureDetector(
+                        onTap: () => openCategoryBottomSheet(context),
                         child: Container(
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -64,14 +62,21 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
                                 return Wrap(
                                   spacing: 6,
                                   runSpacing: 6,
-                                  children: controller.selectedCategoryModels.map((cat) {
-                                    return Chip(
-                                      label: Text(cat.name ?? ''),
-                                      deleteIcon: const Icon(Icons.close, size: 16),
-                                      onDeleted: () =>
-                                          controller.removeCategory(cat.diseaseCategoryId!),
-                                    );
-                                  }).toList(),
+                                  children: controller.selectedCategoryModels
+                                      .map((cat) {
+                                        return Chip(
+                                          label: Text(cat.name ?? ''),
+                                          deleteIcon: const Icon(
+                                            Icons.close,
+                                            size: 16,
+                                          ),
+                                          onDeleted: () =>
+                                              controller.removeCategory(
+                                                cat.diseaseCategoryId!,
+                                              ),
+                                        );
+                                      })
+                                      .toList(),
                                 );
                               }),
 
@@ -85,11 +90,13 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
                                   ),
                                   child: Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         'Add more categories...',
-                                        style: TextStyle(color: Colors.grey[500]),
+                                        style: TextStyle(
+                                          color: Colors.grey[500],
+                                        ),
                                       ),
                                       const SizedBox(width: 8),
                                       const Icon(Icons.keyboard_arrow_down),
@@ -102,16 +109,13 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
                           ),
                         ),
                       ),
-                    ),
-                    gapH(6),
-                    Text(
-                      'Select Date',
-                      style: textStyle.bold.s16.copyWith(color: Colors.black),
-                    ),
-                    gapH(6),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: GestureDetector(
+                      gapH(6),
+                      Text(
+                        'Select Date',
+                        style: textStyle.bold.s16.copyWith(color: Colors.black),
+                      ),
+                      gapH(6),
+                      GestureDetector(
                         onTap: () async {
                           final picked = await showDatePicker(
                             context: context,
@@ -164,28 +168,28 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
                           ),
                         ),
                       ),
-                    ),
-                    gapH(6),
-                    CustomTextFormField(
-                      controller: c.descriptionController,
-                      maxLines: 4,
 
-                      hintText:
-                      'Enter Details about the condition, symtoms, or notes...',
-                      labelText: 'Description',
-                    ),
-                    gapH(16),
-                    // Save button
-                    SizedBox(
-                      width: double.infinity,
-                      child: CustomButton(
-                        onPressed: controller.updateMedicalHistory,
-                        text: 'Update Medical History',
+                      gapH(6),
+                      CustomTextFormField(
+                        controller: c.descriptionController,
+                        maxLines: 4,
+
+                        hintText:
+                            'Enter Details about the condition, symtoms, or notes...',
+                        labelText: 'Description',
                       ),
-                    ),
-                  ],
+                      gapH(16),
+                      // Save button
+                      SizedBox(
+                        width: double.infinity,
+                        child: CustomButton(
+                          onPressed: controller.updateMedicalHistory,
+                          text: 'Update Medical History',
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
             ],
           ),
         ),
@@ -228,11 +232,5 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
         );
       },
     );
-
-
-
-
   }
-
-
 }
