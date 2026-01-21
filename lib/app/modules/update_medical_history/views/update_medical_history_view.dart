@@ -201,7 +201,7 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
     final controller = Get.find<UpdateMedicalHistoryController>();
 
     if (controller.categories.isEmpty) {
-      controller.fetchCategories(); // fetch from API if empty
+      controller.fetchCategories();
     }
 
     showModalBottomSheet(
@@ -211,7 +211,7 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
       builder: (context) {
         return DraggableScrollableSheet(
           minChildSize: 0.7,
-          initialChildSize: .92,
+          initialChildSize: 0.92,
           snapSizes: const [0.7, 1],
           builder: (_, scrollController) {
             return Container(
@@ -224,7 +224,7 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
                 selectedIds: controller.selectedCategoryIds,
                 getId: (cat) => cat.diseaseCategoryId!,
                 getLabel: (cat) => cat.name ?? '',
-                scrollController: scrollController,
+                isLocalSearch: true,
                 onConfirm: () => Get.back(),
               ),
             );

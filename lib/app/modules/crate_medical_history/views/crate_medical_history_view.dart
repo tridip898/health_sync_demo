@@ -223,7 +223,8 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                 selectedIds: controller.selectedCategoryIds,
                 getId: (cat) => cat.diseaseCategoryId!,
                 getLabel: (cat) => cat.name ?? '',
-                scrollController: scrollController,
+                isLocalSearch: true,
+                isNetworkSearch: true,
                 onConfirm: () => Get.back(),
               ),
             );
