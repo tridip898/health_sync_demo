@@ -32,6 +32,7 @@ abstract class Routes {
   static const COMPLAIN_SUMMARY = _Paths.COMPLAIN_SUMMARY;
   static const USER_BINDINGS_LIST = _Paths.USER_BINDINGS_LIST;
   static const PROFILE_SETUP_OPTIONS = _Paths.PROFILE_SETUP_OPTIONS;
+  static const DUMMY_PAGE = _Paths.DUMMY_PAGE;
 }
 
 abstract class _Paths {
@@ -65,4 +66,5 @@ abstract class _Paths {
   static const COMPLAIN_SUMMARY = '/complain-summary';
   static const USER_BINDINGS_LIST = '/user-bindings-list';
   static const PROFILE_SETUP_OPTIONS = '/profile-setup-options';
+  static const DUMMY_PAGE = '/dummy-page';
 }

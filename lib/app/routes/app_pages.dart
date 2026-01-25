@@ -6,12 +6,16 @@ import '../modules/appointment_list/bindings/appointment_list_binding.dart';
 import '../modules/appointment_list/views/appointment_list_view.dart';
 import '../modules/auth/change_password/bindings/change_password_binding.dart';
 import '../modules/auth/change_password/views/reset_password_view.dart';
+import '../modules/auth/create_profile/bindings/create_profile_binding.dart';
+import '../modules/auth/create_profile/views/create_profile_view.dart';
 import '../modules/auth/forgot_password/bindings/forgot_password_binding.dart';
 import '../modules/auth/forgot_password/views/forgot_password_view.dart';
 import '../modules/auth/login/bindings/login_binding.dart';
 import '../modules/auth/login/views/login_view.dart';
 import '../modules/auth/otp/bindings/otp_binding.dart';
 import '../modules/auth/otp/views/otp_view.dart';
+import '../modules/auth/profile_setup_options/bindings/profile_setup_options_binding.dart';
+import '../modules/auth/profile_setup_options/views/profile_setup_options_view.dart';
 import '../modules/auth/registration/bindings/registration_binding.dart';
 import '../modules/auth/registration/views/registration_view.dart';
 import '../modules/auth/set_new_password/bindings/set_new_password_binding.dart';
@@ -26,8 +30,6 @@ import '../modules/crate_medical_history/bindings/crate_medical_history_binding.
 import '../modules/crate_medical_history/views/crate_medical_history_view.dart';
 import '../modules/create_appointment/bindings/create_appointment_binding.dart';
 import '../modules/create_appointment/views/create_appointment_view.dart';
-import '../modules/auth/create_profile/bindings/create_profile_binding.dart';
-import '../modules/auth/create_profile/views/create_profile_view.dart';
 import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/delete_medical_history/bindings/delete_medical_history_binding.dart';
@@ -36,6 +38,8 @@ import '../modules/doctor_details/bindings/doctor_details_binding.dart';
 import '../modules/doctor_details/views/doctor_details_view.dart';
 import '../modules/doctor_list/bindings/doctor_list_binding.dart';
 import '../modules/doctor_list/views/doctor_list_view.dart';
+import '../modules/dummy_page/bindings/dummy_page_binding.dart';
+import '../modules/dummy_page/views/dummy_page_view.dart';
 import '../modules/forgot_pass_verify_otp/bindings/forgot_pass_verify_otp_binding.dart';
 import '../modules/forgot_pass_verify_otp/views/forgot_pass_verify_otp_view.dart';
 import '../modules/medical_history_details/bindings/medical_history_details_binding.dart';
@@ -48,8 +52,6 @@ import '../modules/prescription_details/bindings/prescription_details_binding.da
 import '../modules/prescription_details/views/prescription_details_view.dart';
 import '../modules/profile_details/bindings/profile_details_binding.dart';
 import '../modules/profile_details/views/profile_details_view.dart';
-import '../modules/auth/profile_setup_options/bindings/profile_setup_options_binding.dart';
-import '../modules/auth/profile_setup_options/views/profile_setup_options_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/update_medical_history/bindings/update_medical_history_binding.dart';
@@ -60,7 +62,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SPLASH;
+  static const INITIAL = Routes.DUMMY_PAGE;
 
   static final routes = [
     GetPage(
@@ -197,6 +199,11 @@ class AppPages {
       name: _Paths.PROFILE_SETUP_OPTIONS,
       page: () => const ProfileSetupOptionsView(),
       binding: ProfileSetupOptionsBinding(),
+    ),
+    GetPage(
+      name: _Paths.DUMMY_PAGE,
+      page: () => const DummyPageView(),
+      binding: DummyPageBinding(),
     ),
   ];
 }

@@ -205,7 +205,7 @@ class DoctorListController extends GetxController {
       Obx(() {
         return AppDropdownBottomSheet<SpecialtyModel>(
           items: specialtyList,
-          currentItem: selectedSpecialty.first,
+          currentItem:selectedSpecialty.isEmpty?  specialtyList.first : selectedSpecialty.first,
           title: 'Doctor Specialty',
           getTitle: (item) => item.title ?? 'N/A',
           isLocalSearch: true,
