@@ -148,6 +148,12 @@ class _MultiSelectBottomSheetState<T> extends State<MultiSelectBottomSheet<T>> {
                                   debouncer.run(() {
                                     widget.onSearchSubmit!(query);
                                   });
+                                  _assignAllItemsToFilter();
+                                } else if (widget.onSearchSubmit != null) {
+                                  debouncer.run(() {
+                                    widget.onSearchSubmit!(query);
+                                  });
+                                  _assignAllItemsToFilter();
                                 }
                               },
                               onSubmitted: (value) {
