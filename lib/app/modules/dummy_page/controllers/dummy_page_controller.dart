@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import '../../../core/utils/toaster.dart';
+import '../../../core/widgets/loading.dart';
 import '../../../data/model/doctor_model.dart';
 import '../../../data/repository/doctor_repository.dart';
 
@@ -77,16 +78,6 @@ class DummyPageController extends GetxController {
     _resetPagination();
   }
 
-  void onSearchChanged(String value) {
-    if (value.trim().isEmpty) {
-      // Search clear
-      resetDoctorList();
-      getDoctorList(initialLoad: true, search: '');
-    } else {
-      resetDoctorList();
-      getDoctorList(initialLoad: true, search: value);
-    }
-  }
 
   void removeMedicalId(String id) {
     selectedDoctorIds.remove(id);

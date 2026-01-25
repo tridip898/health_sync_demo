@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:health_sync_question/app/core/widgets/loading.dart';
 import 'package:health_sync_question/app/data/model/doctor_model.dart';
 
 import '../../../core/constants/gap_constants.dart';
@@ -62,8 +63,6 @@ class DummyPageView extends GetView<DummyPageController> {
 
               GestureDetector(
                 onTap: () {
-                  controller.resetDoctorList();
-                  controller.getDoctorList(initialLoad: true, search: '');
                   openCategoryBottomSheet(context);
                 },
 
@@ -117,50 +116,68 @@ class DummyPageView extends GetView<DummyPageController> {
   }
 
   void openCategoryBottomSheet(BuildContext context) {
+    final controller = Get.find<DummyPageController>();
+    controller.resetDoctorList();
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (_) {
+        // Defer API call until after first frame
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          controller.getDoctorList(initialLoad: true, search: '');
+        });
+
         return DraggableScrollableSheet(
           minChildSize: 0.7,
           initialChildSize: 0.92,
           snapSizes: const [0.7, 1],
           expand: false,
           builder: (_, __) {
-            return Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-              ),
-              child: MultiSelectBottomSheet<DoctorModel>(
-                items: controller.doctorList,
-                selectedIds: controller.selectedDoctorIds,
-                getId: (d) => d.doctorId!,
-                getLabel: (d) => d.profile?.fullName ?? '',
-                isNetworkSearch: true,
-                isLocalSearch: false,
+            return Obx(() {
+              return Stack(
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                    ),
+                    child: MultiSelectBottomSheet<DoctorModel>(
+                      items: controller.doctorList,
+                      selectedIds: controller.selectedDoctorIds,
+                      getId: (d) => d.doctorId!,
+                      getLabel: (d) => d.profile?.fullName ?? '',
+                      isNetworkSearch: true,
+                      isLocalSearch: false,
+                      onSearchSubmit: (query) {
+                        controller.getDoctorList(initialLoad: true, search: query);
+                      },
+                      onReachBottom: (query) {
+                        controller.getDoctorList(search: query);
+                      },
+                      onConfirm: () => Get.back(),
+                    ),
+                  ),
 
-                onSearchSubmit: (query) {
-                  controller.getDoctorList(
-                    initialLoad: true,
-                    search: query,
-                  );
-                },
-                onReachBottom: (query) {
-                  controller.getDoctorList(
-                    search: query,
-                  );
-                },
-
-                onConfirm: () => Get.back(),
-              ),
-            );
+                  // Loader overlay
+                  if (controller.isLoading.value)
+                    Positioned.fill(
+                      child: Container(
+                        color: Colors.black38,
+                        child:LoadingWidget(size: 40)
+                      ),
+                    ),
+                ],
+              );
+            });
           },
         );
       },
     );
   }
+
+
 
 
 
