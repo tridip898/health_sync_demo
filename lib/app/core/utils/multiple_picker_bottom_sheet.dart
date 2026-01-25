@@ -8,7 +8,7 @@ import '../widgets/custom_search_field.dart';
 import 'custom_debouncer.dart';
 
 class MultiSelectBottomSheet<T> extends StatefulWidget {
-  final List<T> items;
+  final RxList<T> items;
   final RxList<String> selectedIds;
 
   final String Function(T item) getId;
@@ -50,8 +50,14 @@ class _MultiSelectBottomSheetState<T> extends State<MultiSelectBottomSheet<T>> {
   void initState() {
     super.initState();
     tempSelectedIds.addAll(widget.selectedIds);
+
+    ever<List<T>>(widget.items, (_) {
+      _assignAllItemsToFilter();
+    });
+
     _assignAllItemsToFilter();
   }
+
 
   @override
   void didUpdateWidget(covariant MultiSelectBottomSheet<T> oldWidget) {
@@ -122,62 +128,42 @@ class _MultiSelectBottomSheetState<T> extends State<MultiSelectBottomSheet<T>> {
                               searchTextController: searchController,
                               hintText: 'Search',
                               label: '',
+
                               onClear: () {
                                 searchController.clear();
-                                if (widget.onSearchSubmit != null) {
-                                  widget.onSearchSubmit!('');
-                                } else {
-                                  _assignAllItemsToFilter();
-                                }
+                                widget.onSearchSubmit?.call('');
                               },
+
                               onChanged: (query) {
                                 if (widget.isLocalSearch) {
-                                  if (query.isEmpty) {
-                                    _assignAllItemsToFilter();
-                                  } else {
-                                    filteredItems.assignAll(
-                                      widget.items.where(
-                                        (item) => widget
-                                            .getLabel(item)
-                                            .toLowerCase()
-                                            .contains(query.toLowerCase()),
-                                      ),
-                                    );
-                                  }
-                                } else if (widget.onSearchSubmit != null) {
+                                  // local logic (optional)
+                                } else {
                                   debouncer.run(() {
-                                    widget.onSearchSubmit!(query);
+                                    widget.onSearchSubmit?.call(query);
                                   });
-                                  _assignAllItemsToFilter();
-                                } else if (widget.onSearchSubmit != null) {
-                                  debouncer.run(() {
-                                    widget.onSearchSubmit!(query);
-                                  });
-                                  _assignAllItemsToFilter();
                                 }
                               },
+
                               onSubmitted: (value) {
                                 widget.onSearchSubmit?.call(value);
                               },
                             ),
+
+
                             gapH12,
                           ],
                         ),
 
                       /// LIST
                       Expanded(
-                        child: Obx(() {
-                          if (filteredItems.isEmpty) {
-                            return const SizedBox();
-                          }
+                        child:Obx(() {
 
                           return ListView.separated(
                             controller: _sheetScrollController,
-                            physics: const ClampingScrollPhysics(),
-                            itemCount: filteredItems.length,
-                            separatorBuilder: (_, __) => Divider(height: 1),
+                            itemCount: widget.items.length,
+                            separatorBuilder: (_, __) => const Divider(height: 1),
                             itemBuilder: (context, index) {
-                              final item = filteredItems[index];
+                              final item = widget.items[index];
                               final id = widget.getId(item);
                               final label = widget.getLabel(item);
                               final isSelected = tempSelectedIds.contains(id);
@@ -185,27 +171,20 @@ class _MultiSelectBottomSheetState<T> extends State<MultiSelectBottomSheet<T>> {
                               return ListTile(
                                 title: Text(label),
                                 trailing: isSelected
-                                    ? const Icon(
-                                        Icons.check_circle,
-                                        color: Colors.green,
-                                      )
-                                    : const Icon(
-                                        Icons.circle_outlined,
-                                        color: Colors.grey,
-                                      ),
+                                    ? const Icon(Icons.check_circle, color: Colors.green)
+                                    : const Icon(Icons.circle_outlined),
                                 onTap: () {
                                   setState(() {
-                                    if (isSelected) {
-                                      tempSelectedIds.remove(id);
-                                    } else {
-                                      tempSelectedIds.add(id);
-                                    }
+                                    isSelected
+                                        ? tempSelectedIds.remove(id)
+                                        : tempSelectedIds.add(id);
                                   });
                                 },
                               );
                             },
                           );
                         }),
+
                       ),
 
                       gapH12,

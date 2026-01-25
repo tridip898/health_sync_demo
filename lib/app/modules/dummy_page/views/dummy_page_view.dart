@@ -61,7 +61,12 @@ class DummyPageView extends GetView<DummyPageController> {
               const SizedBox(height: 8),
 
               GestureDetector(
-                onTap: () => openCategoryBottomSheet(context),
+                onTap: () {
+                  controller.resetDoctorList();
+                  controller.getDoctorList(initialLoad: true, search: '');
+                  openCategoryBottomSheet(context);
+                },
+
                 child: Container(
                   padding:
                   const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
@@ -133,8 +138,8 @@ class DummyPageView extends GetView<DummyPageController> {
                 selectedIds: controller.selectedDoctorIds,
                 getId: (d) => d.doctorId!,
                 getLabel: (d) => d.profile?.fullName ?? '',
-                isNetworkSearch: false,
-                isLocalSearch: true,
+                isNetworkSearch: true,
+                isLocalSearch: false,
 
                 onSearchSubmit: (query) {
                   controller.getDoctorList(

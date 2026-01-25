@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../core/utils/toaster.dart';
@@ -21,11 +20,19 @@ class DummyPageController extends GetxController {
     getDoctorList(initialLoad: true, search: '');
   }
 
+  @override
+  onInit() {
+    super.onInit();
+    resetDoctorList();
+    getDoctorList(initialLoad: true, search: '');
+  }
+
   Future<void> getDoctorList({
     bool initialLoad = false,
     required String search,
   }) async {
     if (initialLoad) _resetPagination();
+
     if (!_hasMore || isLoading.value) return;
 
     isLoading.value = true;
@@ -45,13 +52,13 @@ class DummyPageController extends GetxController {
         final list = res.data ?? [];
 
         if (_page == 1) {
-          doctorList.assignAll(list);
+          doctorList.value = list;
         } else {
           doctorList.addAll(list);
         }
 
-        final meta = res.meta;
-        _hasMore = (meta?.page ?? 1) < (meta?.totalPages ?? 1);
+        _hasMore = (res.meta?.page ?? 1) <
+            (res.meta?.totalPages ?? 1);
         _page++;
       },
     );
@@ -59,10 +66,26 @@ class DummyPageController extends GetxController {
     isLoading.value = false;
   }
 
+
   void _resetPagination() {
-    doctorList.clear();
     _page = 1;
     _hasMore = true;
+    doctorList.clear();
+  }
+
+  void resetDoctorList() {
+    _resetPagination();
+  }
+
+  void onSearchChanged(String value) {
+    if (value.trim().isEmpty) {
+      // Search clear
+      resetDoctorList();
+      getDoctorList(initialLoad: true, search: '');
+    } else {
+      resetDoctorList();
+      getDoctorList(initialLoad: true, search: value);
+    }
   }
 
   void removeMedicalId(String id) {
@@ -72,6 +95,3 @@ class DummyPageController extends GetxController {
   List<DoctorModel> get selectedMedicalModels =>
       doctorList.where((d) => selectedDoctorIds.contains(d.doctorId)).toList();
 }
-
-
-
