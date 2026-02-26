@@ -4,10 +4,12 @@ import 'dart:io';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:health_sync_question/app/core/controller/app_controller.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/utils/image_picker_utils.dart';
 import 'package:health_sync_question/app/core/utils/toaster.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
+import 'package:health_sync_question/app/data/model/user_model.dart';
 import 'package:health_sync_question/app/data/repository/profile_repository.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
 import 'package:intl/intl.dart';
@@ -28,6 +30,13 @@ class CreateProfileController extends GetxController {
   final Rx<DateTime?> dateOfBirth = Rx(null);
   Rx<File?> profileImage = Rx<File?>(null);
   final RxString profileImageUrl = "".obs;
+
+  UserModel? get userModel {
+    if (Get.isRegistered<AppController>()) {
+      return Get.find<AppController>().userModel.value;
+    }
+    return null;
+  }
 
   @override
   void onInit() {
@@ -52,6 +61,8 @@ class CreateProfileController extends GetxController {
       ).format(DateTime.parse(profile?.dateOfBirth ?? ''));
       final parsed = stringToDateTime(dobController.text);
       dateOfBirth.value = parsed;
+    } else {
+      phoneController.text = userModel?.phoneNumber ?? '';
     }
     super.onReady();
   }
@@ -88,7 +99,7 @@ class CreateProfileController extends GetxController {
           if (emailController.text.isNotEmpty)
             "publicEmail": emailController.text,
           if (profileImage.value != null)
-            "file":await dio.MultipartFile.fromFile(
+            "file": await dio.MultipartFile.fromFile(
               profileImage.value?.path ?? '',
               filename: "doctor_${nameController.text}.jpg",
             ),

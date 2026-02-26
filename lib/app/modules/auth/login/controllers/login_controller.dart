@@ -50,11 +50,14 @@ class LoginController extends GetxController {
         (successRes) async {
           await appController.setToken(successRes.data?.accessToken ?? '');
           if (successRes.data?.user?.profile == null) {
-            log('user bind ${successRes.data?.user?.userBindRequestId?.toJson()}');
+            log(
+              'user bind ${successRes.data?.user?.userBindRequestId?.toJson()}',
+            );
+            await appController.loadProfile();
             Get.toNamed(
               Routes.PROFILE_SETUP_OPTIONS,
               arguments: {
-                'user_bind':successRes.data?.user?.userBindRequestId
+                'user_bind': successRes.data?.user?.userBindRequestId,
               },
             );
           } else if (successRes.data?.user?.userRoles?.isEmpty ?? false) {
