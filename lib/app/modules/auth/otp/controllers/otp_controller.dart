@@ -61,7 +61,6 @@ class OtpController extends GetxController {
     return phone;
   }
 
-
   void onVerifyOtp() async {
     if (otp.value.length != 4) {
       Toaster.error("Please enter valid OTP");
@@ -89,7 +88,7 @@ class OtpController extends GetxController {
       },
       (success) {
         isOtpError.value = false;
-        Get.toNamed(
+        Get.offAndToNamed(
           Routes.SET_NEW_PASSWORD,
           arguments: {
             "phoneNumber": phoneNumber,
