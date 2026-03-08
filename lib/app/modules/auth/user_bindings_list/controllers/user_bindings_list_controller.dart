@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:health_sync_question/app/core/constants/enums.dart';
 import 'package:health_sync_question/app/core/utils/toaster.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
 import 'package:health_sync_question/app/data/model/binding_user_list_response_model.dart';
 import 'package:health_sync_question/app/data/model/profile_model.dart';
 import 'package:health_sync_question/app/data/repository/auth_repository.dart';
+import 'package:health_sync_question/app/modules/auth/auth_mixin.dart';
+import 'package:health_sync_question/app/modules/auth/login/controllers/login_controller.dart';
 import 'package:health_sync_question/app/modules/auth/user_bindings_list/widgets/link_user_dialog.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
 
-class UserBindingsListController extends GetxController {
+class UserBindingsListController extends GetxController with AuthMixin {
   final AuthRepository _authRepository = AuthRepository();
   final TextEditingController searchController = TextEditingController();
   final RxList<ProfileModel> bindingUserList = <ProfileModel>[].obs;
-  final RxList<ProfileModel> filteredBindingUserList =
-      <ProfileModel>[].obs;
+  final RxList<ProfileModel> filteredBindingUserList = <ProfileModel>[].obs;
   final RxBool isLoading = true.obs;
   final Rx<ProfileModel> selectedUser = ProfileModel().obs;
 
@@ -29,11 +31,6 @@ class UserBindingsListController extends GetxController {
   void onReady() async {
     fetchBindingUserList();
     super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 
   void fetchBindingUserList() async {
@@ -73,13 +70,37 @@ class UserBindingsListController extends GetxController {
     );
     Loading.hide();
     Get.back();
-    response.fold(
-      (error) {
+    await response.fold(
+      (error) async {
         Toaster.error(error.message ?? 'Failed to bind user profile');
       },
-      (success) {
+      (success) async {
         Toaster.success('User profile linked successfully');
-        Get.until((route) => Get.currentRoute == Routes.LOGIN);
+
+        if (Get.isRegistered<LoginController>()) {
+          final loginData = Get.find<LoginController>().loginData.value;
+
+          if (loginData != null) {
+            if (loginData.user?.userRoles?.isEmpty ?? false) {
+              await fetchRoleList();
+            } else {
+              await appController.loadProfile();
+              if (appController
+                      .userModel
+                      .value
+                      ?.currentRole
+                      ?.role
+                      ?.accountType ==
+                  AccountType.PATIENT.name) {
+                navigateToHome(accessToken: loginData.accessToken ?? '');
+              } else {
+                await fetchRoleList(isRoleSelection: false);
+              }
+            }
+          } else {
+            Get.until((route) => Get.currentRoute == Routes.LOGIN);
+          }
+        }
       },
     );
   }

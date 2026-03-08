@@ -1,5 +1,6 @@
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
+import 'package:health_sync_question/app/core/constants/enums.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
 
@@ -80,13 +81,15 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
 
   @override
   void onReady() async {
-    Future.delayed(Duration(milliseconds: 2500), () {
-      if (appController.token == null) {
-        Get.offAllNamed(Routes.LOGIN);
-      } else {
-        Get.offAllNamed(Routes.DASHBOARD);
-      }
-    });
+    final user = await appController.loadProfile(showLoading: false);
+    final patientAccount = user?.userRoles?.firstWhereOrNull(
+      (item) => item.role?.accountType == AccountType.PATIENT.name,
+    );
+    if (patientAccount != null) {
+      Get.offAllNamed(Routes.DASHBOARD);
+    } else {
+      Get.offAllNamed(Routes.LOGIN);
+    }
     super.onReady();
   }
 

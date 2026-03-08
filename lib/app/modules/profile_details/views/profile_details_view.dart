@@ -99,9 +99,10 @@ class ProfileDetailsView extends GetView<ProfileDetailsController> {
                     child: _infoCard(
                       label: 'Date of Birth',
                       icon: Icons.cake,
-                      value: DateFormat(
-                        'MMM dd, yyyy',
-                      ).format(DateTime.parse(profile?.dateOfBirth ?? '')),
+                      value: 'hello'
+                      // value: DateFormat(
+                      //   'MMM dd, yyyy',
+                      // ).format(DateTime.parse(profile?.dateOfBirth ?? '')),
                     ),
                   ),
                 ],

@@ -8,17 +8,18 @@ import 'package:health_sync_question/app/core/constants/gap_constants.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
 import 'package:health_sync_question/app/core/utils/toaster.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
+import 'package:health_sync_question/app/data/model/login_response_model.dart';
 import 'package:health_sync_question/app/data/model/role_list_response.dart';
 import 'package:health_sync_question/app/data/repository/auth_repository.dart';
+import 'package:health_sync_question/app/modules/auth/auth_mixin.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
 
-class LoginController extends GetxController {
+class LoginController extends GetxController with AuthMixin {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final RxList<RoleData> roleList = <RoleData>[].obs;
-  final AuthRepository authRepository = AuthRepository();
+  Rx<LoginData?> loginData = Rx(null);
 
   @override
   void onInit() {
@@ -49,10 +50,10 @@ class LoginController extends GetxController {
         },
         (successRes) async {
           await appController.setToken(successRes.data?.accessToken ?? '');
+          loginData.value = successRes.data;
+
+          /// user has no profile
           if (successRes.data?.user?.profile == null) {
-            log(
-              'user bind ${successRes.data?.user?.userBindRequestId?.toJson()}',
-            );
             await appController.loadProfile();
             Get.toNamed(
               Routes.PROFILE_SETUP_OPTIONS,
@@ -60,9 +61,13 @@ class LoginController extends GetxController {
                 'user_bind': successRes.data?.user?.userBindRequestId,
               },
             );
-          } else if (successRes.data?.user?.userRoles?.isEmpty ?? false) {
+          }
+          /// user has a profile but no role
+          else if (successRes.data?.user?.userRoles?.isEmpty ?? false) {
             await fetchRoleList();
-          } else {
+          }
+          /// user has a profile and role
+          else {
             await appController.loadProfile();
             if (appController.userModel.value?.currentRole?.role?.accountType ==
                 AccountType.PATIENT.name) {
@@ -82,66 +87,5 @@ class LoginController extends GetxController {
 
   onForgotPasswordTap() {
     Get.toNamed(Routes.FORGOT_PASSWORD);
-  }
-
-  Future<void> fetchRoleList({bool isRoleSelection = true}) async {
-    Loading.show();
-    final response = await authRepository.getRoleList();
-    Loading.hide();
-    response.fold(
-      (error) {
-        Toaster.error(error.message ?? 'Failed to fetch role list');
-      },
-      (success) {
-        roleList.value = success.data ?? [];
-        success.data?.forEach((role) {
-          if (role.accountType == AccountType.PATIENT.name) {
-            if (isRoleSelection) {
-              roleSelected(role);
-            } else {
-              switchRole(role);
-            }
-          }
-        });
-      },
-    );
-  }
-
-  void roleSelected(RoleData role) async {
-    Loading.show();
-    final response = await authRepository.setUserCurrentRole(
-      roleId: role.roleId ?? '',
-    );
-    Loading.hide();
-    response.fold(
-      (error) {
-        Toaster.error(error.message ?? "Failed to select role");
-      },
-      (success) async {
-        final token = success.data?.accessToken ?? '';
-        navigateToHome(accessToken: token);
-      },
-    );
-  }
-
-  void navigateToHome({String accessToken = ''}) async {
-    await appController.setToken(accessToken);
-    Get.offAllNamed(Routes.DASHBOARD);
-  }
-
-  void switchRole(RoleData role) async {
-    Loading.show();
-    final response = await authRepository.switchRole(roleId: role.roleId ?? '');
-    Loading.hide();
-
-    response.fold(
-      (error) {
-        Toaster.error(error.message ?? 'Failed to switch role');
-      },
-      (success) async {
-        final token = success.data?.accessToken ?? '';
-        navigateToHome(accessToken: token);
-      },
-    );
   }
 }

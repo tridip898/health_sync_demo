@@ -107,18 +107,26 @@ class AppController extends GetxController {
     }
   }
 
-  loadProfile() async {
-    Loading.show();
+  Future<UserModel?> loadProfile({bool showLoading = true}) async {
+    UserModel? user;
+    if (showLoading) {
+      Loading.show();
+    }
     final response = await profileRepository.loadMe();
-    Loading.hide();
+    if (showLoading) {
+      Loading.hide();
+    }
 
-    response.fold(
-      (errorRes) {
+    await response.fold(
+      (errorRes) async {
         Toaster.error(errorRes.message ?? 'Failed to load profile data');
       },
-      (successRes) {
+      (successRes) async {
         userModel.value = successRes.data;
+        user = userModel.value;
       },
     );
+
+    return user;
   }
 }
