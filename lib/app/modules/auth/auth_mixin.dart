@@ -5,6 +5,7 @@ import 'package:health_sync_question/app/core/utils/toaster.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
 import 'package:health_sync_question/app/data/model/role_list_response.dart';
 import 'package:health_sync_question/app/data/repository/auth_repository.dart';
+import 'package:health_sync_question/app/modules/auth/login/controllers/login_controller.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
 
 mixin AuthMixin {
@@ -69,5 +70,27 @@ mixin AuthMixin {
         navigateToHome(accessToken: token);
       },
     );
+  }
+
+  navigateAfterProfileAction() async {
+    if (Get.isRegistered<LoginController>()) {
+      final loginData = Get.find<LoginController>().loginData.value;
+
+      if (loginData != null) {
+        if (loginData.user?.userRoles?.isEmpty ?? false) {
+          await fetchRoleList();
+        } else {
+          await appController.loadProfile();
+          if (appController.userModel.value?.currentRole?.role?.accountType ==
+              AccountType.PATIENT.name) {
+            navigateToHome(accessToken: loginData.accessToken ?? '');
+          } else {
+            await fetchRoleList(isRoleSelection: false);
+          }
+        }
+      } else {
+        Get.until((route) => Get.currentRoute == Routes.LOGIN);
+      }
+    }
   }
 }

@@ -1,10 +1,13 @@
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 import 'package:health_sync_question/app/core/constants/enums.dart';
+import 'package:health_sync_question/app/core/extensions/string_extension.dart';
 import 'package:health_sync_question/app/core/extensions/widget_extension.dart';
+import 'package:health_sync_question/app/modules/auth/auth_mixin.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
 
-class SplashController extends GetxController with GetTickerProviderStateMixin {
+class SplashController extends GetxController
+    with GetTickerProviderStateMixin, AuthMixin {
   late AnimationController animationController;
 
   late Animation<Offset> leftTextAnimation;
@@ -85,10 +88,23 @@ class SplashController extends GetxController with GetTickerProviderStateMixin {
     final patientAccount = user?.userRoles?.firstWhereOrNull(
       (item) => item.role?.accountType == AccountType.PATIENT.name,
     );
+
     if (patientAccount != null) {
       Get.offAllNamed(Routes.DASHBOARD);
-    } else {
+    } else if (user == null) {
       Get.offAllNamed(Routes.LOGIN);
+    } else {
+      if (user.userBindRequestId?.userBindRequestStatus == 'APPROVED') {
+        await fetchRoleList(isRoleSelection: false);
+      } else if (user.userBindRequestId?.userBindRequestId.notNullNotEmpty ==
+          true) {
+        Get.offAllNamed(
+          Routes.PROFILE_SETUP_OPTIONS,
+          arguments: {'user_bind': user.userBindRequestId},
+        );
+      } else {
+        Get.offAllNamed(Routes.LOGIN);
+      }
     }
     super.onReady();
   }

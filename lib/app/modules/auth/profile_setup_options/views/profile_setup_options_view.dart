@@ -211,92 +211,96 @@ class ProfileSetupOptionsView extends GetView<ProfileSetupOptionsController> {
   }
 
   _pendingRequest() {
-    return Padding(
-      padding: padSym(horizontal: 16, vertical: 12),
-      child: Column(
-        children: [
-          UserCard(
-            user: controller.isUserBindingExist?.profile ?? ProfileModel(),
-            status: controller.isUserBindingExist?.userBindRequestStatus,
-          ),
-          gapH16,
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: padSym(horizontal: 24),
-                  child: Text(
-                    "Waiting for Approval",
-                    textAlign: TextAlign.center,
-                    style: textStyle.bold.s30.copyWith(
-                      fontWeight: FontWeight.w800,
-                      color: Colors.black87,
-                    ),
-                  ),
-                ),
-                gapH12,
-                Padding(
-                  padding: padSym(horizontal: 36),
-                  child: Text(
-                    "Your account binding request is processing, you'll be able to manage medications and records oce the link is confirmed",
-                    textAlign: TextAlign.center,
-                    style: textStyle.medium.s14.copyWith(
-                      fontSize: 15,
-                      color: Colors.grey.shade700,
-                    ),
-                  ),
-                ),
-              ],
+    return RefreshIndicator(
+      onRefresh: controller.onRefresh,
+      child: Padding(
+        padding: padSym(horizontal: 16, vertical: 12),
+        child: ListView(
+          children: [
+            UserCard(
+              user: controller.isUserBindingExist?.profile ?? ProfileModel(),
+              status: controller.isUserBindingExist?.userBindRequestStatus,
             ),
-          ),
-          Row(
-            children: [
-              Expanded(child: Divider(color: gray.base200)),
-              gapW12,
-              Text(
-                "OR",
-                style: textStyle.medium.s16.copyWith(color: gray.base400),
-              ),
-              gapW12,
-              Expanded(child: Divider(color: gray.base200)),
-            ],
-          ),
-          gapH24,
-          GestureDetector(
-            onTap: controller.createProfileClick,
-            child: Container(
-              height: 50,
-              decoration: BoxDecoration(
-                color: green.base300.withValues(alpha: .1),
-                border: Border.all(
-                  color: green.base300.withValues(alpha: .3),
-                  width: 2,
-                ),
-                borderRadius: borderRadius12,
-              ),
-              alignment: Alignment.center,
-              child: Row(
+            gapH16,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 26),
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.person_add_alt_1),
-                  gapW8,
-                  Text('Create a New Profile', style: textStyle.bold.s16),
+                  Padding(
+                    padding: padSym(horizontal: 24),
+                    child: Text(
+                      "Waiting for Approval",
+                      textAlign: TextAlign.center,
+                      style: textStyle.bold.s30.copyWith(
+                        fontWeight: FontWeight.w800,
+                        color: Colors.black87,
+                      ),
+                    ),
+                  ),
+                  gapH12,
+                  Padding(
+                    padding: padSym(horizontal: 36),
+                    child: Text(
+                      "Your account binding request is processing, you'll be able to manage medications and records oce the link is confirmed",
+                      textAlign: TextAlign.center,
+                      style: textStyle.medium.s14.copyWith(
+                        fontSize: 15,
+                        color: Colors.grey.shade700,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
-          ),
-          gapH24,
-          Padding(
-            padding: padSym(horizontal: 8),
-            child: Text(
-              'NEED A FRESH START? CREATE A SEPARATE PROFILE WHILE YOU WAIT FOR APPROVAL',
-              style: textStyle.medium.s12.copyWith(color: gray.base400),
-              textAlign: TextAlign.center,
+            Row(
+              children: [
+                Expanded(child: Divider(color: gray.base200)),
+                gapW12,
+                Text(
+                  "OR",
+                  style: textStyle.medium.s16.copyWith(color: gray.base400),
+                ),
+                gapW12,
+                Expanded(child: Divider(color: gray.base200)),
+              ],
             ),
-          ),
-          gapH(48),
-        ],
+            gapH24,
+            GestureDetector(
+              onTap: controller.createProfileClick,
+              child: Container(
+                height: 50,
+                decoration: BoxDecoration(
+                  color: green.base300.withValues(alpha: .1),
+                  border: Border.all(
+                    color: green.base300.withValues(alpha: .3),
+                    width: 2,
+                  ),
+                  borderRadius: borderRadius12,
+                ),
+                alignment: Alignment.center,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.person_add_alt_1),
+                    gapW8,
+                    Text('Create a New Profile', style: textStyle.bold.s16),
+                  ],
+                ),
+              ),
+            ),
+            gapH24,
+            Padding(
+              padding: padSym(horizontal: 8),
+              child: Text(
+                'NEED A FRESH START? CREATE A SEPARATE PROFILE WHILE YOU WAIT FOR APPROVAL',
+                style: textStyle.medium.s12.copyWith(color: gray.base400),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            gapH(48),
+          ],
+        ),
       ),
     );
   }

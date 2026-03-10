@@ -11,10 +11,11 @@ import 'package:health_sync_question/app/core/utils/toaster.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
 import 'package:health_sync_question/app/data/model/user_model.dart';
 import 'package:health_sync_question/app/data/repository/profile_repository.dart';
+import 'package:health_sync_question/app/modules/auth/auth_mixin.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
 import 'package:intl/intl.dart';
 
-class CreateProfileController extends GetxController {
+class CreateProfileController extends GetxController with AuthMixin {
   final ProfileRepository _profileRepository = ProfileRepository();
   final formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
@@ -25,7 +26,6 @@ class CreateProfileController extends GetxController {
 
   final RxString selectedGender = 'Male'.obs;
 
-  // final Rx<Uint8List?> profileImage = Rx(null);
   final bool isEditProfile = Get.arguments ?? false;
   final Rx<DateTime?> dateOfBirth = Rx(null);
   Rx<File?> profileImage = Rx<File?>(null);
@@ -36,11 +36,6 @@ class CreateProfileController extends GetxController {
       return Get.find<AppController>().userModel.value;
     }
     return null;
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
   }
 
   @override
@@ -106,13 +101,13 @@ class CreateProfileController extends GetxController {
         },
       );
       Loading.hide();
-      response.fold(
+      await response.fold(
         (error) {
           Toaster.error(error.message ?? 'Failed to create profile');
         },
         (success) async {
           Toaster.success(success.message ?? 'Profile created successfully');
-          Get.until((route) => Get.currentRoute == Routes.LOGIN);
+          await navigateAfterProfileAction();
         },
       );
     }

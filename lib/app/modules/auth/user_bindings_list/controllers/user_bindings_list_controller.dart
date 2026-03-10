@@ -76,31 +76,10 @@ class UserBindingsListController extends GetxController with AuthMixin {
       },
       (success) async {
         Toaster.success('User profile linked successfully');
-
-        if (Get.isRegistered<LoginController>()) {
-          final loginData = Get.find<LoginController>().loginData.value;
-
-          if (loginData != null) {
-            if (loginData.user?.userRoles?.isEmpty ?? false) {
-              await fetchRoleList();
-            } else {
-              await appController.loadProfile();
-              if (appController
-                      .userModel
-                      .value
-                      ?.currentRole
-                      ?.role
-                      ?.accountType ==
-                  AccountType.PATIENT.name) {
-                navigateToHome(accessToken: loginData.accessToken ?? '');
-              } else {
-                await fetchRoleList(isRoleSelection: false);
-              }
-            }
-          } else {
-            Get.until((route) => Get.currentRoute == Routes.LOGIN);
-          }
-        }
+        Get.offAllNamed(
+          Routes.PROFILE_SETUP_OPTIONS,
+          arguments: {'user_bind': success.data},
+        );
       },
     );
   }
