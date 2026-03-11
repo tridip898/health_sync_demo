@@ -156,7 +156,6 @@ class DummyPageView extends GetView<DummyPageController> {
                       onReachBottom: (query) {
                         controller.getDoctorList(search: query);
                       },
-                      onConfirm: () => Get.back(),
                     ),
                   ),
 

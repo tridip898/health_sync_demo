@@ -65,22 +65,26 @@ class DoctorListView extends GetView<DoctorListController> {
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.only(left: 16, right: 16),
-            child: Obx(() {
-              if (controller.isLoading.value == false &&
-                  controller.doctorList.isEmpty) {
-                return NoDataFound(
-                  onRefresh: () => controller.getDoctorList(initialLoad: true),
-                );
-              }
-              return Column(
-                children: [
-                  CustomSearchField(
-                    searchTextController: controller.searchDoctorTextController,
-                    onSubmitted: (value) =>
-                        controller.getDoctorList(initialLoad: true),
-                  ),
+            child: Column(
+              children: [
+                CustomSearchField(
+                  searchTextController: controller.searchDoctorTextController,
+                  onSubmitted: (value) =>
+                      controller.getDoctorList(initialLoad: true),
+                ),
 
-                  Expanded(
+                Obx(() {
+                  if (controller.isLoading.value == false &&
+                      controller.doctorList.isEmpty) {
+                    return Expanded(
+                      child: NoDataFound(
+                        onRefresh: () =>
+                            controller.getDoctorList(initialLoad: true),
+                      ),
+                    );
+                  }
+
+                  return Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: Obx(() {
@@ -99,21 +103,21 @@ class DoctorListView extends GetView<DoctorListController> {
                         );
                       }),
                     ),
-                  ),
+                  );
+                }),
 
-                  Obx(() {
-                    if (controller.isLoading.value &&
-                        controller.doctorList.isNotEmpty) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 16.0),
-                        child: LoadingWidget(size: 40),
-                      );
-                    }
-                    return SizedBox();
-                  }),
-                ],
-              );
-            }),
+                Obx(() {
+                  if (controller.isLoading.value &&
+                      controller.doctorList.isNotEmpty) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 16.0),
+                      child: LoadingWidget(size: 40),
+                    );
+                  }
+                  return SizedBox();
+                }),
+              ],
+            ),
           ),
         ),
       ),

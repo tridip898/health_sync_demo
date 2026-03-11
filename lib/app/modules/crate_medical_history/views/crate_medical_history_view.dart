@@ -225,7 +225,6 @@ class CrateMedicalHistoryView extends GetView<CrateMedicalHistoryController> {
                 getLabel: (cat) => cat.name ?? '',
                 isLocalSearch: true,
                 isNetworkSearch: true,
-                onConfirm: () => Get.back(),
               ),
             );
           },

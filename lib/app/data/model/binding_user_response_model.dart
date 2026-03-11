@@ -1,7 +1,7 @@
 import 'package:health_sync_question/app/data/model/user_model.dart';
 import 'package:network/network.dart';
 
-class BindingUserResponseModel extends BaseResponseModel<UserBindRequestId> {
+class BindingUserResponseModel extends BaseResponseModel<UserBindRequestModel> {
   bool? status;
   int? statusCode;
 
@@ -17,7 +17,7 @@ class BindingUserResponseModel extends BaseResponseModel<UserBindRequestId> {
     message = json['message'];
     statusCode = json['status_code'];
     data = json['data'] != null
-        ? UserBindRequestId.fromJson(json['data'])
+        ? UserBindRequestModel.fromJson(json['data'])
         : null;
   }
 

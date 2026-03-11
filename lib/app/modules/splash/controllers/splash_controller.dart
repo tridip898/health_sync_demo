@@ -94,13 +94,13 @@ class SplashController extends GetxController
     } else if (user == null) {
       Get.offAllNamed(Routes.LOGIN);
     } else {
-      if (user.userBindRequestId?.userBindRequestStatus == 'APPROVED') {
+      if (user.userBindRequestModel?.userBindRequestStatus == 'APPROVED') {
         await fetchRoleList(isRoleSelection: false);
-      } else if (user.userBindRequestId?.userBindRequestId.notNullNotEmpty ==
+      } else if (user.userBindRequestModel?.userBindRequestId.notNullNotEmpty ==
           true) {
         Get.offAllNamed(
           Routes.PROFILE_SETUP_OPTIONS,
-          arguments: {'user_bind': user.userBindRequestId},
+          arguments: {'user_bind': user.userBindRequestModel},
         );
       } else {
         Get.offAllNamed(Routes.LOGIN);

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:health_sync_question/app/core/extensions/string_extension.dart';
+import 'package:health_sync_question/app/core/utils/multiple_picker_bottom_sheet.dart';
 import 'package:health_sync_question/app/core/utils/toaster.dart';
 import 'package:health_sync_question/app/core/widgets/custom_dropdown_bottom_sheet.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
@@ -15,7 +17,6 @@ class DoctorListController extends GetxController {
       TextEditingController();
   final TextEditingController organizationNameController =
       TextEditingController();
-  final TextEditingController specialtyNameController = TextEditingController();
 
   final DoctorRepository doctorRepository = DoctorRepository();
   final OrganizationRepository organizationRepository =
@@ -60,7 +61,6 @@ class DoctorListController extends GetxController {
             );
           }).toList();
           if (selectedSpecialty.isNotEmpty) {
-            specialtyNameController.text = selectedSpecialty.first.title ?? '';
             shouldApplyFilter.value = true;
             _getFilterCount();
           }
@@ -83,7 +83,6 @@ class DoctorListController extends GetxController {
   void onClose() {
     searchDoctorTextController.dispose();
     organizationNameController.dispose();
-    specialtyNameController.dispose();
     scrollController.dispose();
     super.onClose();
   }
@@ -201,22 +200,31 @@ class DoctorListController extends GetxController {
   onSpecialtySelect() async {
     await getSpecialtyList();
     if (specialtyList.isEmpty) return;
+
     final pickedSpecialty = await Get.bottomSheet(
       Obx(() {
-        return AppDropdownBottomSheet<SpecialtyModel>(
+        final List<String> selectedIds = selectedSpecialty
+            .map((item) => item.specialtyId)
+            .where((id) => id != null)
+            .cast<String>()
+            .toList();
+
+        return MultiSelectBottomSheet<SpecialtyModel>(
           items: specialtyList,
-          currentItem:selectedSpecialty.isEmpty?  specialtyList.first : selectedSpecialty.first,
-          title: 'Doctor Specialty',
-          getTitle: (item) => item.title ?? 'N/A',
+          selectedIds: selectedIds,
+          getId: (item) => item.specialtyId ?? '',
+          getLabel: (item) => item.title ?? '',
           isLocalSearch: true,
         );
       }),
       isScrollControlled: true,
     );
 
-    if (pickedSpecialty != null) {
-      selectedSpecialty.value = pickedSpecialty;
-      specialtyNameController.text = selectedSpecialty.first.title ?? '';
+    if (pickedSpecialty != null && pickedSpecialty is List<String>) {
+      final List<SpecialtyModel> matchedSpecialties = specialtyList
+          .where((s) => pickedSpecialty.contains(s.specialtyId))
+          .toList();
+      selectedSpecialty.value = matchedSpecialties;
     }
   }
 
@@ -241,14 +249,14 @@ class DoctorListController extends GetxController {
       Obx(() {
         return DoctorFilterBottomSheet(
           onOrganizationSelect: onOrganizationSelect,
-          onSpecialtySelect: onSpecialtySelect,
           onOrganizationRemove: _onOrganizationRemove,
-          onSpecialtyRemove: _onSpecialtyRemove,
+          organizationNameController: organizationNameController,
+          onSpecialtyTap: onSpecialtySelect,
+          onRemoveSpecialty: (value) => _onSpecialtyRemove(specialtyId: value),
+          selectedSpecialties: selectedSpecialty,
           onApplyFilter: _onApplyFilter,
           onClearFilter: _onClearFilter,
           onIncludeNonVerifiedTap: _onIncludeNonVerifiedTap,
-          organizationNameController: organizationNameController,
-          specialtyNameController: specialtyNameController,
           includeNonVerified: includeNonVerified.value,
         );
       }),
@@ -261,15 +269,18 @@ class DoctorListController extends GetxController {
     organizationNameController.clear();
   }
 
-  _onSpecialtyRemove() {
-    selectedSpecialty.value = [];
-    specialtyNameController.clear();
+  _onSpecialtyRemove({String? specialtyId, bool removeAll = false}) {
+    if (removeAll) {
+      selectedSpecialty.clear();
+    } else if (specialtyId.notNullNotEmpty) {
+      selectedSpecialty.removeWhere((item) => item.specialtyId == specialtyId);
+    }
   }
 
   _onClearFilter() {
     shouldApplyFilter.value = false;
     _onOrganizationRemove();
-    _onSpecialtyRemove();
+    _onSpecialtyRemove(removeAll: true);
     includeNonVerified.value = false;
     Get.back();
     getDoctorList(initialLoad: true);
@@ -290,9 +301,6 @@ class DoctorListController extends GetxController {
   _getFilterCount() {
     filterCount.value = 0;
     if (organizationNameController.text.trim().isNotEmpty) {
-      filterCount.value++;
-    }
-    if (specialtyNameController.text.trim().isNotEmpty) {
       filterCount.value++;
     }
     if (includeNonVerified.value) {

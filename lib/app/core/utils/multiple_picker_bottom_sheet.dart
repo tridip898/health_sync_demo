@@ -8,13 +8,12 @@ import '../widgets/custom_search_field.dart';
 import 'custom_debouncer.dart';
 
 class MultiSelectBottomSheet<T> extends StatefulWidget {
-  final RxList<T> items;
-  final RxList<String> selectedIds;
+  final List<T> items;
+  final List<String> selectedIds;
 
   final String Function(T item) getId;
   final String Function(T item) getLabel;
 
-  final VoidCallback? onConfirm;
   final Function(String)? onSearchSubmit;
   final Function(String)? onReachBottom;
   final bool isLocalSearch;
@@ -26,7 +25,6 @@ class MultiSelectBottomSheet<T> extends StatefulWidget {
     required this.selectedIds,
     required this.getId,
     required this.getLabel,
-    this.onConfirm,
     this.onSearchSubmit,
     this.onReachBottom,
     this.isLocalSearch = false,
@@ -51,13 +49,10 @@ class _MultiSelectBottomSheetState<T> extends State<MultiSelectBottomSheet<T>> {
     super.initState();
     tempSelectedIds.addAll(widget.selectedIds);
 
-    ever<List<T>>(widget.items, (_) {
-      _assignAllItemsToFilter();
-    });
+    _assignAllItemsToFilter();
 
     _assignAllItemsToFilter();
   }
-
 
   @override
   void didUpdateWidget(covariant MultiSelectBottomSheet<T> oldWidget) {
@@ -149,19 +144,18 @@ class _MultiSelectBottomSheetState<T> extends State<MultiSelectBottomSheet<T>> {
                               },
                             ),
 
-
                             gapH12,
                           ],
                         ),
 
                       /// LIST
                       Expanded(
-                        child:Obx(() {
-
+                        child: Obx(() {
                           return ListView.separated(
                             controller: _sheetScrollController,
                             itemCount: widget.items.length,
-                            separatorBuilder: (_, __) => const Divider(height: 1),
+                            separatorBuilder: (_, __) =>
+                                const Divider(height: 1),
                             itemBuilder: (context, index) {
                               final item = widget.items[index];
                               final id = widget.getId(item);
@@ -171,7 +165,10 @@ class _MultiSelectBottomSheetState<T> extends State<MultiSelectBottomSheet<T>> {
                               return ListTile(
                                 title: Text(label),
                                 trailing: isSelected
-                                    ? const Icon(Icons.check_circle, color: Colors.green)
+                                    ? const Icon(
+                                        Icons.check_circle,
+                                        color: Colors.green,
+                                      )
                                     : const Icon(Icons.circle_outlined),
                                 onTap: () {
                                   setState(() {
@@ -184,7 +181,6 @@ class _MultiSelectBottomSheetState<T> extends State<MultiSelectBottomSheet<T>> {
                             },
                           );
                         }),
-
                       ),
 
                       gapH12,
@@ -212,11 +208,7 @@ class _MultiSelectBottomSheetState<T> extends State<MultiSelectBottomSheet<T>> {
             ..clear()
             ..assignAll(tempSelectedIds);
 
-          if (widget.onConfirm != null) {
-            widget.onConfirm!.call();
-          } else {
-            Get.back();
-          }
+          Get.back(result: tempSelectedIds.toList());
         },
       ),
     );

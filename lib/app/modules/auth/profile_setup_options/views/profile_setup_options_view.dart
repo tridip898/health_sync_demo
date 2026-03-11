@@ -17,11 +17,11 @@ class ProfileSetupOptionsView extends GetView<ProfileSetupOptionsController> {
     return Scaffold(
       backgroundColor: Color(0xFFF6F8F7),
       appBar: CustomAppBar(
-        title: controller.isUserBindingExist == null
+        title: controller.userBindingRequestModel == null
             ? 'Profile Setup'
             : 'Pending Request',
       ),
-      body: controller.isUserBindingExist == null
+      body: controller.userBindingRequestModel == null
           ? _emptyUserRequest()
           : _pendingRequest(),
     );
@@ -218,8 +218,8 @@ class ProfileSetupOptionsView extends GetView<ProfileSetupOptionsController> {
         child: ListView(
           children: [
             UserCard(
-              user: controller.isUserBindingExist?.profile ?? ProfileModel(),
-              status: controller.isUserBindingExist?.userBindRequestStatus,
+              user: controller.userBindingRequestModel?.profile ?? ProfileModel(),
+              status: controller.userBindingRequestModel?.userBindRequestStatus,
             ),
             gapH16,
             Padding(

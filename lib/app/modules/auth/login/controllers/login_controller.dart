@@ -58,7 +58,7 @@ class LoginController extends GetxController with AuthMixin {
             Get.toNamed(
               Routes.PROFILE_SETUP_OPTIONS,
               arguments: {
-                'user_bind': successRes.data?.user?.userBindRequestId,
+                'user_bind': successRes.data?.user?.userBindRequestModel,
               },
             );
           }

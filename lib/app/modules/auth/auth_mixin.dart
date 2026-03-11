@@ -52,7 +52,9 @@ mixin AuthMixin {
   }
 
   void navigateToHome({String accessToken = ''}) async {
-    await appController.setToken(accessToken);
+    if (accessToken.isNotEmpty) {
+      await appController.setToken(accessToken);
+    }
     Get.offAllNamed(Routes.DASHBOARD);
   }
 

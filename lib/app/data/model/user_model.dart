@@ -13,7 +13,7 @@ class UserModel {
   List<UserRoleModel>? userRoles;
   ProfileModel? profile;
   CurrentRoleModel? currentRole;
-  UserBindRequestId? userBindRequestId;
+  UserBindRequestModel? userBindRequestModel;
 
   UserModel({
     this.userId,
@@ -26,7 +26,7 @@ class UserModel {
     this.userRoles,
     this.profile,
     this.currentRole,
-    this.userBindRequestId,
+    this.userBindRequestModel,
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {
@@ -49,8 +49,8 @@ class UserModel {
     currentRole = json['currentRole'] != null
         ? CurrentRoleModel.fromJson(json['currentRole'])
         : null;
-    userBindRequestId = json['userBindRequestId'] != null
-        ? new UserBindRequestId.fromJson(json['userBindRequestId'])
+    userBindRequestModel = json['userBindRequestId'] != null
+        ? UserBindRequestModel.fromJson(json['userBindRequestId'])
         : null;
   }
 
@@ -72,21 +72,21 @@ class UserModel {
     if (currentRole != null) {
       data['currentRole'] = currentRole!.toJson();
     }
-    if (this.userBindRequestId != null) {
-      data['userBindRequestId'] = this.userBindRequestId?.toJson();
+    if (userBindRequestModel != null) {
+      data['userBindRequestId'] = userBindRequestModel?.toJson();
     }
     return data;
   }
 }
 
-class UserBindRequestId {
+class UserBindRequestModel {
   String? userBindRequestId;
   String? userBindRequestStatus;
   String? profileId;
   String? userId;
   ProfileModel? profile;
 
-  UserBindRequestId({
+  UserBindRequestModel({
     this.userBindRequestId,
     this.userBindRequestStatus,
     this.profileId,
@@ -94,7 +94,7 @@ class UserBindRequestId {
     this.profile,
   });
 
-  UserBindRequestId.fromJson(Map<String, dynamic> json) {
+  UserBindRequestModel.fromJson(Map<String, dynamic> json) {
     userBindRequestId = json['userBindRequestId'];
     userBindRequestStatus = json['userBindRequestStatus'];
     profileId = json['profileId'];
@@ -105,11 +105,11 @@ class UserBindRequestId {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['userBindRequestId'] = this.userBindRequestId;
-    data['userBindRequestStatus'] = this.userBindRequestStatus;
-    data['profileId'] = this.profileId;
-    data['userId'] = this.userId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['userBindRequestId'] = userBindRequestId;
+    data['userBindRequestStatus'] = userBindRequestStatus;
+    data['profileId'] = profileId;
+    data['userId'] = userId;
     if (profile != null) {
       data['profile'] = profile!.toJson();
     }

@@ -225,7 +225,6 @@ class UpdateMedicalHistoryView extends GetView<UpdateMedicalHistoryController> {
                 getId: (cat) => cat.diseaseCategoryId!,
                 getLabel: (cat) => cat.name ?? '',
                 isLocalSearch: true,
-                onConfirm: () => Get.back(),
               ),
             );
           },

@@ -5,6 +5,7 @@ import 'package:health_sync_question/app/core/utils/toaster.dart';
 import 'package:health_sync_question/app/core/widgets/loading.dart';
 import 'package:health_sync_question/app/data/model/binding_user_list_response_model.dart';
 import 'package:health_sync_question/app/data/model/profile_model.dart';
+import 'package:health_sync_question/app/data/model/user_model.dart';
 import 'package:health_sync_question/app/data/repository/auth_repository.dart';
 import 'package:health_sync_question/app/modules/auth/auth_mixin.dart';
 import 'package:health_sync_question/app/modules/auth/login/controllers/login_controller.dart';
@@ -56,17 +57,17 @@ class UserBindingsListController extends GetxController with AuthMixin {
         child: LinkUserDialog(
           user: user,
           confirmTap: () {
-            bindingUserProfile(user.profileId);
+            bindingUserProfile(user);
           },
         ),
       ),
     );
   }
 
-  void bindingUserProfile(String? profileId) async {
+  void bindingUserProfile(ProfileModel profile) async {
     Loading.show();
     final response = await _authRepository.createUserBinding(
-      profileId: profileId ?? '',
+      profileId: profile.profileId ?? '',
     );
     Loading.hide();
     Get.back();
@@ -76,6 +77,10 @@ class UserBindingsListController extends GetxController with AuthMixin {
       },
       (success) async {
         Toaster.success('User profile linked successfully');
+        UserBindRequestModel? userBindRequestModel = success.data;
+        if (userBindRequestModel != null) {
+          userBindRequestModel.profile = profile;
+        }
         Get.offAllNamed(
           Routes.PROFILE_SETUP_OPTIONS,
           arguments: {'user_bind': success.data},

@@ -6,7 +6,7 @@ import 'package:health_sync_question/app/modules/auth/auth_mixin.dart';
 import 'package:health_sync_question/app/routes/app_pages.dart';
 
 class ProfileSetupOptionsController extends GetxController with AuthMixin {
-  final UserBindRequestId? isUserBindingExist = Get.arguments['user_bind'];
+  final UserBindRequestModel? userBindingRequestModel = Get.arguments['user_bind'];
 
   void linkProfileClick() {
     Get.toNamed(Routes.USER_BINDINGS_LIST);
