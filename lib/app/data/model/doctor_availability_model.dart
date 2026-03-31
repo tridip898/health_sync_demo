@@ -46,7 +46,7 @@ class DoctorOrganizationModel {
 
     for (int i = 0; i < 7; i++) {
       final date = normalizedToday.add(Duration(days: i));
-      final uiWeekdayIndex = date.weekday - 1;
+      final uiWeekdayIndex = date.weekday % 7;
       result[date] = availableUiDays.contains(uiWeekdayIndex);
     }
 
